@@ -8,6 +8,7 @@ import { getAllProducts } from "../apis/products";
 import { getAllVarieties } from "../apis/Varieties";
 import { getAllItems } from "../apis/items";
 import { addoffer, updateoffer } from "../apis/offer";
+import AddUpdateSpinner from "../AddUpdateSpinner";
 
 const OffersForm = (props) => {
   let location = useLocation();
@@ -212,7 +213,7 @@ const OffersForm = (props) => {
                       )}
                       <div>
                         <br />
-                        <button
+                        {/* <button
                           className="btn btn-lg btn-primary"
                           onClick={(e) => {
                             e.preventDefault();
@@ -228,7 +229,14 @@ const OffersForm = (props) => {
                           }}
                         >
                           {isUpdate ? "Update Offers" : "Add Offers"}
-                        </button>
+                        </button> */}
+                        <AddUpdateSpinner
+                          update={isUpdate ? true : false}
+                          collection={offer}
+                          adding={addoffer}
+                          updating={updateoffer}
+                          url={"/master/product-data/offers"}
+                        />
                       </div>
                     </form>
                   </div>

@@ -5,6 +5,7 @@ import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidItem } from "../Validator";
 import { addItem, updateItem } from "../apis/items";
+import AddUpdateSpinner from "../AddUpdateSpinner";
 
 const ItemForm = (props) => {
   let location = useLocation();
@@ -16,6 +17,8 @@ const ItemForm = (props) => {
   const [Item, setItem] = useState(
     location?.state ?? {
       name: "",
+      images: [],
+      video: "",
     }
   );
 
@@ -78,10 +81,57 @@ const ItemForm = (props) => {
                           value={Item.name}
                         />
                       </div>
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Images</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify your unique app name"
+                          ></i>
+                        </label>
+                        <input
+                          type="file"
+                          name="images"
+                          multiple={true}
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Choose files"
+                          onChange={(e) =>
+                            setItem({
+                              ...Item,
+                              images: e.target.value,
+                            })
+                          }
+                          value={Item.images}
+                        />
+                      </div>
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Videos</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify your unique app name"
+                          ></i>
+                        </label>
+                        <input
+                          type="file"
+                          name="video"
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Choose files"
+                          onChange={(e) =>
+                            setItem({
+                              ...Item,
+                              video: e.target.value,
+                            })
+                          }
+                          value={Item.video}
+                        />
+                      </div>
 
                       <div>
                         <br />
-                        <button
+                        {/* <button
                           className="btn btn-lg btn-primary"
                           onClick={(e) => {
                             e.preventDefault();
@@ -97,7 +147,14 @@ const ItemForm = (props) => {
                           }}
                         >
                           {isUpdate ? "Update Item" : "Add Item"}
-                        </button>
+                        </button> */}
+                        <AddUpdateSpinner
+                          update={isUpdate ? true : false}
+                          collection={Item}
+                          adding={ addItem }
+                          updating={  updateItem }
+                          url={"/master/product-data/items"}
+                        />
                       </div>
                     </form>
                   </div>

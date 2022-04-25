@@ -9,9 +9,12 @@ const CURRENCY_FORMATTER = Intl.NumberFormat("en-IN", {
   currency: "INR",
 });
 
-export const BASE_URL = "http://13.59.57.74:5000";
+// export const BASE_URL = "http://139.59.26.139:5000";
+// export const BASE_URL = "http://13.59.57.74:5000"; // BlockChain URL
 
-export const ROLE_PERMISSION_BASE_URL = "https://goldv2.herokuapp.com";
+export const BASE_URL = "http://192.168.30.29:5000"; 
+
+export const ROLE_PERMISSION_BASE_URL = "https://goldv2.herokuapp.com"; // MongoDB URL
 
 export const dateFormatter = (date) => DATE_FORMATTER.format(date);
 

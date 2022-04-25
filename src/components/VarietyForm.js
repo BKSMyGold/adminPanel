@@ -5,6 +5,7 @@ import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidVariety } from "../Validator";
 import { addVariety, updateVariety } from "../apis/Varieties";
+import AddUpdateSpinner from "../AddUpdateSpinner";
 
 const VarietyForm = (props) => {
   let location = useLocation();
@@ -74,10 +75,10 @@ const VarietyForm = (props) => {
                           onChange={(e) =>
                             setVariety({
                               ...variety,
-                              variety_name: e.target.value,
+                              name: e.target.value,
                             })
                           }
-                          value={variety.variety_name}
+                          value={variety.name}
                         />
                       </div>
                       <div>
@@ -128,7 +129,7 @@ const VarietyForm = (props) => {
 
                       <div>
                         <br />
-                        <button
+                        {/* <button
                           className="btn btn-lg btn-primary"
                           onClick={(e) => {
                             e.preventDefault();
@@ -144,7 +145,14 @@ const VarietyForm = (props) => {
                           }}
                         >
                           {isUpdate ? "Update Variety" : "Add Variety"}
-                        </button>
+                        </button> */}
+                        <AddUpdateSpinner
+                          update={isUpdate ? true : false}
+                          collection={variety}
+                          adding={addVariety}
+                          updating={updateVariety}
+                          url={"/master/product-data/varieties"}
+                        />
                       </div>
                     </form>
                   </div>

@@ -1,10 +1,22 @@
 import Axios from "axios";
 import { BASE_URL } from "../Constants";
 
-export const addoffer = (offer) =>
-  Axios.post(`${BASE_URL}/api/offer/`, {
-    ...offer,
+export const addoffer = (offer) => {
+  let formData = new FormData();
+  let { name, images, typeId, type } = offer;
+  formData.append("name", name);
+  for (let i = 0; i < images.length; i++) {
+    formData.append("images", images[i]);
+  }
+  formData.append("typeId", typeId);
+  formData.append("type", type);
+
+  return Axios.post(`${BASE_URL}/api/offer/`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
   });
+};
 
 export const deleteoffer = (offerID) =>
   Axios.delete(`${BASE_URL}/api/offer/${offerID}`);

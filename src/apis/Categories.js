@@ -5,7 +5,9 @@ export const addCategory = (category) => {
   let formData = new FormData();
   let { category_name, images, video } = category;
   formData.append("category_name", category_name);
-  formData.append("images", images);
+  for (let i = 0; i < images.length; i++) {
+    formData.append("images", images[i]);
+  }
   formData.append("video", video);
   return Axios.post(`${BASE_URL}/api/category/`, formData, {
     headers: {
@@ -14,8 +16,10 @@ export const addCategory = (category) => {
   });
 };
 
-export const deleteCategory = (categoryID) =>
-  Axios.delete(`${BASE_URL}/api/category/${categoryID}`);
+export const deleteCategory = async (categoryID) => {
+  await Axios.delete(`${BASE_URL}/api/category/${categoryID}`);
+  window.location.reload(false);
+};
 
 export const updateCategory = (category) =>
   Axios.put(`${BASE_URL}/api/category/${category.id}`, category);

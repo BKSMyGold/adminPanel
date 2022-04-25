@@ -209,7 +209,7 @@ const ViewFAQs = () => {
             </div>
             {/*end::Post*/}
           </div>
-          <Footer />
+         
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@ import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidProduct } from "../Validator";
 import { addProduct, updateProduct } from "../apis/products";
+import AddUpdateSpinner from "../AddUpdateSpinner";
 
 const ProductForm = (props) => {
   let location = useLocation();
@@ -68,7 +69,7 @@ const ProductForm = (props) => {
                         </label>
                         <input
                           type="text"
-                          name="category_name"
+                          name="name"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter Product Name"
                           onChange={(e) =>
@@ -77,7 +78,7 @@ const ProductForm = (props) => {
                               name: e.target.value,
                             })
                           }
-                          value={product.collection_name}
+                          value={product.name}
                         />
                       </div>
                       <div>
@@ -129,7 +130,7 @@ const ProductForm = (props) => {
 
                       <div>
                         <br />
-                        <button
+                        {/* <button
                           className="btn btn-lg btn-primary"
                           onClick={(e) => {
                             e.preventDefault();
@@ -145,7 +146,14 @@ const ProductForm = (props) => {
                           }}
                         >
                           {isUpdate ? "Update Product" : "Add Product"}
-                        </button>
+                        </button> */}
+                          <AddUpdateSpinner
+                          update={isUpdate ? true : false}
+                          collection={product}
+                          adding={addProduct}
+                          updating={updateProduct}
+                          url={"/master/product-data/products"}
+                        />
                       </div>
                     </form>
                   </div>

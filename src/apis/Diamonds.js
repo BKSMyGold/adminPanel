@@ -6,8 +6,10 @@ export const addDiamond = (diamond) =>
     ...diamond,
   });
 
-export const deleteDiamond = (diamondID) =>
-  Axios.delete(`${BASE_URL}/api/diamond/${diamondID}`);
+export const deleteDiamond = async(diamondID) => {
+  await Axios.delete(`${BASE_URL}/api/diamond/${diamondID}`);
+  window.location.reload(false);
+};
 
 export const updateDiamond = (diamond) =>
   Axios.put(`${BASE_URL}/api/diamond/${diamond.id}`, diamond);

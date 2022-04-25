@@ -5,6 +5,7 @@ import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidCategory } from "../Validator";
 import { addCategory, updateCategory } from "../apis/Categories";
+import AddUpdateSpinner from "../AddUpdateSpinner";
 
 const CategoryForm = (props) => {
   let location = useLocation();
@@ -129,7 +130,7 @@ const CategoryForm = (props) => {
 
                       <div>
                         <br />
-                        <button
+                        {/* <button
                           className="btn btn-lg btn-primary"
                           onClick={(e) => {
                             e.preventDefault();
@@ -145,7 +146,14 @@ const CategoryForm = (props) => {
                           }}
                         >
                           {isUpdate ? "Update Category" : "Add Category"}
-                        </button>
+                        </button> */}
+                             <AddUpdateSpinner
+                          update={isUpdate ? true : false}
+                          collection={category}
+                          adding={addCategory}
+                          updating={updateCategory}
+                          url={"/master/product-data/categories"}
+                        />
                       </div>
                     </form>
                   </div>

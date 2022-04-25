@@ -5,7 +5,9 @@ export const addProduct = (product) => {
   let formData = new FormData();
   let { name, images, video } = product;
   formData.append("name", name);
-  formData.append("images", images);
+  for (let i = 0; i < images.length; i++) {
+    formData.append("images", images[i]);
+  }
   formData.append("video", video);
   return Axios.post(`${BASE_URL}/api/product/`, formData, {
     headers: {
@@ -14,8 +16,10 @@ export const addProduct = (product) => {
   });
 };
 
-export const deleteProduct = (productID) =>
-  Axios.delete(`${BASE_URL}/api/product/${productID}`);
+export const deleteProduct = async (productID) => {
+  await Axios.delete(`${BASE_URL}/api/product/${productID}`);
+  window.location.reload(false);
+};
 
 export const updateProduct = (product) =>
   Axios.put(`${BASE_URL}/api/product/${product.id}`, product);

@@ -5,6 +5,9 @@ import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidMetalGroup } from "../Validator";
 import { addMetalGroup, updateMetalGroup } from "../apis/MetalGroup";
+import AddUpdateSpinner from "../AddUpdateSpinner";
+
+
 
 const MetalGroupForm = (props) => {
   let location = useLocation();
@@ -12,6 +15,7 @@ const MetalGroupForm = (props) => {
   let navigate = useNavigate();
 
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
+  // const [isUpdate, setIsUpdate] = useState(true );
 
   const [metalGroup, setMetalGroup] = useState(
     location?.state ?? {
@@ -135,7 +139,7 @@ const MetalGroupForm = (props) => {
                           value={metalGroup.referenceId}
                         />
                       </div>
-                      <div>
+                      {/* <div>
                         <br/>
                         <button className="btn btn-lg btn-primary"
                           onClick={(e) => {
@@ -154,12 +158,19 @@ const MetalGroupForm = (props) => {
                                       "/master/product-data/metal-groups"
                                     );
                                   });
-                            }
-                          }}
-                        >
-                          {isUpdate ? "Update Metal Group" : "Add Metal Group"}
-                        </button>
-                      </div>
+                           
+                              /> */}
+                              <AddUpdateSpinner 
+                              update = {isUpdate ? true : false}
+                              collection = {metalGroup}
+                              adding = {addMetalGroup}
+                              updating = {updateMetalGroup}
+                              url = {"/master/product-data/metal-groups/"}
+                            />
+                            
+                          
+                        
+                         
                     </form>
                   </div>
                   {/*end::Table container*/}

@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 const Dashboard = (props) => {
   console.log(props);
   return (
-    <div className="toolbar py-5 py-lg-15" id="kt_toolbar">
+    <div className="toolbar py-5 py-lg-15">
       {/*begin::Container*/}
       <div
-        id="kt_toolbar_container"
+      
         className="container-xxl d-flex flex-stack flex-wrap"
       >
         {/*begin::Page title*/}
@@ -163,14 +163,14 @@ const Dashboard = (props) => {
                   <button
                     type="reset"
                     className="btn btn-sm btn-light btn-active-light-primary me-2"
-                    data-kt-menu-dismiss="true"
+                    // data-kt-menu-dismiss="true"
                   >
                     Reset
                   </button>
                   <button
                     type="submit"
                     className="btn btn-sm btn-primary"
-                    data-kt-menu-dismiss="true"
+                    // data-kt-menu-dismiss="true"
                   >
                     Apply
                   </button>
@@ -186,7 +186,7 @@ const Dashboard = (props) => {
           {/*begin::Button*/}
           <Link
             className="btn btn-bg-white btn-active-color-primary"
-            id="kt_toolbar_primary_button"
+            // id="kt_toolbar_primary_button"
             to={props.createLink}
           >
             Create

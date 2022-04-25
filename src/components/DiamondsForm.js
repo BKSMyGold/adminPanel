@@ -5,6 +5,7 @@ import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidDiamonds } from "../Validator";
 import { addDiamond, updateDiamond } from "../apis/Diamonds";
+import AddUpdateSpinner from "../AddUpdateSpinner";
 
 const DiamondsForm = (props) => {
   let location = useLocation();
@@ -201,7 +202,7 @@ const DiamondsForm = (props) => {
                       </div>
                       <div>
                         <br />
-                        <button
+                        {/* <button
                           className="btn btn-lg btn-primary"
                           onClick={(e) => {
                             e.preventDefault();
@@ -217,7 +218,15 @@ const DiamondsForm = (props) => {
                           }}
                         >
                           {isUpdate ? "Update Diamonds" : "Add Diamonds"}
-                        </button>
+                        </button> */}
+
+                        <AddUpdateSpinner
+                          update={isUpdate ? true : false}
+                          collection={diamonds}
+                          adding={addDiamond}
+                          updating={updateDiamond}
+                          url={"/master/product-data/diamonds"}
+                        />
                       </div>
                     </form>
                   </div>

@@ -6,7 +6,9 @@ import axios from 'axios'
 import { BASE_URL } from '../Constants'
 
 const DeliverySummary = () => {
+
   const [transactions, setTransactions] = useState([])
+  
   useEffect(() => {
     const fetchTransactions = async () => {
       const { data: response } = await axios.get(`${BASE_URL}/api/transaction`)
@@ -14,6 +16,7 @@ const DeliverySummary = () => {
     }
     fetchTransactions()
   }, [])
+
   return (
     <div className='d-flex flex-column flex-root'>
       <div className='page d-flex flex-row flex-column-fluid'>

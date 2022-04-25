@@ -5,13 +5,17 @@ import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidCollection } from "../Validator";
 import { addcollection, updatecollection } from "../apis/Collections";
+import AddUpdateSpinner from "../AddUpdateSpinner";
 
 const CollectionForm = (props) => {
+  //==========================================================
   let location = useLocation();
-
   let navigate = useNavigate();
-
+  //==========================================================
+  // const [open, setOpen] = React.useState(false);
+  
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
+  // const [isUpdate, setIsUpdate] = useState(true );
 
   const [Collection, setCollection] = useState(
     location?.state ?? {
@@ -20,6 +24,15 @@ const CollectionForm = (props) => {
       video: "",
     }
   );
+  //==========================================================
+  // const spinn = () => {
+  //   setOpen((prev) => ({
+  //     ...prev,
+  //     open: !prev.open,
+  //   }));
+  //   console.log('===> hi',open)
+  // };
+  //==========================================================
 
   return (
     <div className="d-flex flex-column flex-root">
@@ -66,6 +79,7 @@ const CollectionForm = (props) => {
                             title="Specify your unique app name"
                           ></i>
                         </label>
+                        {/* {isUpdate ? __ : __} */}
                         <input
                           type="text"
                           name="category_name"
@@ -74,10 +88,10 @@ const CollectionForm = (props) => {
                           onChange={(e) =>
                             setCollection({
                               ...Collection,
-                              collection_name: e.target.value,
+                              name: e.target.value,
                             })
                           }
-                          value={Collection.collection_name}
+                          value={Collection.name}
                         />
                       </div>
                       <div>
@@ -92,7 +106,7 @@ const CollectionForm = (props) => {
                         <input
                           type="file"
                           name="images"
-                          multiple
+                          multiple="multiple"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Choose File"
                           onChange={(e) => {
@@ -129,23 +143,41 @@ const CollectionForm = (props) => {
 
                       <div>
                         <br />
-                        <button
+                        {/* <button
                           className="btn btn-lg btn-primary"
                           onClick={(e) => {
                             e.preventDefault();
-                           
+
+                            
 
                             isUpdate
                               ? updatecollection({ ...Collection }).then(() => {
                                   navigate("/master/product-data/collections");
                                 })
-                              : addcollection({ ...Collection }).then(() => {
-                                  navigate("/master/product-data/collections");
-                                });
+                              :
+                               addcollection({ ...Collection })
+                              .then(
+                                  () => {
+                                   console.log('====> adding')
+                                    navigate(
+                                      "/master/product-data/collections"
+                                    );
+                                  }
+                                );
                           }}
                         >
                           {isUpdate ? "Update Collection" : "Add Collection"}
-                        </button>
+                        </button> */}
+                        
+                        <AddUpdateSpinner 
+                        update = {isUpdate ? true : false}
+                        collection = {Collection}
+                        adding = {addcollection}
+                        updating = {updatecollection}
+                        url = {"/master/product-data/collections"}
+                        />
+                       
+                        
                       </div>
                     </form>
                   </div>
