@@ -6,6 +6,8 @@ import { getAllVarieties } from '../apis/Varieties'
 import { Link } from 'react-router-dom'
 import { deleteVariety } from '../apis/Varieties'
 import DeleteSpinner from "../delete";
+import { CSVLink } from "react-csv";
+
 
 const Varieties = () => {
   const [varieties, setVarieties] = useState([])
@@ -107,6 +109,15 @@ const Varieties = () => {
                       {/*end::Svg Icon*/}
                     </button>
                     {/*begin::Menu 2*/}
+                    <CSVLink
+                      className="csv"
+                      data={varieties}
+                      filename="Reports.csv"
+                      target="_blank"
+                      //   headers ={headers}
+                    >
+                      Export
+                    </CSVLink>
                     <div
                       class='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold w-200px'
                       data-kt-menu='true'

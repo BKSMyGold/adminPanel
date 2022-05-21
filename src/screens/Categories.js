@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import { BASE_URL } from '../Constants'
 import DeleteSpinner from "../delete";
 import { deleteCategory } from '../apis/Categories'
+import { CSVLink } from "react-csv";
+
 
 //====================================================================
 const Categories = () => {
@@ -117,6 +119,15 @@ const Categories = () => {
                       {/*end::Svg Icon*/}
                     </button>
                     {/*begin::Menu 2*/}
+                    <CSVLink
+                      className="csv"
+                      data={categories}
+                      filename="Reports.csv"
+                      target="_blank"
+                      //   headers ={headers}
+                    >
+                      Export
+                    </CSVLink>
                     <div
                       class='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold w-200px'
                       data-kt-menu='true'

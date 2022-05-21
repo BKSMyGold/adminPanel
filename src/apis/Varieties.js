@@ -4,6 +4,7 @@ import { BASE_URL } from "../Constants";
 export const addVariety = (variety) => {
   let formData = new FormData();
   let { variety_name, images, video } = variety;
+  
   formData.append("variety_name", variety_name);
   for (let i = 0; i < images.length; i++) {
     formData.append("images", images[i]);

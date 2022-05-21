@@ -4,6 +4,7 @@ import Header from '../layouts/Header'
 import Dashboard from './dashboard'
 import axios from 'axios'
 import { BASE_URL } from '../Constants'
+import { CSVLink } from "react-csv";
 
 const BuySell = () => {
   const [buysell, setBuySell] = useState([])
@@ -105,6 +106,16 @@ const BuySell = () => {
                       {/*end::Svg Icon*/}
                     </button>
                     {/*begin::Menu 2*/}
+                    <CSVLink
+                      className="csv"
+                      data={buysell}
+                      filename="Reports.csv"
+                      target="_blank"
+                      //   headers ={headers}
+                    >
+                      Export
+                    </CSVLink>
+                    
                     <div
                       class='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold w-200px'
                       data-kt-menu='true'

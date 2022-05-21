@@ -413,9 +413,8 @@ export class Header extends Component {
                         data-kt-menu-placement='right-start'
                         className='menu-item menu-lg-down-accordion'
                       >
-                        <span className='menu-link py-3'>
+                        {/* <span className='menu-link py-3'>
                           <span className='menu-icon'>
-                            {/*begin::Svg Icon | path: icons/duotune/technology/teh004.svg*/}
                             <span className='svg-icon svg-icon-2'>
                               <svg
                                 xmlns='http://www.w3.org/2000/svg'
@@ -435,11 +434,10 @@ export class Header extends Component {
                                 />
                               </svg>
                             </span>
-                            {/*end::Svg Icon*/}
                           </span>
                           <span className='menu-title'>Reference Data</span>
                           <span className='menu-arrow'></span>
-                        </span>
+                        </span> */}
                         <div className='menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg py-lg-4 w-lg-225px'>
                           <div className='menu-item'>
                             <a
@@ -554,12 +552,11 @@ export class Header extends Component {
                         </a>
                       </div>
                       <div className='menu-item'>
-                        <a
+                        {/* <a
                           className='menu-link py-3'
                           href='/master/sellReasons'
                         >
                           <span className='menu-icon'>
-                            {/*begin::Svg Icon | path: /icons/duotune/general/gen002.svg*/}
                             <span className='svg-icon svg-icon-2'>
                               <svg
                                 xmlns='http://www.w3.org/2000/svg'
@@ -579,12 +576,11 @@ export class Header extends Component {
                                 />
                               </svg>
                             </span>
-                            {/*end::Svg Icon*/}
                           </span>
                           <span className='menu-title'>
                             Sales Returns Reasons
                           </span>
-                        </a>
+                        </a> */}
                       </div>
                     </div>
                   </div>
