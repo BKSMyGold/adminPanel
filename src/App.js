@@ -156,6 +156,8 @@ import CollectionForm from './components/CollectionForm'
 import ProductForm from './components/ProductForm'
 import ItemForm from './components/ItemForm'
 import AddMasterDetails from './components/AddMasterDetails'
+import UserSignUp from "./components/UserSignUp";
+
 //====================================================================
 const App = () => {
   const [loggedInUser, setLoggedInUser] = useState({})
@@ -197,6 +199,8 @@ const App = () => {
           {/*Products Data =============================================*/}
           <Route path='/' element={<Home />} exact />
           <Route path='/login' element={<LoginScreen />} />
+          <Route path="/register" element={<UserSignUp />} exact />
+
 
           <Route
             path='/master/product-data/metal-groups'

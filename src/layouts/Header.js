@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Link } from "react-router-dom";
+
 
 export class Header extends Component {
   render() {
@@ -3144,6 +3146,20 @@ export class Header extends Component {
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+                <div>
+                <div
+                    data-kt-menu-trigger="click"
+                    className="menu-item here show  me-lg-1"
+                  >
+                    <a className="menu-link active py-3" href="/">
+                      <Link to="/register">
+                        <span className="menu-title register">
+                          Register A User
+                        </span>
+                      </Link>
+                    </a>
                   </div>
                 </div>
                 {/*end::Menu*/}
