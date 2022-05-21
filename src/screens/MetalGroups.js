@@ -7,8 +7,7 @@ import axios from "axios";
 import { deleteMetalGroup } from "../apis/MetalGroup";
 import DeleteSpinner from "../delete";
 import { BASE_URL } from "../Constants";
-
-
+import { CSVLink } from "react-csv";
 
 const MetalGroups = () => {
   const [metalgroups, setMetalGroups] = useState([]);
@@ -116,6 +115,15 @@ const MetalGroups = () => {
                       {/*end::Svg Icon*/}
                     </button>
                     {/*begin::Menu 2*/}
+                    <CSVLink
+                      className="csv"
+                      data={metalgroups}
+                      filename="Reports.csv"
+                      target="_blank"
+                      //   headers ={headers}
+                    >
+                      Export
+                    </CSVLink>
                     <div
                       class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold w-200px"
                       data-kt-menu="true"
@@ -366,12 +374,11 @@ const MetalGroups = () => {
                                   </svg>
                                 </span>
                               </button> */}
-                               <DeleteSpinner
-                               collection = {metalgroup}
-                               deleting={deleteMetalGroup}
-                               url = {"/master/product-data/metal-groups/"}
-
-                               />
+                              <DeleteSpinner
+                                collection={metalgroup}
+                                deleting={deleteMetalGroup}
+                                url={"/master/product-data/metal-groups/"}
+                              />
                             </td>
                           </tr>
                         ))}
