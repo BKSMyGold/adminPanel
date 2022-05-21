@@ -37,6 +37,7 @@ const LoginScreen = () => {
                   <form>
                     <div class='row align-items-center'>
                       <input
+                        className='form-control'
                         type={'text'}
                         name={'email'}
                         placeholder='Email'
@@ -45,6 +46,7 @@ const LoginScreen = () => {
                     </div>
                     <div class='row align-items-center'>
                       <input
+                      className='form-control mt-2'
                         type={'text'}
                         name={'password'}
                         placeholder='Password'
@@ -52,6 +54,7 @@ const LoginScreen = () => {
                       />
                     </div>
                     <button
+                    className='btn btn-danger mt-2'
                       onClick={(e) => {
                         e.preventDefault()
                         loginUser({ ...credentials }).then(
