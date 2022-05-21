@@ -1,5 +1,5 @@
-import React from "react";
 import DialogActions from "@material-ui/core/DialogActions";
+import React from "react";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContentText from "@material-ui/core/DialogContentText";
@@ -21,7 +21,7 @@ export default function DeleteSpinner({url,deleting, collection}) {
   //============================================================== SIDE_EFFECTS
   //===============================================================
   // React.useEffect(() => {
-  //   const fetchcollections = async () => {
+    //   const fetchcollections = async () => {
   //     const { data: foundCollections } = await Axios.get(
   //       `${BASE_URL}/api/collection`
   //     );
@@ -109,9 +109,8 @@ export default function DeleteSpinner({url,deleting, collection}) {
         <DialogContent>
           {/* <DialogContentText>{loader}</DialogContentText> */}
           <img src ={loader}/>
-         
+            
         </DialogContent>
-       
       </Dialog>
     </>
   );

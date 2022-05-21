@@ -18,7 +18,7 @@ const Permissions = () => {
       );
 
       setPermissions(data.permissions);
-      console.log(data);
+      console.log(data.permissions);
     };
     fetchPermissions();
   }, []);
@@ -210,4 +210,4 @@ const Permissions = () => {
   );
 };
 
-export default Permissions;
+export default Permissions;     

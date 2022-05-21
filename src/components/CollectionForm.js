@@ -3,19 +3,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
-import { isValidCollection } from "../Validator";
-import { addcollection, updatecollection } from "../apis/Collections";
-import AddUpdateSpinner from "../AddUpdateSpinner";
 
 const CollectionForm = (props) => {
   //==========================================================
   let location = useLocation();
   let navigate = useNavigate();
   //==========================================================
-  // const [open, setOpen] = React.useState(false);
-  
+
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
-  // const [isUpdate, setIsUpdate] = useState(true );
 
   const [Collection, setCollection] = useState(
     location?.state ?? {
@@ -24,15 +19,6 @@ const CollectionForm = (props) => {
       video: "",
     }
   );
-  //==========================================================
-  // const spinn = () => {
-  //   setOpen((prev) => ({
-  //     ...prev,
-  //     open: !prev.open,
-  //   }));
-  //   console.log('===> hi',open)
-  // };
-  //==========================================================
 
   return (
     <div className="d-flex flex-column flex-root">
@@ -140,44 +126,9 @@ const CollectionForm = (props) => {
                           }}
                         />
                       </div>
-
+                          
                       <div>
                         <br />
-                        {/* <button
-                          className="btn btn-lg btn-primary"
-                          onClick={(e) => {
-                            e.preventDefault();
-
-                            
-
-                            isUpdate
-                              ? updatecollection({ ...Collection }).then(() => {
-                                  navigate("/master/product-data/collections");
-                                })
-                              :
-                               addcollection({ ...Collection })
-                              .then(
-                                  () => {
-                                   console.log('====> adding')
-                                    navigate(
-                                      "/master/product-data/collections"
-                                    );
-                                  }
-                                );
-                          }}
-                        >
-                          {isUpdate ? "Update Collection" : "Add Collection"}
-                        </button> */}
-                        
-                        <AddUpdateSpinner 
-                        update = {isUpdate ? true : false}
-                        collection = {Collection}
-                        adding = {addcollection}
-                        updating = {updatecollection}
-                        url = {"/master/product-data/collections"}
-                        />
-                       
-                        
                       </div>
                     </form>
                   </div>

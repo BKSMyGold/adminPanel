@@ -15,7 +15,7 @@ const Dashboard = (props) => {
           {/*begin::Title*/}
           <h1 className="d-flex text-white fw-bolder my-1 fs-3">Dashboard</h1>
           {/*end::Title*/}
-          {/*begin::Breadcrumb*/}
+          {/*begin::Breadcrumb*/}   
           <ul className="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
             {/*begin::Item*/}
             <li className="breadcrumb-item text-white opacity-75">
@@ -97,7 +97,6 @@ const Dashboard = (props) => {
                       data-dropdown-parent="#kt_menu_618d387089331"
                       data-allow-clear="true"
                     >
-                      <option></option>
                       <option value="1">Approved</option>
                       <option value="2">Pending</option>
                       <option value="2">In Process</option>
@@ -151,7 +150,7 @@ const Dashboard = (props) => {
                       type="checkbox"
                       value=""
                       name="notifications"
-                      checked="checked"
+                        checked="checked"
                     />
                     <label className="form-check-label">Enabled</label>
                   </div>

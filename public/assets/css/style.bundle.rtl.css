@@ -47211,7 +47211,7 @@ body:not([data-kt-sticky-header=on]) .topbar .active.show > .btn.btn-icon .svg-i
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.aside {
+.aside {      
   display: flex;
   flex-shrink: 0;
   flex-direction: column;
@@ -49870,7 +49870,7 @@ body {
   background-color: rgba(228, 230, 239, 0.1);
   color: #E4E6EF;
   box-shadow: none;
-}
+}     
 .kanban-container .kanban-board .kanban-drag .kanban-item[data-class=success] {
   background-color: #50CD89;
   color: #FFFFFF;

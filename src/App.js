@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
-
 import AppointmentTime from './screens/AppointmentTime'
 import BankPaymentEntries from './screens/BankPaymentEntries'
 import BuySell from './screens/BuySave'
@@ -171,20 +170,28 @@ const App = () => {
     ) {
       let localStorageUser = JSON.parse(localStorage.getItem('loggedInUser'))
       let permissionSet = new Set()
-      for (let permission of localStorageUser.role.permissions) {
-        permissionSet.add(permission.permission_name)
-      }
-      setPermissions(permissionSet)
+      for (let permissions of localStorageUser.role.permissions) {
+        permissionSet.add(permissions.permission_name)
+      } 
+      setPermissions(permissionSet) 
       setLoggedInUser(localStorageUser)
     } else {
       navigate('/login')
     }
   }, [])
   //====================================================================
+  const handleLogout = () => {
+    setLoggedInUser({});
+    localStorage.clear();
+    window.location.reload(false);
+  };
   //====================================================================
   return (
     <>
       <div className='App'>
+      <button onClick={handleLogout} type="button" class="btn btn-danger">
+          Logout
+        </button>
         <Routes>
           {/*Master =============================================*/}
           {/*Products Data =============================================*/}
