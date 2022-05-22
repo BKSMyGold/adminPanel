@@ -3,18 +3,19 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
+import { isValidCollection } from "../Validator";
+import { addcollection, updatecollection } from "../apis/Collections";
 
 const CollectionForm = (props) => {
-  //==========================================================
   let location = useLocation();
+
   let navigate = useNavigate();
-  //==========================================================
 
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
 
   const [Collection, setCollection] = useState(
     location?.state ?? {
-      category_name: "",
+      collection_name: "",
       images: [],
       video: "",
     }
@@ -65,19 +66,18 @@ const CollectionForm = (props) => {
                             title="Specify your unique app name"
                           ></i>
                         </label>
-                        {/* {isUpdate ? __ : __} */}
                         <input
                           type="text"
-                          name="category_name"
+                          name="collection_name"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter Collection Name"
                           onChange={(e) =>
                             setCollection({
                               ...Collection,
-                              name: e.target.value,
+                              collection_name: e.target.value,
                             })
                           }
-                          value={Collection.name}
+                          defaultValue={Collection.name}
                         />
                       </div>
                       <div>
@@ -92,7 +92,7 @@ const CollectionForm = (props) => {
                         <input
                           type="file"
                           name="images"
-                          multiple="multiple"
+                          multiple
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Choose File"
                           onChange={(e) => {
@@ -126,9 +126,25 @@ const CollectionForm = (props) => {
                           }}
                         />
                       </div>
-                          
+
                       <div>
                         <br />
+                        <button
+                          className="btn btn-lg btn-primary"
+                          onClick={(e) => {
+                            e.preventDefault();
+
+                            isUpdate
+                              ? updatecollection({ ...Collection }).then(() => {
+                                  navigate("/master/product-data/collections");
+                                })
+                              : addcollection({ ...Collection }).then(() => {
+                                  navigate("/master/product-data/collections");
+                                });
+                          }}
+                        >
+                          {isUpdate ? "Update Collection" : "Add Collection"}
+                        </button>
                       </div>
                     </form>
                   </div>
