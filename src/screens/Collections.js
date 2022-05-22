@@ -585,7 +585,7 @@ const Collections = () => {
                                 </Link>
                               </a>
                               <button
-                                onClick={() => deletecollection(collection.id)}
+                                onClick={() => deletecollection(collection)}
                                 class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
                               >
                                 {/*begin::Svg Icon | path: icons/duotune/general/gen027.svg*/}
