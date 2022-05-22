@@ -139,7 +139,7 @@ const MetalGroupForm = (props) => {
                           value={metalGroup.referenceId}
                         />
                       </div>
-                      <div>
+                      {/* <div>
                         <br/>
                         <button className="btn btn-lg btn-primary"
                           onClick={(e) => {
@@ -163,14 +163,14 @@ const MetalGroupForm = (props) => {
                         >
                           {isUpdate ? "Update Metal Group" : "Add Metal Group"}
                         </button>
-                      </div>
-                              {/* <AddUpdateSpinner 
+                      </div> */}
+                              <AddUpdateSpinner 
                               update = {isUpdate ? true : false}
                               collection = {metalGroup}
                               adding = {addMetalGroup}
                               updating = {updateMetalGroup}
                               url = {"/master/product-data/metal-groups/"}
-                            /> */}
+                            />
                             
                           
                         
