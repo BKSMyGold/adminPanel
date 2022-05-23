@@ -6,8 +6,10 @@ export const addCyclePeriod  = (cyclePeriod) =>
     ...cyclePeriod,
   });
 
-export const deleteCyclePeriod  = (cyclePeriodID) =>
-  Axios.delete(`${BASE_URL}/api/cycle-period/${cyclePeriodID}`);
+export const deleteCyclePeriod  = async(cyclePeriodID) =>{
+ await Axios.delete(`${BASE_URL}/api/cycle-period/${cyclePeriodID}`);
+ window.location.reload(false);
+}
 
 export const updateCyclePeriod = (cyclePeriod) =>
   Axios.put(`${BASE_URL}/api/cycle-period/${cyclePeriod.id}`, cyclePeriod);
