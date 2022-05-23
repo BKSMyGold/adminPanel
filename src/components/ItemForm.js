@@ -99,10 +99,10 @@ const ItemForm = (props) => {
                           onChange={(e) =>
                             setItem({
                               ...Item,
-                              images: e.target.value,
+                              images: e.target.files,
                             })
                           }
-                          value={Item.images}
+                          // value={Item.images}
                         />
                       </div>
                       <div>
@@ -122,10 +122,10 @@ const ItemForm = (props) => {
                           onChange={(e) =>
                             setItem({
                               ...Item,
-                              video: e.target.value,
+                              video: e.target.files[0],
                             })
                           }
-                          value={Item.video}
+                          // value={Item.video}
                         />
                       </div>
 
