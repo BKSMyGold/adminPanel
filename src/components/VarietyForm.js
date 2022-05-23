@@ -75,10 +75,10 @@ const VarietyForm = (props) => {
                           onChange={(e) =>
                             setVariety({
                               ...variety,
-                              name: e.target.value,
+                              variety_name: e.target.value,
                             })
                           }
-                          value={variety.name}
+                          defaultValue={variety.name}
                         />
                       </div>
                       <div>

@@ -1,10 +1,10 @@
 import Axios from "axios";
 import { BASE_URL } from "../Constants";
-
+//=======================================================
 export const addVariety = (variety) => {
   let formData = new FormData();
   let { variety_name, images, video } = variety;
-  
+
   formData.append("variety_name", variety_name);
   for (let i = 0; i < images.length; i++) {
     formData.append("images", images[i]);
@@ -16,13 +16,26 @@ export const addVariety = (variety) => {
     },
   });
 };
-
+//=======================================================
 export const deleteVariety = async (varietyID) => {
   await Axios.delete(`${BASE_URL}/api/variety/${varietyID}`);
   window.location.reload(false);
 };
+//=======================================================
+export const updateVariety = (variety) =>{
+  let formData = new FormData();
+  let { variety_name, images, video } = variety;
 
-export const updateVariety = (variety) =>
-  Axios.put(`${BASE_URL}/api/variety/${variety.id}`, variety);
+  formData.append("variety_name", variety_name);
 
+  for (let i = 0; i < images.length; i++) {
+    formData.append("images", images[i]);
+  }
+
+  formData.append("video", video);
+
+  return Axios.put(`${BASE_URL}/api/variety/${variety.id}`, formData);
+}
+//=======================================================
 export const getAllVarieties = () => Axios.get(`${BASE_URL}/api/variety/`);
+//=======================================================
