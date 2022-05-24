@@ -19,9 +19,10 @@ code {
   margin-left : 5px
 }
 .register{
-  color: white;
+  color: rgb(146, 146, 146);
   font-weight:bold;
   cursor: pointer;
+  align-self: center;
 }
 .registeredUser{
   background-color: white;
