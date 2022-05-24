@@ -295,11 +295,10 @@ const Varieties = () => {
                             </td>
 
                             <td class='text-end'>
-                              <a
+                              {/* <a
                                 href='#'
                                 class='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                               >
-                                {/*begin::Svg Icon | path: icons/duotune/general/gen019.svg*/}
                                 <span class='svg-icon svg-icon-3'>
                                   <svg
                                     xmlns='http://www.w3.org/2000/svg'
@@ -319,8 +318,7 @@ const Varieties = () => {
                                     />
                                   </svg>
                                 </span>
-                                {/*end::Svg Icon*/}
-                              </a>
+                              </a> */}
                               <a
                                 href='#'
                                 class='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'

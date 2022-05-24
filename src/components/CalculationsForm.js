@@ -5,6 +5,8 @@ import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidCalculations } from "../Validator";
 import { addcharge, updatecharge } from "../apis/taxes";
+import AddUpdateSpinner from "../AddUpdateSpinner";
+
 
 const CalculationsForm = (props) => {
   let location = useLocation();
@@ -103,7 +105,7 @@ const CalculationsForm = (props) => {
                         />
                       </div>
 
-                      <div>
+                      {/* <div>
                         <br />
                         <button
                           className="btn btn-lg btn-primary"
@@ -124,7 +126,15 @@ const CalculationsForm = (props) => {
                             ? "Update Calculations"
                             : "Add Calculations"}
                         </button>
-                      </div>
+                      </div> */}
+                       <AddUpdateSpinner 
+                              update = {isUpdate ? true : false}
+                              collection = {Calculations}
+                              adding = {addcharge}
+                              updating = {updatecharge}
+                              url = {"/master/taxes/"}
+                            />
+
                     </form>
                   </div>
                   {/*end::Table container*/}

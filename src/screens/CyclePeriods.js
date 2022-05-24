@@ -7,6 +7,8 @@ import { BASE_URL } from "../Constants";
 import { Link } from 'react-router-dom'
 import { deleteCyclePeriod } from '../apis/CyclePeriod'
 import { CSVLink } from "react-csv";
+import DeleteSpinner from "../delete";
+
 
 const CyclePeriods = () => {
   const [cycleperiods, setCyclePeriods] = useState([]);
@@ -302,11 +304,10 @@ const CyclePeriods = () => {
                             </td>
 
                             <td class="text-end">
-                              <a
+                              {/* <a
                                 href="#"
                                 class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                               >
-                                {/*begin::Svg Icon | path: icons/duotune/general/gen019.svg*/}
                                 <span class="svg-icon svg-icon-3">
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -326,8 +327,7 @@ const CyclePeriods = () => {
                                     />
                                   </svg>
                                 </span>
-                                {/*end::Svg Icon*/}
-                              </a>
+                              </a> */}
                               <Link
                                 to={'/master/plans/cycle-periods/edit'}
                                 state={cycleperiods}
@@ -356,11 +356,10 @@ const CyclePeriods = () => {
                                   {/*end::Svg Icon*/}
                                 </button>
                               </Link>
-                              <button
+                              {/* <button
                                 onClick={() => deleteCyclePeriod(cycleperiods.id)}
                                 class='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
                               >
-                                {/*begin::Svg Icon | path: icons/duotune/general/gen027.svg*/}
                                 <span class='svg-icon svg-icon-3'>
                                   <svg
                                     xmlns='http://www.w3.org/2000/svg'
@@ -385,8 +384,13 @@ const CyclePeriods = () => {
                                     />
                                   </svg>
                                 </span>
-                                {/*end::Svg Icon*/}
-                              </button>
+                              </button> */}
+
+                              <DeleteSpinner
+                                collection={cycleperiods}
+                                deleting={deleteCyclePeriod}
+                                url={"/master/plans/cycle-periods"}
+                              />
                             </td>
                           </tr>
                         ))}

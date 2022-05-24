@@ -678,11 +678,10 @@ const HowTo = () => {
                               <a href={HowTo.video}>Check Video</a>
                             </td>
                             <td class="text-end">
-                              <a
+                              {/* <a
                                 href="https://www.google.com"
                                 class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                               >
-                                {/*begin::Svg Icon | path: icons/duotune/general/gen019.svg*/}
                                 <span class="svg-icon svg-icon-3">
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -702,8 +701,7 @@ const HowTo = () => {
                                     />
                                   </svg>
                                 </span>
-                                {/*end::Svg Icon*/}
-                              </a>
+                              </a> */}
                               <Link
                                 to="/master/settings/how-to-videos/edit"
                                 state={HowTo}

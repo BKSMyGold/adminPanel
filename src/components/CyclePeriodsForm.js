@@ -5,6 +5,7 @@ import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidCyclePeriod } from "../Validator";
 import { addCyclePeriod, updateCyclePeriod } from "../apis/CyclePeriod";
+import AddUpdateSpinner from "../AddUpdateSpinner";
 
 const CyclePeriodsForm = (props) => {
   let location = useLocation();
@@ -15,12 +16,12 @@ const CyclePeriodsForm = (props) => {
 
   const [CyclePeriod, setCyclePeriod] = useState(
     location?.state ?? {
-        name: "",
-        graceperiod: '',
-        minValue:'',
-        minWeight:'',
-        shortName:"",
-        cycle:'',
+      name: "",
+      graceperiod: "",
+      minValue: "",
+      minWeight: "",
+      shortName: "",
+      cycle: "",
     }
   );
 
@@ -47,13 +48,12 @@ const CyclePeriodsForm = (props) => {
                 <div class="card-header border-0 pt-5">
                   <h3 class="card-title align-items-start flex-column">
                     <span class="card-label fw-bolder fs-3 mb-1">
-                    {isUpdate ? "Update Cycle Periods" : "Add Cycle Periods"}
+                      {isUpdate ? "Update Cycle Periods" : "Add Cycle Periods"}
                     </span>
                     <span class="text-muted mt-1 fw-bold fs-7">
-                    {isUpdate ? "Update Cycle Periods" : "Add Cycle Periods"}
+                      {isUpdate ? "Update Cycle Periods" : "Add Cycle Periods"}
                     </span>
                   </h3>
-                  
                 </div>
                 {/*end::Header*/}
                 {/*begin::Body*/}
@@ -62,10 +62,14 @@ const CyclePeriodsForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                      <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-																		<span class="required">Name</span>
-																		<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify your unique app name"></i>
-																	</label>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Name</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify your unique app name"
+                          ></i>
+                        </label>
                         <input
                           type="text"
                           name="name"
@@ -81,10 +85,14 @@ const CyclePeriodsForm = (props) => {
                         />
                       </div>
                       <div>
-                      <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-																		<span class="required">Grace Period in Hours</span>
-																		<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify your unique app name"></i>
-																	</label>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Grace Period in Hours</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify your unique app name"
+                          ></i>
+                        </label>
                         <input
                           type="number"
                           name="graceperiod"
@@ -100,10 +108,14 @@ const CyclePeriodsForm = (props) => {
                         />
                       </div>
                       <div>
-                      <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-																		<span class="required">Minimum Value</span>
-																		<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify your unique app name"></i>
-																	</label>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Minimum Value</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify your unique app name"
+                          ></i>
+                        </label>
                         <input
                           type="number"
                           name="minValue"
@@ -119,10 +131,14 @@ const CyclePeriodsForm = (props) => {
                         />
                       </div>
                       <div>
-                      <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-																		<span class="required">Minimum Weight</span>
-																		<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify your unique app name"></i>
-																	</label>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Minimum Weight</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify your unique app name"
+                          ></i>
+                        </label>
                         <input
                           type="number"
                           name="minWeight"
@@ -138,10 +154,14 @@ const CyclePeriodsForm = (props) => {
                         />
                       </div>
                       <div>
-                      <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-																		<span class="required">Short Name</span>
-																		<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify your unique app name"></i>
-																	</label>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Short Name</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify your unique app name"
+                          ></i>
+                        </label>
                         <input
                           type="text"
                           name="shortName"
@@ -157,10 +177,14 @@ const CyclePeriodsForm = (props) => {
                         />
                       </div>
                       <div>
-                      <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-																		<span class="required">Cycle in days</span>
-																		<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify your unique app name"></i>
-																	</label>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Cycle in days</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify your unique app name"
+                          ></i>
+                        </label>
                         <input
                           type="number"
                           name="cycle"
@@ -175,11 +199,8 @@ const CyclePeriodsForm = (props) => {
                           value={CyclePeriod.cycle}
                         />
                       </div>
-                    
-                      
-                      
-                      
-                      <div>
+
+                      {/* <div>
                         <br/>
                         <button className="btn btn-lg btn-primary"
                           onClick={(e) => {
@@ -203,7 +224,15 @@ const CyclePeriodsForm = (props) => {
                         >
                           {isUpdate ? "Update Cycle Periods" : "Add Cycle Periods"}
                         </button>
-                      </div>
+                      </div> */}
+
+                      <AddUpdateSpinner
+                        update={isUpdate ? true : false}
+                        collection={CyclePeriod}
+                        adding={addCyclePeriod}
+                        updating={updateCyclePeriod}
+                        url={"/master/plans/cycle-periods"}
+                      />
                     </form>
                   </div>
                   {/*end::Table container*/}

@@ -45,18 +45,30 @@ export default function DeleteSpinner({url,deleting, collection}) {
   };
   //===============================================================
   const handleDeletion = () => {
-    setOpen(false);
-    console.log(collection.id);
-    deleting(collection.id).then(()=>{
-      navigate(url);
+if(collection._id){
 
-    });
-   
+  setOpen(false);
+  console.log(collection._id);
+  deleting(collection._id).then(()=>{
+    navigate(url);
 
-    setIsOpen(true);
+  });
+ 
+  setIsOpen(true);
 
+  console.log("==========================> delete");
+}else{
+  setOpen(false);
+  console.log(collection.id);
+  deleting(collection.id).then(()=>{
+    navigate(url);
 
-    console.log("==========================> delete");
+  });
+ 
+  setIsOpen(true);
+
+  console.log("==========================> delete");
+}
   };
   //===============================================================
   //=============================================================== RENDERING

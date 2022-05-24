@@ -7,6 +7,8 @@ import { ROLE_PERMISSION_BASE_URL } from '../Constants'
 import { Link } from 'react-router-dom'
 import { deleteSlider } from '../apis/sliders'
 import { CSVLink } from "react-csv";
+import DeleteSpinner from "../delete";
+
 
 const Sliders = () => {
   const [sliders, setSliders] = useState([])
@@ -277,11 +279,10 @@ const Sliders = () => {
                             </td>
 
                             <td class='text-end'>
-                              <a
+                              {/* <a
                                 href='#'
                                 class='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                               >
-                                {/*begin::Svg Icon | path: icons/duotune/general/gen019.svg*/}
                                 <span class='svg-icon svg-icon-3'>
                                   <svg
                                     xmlns='http://www.w3.org/2000/svg'
@@ -301,8 +302,7 @@ const Sliders = () => {
                                     />
                                   </svg>
                                 </span>
-                                {/*end::Svg Icon*/}
-                              </a>
+                              </a> */}
                               <a
                                 href='#'
                                 class='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
@@ -336,11 +336,10 @@ const Sliders = () => {
                                   </button>
                                 </Link>
                               </a>
-                              <button
+                              {/* <button
                                 onClick={() => deleteSlider(slider._id)}
                                 class='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
                               >
-                                {/*begin::Svg Icon | path: icons/duotune/general/gen027.svg*/}
                                 <span class='svg-icon svg-icon-3'>
                                   <svg
                                     xmlns='http://www.w3.org/2000/svg'
@@ -365,8 +364,12 @@ const Sliders = () => {
                                     />
                                   </svg>
                                 </span>
-                                {/*end::Svg Icon*/}
-                              </button>
+                              </button> */}
+                                 <DeleteSpinner
+                                collection={slider}
+                                deleting={deleteSlider}
+                                url={"/master/settings/sliders/"}
+                              />
                             </td>
                           </tr>
                         ))}

@@ -224,6 +224,8 @@ import { BASE_URL } from "../Constants";
 import { Link } from "react-router-dom";
 import { deletecollection } from "../apis/Collections";
 import { CSVLink } from "react-csv";
+import DeleteSpinner from "../delete";
+
 
 const Collections = () => {
   const [collections, setCollections] = useState([]);
@@ -525,11 +527,10 @@ const Collections = () => {
                             </td>
 
                             <td class="text-end">
-                              <a
+                              {/* <a
                                 href="#"
                                 class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                               >
-                                {/*begin::Svg Icon | path: icons/duotune/general/gen019.svg*/}
                                 <span class="svg-icon svg-icon-3">
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -549,8 +550,8 @@ const Collections = () => {
                                     />
                                   </svg>
                                 </span>
-                                {/*end::Svg Icon*/}
-                              </a>
+                                
+                              </a> */}
                               <a
                                 href="#"
                                 class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
@@ -584,11 +585,10 @@ const Collections = () => {
                                   </button>
                                 </Link>
                               </a>
-                              <button
+                              {/* <button
                                 onClick={() => deletecollection(collection)}
                                 class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
                               >
-                                {/*begin::Svg Icon | path: icons/duotune/general/gen027.svg*/}
                                 <span class="svg-icon svg-icon-3">
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -613,8 +613,13 @@ const Collections = () => {
                                     />
                                   </svg>
                                 </span>
-                                {/*end::Svg Icon*/}
-                              </button>
+                              </button> */}
+
+                              <DeleteSpinner
+                                collection={collection}
+                                deleting={deletecollection}
+                                url={"/master/product-data/collections/"}
+                              />
                             </td>
                           </tr>
                         ))}

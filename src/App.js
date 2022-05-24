@@ -88,6 +88,7 @@ import PushReport from './screens/PushReport'
 import PushSend from './screens/PushSend'
 import RedeemCompleted from './screens/RedeemCompleted'
 import RedeemPending from './screens/RedeemPending'
+import HowToForm from "./components/HowToForm";
 import RedeemUser from './screens/RedeemUser'
 import ReferalBonusAccrued from './screens/ReferalBonusAccrued'
 import ReferalBonusDue from './screens/ReferalBonusDue'
@@ -401,6 +402,14 @@ const App = () => {
           <Route
             path='/master/settings/how-to-videos'
             element={<HowTo />}
+          />
+           <Route
+            path='/master/settings/how-to-videos/add'
+            element={<HowToForm />}
+          />
+           <Route
+            path='/master/settings/how-to-videos/edit'
+            element={<HowToForm />}
           />
           <Route
             path='/master/settings/testimonials'

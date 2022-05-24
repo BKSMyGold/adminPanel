@@ -131,7 +131,7 @@ const Permissions = () => {
                               </a>
                             </td>
                             <td class="text-end">
-                              <a
+                              {/* <a
                                 href="#"
                                 class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                               >
@@ -154,7 +154,7 @@ const Permissions = () => {
                                     />
                                   </svg>
                                 </span>
-                              </a>
+                              </a> */}
                               <Link
                                 to={"/master/security/permissions/edit"}
                                 state={Permissions}

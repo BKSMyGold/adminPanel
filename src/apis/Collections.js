@@ -19,19 +19,12 @@ export const addcollection = (collection) => {
   });
 };
 //=====================================================
-export const deletecollection = async (collection) => {
-  if( collection.images){
+export const deletecollection = async (collectionId) => {
 
-    await Axios.delete(`${BASE_URL}/api/collection/${collection.id}`);
+    await Axios.delete(`${BASE_URL}/api/collection/${collectionId}`);
     console.log('--> deleting')
     window.location.reload(false);
-  }else 
-  if(!collection.images){
-    
-    await Axios.delete(`${BASE_URL}/api/collection/${collection.id}`);
-    console.log('--> deleting')
-    window.location.reload(false);
-  }
+  
 };
 //=====================================================
 export const updatecollection = (collection) => {

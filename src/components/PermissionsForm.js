@@ -5,6 +5,8 @@ import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidPermission } from "../Validator";
 import { addPermission, updatePermission } from "../apis/Permission";
+import AddUpdateSpinner from "../AddUpdateSpinner";
+
 
 
 const PermissionsForm = (props) => {
@@ -84,7 +86,7 @@ const PermissionsForm = (props) => {
                       
                       <div>
                         <br/>
-                        <button className="btn btn-lg btn-primary"
+                        {/* <button className="btn btn-lg btn-primary"
                           onClick={(e) => {
                             e.preventDefault();
                             if (isValidPermission({ ...Permission })) {
@@ -105,7 +107,14 @@ const PermissionsForm = (props) => {
                           }}
                         >
                           {isUpdate ? "Update Permissions" : "Add Permissions"}
-                        </button>
+                        </button> */}
+                        <AddUpdateSpinner
+                          update={isUpdate ? true : false}
+                          collection={Permission}
+                          adding={addPermission}
+                          updating={updatePermission}
+                          url={"/master/security/permissions"}
+                        />
                       </div>
                     </form>
                   </div>

@@ -5,6 +5,7 @@ import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidCollection } from "../Validator";
 import { addcollection, updatecollection } from "../apis/Collections";
+import AddUpdateSpinner from "../AddUpdateSpinner";
 
 const CollectionForm = (props) => {
   let location = useLocation();
@@ -127,7 +128,7 @@ const CollectionForm = (props) => {
                         />
                       </div>
 
-                      <div>
+                      {/* <div>
                         <br />
                         <button
                           className="btn btn-lg btn-primary"
@@ -145,7 +146,15 @@ const CollectionForm = (props) => {
                         >
                           {isUpdate ? "Update Collection" : "Add Collection"}
                         </button>
-                      </div>
+                      </div> */}
+
+                      <AddUpdateSpinner
+                        update={isUpdate ? true : false}
+                        collection={Collection}
+                        adding={addcollection}
+                        updating={updatecollection}
+                        url={"/master/product-data/collections/"}
+                      />
                     </form>
                   </div>
                   {/*end::Table container*/}

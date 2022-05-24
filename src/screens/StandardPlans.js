@@ -6,6 +6,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { deleteStandardPlan } from "../apis/StandardPlan";
 import { CSVLink } from "react-csv";
+import DeleteSpinner from "../delete";
+
 
 const StandardPlans = () => {
   const [standardplans, setStandardPlans] = useState([]);
@@ -119,12 +121,12 @@ const StandardPlans = () => {
                       {/*end::Svg Icon*/}
                     </button>
                     {/*begin::Menu 2*/}
-					<CSVLink
-					  className="csv"
+                    <CSVLink
+                      className="csv"
                       data={standardplans}
                       filename="Reports.csv"
                       target="_blank"
-					  headers ={headers}						
+                      headers={headers}
                     >
                       Export
                     </CSVLink>
@@ -307,11 +309,10 @@ const StandardPlans = () => {
                             </td>
 
                             <td class="text-end">
-                              <a
+                              {/* <a
                                 href="#"
                                 class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                               >
-                                {/*begin::Svg Icon | path: icons/duotune/general/gen019.svg*/}
                                 <span class="svg-icon svg-icon-3">
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -331,8 +332,7 @@ const StandardPlans = () => {
                                     />
                                   </svg>
                                 </span>
-                                {/*end::Svg Icon*/}
-                              </a>
+                              </a> */}
                               <a
                                 href="#"
                                 class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
@@ -366,13 +366,12 @@ const StandardPlans = () => {
                                   </button>
                                 </Link>
                               </a>
-                              <button
+                              {/* <button
                                 onClick={() =>
                                   deleteStandardPlan(standardplans.id)
                                 }
                                 class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
                               >
-                                {/*begin::Svg Icon | path: icons/duotune/general/gen027.svg*/}
                                 <span class="svg-icon svg-icon-3">
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -397,8 +396,12 @@ const StandardPlans = () => {
                                     />
                                   </svg>
                                 </span>
-                                {/*end::Svg Icon*/}
-                              </button>
+                              </button> */}
+                               <DeleteSpinner
+                                collection={standardplans}
+                                deleting={deleteStandardPlan}
+                                url={"/master/plans/standard-plans/"}
+                              />
                             </td>
                           </tr>
                         ))}

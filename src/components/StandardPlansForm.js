@@ -7,6 +7,8 @@ import axios from "axios";
 import { BASE_URL } from "../Constants";
 import { isValidStandardPlan } from "../Validator";
 import { addStandardPlan, updateStandardPlan } from "../apis/StandardPlan";
+import AddUpdateSpinner from "../AddUpdateSpinner";
+
 
 
 const StandardPlanForm = (props) => {
@@ -190,7 +192,7 @@ const StandardPlanForm = (props) => {
                         </select>
                       </div>
                      
-                      <div>
+                      {/* <div>
                         <br/>
                         <button className="btn btn-lg btn-primary"
                           onClick={(e) => {
@@ -214,7 +216,14 @@ const StandardPlanForm = (props) => {
                         >
                           {isUpdate ? "Update Standard Plan" : "Add Standard Plan"}
                         </button>
-                      </div>
+                      </div> */}
+                       <AddUpdateSpinner 
+                              update = {isUpdate ? true : false}
+                              collection = {StandardPlan}
+                              adding = { addStandardPlan}
+                              updating = {updateStandardPlan}
+                              url = {"/master/plans/standard-plans/"}
+                            />
                     </form>
                   </div>
                   {/*end::Table container*/}
