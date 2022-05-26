@@ -2,6 +2,20 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 export class Header extends Component {
+  constructor(props){
+    super(props);
+    
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+  
+  handleLogout() {
+
+   localStorage.clear();
+   window.location.reload(false);
+ };
+ 
+
+
   render() {
     return (
       <div
@@ -3185,9 +3199,10 @@ export class Header extends Component {
                     data-kt-menu-attach="parent"
                     data-kt-menu-placement="bottom-end"
                   >
+                    
                     <img
                       className="h-30px w-30px rounded"
-                      src="assets/media/avatars/150-25.jpg"
+                      src="assets/media/avatars/150-2.jpg"
                       alt=""
                     />
                   </div>
@@ -3203,7 +3218,7 @@ export class Header extends Component {
                         <div className="symbol symbol-50px me-5">
                           <img
                             alt="Logo"
-                            src="assets/media/avatars/150-25.jpg"
+                            src="assets/media/avatars/150-2.jpg"
                           />
                         </div>
                         {/*end::Avatar*/}
@@ -3219,7 +3234,7 @@ export class Header extends Component {
                             href="#"
                             className="fw-bold text-muted text-hover-primary fs-7"
                           >
-                            max@kt.com
+                            max@myBksGold.com
                           </a>
                         </div>
                         {/*end::Username*/}
@@ -3453,12 +3468,14 @@ export class Header extends Component {
                     {/*end::Menu item*/}
                     {/*begin::Menu item*/}
                     <div className="menu-item px-5">
-                      <a
-                        href="../../demo2/dist/authentication/flows/basic/sign-in.html"
-                        className="menu-link px-5"
-                      >
-                        Sign Out
-                      </a>
+                     
+                        <button
+                          onClick={this.handleLogout}
+                          type="button"
+                          class="btn btn-danger"
+                        >
+                          Logout
+                        </button>
                     </div>
                     {/*end::Menu item*/}
                     {/*begin::Menu separator*/}
@@ -3506,5 +3523,6 @@ export class Header extends Component {
     );
   }
 }
+
 
 export default Header;

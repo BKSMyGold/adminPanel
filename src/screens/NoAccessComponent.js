@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Dashboard from "./dashboard";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function NoAccessComponent({ user }) {
+  let navigate = useNavigate();
   console.log(user);
   let [userName, setRoleName] = useState("");
   useEffect(() => {
@@ -26,9 +27,18 @@ export default function NoAccessComponent({ user }) {
         You dont have the Access Mr."{userName}"
       </h1>
 
-      <Link to="/">
+      {/* <Link to="/">
         <button className="btn btn-warning mt-20">Go Back</button>
-      </Link>
+      </Link> */}
+      <button
+        className="btn btn-warning mt-20"
+        onClick={() => {
+          navigate("/");
+          window.location.reload(false);
+        }}
+      >
+        Go Back
+      </button>
     </div>
   );
 }

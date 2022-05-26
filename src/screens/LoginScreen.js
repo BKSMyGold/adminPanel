@@ -64,6 +64,7 @@ const LoginScreen = () => {
                               JSON.stringify(loggedInUser)
                             )
                             navigate('/')
+                            window.location.reload(false)
                           }
                         )
                       }}

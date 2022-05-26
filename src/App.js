@@ -193,9 +193,7 @@ const App = () => {
   return (
     <>
       <div className='App'>
-      <button onClick={handleLogout} type="button" class="btn btn-danger">
-          Logout
-        </button>
+     
         <Routes>
           {/*Master =============================================*/}
           {/*Products Data =============================================*/}
@@ -285,7 +283,9 @@ const App = () => {
           />
           <Route
             path='/master/product-data/diamonds'
-            element={<Diamonds />}
+            element={
+              permissions.has("view_metal_groups") ? (<Diamonds />):(<NoAccessComponent user ={loggedInUser}/>)
+            }
           />
           <Route
             path='/master/product-data/categories'
