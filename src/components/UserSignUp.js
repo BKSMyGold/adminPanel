@@ -1,24 +1,23 @@
 import React from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import { addSystemUser } from "../apis/SystemUser";
 // import api from "../api";
 
 export default function UserSignUp() {
   const navigate = useNavigate();
   //=====================================================
-  const [roles, setRoles] = React.useState([]); // j    
-  const [userSigning, setUserSigning] = React.useState(
-    {
-      name: "",
-      email: "",
-      password: "",
-      phoneNumber: "",
-      panNumber: "",
-      aadharNumber: "",
-      address: "",
-      role: "",
-    },
-  );
+  const [roles, setRoles] = React.useState([]); // j
+  const [userSigning, setUserSigning] = React.useState({
+    name: "",
+    email: "",
+    password: "",
+    phoneNumber: "",
+    panNumber: "",
+    aadharNumber: "",
+    address: "",
+    role: "",
+  });
   //=====================================================
   React.useEffect(() => {
     axios.get("http://13.59.57.74:5000/api/role").then((res) => {
@@ -27,16 +26,46 @@ export default function UserSignUp() {
     });
   }, []);
   //=====================================================
-  const handleSubmit =  async() => {
+  const handleSubmit = async () => {
+    console.log("--->", userSigning);
+
+    {roles.map((role) => {
+      if (userSigning.role === role.role_name) {
+        userSigning.role = role._id;
+      }
+    })}
+
+    let {
+      name,
+      email,
+      password,
+      phoneNumber,
+      panNumber,
+      aadharNumber,
+      address,
+      role
+    } = userSigning;
     
-    // console.log("--->", userSigning);
-    // const response = await api.post("/users", userSigning); //POST
-    // console.log(response);
+    let data = {
+      name,
+      email,
+      password,
+      phoneNumber,
+      panNumber,
+      aadharNumber,
+      address,
+      role
+    }
 
-
-    //  await api.post("/users", userSigning)
+    await axios
+      .post("https://goldv2.herokuapp.com/api/system-user", data)
+      .then(() => {
+        console.log("user generated: ==>", data);
+      });
+    // await api
+    //   .post("/users", userSigning)
     //   .then((resp) => {
-    //     console.log('==> response',resp.data);
+    //     console.log("==> response", resp.data);
     //   })
     //   .catch((error) => {
     //     console.log(error);
@@ -52,7 +81,7 @@ export default function UserSignUp() {
   // };
   //=====================================================
   return (
-    <form className = 'registeredUser px-5 py-5'>
+    <form className="registeredUser px-5 py-5">
       <div>
         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
           <span class="required">Name</span>
@@ -228,17 +257,15 @@ export default function UserSignUp() {
           className="form-control form-control-lg form-control-solid"
         >
           {roles.map((role) => (
-            <option className="form-control ">
-              {role.role_name}
-            </option>
+            <option className="form-control ">{role.role_name}</option>
           ))}
         </select>
       </div>
-      <Link to="/registered_User">
-        <button class='btn btn-danger' type="button" onClick={handleSubmit}>
-          Sign Up
-        </button>
-      </Link>
+      {/* <Link to="/registered_User"> */}
+      <button class="btn btn-danger" type="button" onClick={handleSubmit}>
+        Sign Up
+      </button>
+      {/* </Link> */}
     </form>
   );
 }

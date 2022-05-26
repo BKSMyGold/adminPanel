@@ -1,5 +1,7 @@
 import Axios from "axios";
-import { BASE_URL } from "../Constants";
+import { BASE_URL, ROLE_PERMISSION_BASE_URL } from "../Constants";
 
-export const addSystemUser = (systemUser) =>
-  Axios.post(`http://localhost:5000/api/system-user`, systemUser);
+export const addSystemUser = async(systemUser) =>{
+
+  await Axios.post(`${ROLE_PERMISSION_BASE_URL}/api/system-user`, systemUser);
+}
