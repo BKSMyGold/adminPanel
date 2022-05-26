@@ -393,7 +393,7 @@ const App = () => {
           />
           <Route
             path='/master/security/masterUserRights/add'
-            element={<RoleForm />}
+            element={<RoleForm permissions ={permissions} />}
           />
           <Route
             path='/master/security/masterUserRights/edit'

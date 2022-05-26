@@ -137,7 +137,6 @@
 
 // export default RoleForm;
 
-
 // import React, { useState } from "react";
 // import { getAllPermissions } from "../apis/Permission";
 
@@ -182,7 +181,6 @@
 
 //     if (checked) {
 //       collection = getAllItems();
-    
 
 //     setCheckedListAll({
 //       checkedListAll: collection,
@@ -308,7 +306,6 @@
 //   );
 // };
 
-
 //=================================================================
 //=================================================================
 //=================================================================
@@ -322,13 +319,16 @@ import Dashboard from "../screens/dashboard";
 import { isValidRole } from "../Validator";
 // import Checkbox from "../Checkbox";
 //===============================================================
-const RoleForm = () => {
+const RoleForm = ({ permissions }) => {
+  let perm = Array.from(permissions);
+  console.log("--> user's Permissions ::", perm);
+
   let navigate = useNavigate();
 
   const [isCheckAll, setIsCheckAll] = useState(false);
   const [isCheck, setIsCheck] = useState([]);
-  const [list, setList] = useState([]);
-  
+  const [list, setList] = useState([{}]);
+
   const [roleState, setRoleState] = useState({
     role_name: "",
     permissions: new Set(),
@@ -339,7 +339,7 @@ const RoleForm = () => {
     setRoleState({ ...roleState, [e.target.name]: e.target.value });
   //--------------------------------------------------------------------
   const onPermissionModify = (e) => {
-    const { value, checked,id } = e.target;
+    const { value, checked, id } = e.target;
     const newPermissions = new Set(roleState.permissions);
 
     // setIsCheck([...isCheck, id]);
@@ -374,43 +374,52 @@ const RoleForm = () => {
 
   // console.log(isCheck);
 
-
   //===============================================================
-  function selectAll (e) {
+  function selectAll(e) {
     e.preventDefault();
     const newPermissions = new Set(roleState.permissions);
 
-    let x = document.getElementsByName("permissionCheck")
-    for(let i =0; i<x.length;i++){
-      x[i].checked = true;      
+    let x = document.getElementsByName("permissionCheck");
+    for (let i = 0; i < x.length; i++) {
+      x[i].checked = true;
     }
-    permissionState.map(m =>{
-      newPermissions.add(m)
-
-    })
-        console.log(newPermissions);
-        setRoleState({ ...roleState, permissions: newPermissions });
-
-
-
+    permissionState.map((m) => {
+      newPermissions.add(m);
+    });
+    console.log(newPermissions);
+    setRoleState({ ...roleState, permissions: newPermissions });
   }
-//===============================================================
-function unSelectAll (e) {
-  e.preventDefault();
-
-  let x = document.getElementsByName("permissionCheck")
-  for(let i =0; i<x.length;i++){
-    x[i].checked = false
-  }
-}
   //===============================================================
+  function unSelectAll(e) {
+    e.preventDefault();
 
+    let x = document.getElementsByName("permissionCheck");
+    for (let i = 0; i < x.length; i++) {
+      x[i].checked = false;
+    }
+  }
+  //===============================================================
   useEffect(() => {
     getAllPermissions().then(({ data: { permissions } }) =>
       setPermissionsState(permissions)
     );
   }, []);
   //===============================================================
+  // console.log("-->",permissionState)
+
+  let arr = [];
+  {
+    permissionState.map((x) => {
+      for (let c of perm) {
+        if (c === x.permission_name) {
+          arr.push(x);
+        }
+      }
+    });
+  }
+  console.log("-->user's permissions are :", arr);
+  //===============================================================
+
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -475,8 +484,10 @@ function unSelectAll (e) {
                         </label>
                         <button
                           class="btn btn-primary me-2 mb-5"
-                          onClick = {selectAll}
-                        >Select All</button>
+                          onClick={selectAll}
+                        >
+                          Select All
+                        </button>
                         {/* <Checkbox
                           type="checkbox"
                           name="selectAll"
@@ -486,9 +497,11 @@ function unSelectAll (e) {
                         /> */}
                         {/* <span className="ml-2">Select All</span> */}
                         <button
-                         class="btn btn-primary mb-5"
-                          onClick = {unSelectAll}
-                        >UnSelect All</button>
+                          class="btn btn-primary mb-5"
+                          onClick={unSelectAll}
+                        >
+                          UnSelect All
+                        </button>
                         {/* <Checkbox
                           type="checkbox"
                           name="selectAll"
@@ -498,8 +511,7 @@ function unSelectAll (e) {
                         /> */}
                         {/* <span className="ml-2">UnSelect All</span> */}
 
-
-                        {permissionState.map((permission, _id) => (
+                        {arr?.map((permission, _id) => (
                           <div>
                             <input
                               className="form-check-input"
@@ -555,4 +567,3 @@ function unSelectAll (e) {
 //===============================================================
 export default RoleForm;
 //===============================================================
-
