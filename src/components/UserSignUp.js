@@ -45,7 +45,7 @@ export default function UserSignUp() {
       address,
       role
     } = userSigning;
-    
+
     let data = {
       name,
       email,
@@ -60,10 +60,11 @@ export default function UserSignUp() {
     await axios
       .post("https://goldv2.herokuapp.com/api/system-user", data)
       .then(() => {
+        navigate("/registered_User");
         console.log("user generated: ==>", data);
       });
     // await api
-    //   .post("/users", userSigning)
+    //   .post("/users", userSigning) 
     //   .then((resp) => {
     //     console.log("==> response", resp.data);
     //   })
