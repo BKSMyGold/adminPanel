@@ -142,7 +142,7 @@ export class Header extends Component {
                             <div className="menu-item">
                               <a
                                 className="menu-link py-3"
-                                href="/master/product-data/metal-groups"
+                                href="/view_metal_group"
                               >
                                 <span className="menu-bullet">
                                   <span className="bullet bullet-dot"></span>

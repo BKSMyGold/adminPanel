@@ -159,6 +159,7 @@ import ItemForm from './components/ItemForm'
 import AddMasterDetails from './components/AddMasterDetails'
 import UserSignUp from "./components/UserSignUp";
 import RegisteredUser from './screens/registeredUsers'
+import NoAccessComponent from "./screens/NoAccessComponent"
 
 //====================================================================
 const App = () => {
@@ -169,8 +170,7 @@ const App = () => {
   //====================================================================
   useEffect(() => {
     if (
-      localStorage.getItem('loggedInUser') &&
-      Object.keys(loggedInUser).length === 0
+      localStorage.getItem('loggedInUser') 
     ) {
       let localStorageUser = JSON.parse(localStorage.getItem('loggedInUser'))
       let permissionSet = new Set()
@@ -199,15 +199,26 @@ const App = () => {
         <Routes>
           {/*Master =============================================*/}
           {/*Products Data =============================================*/}
-          <Route path='/' element={<Home />} exact />
+          <Route
+           path='/' 
+           element={
+           permissions.has("manage_roles")?(<Home />) :( <NoAccessComponent user ={loggedInUser}/>)
+           } 
+            />
           <Route path='/login' element={<LoginScreen />} />
           <Route path="/register" element={<UserSignUp />} exact />
           <Route path="/registered_User" element={<RegisteredUser/>} />
 
-          <Route
+          {/* <Route
             path='/master/product-data/metal-groups'
             element={
               <MetalGroups />
+            }
+          /> */}
+            <Route
+            path='/view_metal_group'
+            element={
+              permissions.has("view_metal_groups") ? (<MetalGroups />):(<NoAccessComponent user ={loggedInUser}/>)
             }
           />
           <Route
