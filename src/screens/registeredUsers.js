@@ -51,18 +51,20 @@ export default function RegisteredUser() {
             <th class="min-w-120px">panNumber</th>
             <th class="min-w-100px">aadharNumber</th>
             <th class="min-w-100px">address</th>
-            {/* <th class="min-w-100px">role</th> */}
+            <th class="min-w-100px">role</th>
           </tr>
         </thead>
         {/*end::Table head*/}
         {/*begin::Table body*/}
-        <tbody>      
+        <tbody>
           {registeredUser.map((user) => (
-              
-
             <tr>
               <td>
-                <a href="#" class="text-dark fw-bolder text-hover-primary fs-6" className = 'gray'>
+                <a
+                  href="#"
+                  class="text-dark fw-bolder text-hover-primary fs-6"
+                  className="gray"
+                >
                   {user.name}
                 </a>
               </td>
@@ -89,22 +91,32 @@ export default function RegisteredUser() {
                 <span class="badge badge-light-warning">{user.panNumber}</span>
               </td>
               <td>
-                <span class="badge badge-light-info">
-                  {user.aadharNumber}
-                </span>
+                <span class="badge badge-light-info">{user.aadharNumber}</span>
               </td>
               <td>
                 <span class="badge badge-light-success">{user.address}</span>
               </td>
-              {/* <td>
-                <span class="badge badge-light-danger">{user.role.role_name}</span>
-              </td> */}
+              <td>
+                {Object.keys(user).map((obj) => (
+                   <a
+                   href="/master/security/masterUserRights"       
+                   class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6 "
+                 >
+                  <span
+                    
+                    class="badge badge-light-danger"
+                  >
+                    {user[obj].role_name}
+                  </span>
+                  </a>
+                ))}
+              </td>
             </tr>
           ))}
         </tbody>
         {/*end::Table body*/}
       </table>
-      
+
       <Link to="/">
         <button className="btn btn-danger">Go Back</button>
       </Link>

@@ -94,20 +94,20 @@ React.useEffect(()=>{
         </div>
         {/*end::Heaeder menu toggle*/}
         {/*begin::Header Logo*/}
-        <div className="header-logo me-5 me-md-10 flex-grow-1 flex-lg-grow-0">
-          <a href="/">
+        
+        
             <img
               alt="Logo"
               src="assets/media/logos/logo-demo2-sticky.png"
-              className="logo-default h-50px"
+              class = 'logo'
             />
-            <img
+            {/* <img
               alt="Logo"
               src="assets/media/logos/logo-demo2-sticky.png"
               className="logo-sticky h-50px"
-            />
-          </a>
-        </div>
+            /> */}
+          
+        
 
         <div className="d-flex align-items-stretch justify-content-between flex-lg-grow-1">
           <div className="d-flex align-items-stretch" id="kt_header_nav">
