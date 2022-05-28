@@ -222,13 +222,13 @@ const App = () => {
           <Route
             path='/master/product-data/metal-groups/add'
             element={
-              <MetalGroupForm />
+              permissions.has("add_metal_group") ? (<MetalGroupForm />):(<NoAccessComponent user ={loggedInUser}/>)
             }
           />
           <Route
             path='/master/product-data/metal-groups/edit'
             element={
-              <MetalGroupForm />
+              permissions.has("add_metal_group") ? (<MetalGroupForm />):(<NoAccessComponent user ={loggedInUser}/>)
             }
           />
           <Route
