@@ -4,6 +4,7 @@ import Header from "../layouts/Header";
 import Dashboard from "./dashboard";
 import axios from "axios";
 import { BASE_URL, ROLE_PERMISSION_BASE_URL } from "../Constants";
+import {Link} from "react-router-dom"
 
 const Home = () => {
   const [latestBuySell, setPrice] = useState([{}]);
@@ -98,12 +99,12 @@ const Home = () => {
       });
   }, []);
   //========================================================================
-  console.log("==>latestBuySell", latestBuySell);
-  console.log("==>countUsers", countUsers);
-  console.log("==>countStandard", countStandard);
-  console.log("==>Users", Users);
-  console.log("==>Plans", Plans);
-  console.log("==>buysell", buysell);
+  // console.log("==>latestBuySell", latestBuySell);
+  // console.log("==>countUsers", countUsers);
+  // console.log("==>countStandard", countStandard);
+  // console.log("==>Users", Users);
+  // console.log("==>Plans", Plans);
+  // console.log("==>buysell", buysell);
 
   return (
     <div className="d-flex flex-column flex-root">
@@ -117,15 +118,14 @@ const Home = () => {
           {/* ====================================== */}
           {/* <section class="main-content"> */}
           <div class="container">
-            <h1 class="btn btn-success">App's Users</h1>
+            <h1 class="btn btn-success">{countUsers.length} App's Users</h1>
             <table class="table">
               <thead>
                 <tr>
                   <th>User</th>
                   <th>Status</th>
-                  <th>Location</th>
                   <th>Phone</th>
-                  <th>Contact</th>
+                  <th>Action</th>
                   {/* <th>Actions</th> */}
                 </tr>
               </thead>
@@ -139,7 +139,7 @@ const Home = () => {
                             src={
                               user.image
                                 ? user.image
-                                : "assets/media/avatars/150-2.jpg"
+                                : "assets/media/avatars/150-2.jpg"  
                             }
                             alt="User Img"
                           />
@@ -153,33 +153,18 @@ const Home = () => {
                     <td>
                       <span class="active-circle bg-success"></span> Active
                     </td>
-                    <td>{user.addresses}</td>
                     <td>{user.mobile}</td>
                     {/* <td>
                       <button class="btn btn-primary btn-sm">Contact</button>
                     </td> */}
                     <td>
-                      <div class="dropdown show ">
-                        <a
-                          class="btn btn-secondary dropdown-toggle"
-                          href="#"
-                          role="button"
-                          id="dropdownMenuLink"
-                          data-toggle="dropdown"
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                        >
-                          <i class="fa fa-ellipsis-v"></i>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="triggerId1">
-                          <a class="dropdown-item" href="#">
-                            <i class="fa fa-pencil mr-1"></i> Edit
-                          </a>
-                          <a class="dropdown-item text-danger" href="#">
-                            <i class="fa fa-trash mr-1"></i> Delete
-                          </a>
-                        </div>
-                      </div>
+                      <Link
+                      to = "/user_details"
+                      state = {user}
+                      >
+                      
+                      <button class = 'btn btn-primary'>Show more</button>
+                      </Link>
                     </td>
                   </tr>
                 ))}
