@@ -14,26 +14,32 @@ const UserDetails = (props) => {
   const user = location.state;
   const address = "24/158 Mahanagar";
 
-  const [userSubscription, setUserSubscription] = useState([{}]);
-  const [userPlan, setUserPlan] = useState({});
+  const [userSubscription, setUserSubscription] = useState([]);
+  const [userPlan, setUserPlan] = useState();
 
   useEffect(() => {
     axios
       .get(`${BASE_URL}/api/subscription/user/${user.id}`)
       .then((res) => setUserSubscription(res.data.data));
   }, []);
-  // console.log("Users subscription ==>", userSubscription);
+  console.log("Users subscription ==>", userSubscription);
 
-  let userplan = [];
-  userplan = userSubscription.map((c) => c.plan);
-//   {
-//     userplan.map((m) => {
-//       return (
-//         //  console.log("Users Plans name  ==>", m.name)
-//         console.log("Users Plans name  ==>", m.bonus)
-//       );
-//     });
-//   }
+  useEffect(() => {
+    {
+      userSubscription && userSubscription.map((c) => setUserPlan(c));
+    }
+    console.log("Users plan ==>", userPlan);
+  }, []);
+
+
+  //   {
+  //     userplan.map((m) => {
+  //       return (
+  //         //  console.log("Users Plans name  ==>", m.name)
+  //         console.log("Users Plans name  ==>", m.bonus)
+  //       );
+  //     });
+  //   }
 
   //   {userplan.map(obc =>{
   //       return(
@@ -106,39 +112,40 @@ const UserDetails = (props) => {
                       </h5>
                       <div class="sub-box">
                         <span class="badge badge-info mr-4">Plans</span>
-                        {userplan.map((m) => {
-                          return (
-                            //  console.log("Users Plans name  ==>", m.name)
-                            <span class="fw-bolder">{m.planType}</span>
-                            );
-                        })}
+                        {userPlan &&
+                          Object.entries(userPlan).map((key,value) => (
+                            // console.log('gaandu',userPlan[l])
+                            <>
+                            <span class="fw-bolder">{value}</span>
+                            <span class="fw-bolder">{key}</span>
+                            </>
+                          ))}
                       </div>
                       <hr />
 
-                      <div class="sub-box">
+                      {/* <div class="sub-box">
                         <span class="badge badge-info mr-4">Name</span>
-                        {userplan.map((m) => {
+                        {Object.keys(userplan).map((m) => {
                           return (
                             //  console.log("Users Plans name  ==>", m.name)
-                            <span class="fw-bolder">{m.name}</span>
+                            <span class="fw-bolder">{userplan[m]}</span>
                             );
                         })}
-                      </div>
+                      </div> */}
                       <hr />
 
-                      <div class="sub-box">
+                      {/* <div class="sub-box">
                         <span class="badge badge-danger mr-4">
                           Mode
                         </span>
                         {userplan.map((m) => {
                           return (
                             //  console.log("Users Plans name  ==>", m.name)
-                            <span class="fw-bolder">{m.mode}</span>
+                            <span class="fw-bolder">{m}</span>
                             );
                         })}
-                      </div>
+                      </div> */}
                       <hr />
-                     
                     </div>
                   </div>
                   {/* 
