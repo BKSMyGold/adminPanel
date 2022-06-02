@@ -161,6 +161,7 @@ import UserSignUp from "./components/UserSignUp";
 import RegisteredUser from "./screens/registeredUsers";
 import NoAccessComponent from "./screens/NoAccessComponent";
 import UserDetails from "./components/UserDetails";
+import FilteredUsers from './components/FilteredUsers';
 
 //====================================================================
 const App = () => {
@@ -217,6 +218,8 @@ const App = () => {
           /> */}
 
           <Route path="/user_details" element={<UserDetails />} />
+          <Route path="/filtered_users" element={<FilteredUsers />} />
+
 
           <Route
             path="/view_metal_group"

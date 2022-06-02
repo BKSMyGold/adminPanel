@@ -5,33 +5,41 @@ import Dashboard from "../screens/dashboard";
 import axios from "axios";
 import { BASE_URL, ROLE_PERMISSION_BASE_URL } from "../Constants";
 import { Link, useLocation } from "react-router-dom";
-import DATE_FORMATTER from "../Constants";
-
+//========================================================================================
 const UserDetails = (props) => {
   const location = useLocation();
 
-  //   console.log("->", location.state);
+  // console.log("->", location.state);
   const user = location.state;
   const address = "24/158 Mahanagar";
-
+  //========================================================================================
   const [userSubscription, setUserSubscription] = useState([]);
-  const [userPlan, setUserPlan] = useState();
-
+  // const [userPlan, setUserPlan] = useState();
+  //========================================================================================
   useEffect(() => {
     axios
       .get(`${BASE_URL}/api/subscription/user/${user.id}`)
       .then((res) => setUserSubscription(res.data.data));
   }, []);
   console.log("Users subscription ==>", userSubscription);
+  //========================================================================================
+  // useEffect(() => {
+  //   // console.log("Users plan ==>", userPlan);
+  // }, []);
 
-  useEffect(() => {
-    {
-      userSubscription && userSubscription.map((c) => setUserPlan(c));
-    }
-    console.log("Users plan ==>", userPlan);
-  }, []);
+  let userPlan = {};
+  userPlan = userSubscription.map((c) => c.plan);
+  console.log("Users plan =====>", userPlan);
 
+  let userCyclePeriod = {};
+  userCyclePeriod = userSubscription.map((c) => c.plan.cyclePeriod);
+  console.log("Users CyclePeriod =====>", userCyclePeriod);
 
+  let userInstallments = {};
+  userInstallments = userSubscription.map((c) => c.installments);
+  console.log("Users Installments =====>", userInstallments);
+
+  //========================================================================================
   //   {
   //     userplan.map((m) => {
   //       return (
@@ -47,7 +55,7 @@ const UserDetails = (props) => {
   //           console.log("Users Plans are  ==>", obc.duration)
   //       )
   //   })}
-
+  //========================================================================================
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -97,7 +105,7 @@ const UserDetails = (props) => {
                         /> */}
                         <div class="mt-3">
                           <h4>{user.fname}</h4>
-                          <p class="text-dark mb-1">BKS My Gold User</p>
+                          <p class="text-dark  mb-1">BKS My Gold User</p>
                           <p class="text-dark mb-1">{user.dob}</p>
                           <p class="text-dark font-size-sm">{address}</p>
                           <p class="text-secondary font-size-sm">{user.id}</p>
@@ -108,43 +116,65 @@ const UserDetails = (props) => {
                     {/* ======================================== PLANS ============================================== */}
                     <div class="card-body">
                       <h5 class="d-flex align-items-center mb-3">
-                        <b class="material-icons text-info mr-2">Plans Are :</b>
+                      <b class="material-icons text-light fs-2 badge mb-4 badge-info">
+                          Plans Are :</b>
                       </h5>
                       <div class="sub-box">
-                        <span class="badge badge-info mr-4">Plans</span>
+                        <span class="badge text-light bg-dark">Plans</span>
                         {userPlan &&
-                          Object.entries(userPlan).map((key,value) => (
-                            // console.log('gaandu',userPlan[l])
-                            <>
-                            <span class="fw-bolder">{value}</span>
-                            <span class="fw-bolder">{key}</span>
-                            </>
+                          userPlan.map((plan) => (
+                            <span class="fw-bolder">{plan.name}</span>
                           ))}
                       </div>
                       <hr />
 
-                      {/* <div class="sub-box">
-                        <span class="badge badge-info mr-4">Name</span>
-                        {Object.keys(userplan).map((m) => {
-                          return (
-                            //  console.log("Users Plans name  ==>", m.name)
-                            <span class="fw-bolder">{userplan[m]}</span>
-                            );
-                        })}
-                      </div> */}
+                      <div class="sub-box">
+                        <span class="badge text-light bg-dark">Mode</span>
+                        {userPlan &&
+                          userPlan.map((plan) => (
+                            <span class="fw-bolder">{plan.mode}</span>
+                          ))}
+                      </div>
                       <hr />
 
-                      {/* <div class="sub-box">
-                        <span class="badge badge-danger mr-4">
-                          Mode
+                      <div class="sub-box">
+                        <span class="badge text-light bg-dark">Duration</span>
+                        {userPlan &&
+                          userPlan.map((plan) => (
+                            <span class="fw-bolder">{plan.duration}</span>
+                          ))}
+                      </div>
+                      <hr />
+
+                      <div class="sub-box">
+                        <span class="badge text-light bg-dark">Plan Type</span>
+                        {userPlan &&
+                          userPlan.map((plan) => (
+                            <span class="fw-bolder">{plan.planType}</span>
+                          ))}
+                      </div>
+                      <hr />
+
+                      <div class="sub-box">
+                        <span class="badge text-light bg-dark">Bonus</span>
+                        {userPlan &&
+                          userPlan.map((plan) => (
+                            <span class="fw-bolder">{plan.bonus}</span>
+                          ))}
+                      </div>
+                      <hr />
+
+                      <div class="sub-box">
+                        <span class="badge text-light bg-dark">
+                          Created At :
                         </span>
-                        {userplan.map((m) => {
-                          return (
-                            //  console.log("Users Plans name  ==>", m.name)
-                            <span class="fw-bolder">{m}</span>
-                            );
-                        })}
-                      </div> */}
+                        {userPlan &&
+                          userPlan.map((plan) => (
+                            <span class="fw-bolder">
+                              {plan.createdAt.substring(0, 10)}
+                            </span>
+                          ))}
+                      </div>
                       <hr />
                     </div>
                   </div>
@@ -254,57 +284,51 @@ const UserDetails = (props) => {
                     <div class="card-body">
                       <div class="row">
                         <div class="col-sm-3">
-                          <h6 class="mb-0">Full Name</h6>
+                          <h6 class="mb-0 text-dark bg-light">Full Name</h6>
                         </div>
-                        <div class="col-sm-9 text-dark">{user.fname}</div>
+                        <div class="col-sm-9 badge text-light bg-dark">{user.fname}</div>
                       </div>
                       <hr />
                       <div class="row">
                         <div class="col-sm-3">
-                          <h6 class="mb-0">Email</h6>
+                          <h6 class="mb-0 text-dark bg-light">Email</h6>
                         </div>
-                        <div class="col-sm-9 text-dark">{user.email}</div>
+                        <div class="col-sm-9 badge text-light bg-dark">{user.email}</div>
                       </div>
                       <hr />
                       <div class="row">
                         <div class="col-sm-3">
-                          <h6 class="mb-0">Phone</h6>
+                          <h6 class="mb-0 text-dark bg-light">Phone</h6>
                         </div>
-                        <div class="col-sm-9 text-dark">
+                        <div class="col-sm-9 badge text-light bg-dark">
                           (+91) {user.mobile}
                         </div>
                       </div>
                       <hr />
                       <div class="row">
                         <div class="col-sm-3">
-                          <h6 class="mb-0">PAN</h6>
+                          <h6 class="mb-0 text-dark bg-light">PAN</h6>
                         </div>
-                        <div class="col-sm-9 text-dark">
+                        <div class="col-sm-9 badge text-light bg-dark">
                           {user.pan ? user.pan : "CPBCJ78Ik"}
                         </div>
                       </div>
                       <hr />
                       <div class="row">
                         <div class="col-sm-3">
-                          <h6 class="mb-0">Referral Code</h6>
+                          <h6 class="mb-0 text-dark bg-light">Referral Code</h6>
                         </div>
-                        <div class="col-sm-9 text-dark">{user.refCode}</div>
+                        <div class="col-sm-9 badge text-light bg-dark">{user.refCode}</div>
                       </div>
                       <hr />
                       <div class="row">
                         <div class="col-sm-3">
-                          <h6 class="mb-0">Address</h6>
+                          <h6 class="mb-0 text-dark bg-light">Address</h6>
                         </div>
-                        <div class="col-sm-9 text-dark">{address}</div>
+                        <div class="col-sm-9 badge text-light bg-dark">{address}</div>
                       </div>
                       <hr />
-                      <div class="row">
-                        <div class="col-sm-3">
-                          <h6 class="mb-0">Plan Interested</h6>
-                        </div>
-                        <div class="col-sm-9 text-dark">24 month Buy Save</div>
-                      </div>
-                      <hr />
+                      
                       <div class="row">
                         <div class="col-sm-12">
                           {/* <a
@@ -405,33 +429,45 @@ const UserDetails = (props) => {
                       <div class="card h-100">
                         <div class="card-body">
                           <h5 class="d-flex align-items-center mb-3">
-                            <b class="material-icons text-info mr-2">
+                          <b class="material-icons text-light fs-2 badge mb-4 badge-info">
                               Subscriptions
                             </b>
                           </h5>
                           <div class="sub-box">
-                            <span class="badge badge-info mr-4">
+                          <span class="badge text-light bg-dark">
                               Saving amount
                             </span>
                             {userSubscription.map((sub) => (
+                              <span class="fw-bolder">₹ {sub.savedAmount}</span>
+                            ))}
+                          </div>
+                          <hr />
+
+                          <div class="sub-box">
+                          <span class="badge text-light bg-dark">
+                              Created At :
+                            </span>
+                            {userSubscription.map((sub) => (
                               <span class="fw-bolder">
-                                {" "}
-                                ₹ {sub.savedAmount}
+                                {sub.createdAt.substring(0, 10)}
+                              </span>
+                            ))}
+                          </div>
+                          <hr />
+
+                          <div class="sub-box">
+                          <span class="badge text-light bg-dark">
+                              Plan Maturity
+                            </span>
+                            {userSubscription.map((sub) => (
+                              <span class="fw-bolder badge badge-danger">
+                                {sub.maturityDate.substring(0, 10)}
                               </span>
                             ))}
                           </div>
                           <hr />
                           <div class="sub-box">
-                            <span class="badge badge-danger mr-4">
-                              Plan Maturity
-                            </span>
-                            {userSubscription.map((sub) => (
-                              <span class="fw-bolder">{sub.maturityDate}</span>
-                            ))}
-                          </div>
-                          <hr />
-                          <div class="sub-box">
-                            <span class="badge badge-danger mr-4">
+                          <span class="badge text-light bg-dark">
                               Plan Bonus
                             </span>
                             {userSubscription.map((sub) => (
@@ -441,7 +477,7 @@ const UserDetails = (props) => {
                           <hr />
 
                           <div class="sub-box">
-                            <span class="badge badge-danger mr-4">
+                          <span class="badge text-light bg-dark">
                               Saved Weight
                             </span>
                             {userSubscription.map((sub) => (
@@ -450,7 +486,7 @@ const UserDetails = (props) => {
                           </div>
                           <hr />
                           <div class="sub-box">
-                            <span class="badge badge-danger mr-4">
+                          <span class="badge text-light bg-dark">
                               Skip Count
                             </span>
                             {userSubscription.map((sub) => (
@@ -459,7 +495,7 @@ const UserDetails = (props) => {
                           </div>
                           <hr />
                           <div class="sub-box">
-                            <span class="badge badge-danger mr-4">
+                            <span class="badge text-light bg-dark">
                               Total Bonus
                             </span>
                             {userSubscription.map((sub) => (
@@ -468,20 +504,29 @@ const UserDetails = (props) => {
                           </div>
                           <hr />
                           <div class="sub-box">
-                            <span class="badge badge-success mr-4">Status</span>
+                          <span class="badge text-light bg-dark">Status</span>
                             {userSubscription.map((sub) => (
-                              <span class="fw-bolder">{sub.status}</span>
+                              <span class="fw-bolder badge badge-success">{sub.status}</span>
                             ))}
                           </div>
                           <hr />
                           <div class="sub-box">
-                            <span class="badge badge-success mr-4">
+                          <span class="badge text-light bg-dark">
                               Unpaid Investments
                             </span>
                             {userSubscription.map((sub) => (
                               <span class="fw-bolder">
                                 {sub.unpaidInvestments}
                               </span>
+                            ))}
+                          </div>
+                          <hr />
+                          <div class="sub-box">
+                          <span class="badge text-light bg-dark">
+                              Unpaid Skips
+                            </span>
+                            {userSubscription.map((sub) => (
+                              <span class="fw-bolder">{sub.unpaidSkips}</span>
                             ))}
                           </div>
                           <hr />
@@ -493,86 +538,159 @@ const UserDetails = (props) => {
                       <div class="card h-100">
                         <div class="card-body">
                           <h5 class="d-flex align-items-center mb-3">
-                            <b class="material-icons text-info mr-2">
+                          <b class="material-icons text-light fs-2 badge mb-4 badge-info">
                               Installments
                             </b>
                           </h5>
+
                           <div class="sub-box">
-                            <span class="badge badge-info mr-4">
+                          <span class="badge text-light bg-dark">
                               Saving amount
                             </span>
-                            {userSubscription.map((sub) => (
-                              <span class="fw-bolder">
-                                {" "}
-                                ₹ {sub.savedAmount}
-                              </span>
-                            ))}
+                            {userInstallments.map((installments) =>
+                              installments.map((installment) => (
+                                <span class="fw-bolder">
+                                  ₹ {installment.amount}
+                                </span>
+                              ))
+                            )}
                           </div>
                           <hr />
+
                           <div class="sub-box">
-                            <span class="badge badge-danger mr-4">
-                              Plan Maturity
+                          <span class="badge text-light bg-dark">
+                              Assigned Collector
                             </span>
-                            {userSubscription.map((sub) => (
-                              <span class="fw-bolder">{sub.maturityDate}</span>
-                            ))}
+                            {userInstallments.map((installments) =>
+                              installments.map((installment) => (
+                                <span class="fw-bolder">
+                                  {installment.collector
+                                    ? installment.collector
+                                    : "Abhi to koi nahi"}
+                                </span>
+                              ))
+                            )}
                           </div>
                           <hr />
+
                           <div class="sub-box">
-                            <span class="badge badge-danger mr-4">
-                              Plan Bonus
+                          <span class="badge text-light bg-dark">Gold</span>
+                            {userInstallments.map((installments) =>
+                              installments.map((installment) => (
+                                <span class="fw-bolder">
+                                  {installment.gold}
+                                </span>
+                              ))
+                            )}
+                          </div>
+                          <hr />
+
+                          <div class="sub-box">
+                          <span class="badge text-light bg-dark">
+                              Payment Mode
                             </span>
-                            {userSubscription.map((sub) => (
-                              <span class="fw-bolder">{sub.planBonus}</span>
+                            {userInstallments.map((installments) =>
+                              installments.map((installment) => (
+                                <span class="fw-bolder">
+                                  {installment.mode}
+                                </span>
+                              ))
+                            )}
+                          </div>
+
+                          <hr />
+                          <div class="sub-box">
+                          <span class="badge text-light bg-dark">Status</span>
+                            {userInstallments.map((installments) =>
+                              installments.map((installment) => (
+                                <span class="fw-bolder">
+                                  {installment.status}
+                                </span>
+                              ))
+                            )}
+                          </div>
+                          <hr />
+                        </div>
+
+                        <div class="card-body">
+                          <h5 class="d-flex align-items-center mb-3">
+                            <b class="material-icons text-light fs-2 badge mb-4 badge-info">
+                              Cycle Periods
+                            </b>
+                          </h5>
+
+                          <div class="sub-box">
+                            <span class="badge text-light bg-dark">
+                              Cycle
+                            </span>
+                            {userCyclePeriod.map((period) => (
+                              <span class="fw-bolder">{period.cycle}</span>
                             ))}
                           </div>
                           <hr />
 
                           <div class="sub-box">
-                            <span class="badge badge-danger mr-4">
-                              Saved Weight
+                            <span class="badge text-light bg-dark">
+                              Grace Period
                             </span>
-                            {userSubscription.map((sub) => (
-                              <span class="fw-bolder">{sub.savedWeight}</span>
+                            {userCyclePeriod.map((period) => (
+                              <span class="fw-bolder">{period.graceperiod}</span>
                             ))}
                           </div>
                           <hr />
+
                           <div class="sub-box">
-                            <span class="badge badge-danger mr-4">
-                              Skip Count
+                            <span class="badge text-light bg-dark">
+                            Minimun Value
+
                             </span>
-                            {userSubscription.map((sub) => (
-                              <span class="fw-bolder">{sub.skipCount}</span>
+                            {userCyclePeriod.map((period) => (
+                              <span class="fw-bolder">{period.minValue}</span>
                             ))}
                           </div>
                           <hr />
+
                           <div class="sub-box">
-                            <span class="badge badge-danger mr-4">
-                              Total Bonus
+                            <span class="badge text-light bg-dark">
+                              Minimun Weight
                             </span>
-                            {userSubscription.map((sub) => (
-                              <span class="fw-bolder">{sub.totalBonus}</span>
+                            {userCyclePeriod.map((period) => (
+                              <span class="fw-bolder">{period.minWeight}</span>
                             ))}
                           </div>
                           <hr />
+
                           <div class="sub-box">
-                            <span class="badge badge-success mr-4">Status</span>
-                            {userSubscription.map((sub) => (
-                              <span class="fw-bolder">{sub.status}</span>
-                            ))}
-                          </div>
-                          <hr />
-                          <div class="sub-box">
-                            <span class="badge badge-success mr-4">
-                              Unpaid Investments
+                            <span class="badge text-light bg-dark">
+                              Saving amount
                             </span>
-                            {userSubscription.map((sub) => (
-                              <span class="fw-bolder">
-                                {sub.unpaidInvestments}
-                              </span>
+                            {userCyclePeriod.map((period) => (
+                              <span class="fw-bolder">{period.name}</span>
                             ))}
                           </div>
                           <hr />
+
+                          <div class="sub-box">
+                            <span class="badge text-light bg-dark">
+                              Short Name
+                            </span>
+                            {userCyclePeriod.map((period) => (
+                              <span class="fw-bolder">{period.shortName}</span>
+                            ))}
+                          </div>
+                          <hr />
+
+                          <div class="sub-box">
+                            <span class="badge text-light bg-dark">
+                              Status
+                            </span>
+                            {userCyclePeriod.map((period) => (
+                              <span class="fw-bolder">{period.status}</span>
+                            ))}
+                          </div>
+                          <hr />
+
+
                         </div>
                       </div>
                     </div>
