@@ -17,7 +17,10 @@ const FilteredUsers = (props) => {
   useEffect(() => {
     axios.get(`${BASE_URL}/api/user/`).then((data) =>
       data.data.map((user) => {
-        if (filteredUser.toLowerCase() === user.fname || filteredUser.toUpperCase() === user.fname || Number(filteredUser) === user.mobile  ) {
+        if (filteredUser.toLowerCase() === user.fname.toLowerCase() || 
+        filteredUser.toUpperCase() === user.fname || 
+        filteredUser.split(" ")[0].toLowerCase() === user.fname.split(" ")[0].toLowerCase() || 
+        Number(filteredUser) === user.mobile  ) {
           setObj({ ...user });
         }
       })

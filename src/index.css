@@ -118,7 +118,7 @@ code {
 	display: inline-block;
 } 
 .container{
- margin-top:200px 
+ margin-top:125px 
 }
 .user-row{
   padding:100px;
@@ -180,4 +180,61 @@ code {
   display:flex;
   flex-direction: row;
   justify-content: space-between;
+}
+/* 
+.App {        
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100vw;
+} */
+
+.user {
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: #b3e3ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 500px;
+  height: 300px;
+  margin: 20px;
+}
+
+.paginationBttns {
+  width: 80%;
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.paginationBttns a {
+  padding: 5px;
+  margin: 10px;
+  border-radius: 5px;
+  border: 1px solid #921f4a;
+  color: #921f4a;
+  cursor: pointer;
+}
+
+.paginationBttns a:hover {
+  color: white;
+  background-color: #921f4a;
+}
+
+.paginationActive a {
+  color: white ;
+  background-color: #921f4a;
+}
+
+/* .paginationDisabled a {
+  color: grey;
+  background-color: grey;
+} */
+.user-table{
+  width:80%;
+  align-self: center;
 }

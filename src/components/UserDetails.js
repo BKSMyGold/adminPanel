@@ -1,27 +1,55 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useCallback } from "react";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Dashboard from "../screens/dashboard";
 import axios from "axios";
 import { BASE_URL, ROLE_PERMISSION_BASE_URL } from "../Constants";
 import { Link, useLocation } from "react-router-dom";
+
 //========================================================================================
 const UserDetails = (props) => {
   const location = useLocation();
 
-  // console.log("->", location.state);
+  console.log("->", location.state);
   const user = location.state;
   const address = "24/158 Mahanagar";
   //========================================================================================
   const [userSubscription, setUserSubscription] = useState([]);
   // const [userPlan, setUserPlan] = useState();
   //========================================================================================
+  // useEffect(() => {
+   
+  //   axios
+  //     .get(`${BASE_URL}/api/subscription/user/${user.id}`)
+  //     .then((res) => setUserSubscription(res.data.data));
+  // }, []);
+  // console.log("Users subscription ==>", userSubscription);
+
+
   useEffect(() => {
-    axios
-      .get(`${BASE_URL}/api/subscription/user/${user.id}`)
-      .then((res) => setUserSubscription(res.data.data));
+    const fetchSubscription = async () => {
+      const { data } = await axios.get(`${BASE_URL}/api/subscription/user/${user.id}`)
+      setUserSubscription(data.data);
+    };
+    fetchSubscription();
   }, []);
-  console.log("Users subscription ==>", userSubscription);
+
+
+
+  // const loadData = useCallback(async () => {
+  //   try {
+  //     const response = await fetch(`${BASE_URL}/api/subscription/user/${user.id}`);
+  //       const data = await response.json();
+
+  //       setUserSubscription(data.data);
+  //   } catch (err) {
+  //     //do something
+  //   }
+  // }, [userSubscription])
+  // loadData();
+
+
+
   //========================================================================================
   // useEffect(() => {
   //   // console.log("Users plan ==>", userPlan);
