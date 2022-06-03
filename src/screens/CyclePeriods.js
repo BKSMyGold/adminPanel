@@ -17,7 +17,7 @@ const CyclePeriods = () => {
       const { data } = await axios.get(
         `${BASE_URL}/api/cycle-period`
       );
-
+        console.log(data)
       setCyclePeriods(data);
     };
     fetchcycleperiods();
@@ -237,7 +237,7 @@ const CyclePeriods = () => {
                           </th>
                           <th class="min-w-150px">Id</th>
                           <th class="min-w-140px">Cycle Period Name</th>
-                          <th class="min-w-140px">Cycle in Days</th>
+                          <th class="min-w-140px">Minimum Cycle</th>
                           <th class="min-w-140px">Grace Period in Hours</th>
                           <th class="min-w-120px">Short Name</th>
                           <th class="min-w-120px">Min Weight in Grams</th>

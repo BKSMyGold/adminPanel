@@ -5,8 +5,7 @@ import Dashboard from "./dashboard";
 import axios from "axios";
 import { BASE_URL, ROLE_PERMISSION_BASE_URL } from "../Constants";
 import { Link } from "react-router-dom";
-import Pagination from "../components/Pagination";
-import UserCard from "../components/UserCard";
+
 import ReactPaginate from "react-paginate";
 
 const Home = () => {

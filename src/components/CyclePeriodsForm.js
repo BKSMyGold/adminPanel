@@ -178,7 +178,7 @@ const CyclePeriodsForm = (props) => {
                       </div>
                       <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Cycle in days</span>
+                          <span class="required">Minimum Cycle</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
@@ -189,7 +189,7 @@ const CyclePeriodsForm = (props) => {
                           type="number"
                           name="cycle"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Cycle in Days"
+                          placeholder="Enter the minimum Recurring Cycle"
                           onChange={(e) =>
                             setCyclePeriod({
                               ...CyclePeriod,
