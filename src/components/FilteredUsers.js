@@ -9,7 +9,7 @@ import { Link, useLocation } from "react-router-dom";
 const FilteredUsers = (props) => {
   const location = useLocation();
 
-  // console.log("hellYyeah ==>",location.state)
+  console.log("hellYyeah ==>",location.state.toString())
 
   const [obj, setObj] = useState([{}]);
   const filteredUser = location.state;
@@ -17,14 +17,14 @@ const FilteredUsers = (props) => {
   useEffect(() => {
     axios.get(`${BASE_URL}/api/user/`).then((data) =>
       data.data.map((user) => {
-        if (filteredUser.toLowerCase() === user.fname || filteredUser.toUpperCase() === user.fname  ) {
+        if (filteredUser.toLowerCase() === user.fname || filteredUser.toUpperCase() === user.fname || Number(filteredUser) === user.mobile  ) {
           setObj({ ...user });
         }
       })
     );
   }, []);
 
-  console.log("hellYyeah ==>", Object.values(obj));
+  console.log("hellYyeah ==>", obj.mobile);
 
   return (
     <div className="d-flex flex-column flex-root">
