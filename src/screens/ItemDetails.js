@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react'
 import Footer from '../layouts/Footer'
 import Header from '../layouts/Header'
 import Dashboard from './dashboard'
-import axios from 'axios'
+import axios from 'axios' 
 
 const ItemDetails = () => {
   const [categories, setItemDetails] = useState([])
   useEffect(() => {
     const fetchcategories = async () => {
-      const { data } = await axios.get('http://13.59.57.74:5000/api/Category')
+      const { data } = await axios.get('http://13.59.57.74:5000/api/itemdetails/')
 
       setItemDetails(data)
+      console.log("yeh hai ==>", data)
     }
     fetchcategories()
   }, [])
@@ -22,7 +23,7 @@ const ItemDetails = () => {
           id='kt_wrapper'
         >
           <Header />
-          <Dashboard />
+          <Dashboard createLink = '/transaction/products/ItemDetails/add'/>
           <div
             id='kt_content_container'
             class='d-flex flex-column-fluid align-items-start container-xxl'

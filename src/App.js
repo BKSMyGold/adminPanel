@@ -161,9 +161,10 @@ import UserSignUp from "./components/UserSignUp";
 import RegisteredUser from "./screens/registeredUsers";
 import NoAccessComponent from "./screens/NoAccessComponent";
 import UserDetails from "./components/UserDetails";
-import FilteredUsers from './components/FilteredUsers';
-import PlanBonus from './screens/PlanBonus';
-import PlanBonusForm from './components/PlanBonusForm'
+import FilteredUsers from "./components/FilteredUsers";
+import PlanBonus from "./screens/PlanBonus";
+import PlanBonusForm from "./components/PlanBonusForm";
+import ItemDetailsForm from './components/ItemDetailsForm'
 
 //====================================================================
 const App = () => {
@@ -212,13 +213,17 @@ const App = () => {
           <Route path="/register" element={<UserSignUp />} exact />
           <Route path="/registered_User" element={<RegisteredUser />} />
 
-
-
           <Route path="/master/plans/plan-bonus" element={<PlanBonus />} />
-          <Route path="/master/plans/plan-bonus/edit" element={<PlanBonusForm />} />
-          <Route path="/master/plans/plan-bonus/add" element={<PlanBonusForm />} />
+          <Route
+            path="/master/plans/plan-bonus/edit"
+            element={<PlanBonusForm />}
+          />
+          <Route
+            path="/master/plans/plan-bonus/add"
+            element={<PlanBonusForm />}
+          />
 
-
+          {/* <Route path="/view_item_details" element={<ItemsDetails/>} /> */}
           {/* <Route
             path='/master/product-data/metal-groups'
             element={
@@ -228,7 +233,6 @@ const App = () => {
 
           <Route path="/user_details" element={<UserDetails />} />
           <Route path="/filtered_users" element={<FilteredUsers />} />
-
 
           <Route
             path="/view_metal_group"
@@ -525,6 +529,10 @@ const App = () => {
           <Route
             path="/transaction/products/ItemDetails"
             element={<ItemDetails />}
+          />
+          <Route
+            path="/transaction/products/ItemDetails/add"
+            element={<ItemDetailsForm />}
           />
           <Route
             path="/transaction/products/OfferDetails"

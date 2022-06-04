@@ -253,7 +253,7 @@ const Items = () => {
                             </td>
                             <td>
                               <a
-                                href="#"
+                                href="/view_item_details"
                                 class="text-dark fw-bolder text-hover-primary fs-6"
                               >
                                 {item.id}

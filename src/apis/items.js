@@ -37,5 +37,10 @@ export const updateItem = (item) =>{
 };
 
 //======================================================================
-export const getAllItems = () => Axios.get(`${BASE_URL}/api/item/`);
+export const getAllItems = () =>  {
+  return(
+    Axios.get(`${BASE_URL}/api/item/`)
+
+  )
+}
 //======================================================================
