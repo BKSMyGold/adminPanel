@@ -97,10 +97,12 @@ React.useEffect(()=>{
         
         
             <img
+             
               alt="Logo"
               src="assets/media/logos/logo-demo2-sticky.png"
               class = 'logo'
             />
+      
             {/* <img
               alt="Logo"
               src="assets/media/logos/logo-demo2-sticky.png"
@@ -117,7 +119,7 @@ React.useEffect(()=>{
               data-kt-drawer-name="header-menu"
               data-kt-drawer-activate="{default: true, lg: false}"
               data-kt-drawer-overlay="true"
-              data-kt-drawer-width="{default:'200px', '300px': '250px'}"
+              data-kt-drawer-width="{default:'200px', '300px': '250px'}"          
               data-kt-drawer-direction="start"
               data-kt-drawer-toggle="#kt_header_menu_mobile_toggle"
               data-kt-swapper="true"
@@ -125,7 +127,7 @@ React.useEffect(()=>{
               data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header_nav'}"
             >
               <div
-                className="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch"
+                className="menu menu-lg-rounded menu-column menu-lg-row menu- -bg menu-title-gray-700 menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch"
                 id="#kt_header_menu"
                 data-kt-menu="true"
               >
@@ -547,6 +549,17 @@ React.useEffect(()=>{
                         <span className="menu-arrow"></span>
                       </span>
                       <div className="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg py-lg-4 w-lg-225px">
+                      <div className="menu-item">
+                          <a
+                            className="menu-link py-3"
+                            href="/master/plans/plan-bonus"
+                          >
+                            <span className="menu-bullet">
+                              <span className="bullet bullet-dot"></span>
+                            </span>
+                            <span className="menu-title">Plan Bonus</span>
+                          </a>
+                        </div>
                         <div className="menu-item">
                           <a
                             className="menu-link py-3"

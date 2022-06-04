@@ -162,6 +162,8 @@ import RegisteredUser from "./screens/registeredUsers";
 import NoAccessComponent from "./screens/NoAccessComponent";
 import UserDetails from "./components/UserDetails";
 import FilteredUsers from './components/FilteredUsers';
+import PlanBonus from './screens/PlanBonus';
+import PlanBonusForm from './components/PlanBonusForm'
 
 //====================================================================
 const App = () => {
@@ -209,6 +211,13 @@ const App = () => {
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/register" element={<UserSignUp />} exact />
           <Route path="/registered_User" element={<RegisteredUser />} />
+
+
+
+          <Route path="/master/plans/plan-bonus" element={<PlanBonus />} />
+          <Route path="/master/plans/plan-bonus/edit" element={<PlanBonusForm />} />
+          <Route path="/master/plans/plan-bonus/add" element={<PlanBonusForm />} />
+
 
           {/* <Route
             path='/master/product-data/metal-groups'

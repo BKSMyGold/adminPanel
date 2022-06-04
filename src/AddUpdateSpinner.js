@@ -27,7 +27,7 @@ export default function AddUpdateSpinner({url,adding, updating, collection,updat
     updating({ ...collection }).then(() => {
       navigate(url);
     });
-    console.log("====> updating");
+    console.log("====> updating", collection.id);
   };
   //===============================================
   //===============================================
