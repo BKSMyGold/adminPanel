@@ -160,11 +160,13 @@ import AddMasterDetails from "./components/AddMasterDetails";
 import UserSignUp from "./components/UserSignUp";
 import RegisteredUser from "./screens/registeredUsers";
 import NoAccessComponent from "./screens/NoAccessComponent";
-import UserDetails from "./components/UserDetails";
+// import UserDetails from "./components/UserDetails";
 import FilteredUsers from "./components/FilteredUsers";
 import PlanBonus from "./screens/PlanBonus";
 import PlanBonusForm from "./components/PlanBonusForm";
 import ItemDetailsForm from './components/ItemDetailsForm'
+import UserTransaction from "./screens/UserTransaction"
+import UserDetails from './screens/UserDetails'
 
 //====================================================================
 const App = () => {
@@ -209,7 +211,11 @@ const App = () => {
               )
             }
           />
-          <Route path="/login" element={<LoginScreen />} />
+          <Route path="/login" element={
+          permissions.has("view_login") ?<LoginScreen /> :
+          <NoAccessComponent user={loggedInUser} />
+
+          } />
           <Route path="/register" element={<UserSignUp />} exact />
           <Route path="/registered_User" element={<RegisteredUser />} />
 
@@ -234,6 +240,11 @@ const App = () => {
           <Route path="/user_details" element={<UserDetails />} />
           <Route path="/filtered_users" element={<FilteredUsers />} />
 
+          <Route path="/user_transaction" element={<UserTransaction />} />
+          {/* <Route path="/user_order" element={<UserOrder />} /> */}
+
+
+
           <Route
             path="/view_metal_group"
             element={
@@ -247,7 +258,7 @@ const App = () => {
           <Route
             path="/master/product-data/metal-groups/add"
             element={
-              permissions.has("add_metal_group") ? (
+              permissions.has("add_metal_groups") ? (
                 <MetalGroupForm />
               ) : (
                 <NoAccessComponent user={loggedInUser} />
