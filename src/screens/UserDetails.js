@@ -10,6 +10,11 @@ export default function UserDetails() {
   const user = location.state;
   // console.log("aaya user ===>", user);
   //===============================================================================================================================
+let myPlanSno= 1
+let mySubSno= 1
+let myCycleSno= 1
+let myInstallSno= 1
+  //===============================================================================================================================
   const [userSubscription, setUserSubscription] = React.useState([]);
   const [appointment, setAppointment] = React.useState([]);
   const [userAddress, setUserAddress] = React.useState({});
@@ -609,7 +614,7 @@ export default function UserDetails() {
                       {userPlan.map((plan) => {
                         return (
                           <tr>
-                            <td>1</td>
+                            <td>{myPlanSno++}</td>
                             <td>{plan.name}</td>
                             <td>
                               {plan.createdAt
@@ -691,7 +696,7 @@ export default function UserDetails() {
                       {userSubscription.map((sub) => {
                         return (
                           <tr>
-                            <td>1</td>
+                            <td>{mySubSno++}</td>
                             <td>{sub.savedAmount} ₹</td>
                             <td>
                               {sub.maturityDate
@@ -731,7 +736,7 @@ export default function UserDetails() {
                       {userInstallments.map((installments) =>
                         installments.map((installment) => (
                           <tr>
-                            <td>1</td>
+                            <td>{myInstallSno++}</td>
                             <td>
                               {installment.collector
                                 ? installment.collector
@@ -780,7 +785,7 @@ export default function UserDetails() {
                       {userCyclePeriod.map((cycle) => {
                         return (
                           <tr>
-                            <td>1</td>
+                            <td>{myCycleSno++}</td>
                             <td>{cycle.cycle} cycle</td>
                             <td>{cycle.graceperiod} Hrs</td>
                             <td>{cycle.minValue} ₹</td>
