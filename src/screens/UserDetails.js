@@ -662,7 +662,11 @@ export default function UserDetails () {
                             <td>{installment.collector ? installment.collector : "None" }</td>
                             <td>{installment.gold} gm</td>
                             <td>{installment.mode} </td>
-                            <td>{installment.status} </td> 
+                            {installment.status === 'Saved' ? (
+                              <td className ='badge badge-success'>{installment.status}</td>
+                            ): 
+                            <td className ='badge badge-warning'>{installment.status}</td>
+                            }
                           </tr>
                       ))
                       )}

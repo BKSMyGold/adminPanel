@@ -27,6 +27,9 @@ React.useEffect(()=>{
 
 },[]) 
 
+let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
+console.log('logged user ==>', localStorageUser)
+
 
 
  
@@ -3277,7 +3280,7 @@ React.useEffect(()=>{
                   {/*begin::Menu item*/}
                   <div className="menu-item px-5">
                     <a
-                      href="../../demo2/dist/account/overview.html"
+                      href="/system_user_detail"
                       className="menu-link px-5"
                     >
                       My Profile
@@ -3285,7 +3288,7 @@ React.useEffect(()=>{
                   </div>
                   {/*end::Menu item*/}
                   {/*begin::Menu item*/}
-                  <div className="menu-item px-5">
+                  {/* <div className="menu-item px-5">
                     <a
                       href="../../demo2/dist/pages/projects/list.html"
                       className="menu-link px-5"
@@ -3297,21 +3300,19 @@ React.useEffect(()=>{
                         </span>
                       </span>
                     </a>
-                  </div>
+                  </div> */}
                   {/*end::Menu item*/}
                   {/*begin::Menu item*/}
-                  <div
+                  {/* <div
                     className="menu-item px-5"
                     data-kt-menu-trigger="hover"
-                    data-kt-menu-placement="left-start"
-                  >
+                    data-kt-menu-placement="left-start">
                     <a href="#" className="menu-link px-5">
                       <span className="menu-title">My Subscription</span>
                       <span className="menu-arrow"></span>
                     </a>
-                    {/*begin::Menu sub*/}
+                    
                     <div className="menu-sub menu-sub-dropdown w-175px py-4">
-                      {/*begin::Menu item*/}
                       <div className="menu-item px-3">
                         <a
                           href="../../demo2/dist/account/referrals.html"
@@ -3320,8 +3321,6 @@ React.useEffect(()=>{
                           Referrals
                         </a>
                       </div>
-                      {/*end::Menu item*/}
-                      {/*begin::Menu item*/}
                       <div className="menu-item px-3">
                         <a
                           href="../../demo2/dist/account/billing.html"
@@ -3330,8 +3329,6 @@ React.useEffect(()=>{
                           Billing
                         </a>
                       </div>
-                      {/*end::Menu item*/}
-                      {/*begin::Menu item*/}
                       <div className="menu-item px-3">
                         <a
                           href="../../demo2/dist/account/statements.html"
@@ -3340,8 +3337,6 @@ React.useEffect(()=>{
                           Payments
                         </a>
                       </div>
-                      {/*end::Menu item*/}
-                      {/*begin::Menu item*/}
                       <div className="menu-item px-3">
                         <a
                           href="../../demo2/dist/account/statements.html"
@@ -3355,11 +3350,7 @@ React.useEffect(()=>{
                           ></i>
                         </a>
                       </div>
-                      {/*end::Menu item*/}
-                      {/*begin::Menu separator*/}
                       <div className="separator my-2"></div>
-                      {/*end::Menu separator*/}
-                      {/*begin::Menu item*/}
                       <div className="menu-item px-3">
                         <div className="menu-content px-3">
                           <label className="form-check form-switch form-check-custom form-check-solid">
@@ -3376,30 +3367,25 @@ React.useEffect(()=>{
                           </label>
                         </div>
                       </div>
-                      {/*end::Menu item*/}
                     </div>
-                    {/*end::Menu sub*/}
-                  </div>
-                  {/*end::Menu item*/}
-                  {/*begin::Menu item*/}
-                  <div className="menu-item px-5">
+                  </div> */}
+                  {/* <div className="menu-item px-5">
                     <a
                       href="../../demo2/dist/account/statements.html"
                       className="menu-link px-5"
                     >
                       My Statements
                     </a>
-                  </div>
+                  </div> */}
                   {/*end::Menu item*/}
                   {/*begin::Menu separator*/}
                   <div className="separator my-2"></div>
                   {/*end::Menu separator*/}
                   {/*begin::Menu item*/}
-                  <div
+                  {/* <div
                     className="menu-item px-5"
                     data-kt-menu-trigger="hover"
-                    data-kt-menu-placement="left-start"
-                  >
+                    data-kt-menu-placement="left-start">
                     <a href="#" className="menu-link px-5">
                       <span className="menu-title position-relative">
                         Language
@@ -3413,9 +3399,7 @@ React.useEffect(()=>{
                         </span>
                       </span>
                     </a>
-                    {/*begin::Menu sub*/}
                     <div className="menu-sub menu-sub-dropdown w-175px py-4">
-                      {/*begin::Menu item*/}
                       <div className="menu-item px-3">
                         <a href="/" className="menu-link d-flex px-5 active">
                           <span className="symbol symbol-20px me-4">
@@ -3428,8 +3412,7 @@ React.useEffect(()=>{
                           English
                         </a>
                       </div>
-                      {/*end::Menu item*/}
-                      {/*begin::Menu item*/}
+                    
                       <div className="menu-item px-3">
                         <a href="/" className="menu-link d-flex px-5">
                           <span className="symbol symbol-20px me-4">
@@ -3442,8 +3425,7 @@ React.useEffect(()=>{
                           Spanish
                         </a>
                       </div>
-                      {/*end::Menu item*/}
-                      {/*begin::Menu item*/}
+                   
                       <div className="menu-item px-3">
                         <a href="/" className="menu-link d-flex px-5">
                           <span className="symbol symbol-20px me-4">
@@ -3456,8 +3438,7 @@ React.useEffect(()=>{
                           German
                         </a>
                       </div>
-                      {/*end::Menu item*/}
-                      {/*begin::Menu item*/}
+                     
                       <div className="menu-item px-3">
                         <a href="/" className="menu-link d-flex px-5">
                           <span className="symbol symbol-20px me-4">
@@ -3470,8 +3451,7 @@ React.useEffect(()=>{
                           Japanese
                         </a>
                       </div>
-                      {/*end::Menu item*/}
-                      {/*begin::Menu item*/}
+              
                       <div className="menu-item px-3">
                         <a href="/" className="menu-link d-flex px-5">
                           <span className="symbol symbol-20px me-4">
@@ -3484,17 +3464,17 @@ React.useEffect(()=>{
                           French
                         </a>
                       </div>
-                      {/*end::Menu item*/}
+                     
                     </div>
-                    {/*end::Menu sub*/}
-                  </div>
+                   
+                  </div> */}
                   {/*end::Menu item*/}
                   {/*begin::Menu item*/}
-                  <div className="menu-item px-5 my-1">
+                  {/* <div className="menu-item px-5 my-1">
                     <a href="/" className="menu-link px-5">
                       Account Settings
                     </a>
-                  </div>
+                  </div> */}
                   {/*end::Menu item*/}
                   {/*begin::Menu item*/}
                   <div className="menu-item px-5">
@@ -3509,9 +3489,8 @@ React.useEffect(()=>{
                   {/*end::Menu item*/}
                   {/*begin::Menu separator*/}
                   <div className="separator my-2"></div>
-                  {/*end::Menu separator*/}
-                  {/*begin::Menu item*/}
-                  <div className="menu-item px-5">
+               
+                  {/* <div className="menu-item px-5">
                     <div className="menu-content px-5">
                       <label
                         className="form-check form-switch form-check-custom form-check-solid pulse pulse-success"
@@ -3531,8 +3510,8 @@ React.useEffect(()=>{
                         </span>
                       </label>
                     </div>
-                  </div>
-                  {/*end::Menu item*/}
+                  </div> */}
+                
                 </div>
                 {/*end::Menu*/}
                 {/*end::Menu wrapper*/}

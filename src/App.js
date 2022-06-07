@@ -164,9 +164,10 @@ import NoAccessComponent from "./screens/NoAccessComponent";
 import FilteredUsers from "./components/FilteredUsers";
 import PlanBonus from "./screens/PlanBonus";
 import PlanBonusForm from "./components/PlanBonusForm";
-import ItemDetailsForm from './components/ItemDetailsForm'
-import UserTransaction from "./screens/UserTransaction"
-import UserDetails from './screens/UserDetails'
+import ItemDetailsForm from "./components/ItemDetailsForm";
+// import UserTransaction from "./screens/UserTransaction"
+import UserDetails from "./screens/UserDetails";
+import SystemUserDetail from './screens/SystemUserDetail'
 
 //====================================================================
 const App = () => {
@@ -176,7 +177,8 @@ const App = () => {
   let navigate = useNavigate();
   //====================================================================
   useEffect(() => {
-    if (localStorage.getItem("loggedInUser")) {
+    if (localStorage.getItem("loggedInUser") &&
+    Object.keys(loggedInUser).length === 0) {
       let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
       let permissionSet = new Set();
       for (let permissions of localStorageUser.role.permissions) {
@@ -211,11 +213,7 @@ const App = () => {
               )
             }
           />
-          <Route path="/login" element={
-          permissions.has("view_login") ?<LoginScreen /> :
-          <NoAccessComponent user={loggedInUser} />
-
-          } />
+          <Route path="/login" element={<LoginScreen />} />
           <Route path="/register" element={<UserSignUp />} exact />
           <Route path="/registered_User" element={<RegisteredUser />} />
 
@@ -228,7 +226,7 @@ const App = () => {
             path="/master/plans/plan-bonus/add"
             element={<PlanBonusForm />}
           />
-
+   <Route path="/system_user_detail" element={<SystemUserDetail />} />
           {/* <Route path="/view_item_details" element={<ItemsDetails/>} /> */}
           {/* <Route
             path='/master/product-data/metal-groups'
@@ -240,10 +238,8 @@ const App = () => {
           <Route path="/user_details" element={<UserDetails />} />
           <Route path="/filtered_users" element={<FilteredUsers />} />
 
-          <Route path="/user_transaction" element={<UserTransaction />} />
+          {/* <Route path="/user_transaction" element={<UserTransaction />} /> */}
           {/* <Route path="/user_order" element={<UserOrder />} /> */}
-
-
 
           <Route
             path="/view_metal_group"
