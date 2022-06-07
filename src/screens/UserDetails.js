@@ -4,40 +4,74 @@ import axios from "axios";
 import { BASE_URL } from "../Constants";
 import Header from "../layouts/Header";
 import Dashboard from "./dashboard";
-
+//===============================================================================================================================
 export default function UserDetails () {
+
   const location = useLocation();
   const user = location.state;
   console.log("aaya user ===>", user);
-
+//===============================================================================================================================
   const [userSubscription, setUserSubscription] = React.useState([]);
-  const [planBonus, setPlanBonus] = React.useState([]);
-
+  const [appointment, setAppointment] = React.useState([]);
+//===============================================================================================================================
   React.useEffect(() => {
-    const fetchSubscription = async () => {
+    const fetchAppointment = async () => {
       const { data } = await axios.get(
-        `${BASE_URL}/api/subscription/user/${user.id}`
+        `${BASE_URL}/api/appointment/user/${user.id}`
       );
-      setUserSubscription(data.data);
+      setAppointment(data.data);
     };
-    fetchSubscription();
+    fetchAppointment();
   }, []);
-  console.log("Users subscription ==>", userSubscription);
-
+  console.log("Users appointment ==>", appointment);
+//===============================================================================================================================
+React.useEffect(() => {
+  const fetchSubscription = async () => {
+    const { data } = await axios.get(
+      `${BASE_URL}/api/subscription/user/${user.id}`
+    );
+    setUserSubscription(data.data);
+  };
+  fetchSubscription();
+}, []);
+console.log("Users subscription ==>", userSubscription);
+//===============================================================================================================================
   let userPlan = {};
-  userPlan = userSubscription.map((c) => c.plan);
+  userPlan = userSubscription?.map((c) => c.plan ?c.plan : 0 );
   console.log("Users plan =====>", userPlan);
 
   let totalBonus = [];
-  totalBonus = userPlan.map((plan) => plan.bonus);
+  totalBonus = userPlan?.map((plan) =>  plan.bonus ? plan.bonus : 0 );
   let bonusSum = 0;
   for (let i = 0; i < totalBonus.length; i++) {
     bonusSum += totalBonus[i];
     console.log("planBonus", bonusSum);
   }
 
+
+  let totalAmount = [];
+  totalAmount = userSubscription?.map((plan) => plan.savedAmount && plan.savedAmount );
+  let amountSum = 0;
+  for (let i = 0; i < totalBonus.length; i++) {
+    amountSum += totalAmount[i];
+    console.log("amountSum------------------>", amountSum);
+  }
+
+  let totalPlanBonus = [];
+  totalPlanBonus = userSubscription.map((plan) => plan.planBonus);
+  console.log("=============================>", totalPlanBonus);
+
+  let planBonusSum = 0.00;
+  for (let i = 0; i < totalBonus.length; i++) {
+    planBonusSum += totalPlanBonus[i];
+  }
+  console.log("==========> totalPlanBonus", planBonusSum);
+
+
+
+
   let userCyclePeriod = {};
-  userCyclePeriod = userSubscription.map((c) => c.plan.cyclePeriod);
+  userCyclePeriod = userSubscription.map((c) => c.plan ? c.plan.cyclePeriod : 0);
   console.log("Users CyclePeriod =====>", userCyclePeriod);
 
   let userInstallments = {};
@@ -126,7 +160,7 @@ export default function UserDetails () {
                     </p>
                     <p class="text-muted font-13">
                       <strong>Location :</strong>{" "}
-                      <span class="m-l-15">USA</span>
+                      <span class="m-l-15">{user.address}</span>
                     </p>
                     <p class="text-muted font-13">
                       <strong>Languages :</strong>{" "}
@@ -198,47 +232,36 @@ export default function UserDetails () {
                     for filling space. Fill as many you want.
                   </p>
                   <hr /> */}
+                  {appointment?.map(appointment =>{
+                    return(
                   <div class="text-left">
                     <p class="text-muted font-13">
-                      <strong>Full Name :</strong>{" "}
+                      <strong>Appointment Date :</strong>{" "}
                       <span class="m-l-15 text-dark fw-bolder">
-                        {user.fname}
+                        {appointment.appointmentDate ? appointment.appointmentDate : "none"}
                       </span>
                     </p>
                     <p class="text-muted font-13">
-                      <strong>Mobile :</strong>
+                      <strong>Appointment Time :</strong>
                       <span class="m-l-15 text-dark fw-bolder">
-                        (+91) {user.mobile}{" "}
+                        {appointment.appointmentTime ? appointment.appointmentTime : "none"}
                       </span>
                     </p>
                     <p class="text-muted font-13">
-                      <strong>Email :</strong>{" "}
+                      <strong>Status :</strong>{" "}
                       <span class="m-l-15 text-dark fw-bolder">
-                        {user.email}
+                        {appointment.status}
                       </span>
                     </p>
                     <p class="text-muted font-13">
                       <strong>Location :</strong>{" "}
-                      <span class="m-l-15">USA</span>
+                      <span class="m-l-15"><a href= {appointment.storeLocation} target ="_blank">{appointment.storeLocation}</a></span>
                     </p>
-                    <p class="text-muted font-13">
-                      <strong>Languages :</strong>{" "}
-                      <span class="m-l-5">
-                        <span
-                          class="flag-icon flag-icon-us m-r-5 m-t-0"
-                          title="us"
-                        ></span>{" "}
-                        <span class="text-dark fw-bolder">English</span>{" "}
-                      </span>
-                      <span class="m-l-5">
-                        <span
-                          class="flag-icon flag-icon-de m-r-5"
-                          title="de"
-                        ></span>{" "}
-                        <span class="text-dark fw-bolder">Hindi</span>{" "}
-                      </span>
-                    </p>
+                
                   </div>
+
+                    )
+                  })}
                   <ul class="social-links list-inline mt-4 mb-0">
                     <li class="list-inline-item">
                       <a
@@ -463,32 +486,32 @@ export default function UserDetails () {
 
                       <span>{bonusSum} gm</span>
                     </h2>
-                    <span class="badge badge-custom">+11% </span>
-                    <span class="text-muted"> From previous period</span>
+                    {/* <span class="badge badge-custom">+11% </span>
+                    <span class="text-muted"> From previous period</span> */}
                   </div>
                 </div>
 
                 <div class="col-sm-4">
                   <div class="card-box tilebox-one shadow-sm">
                     <i class="icon-paypal float-right text-muted"></i>
-                    <h6 class="text-muted text-uppercase mt-0">Revenue</h6>
+                    <h6 class="text-muted text-uppercase mt-0">Total Plan Bonus</h6>
                     <h2 class="">
-                      $<span data-plugin="counterup">46,782</span>
+                      <span data-plugin="counterup">{planBonusSum} gm</span>
                     </h2>
-                    <span class="badge badge-danger">-29% </span>
-                    <span class="text-muted">From previous period</span>
+                    {/* <span class="badge badge-danger">-29% </span>
+                    <span class="text-muted">From previous period</span> */}
                   </div>
                 </div>
 
                 <div class="col-sm-4">
                   <div class="card-box tilebox-one shadow-sm">
                     <i class="icon-rocket float-right text-muted"></i>
-                    <h6 class="text-muted text-uppercase mt-0">Product Sold</h6>
+                    <h6 class="text-muted text-uppercase mt-0">Total Money Invested</h6>
                     <h2 class="" data-plugin="counterup">
-                      1,890
+                    {amountSum} ₹
                     </h2>
-                    <span class="badge badge-custom">+89% </span>
-                    <span class="text-muted">Last year</span>
+                    {/* <span class="badge badge-custom">+89% </span>
+                    <span class="text-muted">Last year</span> */}
                   </div>
                 </div>
               </div>
@@ -548,7 +571,7 @@ export default function UserDetails () {
                           <tr>
                             <td>1</td>
                             <td>{plan.name}</td>
-                            <td>{plan.createdAt.substring(0, 10)}</td>
+                            <td>{plan.createdAt ? plan.createdAt.substring(0, 10): 0}</td>
                             <td>{plan.planType}</td>
                             <td>{plan.bonus} gm</td>
                             <td>{plan.duration} months</td>
@@ -562,7 +585,7 @@ export default function UserDetails () {
               </div>
 
 
-              <div class="card-box shadow">
+              {/* <div class="card-box shadow">
                 <h4 class="header-title mb-3 badge badge-info fs-3">My Subscriptions</h4>
                 <div class="table-responsive">
                   <table class="table">
@@ -599,7 +622,7 @@ export default function UserDetails () {
                     </tbody>
                   </table>
                 </div>
-              </div>
+              </div> */}
 
               <div class="card-box shadow">
                 <h4 class="header-title mb-3 badge badge-info fs-3">My Subscriptions</h4>
@@ -625,7 +648,7 @@ export default function UserDetails () {
                           <tr>
                             <td>1</td>
                             <td>{sub.savedAmount} ₹</td>
-                            <td>{sub.maturityDate.substring(0, 10)}</td>
+                            <td>{sub.maturityDate ? sub.maturityDate.substring(0, 10) :0}</td>
                             <td>{sub.planBonus} gm</td>
                             <td>{sub.savedWeight} gm</td>
                             <td>{sub.skipCount} </td>
