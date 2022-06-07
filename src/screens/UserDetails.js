@@ -5,15 +5,16 @@ import { BASE_URL } from "../Constants";
 import Header from "../layouts/Header";
 import Dashboard from "./dashboard";
 //===============================================================================================================================
-export default function UserDetails () {
-
+export default function UserDetails() {
   const location = useLocation();
   const user = location.state;
-  console.log("aaya user ===>", user);
-//===============================================================================================================================
+  // console.log("aaya user ===>", user);
+  //===============================================================================================================================
   const [userSubscription, setUserSubscription] = React.useState([]);
   const [appointment, setAppointment] = React.useState([]);
-//===============================================================================================================================
+  const [userAddress, setUserAddress] = React.useState({});
+
+  //===============================================================================================================================
   React.useEffect(() => {
     const fetchAppointment = async () => {
       const { data } = await axios.get(
@@ -23,60 +24,76 @@ export default function UserDetails () {
     };
     fetchAppointment();
   }, []);
-  console.log("Users appointment ==>", appointment);
-//===============================================================================================================================
-React.useEffect(() => {
-  const fetchSubscription = async () => {
-    const { data } = await axios.get(
-      `${BASE_URL}/api/subscription/user/${user.id}`
-    );
-    setUserSubscription(data.data);
-  };
-  fetchSubscription();
-}, []);
-console.log("Users subscription ==>", userSubscription);
-//===============================================================================================================================
+  // console.log("Users appointment ==>", appointment);
+  //===============================================================================================================================
+  React.useEffect(() => {
+    const fetchSubscription = async () => {
+      const { data } = await axios.get(
+        `${BASE_URL}/api/subscription/user/${user.id}`
+      );
+      setUserSubscription(data.data);
+    };
+    fetchSubscription();
+  }, []);
+  // console.log("Users subscription ==>", userSubscription);
+  //===============================================================================================================================
+  React.useEffect(() => {
+    const fetchAddress = async () => {
+      const { data } = await axios.get(
+        `${BASE_URL}/api/address/user/${user.id}`
+      );
+      setUserAddress(data.data);
+    };
+    fetchAddress();
+  }, []);
+  console.log(" =============================>", userAddress.docType);
+  console.log(" =============================>", userAddress.pin);
+  console.log(" =============================>", userAddress.landMark);
+  console.log(" =============================>", userAddress.user);
+
+
+  //===============================================================================================================================
   let userPlan = {};
-  userPlan = userSubscription?.map((c) => c.plan ?c.plan : 0 );
-  console.log("Users plan =====>", userPlan);
+  userPlan = userSubscription?.map((c) => (c.plan ? c.plan : 0));
+  // console.log("Users plan =====>", userPlan);
 
   let totalBonus = [];
-  totalBonus = userPlan?.map((plan) =>  plan.bonus ? plan.bonus : 0 );
+  totalBonus = userPlan?.map((plan) => (plan.bonus ? plan.bonus : 0));
   let bonusSum = 0;
   for (let i = 0; i < totalBonus.length; i++) {
     bonusSum += totalBonus[i];
-    console.log("planBonus", bonusSum);
+    // console.log("planBonus", bonusSum);
   }
 
-
   let totalAmount = [];
-  totalAmount = userSubscription?.map((plan) => plan.savedAmount && plan.savedAmount );
+  totalAmount = userSubscription?.map(
+    (plan) => plan.savedAmount && plan.savedAmount
+  );
   let amountSum = 0;
   for (let i = 0; i < totalBonus.length; i++) {
     amountSum += totalAmount[i];
-    console.log("amountSum------------------>", amountSum);
+    // console.log("amountSum------------------>", amountSum);
   }
 
   let totalPlanBonus = [];
   totalPlanBonus = userSubscription.map((plan) => plan.planBonus);
-  console.log("=============================>", totalPlanBonus);
+  // console.log("=============================>", totalPlanBonus);
 
-  let planBonusSum = 0.00;
+  let planBonusSum = 0.0;
   for (let i = 0; i < totalBonus.length; i++) {
     planBonusSum += totalPlanBonus[i];
   }
-  console.log("==========> totalPlanBonus", planBonusSum);
-
-
-
+  // console.log("==========> totalPlanBonus", planBonusSum);
 
   let userCyclePeriod = {};
-  userCyclePeriod = userSubscription.map((c) => c.plan ? c.plan.cyclePeriod : 0);
-  console.log("Users CyclePeriod =====>", userCyclePeriod);
+  userCyclePeriod = userSubscription.map((c) =>
+    c.plan ? c.plan.cyclePeriod : 0
+  );
+  // console.log("Users CyclePeriod =====>", userCyclePeriod);
 
   let userInstallments = {};
   userInstallments = userSubscription.map((c) => c.installments);
-  console.log("Users Installments =====>", userInstallments);
+  // console.log("Users Installments =====>", userInstallments);
 
   //==================================================================================================================================
   return (
@@ -107,6 +124,7 @@ console.log("Users subscription ==>", userSubscription);
                     </span>
                     <div class="media-body text-white">
                       <h4 class="mt-1 mb-1 font-15 text-white">{user.fname}</h4>
+                      <p class="font-13 text-light">{user.dob}</p>
                       <p class="font-13 text-light">
                         BKS My Gold User
                         <br />
@@ -158,9 +176,27 @@ console.log("Users subscription ==>", userSubscription);
                         {user.email}
                       </span>
                     </p>
+
                     <p class="text-muted font-13">
-                      <strong>Location :</strong>{" "}
-                      <span class="m-l-15">{user.address}</span>
+                      <strong>Location/Landmark :</strong>{" "}
+                      <span class="m-l-15 text-dark fw-bolder">
+                      {userAddress.landMark ? userAddress.landMark : "Mahanagar, Lucknow"}
+                      </span>
+                    </p>
+
+                    <p class="text-muted font-13">
+                      <strong>Location Pin:</strong>{" "}
+                      <span class="m-l-15 text-dark fw-bolder">
+                      {userAddress.pin ? userAddress.pin : "226001"}
+                      </span>
+                    </p>
+
+
+                    <p class="text-muted font-13">
+                      <strong>PAN :</strong>{" "}
+                      <span class="m-l-15 text-dark fw-bolder">
+                        {user.pan ? user.pan : "CBCP68IJ"}
+                      </span>
                     </p>
                     <p class="text-muted font-13">
                       <strong>Languages :</strong>{" "}
@@ -232,35 +268,41 @@ console.log("Users subscription ==>", userSubscription);
                     for filling space. Fill as many you want.
                   </p>
                   <hr /> */}
-                  {appointment?.map(appointment =>{
-                    return(
-                  <div class="text-left">
-                    <p class="text-muted font-13">
-                      <strong>Appointment Date :</strong>{" "}
-                      <span class="m-l-15 text-dark fw-bolder">
-                        {appointment.appointmentDate ? appointment.appointmentDate : "none"}
-                      </span>
-                    </p>
-                    <p class="text-muted font-13">
-                      <strong>Appointment Time :</strong>
-                      <span class="m-l-15 text-dark fw-bolder">
-                        {appointment.appointmentTime ? appointment.appointmentTime : "none"}
-                      </span>
-                    </p>
-                    <p class="text-muted font-13">
-                      <strong>Status :</strong>{" "}
-                      <span class="m-l-15 text-dark fw-bolder">
-                        {appointment.status}
-                      </span>
-                    </p>
-                    <p class="text-muted font-13">
-                      <strong>Location :</strong>{" "}
-                      <span class="m-l-15"><a href= {appointment.storeLocation} target ="_blank">{appointment.storeLocation}</a></span>
-                    </p>
-                
-                  </div>
-
-                    )
+                  {appointment?.map((appointment) => {
+                    return (
+                      <div class="text-left">
+                        <p class="text-muted font-13">
+                          <strong>Appointment Date :</strong>{" "}
+                          <span class="m-l-15 text-dark fw-bolder">
+                            {appointment.appointmentDate
+                              ? appointment.appointmentDate
+                              : "none"}
+                          </span>
+                        </p>
+                        <p class="text-muted font-13">
+                          <strong>Appointment Time :</strong>
+                          <span class="m-l-15 text-dark fw-bolder">
+                            {appointment.appointmentTime
+                              ? appointment.appointmentTime
+                              : "none"}
+                          </span>
+                        </p>
+                        <p class="text-muted font-13">
+                          <strong>Status :</strong>{" "}
+                          <span class="m-l-15 text-dark fw-bolder">
+                            {appointment.status}
+                          </span>
+                        </p>
+                        <p class="text-muted font-13">
+                          <strong>Location :</strong>{" "}
+                          <span class="m-l-15">
+                            <a href={appointment.storeLocation} target="_blank">
+                              {appointment.storeLocation}
+                            </a>
+                          </span>
+                        </p>
+                      </div>
+                    );
                   })}
                   <ul class="social-links list-inline mt-4 mb-0">
                     <li class="list-inline-item">
@@ -302,7 +344,6 @@ console.log("Users subscription ==>", userSubscription);
                   </ul>
                 </div>
               </div>
-
 
               {/* <div class="card-box ribbon-box">
               <div class="ribbon ribbon-primary">Appointment</div>
@@ -463,13 +504,6 @@ console.log("Users subscription ==>", userSubscription);
             </div> */}
             </div>
 
-
-
-
-
-
-
-            
             <div class="col-xl-8">
               <div class="row">
                 <div class="col-sm-4">
@@ -494,7 +528,9 @@ console.log("Users subscription ==>", userSubscription);
                 <div class="col-sm-4">
                   <div class="card-box tilebox-one shadow-sm">
                     <i class="icon-paypal float-right text-muted"></i>
-                    <h6 class="text-muted text-uppercase mt-0">Total Plan Bonus</h6>
+                    <h6 class="text-muted text-uppercase mt-0">
+                      Total Plan Bonus
+                    </h6>
                     <h2 class="">
                       <span data-plugin="counterup">{planBonusSum} gm</span>
                     </h2>
@@ -506,9 +542,11 @@ console.log("Users subscription ==>", userSubscription);
                 <div class="col-sm-4">
                   <div class="card-box tilebox-one shadow-sm">
                     <i class="icon-rocket float-right text-muted"></i>
-                    <h6 class="text-muted text-uppercase mt-0">Total Money Invested</h6>
+                    <h6 class="text-muted text-uppercase mt-0">
+                      Total Money Invested
+                    </h6>
                     <h2 class="" data-plugin="counterup">
-                    {amountSum} ₹
+                      {amountSum} ₹
                     </h2>
                     {/* <span class="badge badge-custom">+89% </span>
                     <span class="text-muted">Last year</span> */}
@@ -550,7 +588,9 @@ console.log("Users subscription ==>", userSubscription);
               </div>
             </div> */}
               <div class="card-box shadow-sm">
-                <h4 class="header-title mb-3 badge badge-info fs-3">My Plans</h4>
+                <h4 class="header-title mb-3 badge badge-info fs-3">
+                  My Plans
+                </h4>
                 <div class="table-responsive">
                   <table class="table">
                     <thead>
@@ -558,7 +598,7 @@ console.log("Users subscription ==>", userSubscription);
                         <th>S No.</th>
                         <th>Plan Name</th>
                         <th>Start Date</th>
-                        
+
                         <th>Plan Type</th>
                         <th>Bonus</th>
                         <th>Duration</th>
@@ -571,7 +611,11 @@ console.log("Users subscription ==>", userSubscription);
                           <tr>
                             <td>1</td>
                             <td>{plan.name}</td>
-                            <td>{plan.createdAt ? plan.createdAt.substring(0, 10): 0}</td>
+                            <td>
+                              {plan.createdAt
+                                ? plan.createdAt.substring(0, 10)
+                                : 0}
+                            </td>
                             <td>{plan.planType}</td>
                             <td>{plan.bonus} gm</td>
                             <td>{plan.duration} months</td>
@@ -583,7 +627,6 @@ console.log("Users subscription ==>", userSubscription);
                   </table>
                 </div>
               </div>
-
 
               {/* <div class="card-box shadow">
                 <h4 class="header-title mb-3 badge badge-info fs-3">My Subscriptions</h4>
@@ -625,7 +668,9 @@ console.log("Users subscription ==>", userSubscription);
               </div> */}
 
               <div class="card-box shadow">
-                <h4 class="header-title mb-3 badge badge-info fs-3">My Subscriptions</h4>
+                <h4 class="header-title mb-3 badge badge-info fs-3">
+                  My Subscriptions
+                </h4>
                 <div class="table-responsive">
                   <table class="table">
                     <thead>
@@ -633,7 +678,7 @@ console.log("Users subscription ==>", userSubscription);
                         <th>S No.</th>
                         <th>Saving Amount</th>
                         <th>Plan Maturity</th>
-                        
+
                         <th>Plan Bonuses</th>
                         <th>Saving Weight</th>
                         <th>Skip Count</th>
@@ -648,13 +693,17 @@ console.log("Users subscription ==>", userSubscription);
                           <tr>
                             <td>1</td>
                             <td>{sub.savedAmount} ₹</td>
-                            <td>{sub.maturityDate ? sub.maturityDate.substring(0, 10) :0}</td>
+                            <td>
+                              {sub.maturityDate
+                                ? sub.maturityDate.substring(0, 10)
+                                : 0}
+                            </td>
                             <td>{sub.planBonus} gm</td>
                             <td>{sub.savedWeight} gm</td>
                             <td>{sub.skipCount} </td>
                             <td>{sub.status}</td>
-                             <td>{sub.unpaidInvestments} ₹</td>
-                             <td>{sub.unpaidSkips}</td>
+                            <td>{sub.unpaidInvestments} ₹</td>
+                            <td>{sub.unpaidSkips}</td>
                           </tr>
                         );
                       })}
@@ -664,7 +713,9 @@ console.log("Users subscription ==>", userSubscription);
               </div>
 
               <div class="card-box shadow">
-                <h4 class="header-title mb-3 badge badge-info fs-3">Installments</h4>
+                <h4 class="header-title mb-3 badge badge-info fs-3">
+                  Installments
+                </h4>
                 <div class="table-responsive">
                   <table class="table">
                     <thead>
@@ -677,21 +728,28 @@ console.log("Users subscription ==>", userSubscription);
                       </tr>
                     </thead>
                     <tbody>
-                      {userInstallments.map((installments) => 
-                      installments.map((installment) =>(
-
+                      {userInstallments.map((installments) =>
+                        installments.map((installment) => (
                           <tr>
                             <td>1</td>
-                            <td>{installment.collector ? installment.collector : "None" }</td>
+                            <td>
+                              {installment.collector
+                                ? installment.collector
+                                : "None"}
+                            </td>
                             <td>{installment.gold} gm</td>
                             <td>{installment.mode} </td>
-                            {installment.status === 'Saved' ? (
-                              <td className ='badge badge-success'>{installment.status}</td>
-                            ): 
-                            <td className ='badge badge-warning'>{installment.status}</td>
-                            }
+                            {installment.status === "Saved" ? (
+                              <td className="badge badge-success">
+                                {installment.status}
+                              </td>
+                            ) : (
+                              <td className="badge badge-warning">
+                                {installment.status}
+                              </td>
+                            )}
                           </tr>
-                      ))
+                        ))
                       )}
                     </tbody>
                   </table>
@@ -699,7 +757,9 @@ console.log("Users subscription ==>", userSubscription);
               </div>
 
               <div class="card-box shadow">
-                <h4 class="header-title mb-3 badge badge-info fs-3">Cycle Periods</h4>
+                <h4 class="header-title mb-3 badge badge-info fs-3">
+                  Cycle Periods
+                </h4>
                 <div class="table-responsive">
                   <table class="table">
                     <thead>
@@ -707,12 +767,12 @@ console.log("Users subscription ==>", userSubscription);
                         <th>S No.</th>
                         <th>Cycle</th>
                         <th>Grace Period</th>
-                        
+
                         <th>Minimum Value</th>
                         <th>Minimum Weight</th>
                         <th>Saving amount</th>
                         <th>Short Name</th>
-                        
+
                         <th>Stauts</th>
                       </tr>
                     </thead>

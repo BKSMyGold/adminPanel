@@ -28,7 +28,7 @@ React.useEffect(()=>{
 },[]) 
 
 let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
-console.log('logged user ==>', localStorageUser)
+// console.log('logged user ==>', localStorageUser)
 
 
 

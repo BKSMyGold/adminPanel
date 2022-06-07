@@ -167,7 +167,7 @@ import PlanBonusForm from "./components/PlanBonusForm";
 import ItemDetailsForm from "./components/ItemDetailsForm";
 // import UserTransaction from "./screens/UserTransaction"
 import UserDetails from "./screens/UserDetails";
-import SystemUserDetail from './screens/SystemUserDetail'
+import SystemUserDetail from "./screens/SystemUserDetail";
 
 //====================================================================
 const App = () => {
@@ -176,9 +176,11 @@ const App = () => {
   //====================================================================
   let navigate = useNavigate();
   //====================================================================
+
   useEffect(() => {
-    if (localStorage.getItem("loggedInUser") &&
-    Object.keys(loggedInUser).length === 0) {
+    if (
+      localStorage.getItem("loggedInUser")
+    ) {
       let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
       let permissionSet = new Set();
       for (let permissions of localStorageUser.role.permissions) {
@@ -226,7 +228,7 @@ const App = () => {
             path="/master/plans/plan-bonus/add"
             element={<PlanBonusForm />}
           />
-   <Route path="/system_user_detail" element={<SystemUserDetail />} />
+          <Route path="/system_user_detail" element={<SystemUserDetail />} />
           {/* <Route path="/view_item_details" element={<ItemsDetails/>} /> */}
           {/* <Route
             path='/master/product-data/metal-groups'
