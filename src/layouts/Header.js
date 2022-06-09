@@ -100,7 +100,7 @@ let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
         
         
             <img
-             
+
               alt="Logo"
               src="assets/media/logos/logo-demo2-sticky.png"
               class = 'logo'

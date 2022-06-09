@@ -10,10 +10,10 @@ export default function UserDetails() {
   const user = location.state;
   // console.log("aaya user ===>", user);
   //===============================================================================================================================
-let myPlanSno= 1
-let mySubSno= 1
-let myCycleSno= 1
-let myInstallSno= 1
+  let myPlanSno = 1;
+  let mySubSno = 1;
+  let myCycleSno = 1;
+  let myInstallSno = 1;
   //===============================================================================================================================
   const [userSubscription, setUserSubscription] = React.useState([]);
   const [appointment, setAppointment] = React.useState([]);
@@ -40,7 +40,7 @@ let myInstallSno= 1
     };
     fetchSubscription();
   }, []);
-  // console.log("Users subscription ==>", userSubscription);
+  console.log("Users subscription ==>", userSubscription);
   //===============================================================================================================================
   React.useEffect(() => {
     const fetchAddress = async () => {
@@ -56,11 +56,10 @@ let myInstallSno= 1
   console.log(" =============================>", userAddress.landMark);
   console.log(" =============================>", userAddress.user);
 
-
   //===============================================================================================================================
   let userPlan = {};
-  userPlan = userSubscription?.map((c) => (c.plan ? c.plan : 0));
-  // console.log("Users plan =====>", userPlan);
+  userPlan = userSubscription?.map((c) => (c.plan ? c.plan : c.customPlan));
+  console.log("Users plan =====>", userPlan);
 
   let totalBonus = [];
   totalBonus = userPlan?.map((plan) => (plan.bonus ? plan.bonus : 0));
@@ -84,6 +83,14 @@ let myInstallSno= 1
   totalPlanBonus = userSubscription.map((plan) => plan.planBonus);
   // console.log("=============================>", totalPlanBonus);
 
+  let totalGoldSaved = [];
+  totalGoldSaved = userSubscription.map((plan) => plan.savedWeight);
+  console.log("=============================>", totalGoldSaved);
+  let savedGold = 0.0;
+  for (let i = 0; i < totalGoldSaved.length; i++) {
+    savedGold += totalGoldSaved[i];
+  }
+
   let planBonusSum = 0.0;
   for (let i = 0; i < totalBonus.length; i++) {
     planBonusSum += totalPlanBonus[i];
@@ -92,7 +99,7 @@ let myInstallSno= 1
 
   let userCyclePeriod = {};
   userCyclePeriod = userSubscription.map((c) =>
-    c.plan ? c.plan.cyclePeriod : 0
+    c.plan ? c.plan.cyclePeriod : c.customPlan.cyclePeriod
   );
   // console.log("Users CyclePeriod =====>", userCyclePeriod);
 
@@ -117,13 +124,13 @@ let myInstallSno= 1
                         <img
                           src={user.image}
                           alt=""
-                          class="thumb-lg rounded-circle"
+                          class="thumb-lg h-180px w-180px rounded-circle"
                         />
                       ) : (
                         <img
                           src="assets/media/avatars/150-2.jpg"
                           alt=""
-                          class="thumb-lg rounded-circle"
+                          class="thumb-lg h-180px w-180px rounded-circle"
                         />
                       )}
                     </span>
@@ -133,7 +140,7 @@ let myInstallSno= 1
                       <p class="font-13 text-light">
                         BKS My Gold User
                         <br />
-                        Lucknow, India
+                     
                       </p>
                     </div>
                   </div>
@@ -185,24 +192,31 @@ let myInstallSno= 1
                     <p class="text-muted font-13">
                       <strong>Location/Landmark :</strong>{" "}
                       <span class="m-l-15 text-dark fw-bolder">
-                      {userAddress.landMark ? userAddress.landMark : "Mahanagar, Lucknow"}
+                        {userAddress.landMark
+                          ? userAddress.landMark
+                          : "Mahanagar, Lucknow"}
                       </span>
                     </p>
 
                     <p class="text-muted font-13">
                       <strong>Location Pin:</strong>{" "}
                       <span class="m-l-15 text-dark fw-bolder">
-                      {userAddress.pin ? userAddress.pin : "226001"}
+                        {userAddress.pin ? userAddress.pin : "226001"}
                       </span>
                     </p>
-
 
                     <p class="text-muted font-13">
                       <strong>PAN :</strong>{" "}
                       <span class="m-l-15 text-dark fw-bolder">
                         {user.pan ? user.pan : "CBCP68IJ"}
                       </span>
-                    </p>
+                    </p>  
+                    <p class="text-muted font-13">
+                      <strong>Referral Code :</strong>{" "}
+                      <span class="m-l-15 text-dark fw-bolder">
+                        {user.refCode ? user.refCode : "CBCP68IJ"}
+                      </span>
+                      </p>
                     <p class="text-muted font-13">
                       <strong>Languages :</strong>{" "}
                       <span class="m-l-5">
@@ -210,7 +224,7 @@ let myInstallSno= 1
                           class="flag-icon flag-icon-us m-r-5 m-t-0"
                           title="us"
                         ></span>{" "}
-                        <span class="text-dark fw-bolder">English</span>{" "}
+                        <span class="text-dark fw-bolder">English,</span>{" "}
                       </span>
                       <span class="m-l-5">
                         <span
@@ -515,7 +529,7 @@ let myInstallSno= 1
                   <div class="card-box tilebox-one shadow-sm">
                     <i class="icon-layers float-right text-muted"></i>
                     <h6 class="text-muted text-uppercase mt-0">
-                      Total Gold Bonus
+                      Total Gold Saved
                     </h6>
                     <h2 class="" data-plugin="counterup">
                       {/* {userPlan.map(plan =>plan.bonus ).reduce((a,b)=>
@@ -523,7 +537,7 @@ let myInstallSno= 1
                     
                     )} */}
 
-                      <span>{bonusSum} gm</span>
+                      <span>{Math.round(savedGold * 100) /100 } gm</span>
                     </h2>
                     {/* <span class="badge badge-custom">+11% </span>
                     <span class="text-muted"> From previous period</span> */}
@@ -537,7 +551,7 @@ let myInstallSno= 1
                       Total Plan Bonus
                     </h6>
                     <h2 class="">
-                      <span data-plugin="counterup">{planBonusSum} gm</span>
+                      <span data-plugin="counterup">{Math.round(planBonusSum * 100) / 100} gm</span>
                     </h2>
                     {/* <span class="badge badge-danger">-29% </span>
                     <span class="text-muted">From previous period</span> */}
@@ -551,7 +565,7 @@ let myInstallSno= 1
                       Total Money Invested
                     </h6>
                     <h2 class="" data-plugin="counterup">
-                      {amountSum} ₹
+                    ₹ {(Math.round(amountSum * 100) / 100).toLocaleString('en-IN')} 
                     </h2>
                     {/* <span class="badge badge-custom">+89% </span>
                     <span class="text-muted">Last year</span> */}
@@ -602,7 +616,7 @@ let myInstallSno= 1
                       <tr>
                         <th>S No.</th>
                         <th>Plan Name</th>
-                        <th>Start Date</th>
+                        {/* <th>Start Date</th> */}
 
                         <th>Plan Type</th>
                         <th>Bonus</th>
@@ -616,13 +630,18 @@ let myInstallSno= 1
                           <tr>
                             <td>{myPlanSno++}</td>
                             <td>{plan.name}</td>
-                            <td>
+                            {/* <td>
                               {plan.createdAt
                                 ? plan.createdAt.substring(0, 10)
                                 : 0}
-                            </td>
+                            </td> */}
                             <td>{plan.planType}</td>
-                            <td>{plan.bonus} gm</td>
+                            {plan.bonus ? (
+                              <td>{plan.bonus} gm</td>
+                            ) : (
+                              <td>0 gm</td>
+                            )}
+
                             <td>{plan.duration} months</td>
                             <td>{plan.mode}</td>
                           </tr>
@@ -697,7 +716,7 @@ let myInstallSno= 1
                         return (
                           <tr>
                             <td>{mySubSno++}</td>
-                            <td>{sub.savedAmount} ₹</td>
+                            <td>₹ {(sub.savedAmount).toLocaleString('en-IN')} </td>
                             <td>
                               {sub.maturityDate
                                 ? sub.maturityDate.substring(0, 10)
@@ -707,7 +726,7 @@ let myInstallSno= 1
                             <td>{sub.savedWeight} gm</td>
                             <td>{sub.skipCount} </td>
                             <td>{sub.status}</td>
-                            <td>{sub.unpaidInvestments} ₹</td>
+                            <td>₹ {(sub.unpaidInvestments).toLocaleString('en-IN')} </td>
                             <td>{sub.unpaidSkips}</td>
                           </tr>
                         );
@@ -788,7 +807,7 @@ let myInstallSno= 1
                             <td>{myCycleSno++}</td>
                             <td>{cycle.cycle} cycle</td>
                             <td>{cycle.graceperiod} Hrs</td>
-                            <td>{cycle.minValue} ₹</td>
+                            <td>₹ {(cycle.minValue).toLocaleString('en-IN')} </td>
                             <td>{cycle.minWeight} gm</td>
                             <td>{cycle.name} </td>
                             <td>{cycle.shortName}</td>

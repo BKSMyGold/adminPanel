@@ -10,22 +10,30 @@ import { getAllItems } from "../apis/items";
 import { getAllDiamonds } from "../apis/Diamonds";
 import axios from "axios";
 import { BASE_URL } from "../Constants";
+import { additemdetails } from "../apis/itemdetails";
+// import Select from "react-select";
+import TextField from "@material-ui/core/TextField";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 //================================================================================================================================
-const CyclePeriodsForm = (props) => {
+const ItemDetailsForm = (props) => {
   let location = useLocation();
   let navigate = useNavigate();
   //================================================================================================================================
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
 
+  const [selectedValue, setSelectedValue] = useState([]);
+
   const [itemDetails, setItemDetails] = useState(
     location?.state ?? {
-      item:"",
-      composition:[{
-        diamond:"",
-        metalGroup:"",
-        weight:""
-      }],
-      collections:"",
+      item: "",
+      composition: [
+        {
+          diamond: "",
+          metalGroup: "",
+          weight: "",
+        },
+      ],
+      collections: "",
       category: "",
       variety: "",
       product: "",
@@ -35,7 +43,7 @@ const CyclePeriodsForm = (props) => {
       units: "",
       ringsize: "",
       measurements: "",
-      charges:[]
+    //   charge: [],
     }
   );
 
@@ -47,7 +55,11 @@ const CyclePeriodsForm = (props) => {
   const [variety, setVariety] = useState([]);
   const [product, setProduct] = useState([]);
   const [charges, setCharges] = useState([]);
+  const [charge, setCharge] = useState([]);
 
+  const handleChange = (e) => {
+    setSelectedValue(Array.isArray(e) ? e.map((x) => x.value) : []);
+  };
 
   //================================================================================================================================
   useEffect(() => {
@@ -56,101 +68,125 @@ const CyclePeriodsForm = (props) => {
     };
     fetchItem();
   }, []);
-//   console.log("Item====>", item);
+  //   console.log("Item====>", item);
 
   //================================================================================================================================
   useEffect(() => {
     const fetchDiamond = () => {
-        getAllDiamonds().then((res) => setDiamond(res.data));
+      getAllDiamonds().then((res) => setDiamond(res.data));
     };
     fetchDiamond();
   }, []);
-//   console.log("Diamond====>", diamond);
+  //   console.log("Diamond====>", diamond);
 
-    //================================================================================================================================
+  //================================================================================================================================
   useEffect(() => {
     const fetchMetalGroup = () => {
-      axios.get(`${BASE_URL}/api/metal-group`).then((res) => setMetalGroup(res.data));
+      axios
+        .get(`${BASE_URL}/api/metal-group`)
+        .then((res) => setMetalGroup(res.data));
     };
     fetchMetalGroup();
   }, []);
-//   console.log("metalGroup ====>", metalGroup);
+  //   console.log("metalGroup ====>", metalGroup);
 
   //================================================================================================================================
   useEffect(() => {
     const fetchCollection = () => {
-        axios.get(`${BASE_URL}/api/collection`).then((res) => setCollections(res.data));
+      axios
+        .get(`${BASE_URL}/api/collection`)
+        .then((res) => setCollections(res.data));
     };
     fetchCollection();
   }, []);
-//   console.log("collections====>", collections);
+  //   console.log("collections====>", collections);
 
   //================================================================================================================================
   useEffect(() => {
     const fetchCategory = () => {
-        axios.get(`${BASE_URL}/api/category`).then((res) => setCategory(res.data));
+      axios
+        .get(`${BASE_URL}/api/category`)
+        .then((res) => setCategory(res.data));
     };
     fetchCategory();
   }, []);
-//   console.log("category====>", category);
+  //   console.log("category====>", category);
 
   //================================================================================================================================
-   useEffect(() => {
+  useEffect(() => {
     const fetchVariety = () => {
-        axios.get(`${BASE_URL}/api/variety`).then((res) => setVariety(res.data));
+      axios.get(`${BASE_URL}/api/variety`).then((res) => setVariety(res.data));
     };
     fetchVariety();
   }, []);
-//   console.log("variety====>", variety);
+  //   console.log("variety====>", variety);
 
   //================================================================================================================================
   useEffect(() => {
     const fetchProduct = () => {
-        axios.get(`${BASE_URL}/api/product`).then((res) => setProduct(res.data));
+      axios.get(`${BASE_URL}/api/product`).then((res) => setProduct(res.data));
     };
     fetchProduct();
   }, []);
-//   console.log("product  ====>", product);
+  //   console.log("product  ====>", product);
 
   //================================================================================================================================
   useEffect(() => {
-    const fetchProduct = () => {
-        axios.get(`${BASE_URL}/api/calculation`).then((res) => setCharges(res.data.data));
+    const fetchCharges = () => {
+      axios
+        .get(`${BASE_URL}/api/calculation`)
+        .then((res) => setCharges(res.data.data));
     };
-    fetchProduct();
+    fetchCharges();
   }, []);
 //   console.log("Charges  ====>", charges);
 
   //================================================================================================================================
-  function handleSubmit(e){
-      e.preventDefault();
-      let {item,diamond,metalGroup,weight,collections,category,variety,product,grossweight, description,SKU,units,ringsize,measurements,charges} = itemDetails
-      let obj = {}
-      obj = 
+  function handleSubmit(e) {
+    e.preventDefault();
+    let {
+      item,
+      diamond,
+      metalGroup,
+      weight,
+      collections,
+      category,
+      variety,
+      product,
+      grossweight,
+      description,
+      SKU,
+      units,
+      ringsize,
+      measurements,
+    //   charge,
+    } = itemDetails;
+    let obj = {};
+    obj = {
+      item: item,
+      composition: [
         {
-            "item": item,
-            "composition": [{
-              "diamond": diamond,
-              "metalGroup": metalGroup,
-              "weight": weight
-          }],
-            "collections": collections,
-            "category": category,
-            "variety": variety,
-            "product": product,
-            "grossweight": grossweight,
-            "description": description,
-            "SKU": SKU,
-            "units": units,
-            "ringsize": ringsize,
-            "measurements": measurements,
-            "charges":charges
-          }
-      
-      console.log('payload would be  ==>',obj)
-
+          diamond: diamond,
+          metalGroup: metalGroup,
+          weight: weight,
+        },
+      ],
+      collections: collections,
+      category: category,
+      variety: variety,
+      product: product,
+      grossweight: grossweight,
+      description: description,
+      SKU: SKU,
+      units: units,
+      ringsize: ringsize,
+      measurements: measurements,
+      charges: charge,
+    };
+    //   axios.post(`${BASE_URL}/api/itemdetails`,obj).then(navigate("/transaction/products/ItemDetails/"))
+    console.log("payload would be  ==>", obj);
   }
-  
+
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -202,14 +238,16 @@ const CyclePeriodsForm = (props) => {
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Select Item"
                           onChange={(e) => {
-                            setItemDetails({ ...itemDetails, item: (e.target.value) });
+                            setItemDetails({
+                              ...itemDetails,
+                              item: e.target.value,
+                            });
                           }}
                         >
+                          <option className="form-control">____</option>
                           {item &&
                             item.map((da) => (
-                              <option 
-                              value = {da.id}
-                              className="form-control">
+                              <option value={da.id} className="form-control">
                                 {da.name}
                               </option>
                             ))}
@@ -237,9 +275,10 @@ const CyclePeriodsForm = (props) => {
                             })
                           }
                         >
+                          <option className="form-control">____</option>
                           {diamond &&
                             diamond.map((da) => (
-                              <option value = {da.id} className="form-control">
+                              <option value={da.id} className="form-control">
                                 {da.shape}
                               </option>
                             ))}
@@ -267,9 +306,10 @@ const CyclePeriodsForm = (props) => {
                             })
                           }
                         >
+                          <option className="form-control">____</option>
                           {metalGroup &&
                             metalGroup.map((da) => (
-                              <option value = {da.id} className="form-control">
+                              <option value={da.id} className="form-control">
                                 {da.shortName}
                               </option>
                             ))}
@@ -290,16 +330,17 @@ const CyclePeriodsForm = (props) => {
                           name="name"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Select Item"
-                           onChange={(e) =>
+                          onChange={(e) =>
                             setItemDetails({
                               ...itemDetails,
                               collections: e.target.value,
                             })
                           }
                         >
+                          <option className="form-control">____</option>
                           {collections &&
                             collections.map((da) => (
-                              <option value = {da.id} className="form-control">
+                              <option value={da.id} className="form-control">
                                 {da.name}
                               </option>
                             ))}
@@ -327,9 +368,10 @@ const CyclePeriodsForm = (props) => {
                             })
                           }
                         >
+                          <option className="form-control">____</option>
                           {category &&
                             category.map((da) => (
-                              <option value = {da.id} className="form-control">
+                              <option value={da.id} className="form-control">
                                 {da.category_name}
                               </option>
                             ))}
@@ -357,9 +399,10 @@ const CyclePeriodsForm = (props) => {
                             })
                           }
                         >
+                          <option className="form-control">____</option>
                           {variety &&
                             variety.map((da) => (
-                              <option value = {da.id} className="form-control">
+                              <option value={da.id} className="form-control">
                                 {da.name}
                               </option>
                             ))}
@@ -387,16 +430,15 @@ const CyclePeriodsForm = (props) => {
                             })
                           }
                         >
+                          <option className="form-control">____</option>
                           {product &&
                             product.map((da) => (
-                              <option value = {da.id} className="form-control">
+                              <option value={da.id} className="form-control">
                                 {da.name}
                               </option>
                             ))}
                         </select>
                       </div>
-
-
 
                       <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
@@ -570,34 +612,75 @@ const CyclePeriodsForm = (props) => {
                             title="Specify your unique app name"
                           ></i>
                         </label>
+
                         <select
-                          multiple={true}
-                          size ={4}
-                          
+                          multiple
+                          size={4}
+                        
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Select Item"
-                          onChange={(e) =>
-                            setItemDetails({
-                              ...itemDetails,
-                              charges: e.target.value,
-                            })
-                          }
+                          onChange={(e) =>{
+
+                              setItemDetails({
+                                  ...itemDetails,
+                                charge:e.target.value
+                          })
+                        }
+                           
+                            } 
+                        // onChange={(e)=>{
+
+                        //     setCharge([
+                        //         ...charge,
+                        //              e.target.value
+                        //      ] )
+                        //     }
+                                    
+                                    // setCharge(charge:e.target.value)
+                                    // console.log(e.target.value)
+                                
+                                
+                                
+                        
+                          
                         >
                           {charges &&
                             charges.map((da) => (
-                              <option
-                              value ={da.id}
-                              className="form-control">
+                              <option name ='mult' value={da.id} className="form-control">
                                 {da.Type}
                               </option>
                             ))}
                         </select>
+
+                        {/* <Autocomplete
+                          multiple
+                          options={charges.map((da) => da.Type)}
+                          value = {chargeValue}
+                          defaultValue={charges.find(v => v.label[0])} 
+                          style={{ width: 500 }}
+                          // defaultValue={[myOptions[3]]}
+                          getOptionLabel={(option) => option}
+                          onChange={(e) =>
+                            setItemDetails({
+                              ...itemDetails,
+                              charge: e.target.value,
+                            })
+                          }
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              label="Choose Multiple values"
+                              variant="standard"
+                              placeholder="Your Favourites"
+                            />
+                          )}
+                        /> */}
                       </div>
 
-
                       <div>
-                        <br/>
-                        <button className="btn btn-lg btn-primary"
+                        <br />
+                        <button
+                          className="btn btn-lg btn-primary"
                           onClick={
                             // e.preventDefault();
                             // if (isValidCyclePeriod({ ...CyclePeriod })) {
@@ -615,12 +698,15 @@ const CyclePeriodsForm = (props) => {
                             //         );
                             //       });
                             // }
-                          handleSubmit} 
+                            handleSubmit
+                          }
                         >
-                          {isUpdate ? "Update Cycle Periods" : "Add Cycle Periods"}
+                          {isUpdate
+                            ? "Update Cycle Periods"
+                            : "Add Cycle Periods"}
                         </button>
                       </div>
-{/* 
+                      {/* 
                       <AddUpdateSpinner
                         update={isUpdate ? true : false}
                         collection={itemDetails}
@@ -645,4 +731,4 @@ const CyclePeriodsForm = (props) => {
   );
 };
 
-export default CyclePeriodsForm;
+export default ItemDetailsForm;
