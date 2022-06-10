@@ -624,7 +624,7 @@ const ItemDetailsForm = (props) => {
 
                             
                                   
-                                charge.push(e.target.value)
+                                   charge.push(e.target.value)
                        
                         // console.log(e.target.value)
                         }

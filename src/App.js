@@ -536,11 +536,11 @@ const App = () => {
           {/*Products =============================================*/}
 
           <Route
-            path="/transaction/products/ItemDetails"
+            path="master/product-data/items_details"
             element={<ItemDetails />}
           />
           <Route
-            path="/transaction/products/ItemDetails/add"
+            path="master/product-data/items_details/add"
             element={<ItemDetailsForm />}
           />
           <Route

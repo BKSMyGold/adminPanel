@@ -37,7 +37,7 @@ const ItemDetails = () => {
           id="kt_wrapper"
         >
           <Header />
-          <Dashboard createLink="/transaction/products/ItemDetails/add" />
+          <Dashboard createLink="/master/product-data/items_details/add" />
           <div
             id="kt_content_container"
             class="d-flex flex-column-fluid align-items-start container-xxl"
