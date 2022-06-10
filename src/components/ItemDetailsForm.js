@@ -55,7 +55,8 @@ const ItemDetailsForm = (props) => {
   const [variety, setVariety] = useState([]);
   const [product, setProduct] = useState([]);
   const [charges, setCharges] = useState([]);
-  const [charge, setCharge] = useState([]);
+  
+  let  charge= []
 
   const handleChange = (e) => {
     setSelectedValue(Array.isArray(e) ? e.map((x) => x.value) : []);
@@ -621,10 +622,11 @@ const ItemDetailsForm = (props) => {
                           placeholder="Select Item"
                           onChange={(e) =>{
 
-                              setItemDetails({
-                                  ...itemDetails,
-                                charge:e.target.value
-                          })
+                            
+                                  
+                                charge.push(e.target.value)
+                       
+                        // console.log(e.target.value)
                         }
                            
                             } 
