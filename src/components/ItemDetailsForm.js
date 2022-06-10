@@ -268,7 +268,7 @@ const ItemDetailsForm = (props) => {
                           type="select"
                           name="name"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Select Item"
+                          placeholder="Select Diamond"
                           onChange={(e) =>
                             setItemDetails({
                               ...itemDetails,
@@ -299,7 +299,7 @@ const ItemDetailsForm = (props) => {
                           type="select"
                           name="name"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Select Item"
+                          placeholder="Select Metal Group"
                           onChange={(e) =>
                             setItemDetails({
                               ...itemDetails,
@@ -330,7 +330,7 @@ const ItemDetailsForm = (props) => {
                           type="select"
                           name="name"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Select Item"
+                          placeholder="Select Collection"
                           onChange={(e) =>
                             setItemDetails({
                               ...itemDetails,
@@ -361,7 +361,7 @@ const ItemDetailsForm = (props) => {
                           type="select"
                           name="name"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Select Item"
+                          placeholder="Select Category"
                           onChange={(e) =>
                             setItemDetails({
                               ...itemDetails,
@@ -392,7 +392,7 @@ const ItemDetailsForm = (props) => {
                           type="select"
                           name="name"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Select Item"
+                          placeholder="Select Variety"
                           onChange={(e) =>
                             setItemDetails({
                               ...itemDetails,
@@ -423,7 +423,7 @@ const ItemDetailsForm = (props) => {
                           type="select"
                           name="name"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Select Item"
+                          placeholder="Select Product"
                           onChange={(e) =>
                             setItemDetails({
                               ...itemDetails,
@@ -454,7 +454,7 @@ const ItemDetailsForm = (props) => {
                           type="text"
                           name="name"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Cycle Period Name"
+                          placeholder="Enter gross weight"
                           onChange={(e) =>
                             setItemDetails({
                               ...itemDetails,
@@ -477,7 +477,7 @@ const ItemDetailsForm = (props) => {
                           type="text"
                           name="graceperiod"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Grace Period in Hours"
+                          placeholder="Enter Description of some kind"
                           onChange={(e) =>
                             setItemDetails({
                               ...itemDetails,
@@ -500,7 +500,7 @@ const ItemDetailsForm = (props) => {
                           type="number"
                           name="minValue"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Minimum Value in INR"
+                          placeholder="Enter SKU"
                           onChange={(e) =>
                             setItemDetails({
                               ...itemDetails,
@@ -523,7 +523,7 @@ const ItemDetailsForm = (props) => {
                           type="number"
                           name="minWeight"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Minimum Weight in GRAM"
+                          placeholder="Enter Units"
                           onChange={(e) =>
                             setItemDetails({
                               ...itemDetails,
@@ -546,7 +546,7 @@ const ItemDetailsForm = (props) => {
                           type="text"
                           name="shortName"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Short Name"
+                          placeholder="Enter Ring Size"
                           onChange={(e) =>
                             setItemDetails({
                               ...itemDetails,
@@ -570,7 +570,7 @@ const ItemDetailsForm = (props) => {
                           type="text"
                           name="shortName"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Short Name"
+                          placeholder="Enter Weight"
                           onChange={(e) =>
                             setItemDetails({
                               ...itemDetails,
@@ -593,7 +593,7 @@ const ItemDetailsForm = (props) => {
                           type="number"
                           name="cycle"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter the minimum Recurring Cycle"
+                          placeholder="Enter Measurements"
                           onChange={(e) =>
                             setItemDetails({
                               ...itemDetails,
@@ -619,7 +619,7 @@ const ItemDetailsForm = (props) => {
                           size={4}
                         
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Select Item"
+                          placeholder="Select Charges"
                           onChange={(e) =>{
 
                             
@@ -704,8 +704,8 @@ const ItemDetailsForm = (props) => {
                           }
                         >
                           {isUpdate
-                            ? "Update Cycle Periods"
-                            : "Add Cycle Periods"}
+                            ? "Update Item Details"
+                            : "Add Item Details"}
                         </button>
                       </div>
                       {/* 
