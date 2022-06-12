@@ -703,6 +703,17 @@ let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
                         <span className="menu-arrow"></span>
                       </span>
                       <div className="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg py-lg-4 w-lg-225px">
+                      <div className="menu-item">
+                          <a
+                            className="menu-link py-3"
+                            href="/transaction/financials/ZohoBooks"
+                          >
+                            <span className="menu-bullet">
+                              <span className="bullet bullet-dot"></span>
+                            </span>
+                            <span className="menu-title">Zoho Books</span>
+                          </a>
+                        </div>
                         <div className="menu-item">
                           <a
                             className="menu-link py-3"

@@ -71,8 +71,7 @@ const ItemDetailsForm = (props) => {
   }, []);
   //   console.log("Item====>", item);
 
-  //================================================================================================================================
-  useEffect(() => {
+   useEffect(() => {
     const fetchDiamond = () => {
       getAllDiamonds().then((res) => setDiamond(res.data));
     };

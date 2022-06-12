@@ -168,6 +168,9 @@ import ItemDetailsForm from "./components/ItemDetailsForm";
 // import UserTransaction from "./screens/UserTransaction"
 import UserDetails from "./screens/UserDetails";
 import SystemUserDetail from "./screens/SystemUserDetail";
+import ZohoBooks from "./screens/ZohoBooks";
+import ZohoBooksForm from "./components/ZohoBoksForm";
+import EachItemsDetails from './screens/EachItemsDetails'
 
 //====================================================================
 const App = () => {
@@ -229,7 +232,7 @@ const App = () => {
             element={<PlanBonusForm />}
           />
           <Route path="/system_user_detail" element={<SystemUserDetail />} />
-          {/* <Route path="/view_item_details" element={<ItemsDetails/>} /> */}
+          <Route path="/view_item_details" element={<EachItemsDetails/>} />
           {/* <Route
             path='/master/product-data/metal-groups'
             element={
@@ -451,6 +454,15 @@ const App = () => {
           <Route
             path="/transaction/financials/InStoreReturns"
             element={<InStoreReturns />}
+          />
+          <Route
+            path="/transaction/financials/ZohoBooks"
+            element={<ZohoBooks />}
+          />
+          "/transaction/financials/ZohoBooks/add"
+          <Route
+            path="/transaction/financials/ZohoBooks/add"
+            element={<ZohoBooksForm />}
           />
           <Route
             path="/transaction/financials/InStoreReturns/add"

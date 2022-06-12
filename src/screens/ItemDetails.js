@@ -21,13 +21,10 @@ const ItemDetails = () => {
   //===========================================================================================================
   console.log("yeh hai ==>", itemDetails);
 //===========================================================================================================
-  let composition = {};
-  composition = itemDetails.map((comp) => comp.composition);
-  let comp = {};
-  comp = composition.map((co) =>
-    Object.keys(co).map((obj) => co[obj].metalGroup)
-  );
-  console.log("yeh hai composition==>", comp);
+  let item = {};
+  item = itemDetails.map((comp) => comp.item);
+  
+  console.log("yeh hai item==>", item);
 //===========================================================================================================
   return (
     <div className="d-flex flex-column flex-root">
@@ -238,7 +235,11 @@ const ItemDetails = () => {
                           {/* <th class='min-w-140px'>Item Name</th> */}
                           {/* <th class='min-w-120px'>Collection</th> */}
                           {/* <th class='min-w-120px'>Category</th> */}
-                          <th class="min-w-120px">Varieity</th>
+                          <th class="min-w-120px">Item</th>
+                          <th class="min-w-120px">Item ID</th>
+                          <th class="min-w-120px">Item Images</th>
+                          <th class="min-w-120px">Item Videos</th>
+
                           {/* <th class='min-w-120px'>Product</th> */}
 
                           {/* <th class="min-w-120px">Composition</th> */}
@@ -278,21 +279,57 @@ const ItemDetails = () => {
                                 href="#"
                                 class="text-dark fw-bolder text-hover-primary fs-6"
                               >
-                                {itemDetail.variety}
+                                {itemDetail.item.name}
+
+                                {/* {itemDetail.item.map(item =>{
+                                  return(
+                                    item.docType
+                                  )
+                                })} */}
                               </a>
                             </td>
-                            {/* <td>
+                            <td>
                               <a
                                 href="#"
                                 class="text-dark fw-bolder text-hover-primary fs-6"
                               >
-                                {comp?.map((comp) =>
-                                  Object.keys(comp).map(
-                                    (obj) => comp[obj]
+                                {itemDetail.item.id}
+
+                                {/* {itemDetail.item.map(item =>{
+                                  return(
+                                    item.docType
                                   )
-                                )}
+                                })} */}
                               </a>
-                            </td> */}
+                            </td>
+
+                            <td>
+                              <a
+                                href="#"
+                                class="text-dark fw-bolder text-hover-primary fs-6"
+                              >
+                                {itemDetail.item.images.map(image =>{
+                                  return(
+                                    <img src ={image}/>
+                                  )
+                                })}
+
+                                {/* {itemDetail.item.map(item =>{
+                                  return(
+                                    item.docType
+                                  )
+                                })} */}
+                              </a>
+                            </td>
+                            <td>
+                              <a
+                                href={itemDetail.item.video}
+                                class="text-dark fw-bolder text-hover-primary fs-6"
+                                target="_blank"
+                              >
+                                Video
+                              </a>
+                            </td>
                             <td>
                               <a
                                 href="#"

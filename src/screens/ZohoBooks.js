@@ -1,24 +1,79 @@
 import React, { useState, useEffect } from "react";
-import { getAllItems } from "../apis/items";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Dashboard from "./dashboard";
-import { Link } from "react-router-dom";
-import { deleteItem } from "../apis/items";
-import DeleteSpinner from "../delete";
-import { CSVLink } from "react-csv";
-
-const Items = () => {
-  const [items, setItems] = useState([]);
+import axios from "axios";
+//===========================================================================================================
+const ZohoBooks = () => {
+  //===========================================================================================================
+  const [zohoContact, setZohoContact] = useState({});
+  //   const orgId = 60014963586
+  const zohoOauthToken =
+    "1000.4abbaa8a5dd7ae9bcaf2ec727cdff8d3.ca35de555117942c3be106f3810f8e88";
+  //===========================================================================================================
+  let headers = {};
 
   useEffect(() => {
-    getAllItems().then(({ data: foundItems }) => {
-      setItems(foundItems);
-
-      console.log(foundItems)
-    });
+    axios
+      .get(
+        'https://books.zoho.in/api/v3/organizations' ,
+        { headers: {
+            "Authorization" : "Zoho-oauthtoken 1000.fac2cb3c842fff6eb5f382edc0f691c9.77a56e559e0dd20bd9488925472394ad",
+             "Content-Type": "application/json",
+             "Access-Control-Allow-Origin":"*"  
+            } }
+      ).then((res) => console.log(res));
   }, []);
+  console.log("================================>", zohoContact);
+  
 
+  // useEffect(()=>{
+  //     const fetchZohoContact = async()=>{
+  //         let params = {
+  //             method: 'GET',
+  //             contentType: "application/json",
+
+  //             headers: {"Authorization": "Zoho-oauthtoken " + zohoOauthToken},
+  //             muteHttpExceptions: true,
+  //           };
+
+  //          let data = await fetch('https://books.zoho.in/api/v3/contacts?organization_id=60014963586',params)
+  //          setZohoContact(data)
+
+  //     }
+
+  //     fetchZohoContact()
+  //   },[])
+  //   console.log('================================>', zohoContact)
+
+  // const xhr = new XMLHttpRequest();
+  // const url = 'https://books.zoho.in/api/v3/contacts?organization_id=60014963586';
+  // let headers = { "Authorization": "Zoho-oauthtoken 1000.39c96a157aacc1538e006e44549add41.b4207f3dc563dae6496c394c47842b46",
+  //                 // "Content-Type"  : "Access-Control-Allow-Headers"
+  // }
+
+  // xhr.responseType = 'json';
+  // xhr.onreadystatechange = function() {
+  //   if (xhr.readyState === XMLHttpRequest.DONE) {
+  //     console.log(xhr.response);
+  //   }
+  // };
+  // xhr.open('GET', url);
+
+  // xhr.setRequestHeader("headers",headers)
+  // xhr.send();
+
+  //  useEffect(() => {
+  //     const fetchItemDetails = async () => {
+  //       const { data } = await axios.get(
+  //         "http://13.59.57.74:5000/api/itemdetails/"
+  //       );
+
+  //   setItemDetails(data.data);
+  //     };
+  //     fetchItemDetails();
+  //   }, []);
+  //===========================================================================================================
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -27,7 +82,7 @@ const Items = () => {
           id="kt_wrapper"
         >
           <Header />
-          <Dashboard createLink={"/master/product-data/items/add"} />
+          <Dashboard createLink="/transaction/financials/ZohoBooks/add" />
           <div
             id="kt_content_container"
             class="d-flex flex-column-fluid align-items-start container-xxl"
@@ -41,9 +96,11 @@ const Items = () => {
                 {/*begin::Header*/}
                 <div class="card-header border-0 pt-5">
                   <h3 class="card-title align-items-start flex-column">
-                    <span class="card-label fw-bolder fs-3 mb-1">Items</span>
+                    <span class="card-label fw-bolder fs-3 mb-1">
+                      ItemDetails
+                    </span>
                     <span class="text-muted mt-1 fw-bold fs-7">
-                      Define Items
+                      Define ItemDetails
                     </span>
                   </h3>
                   <div class="card-toolbar">
@@ -109,15 +166,6 @@ const Items = () => {
                       {/*end::Svg Icon*/}
                     </button>
                     {/*begin::Menu 2*/}
-                    <CSVLink
-                      className="csv"
-                      data={items}
-                      filename="Reports.csv"
-                      target="_blank"
-                      //   headers ={headers}
-                    >
-                      Export
-                    </CSVLink>
                     <div
                       class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold w-200px"
                       data-kt-menu="true"
@@ -230,115 +278,27 @@ const Items = () => {
                               />
                             </div>
                           </th>
-                          <th class="min-w-150px">Item Id</th>
-                          <th class="min-w-140px">Item Name</th>
-                          <th class="min-w-140px">Item Image</th>
-                          <th class="min-w-140px">Item Videos</th>
+                          <th class="min-w-150px">SKU</th>
+                          {/* <th class='min-w-140px'>Image</th> */}
+                          {/* <th class='min-w-140px'>Item Name</th> */}
+                          {/* <th class='min-w-120px'>Collection</th> */}
+                          {/* <th class='min-w-120px'>Category</th> */}
+                          <th class="min-w-120px">Varieity</th>
+                          {/* <th class='min-w-120px'>Product</th> */}
+
+                          {/* <th class="min-w-120px">Composition</th> */}
+                          <th class="min-w-120px">Description</th>
+                          <th class="min-w-120px">Ring Size</th>
+                          <th class="min-w-120px">Measurements</th>
+                          <th class="min-w-120px">Gross Weight</th>
+
+                          <th class="min-w-120px">Amount</th>
                           <th class="min-w-100px text-end">Actions</th>
                         </tr>
                       </thead>
                       {/*end::Table head*/}
                       {/*begin::Table body*/}
-                      <tbody>
-                        {items.map((item) => (
-                          <tr>
-                            <td>
-                              <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                <input
-                                  class="form-check-input widget-13-check"
-                                  type="checkbox"
-                                  value="1"
-                                />
-                              </div>
-                            </td>
-                            <td>
-                              {/* <a
-                                href="/view_item_details"
-                                class="text-dark fw-bolder text-hover-primary fs-6"
-                              > */}
-                                <Link to ="/view_item_details"
-                                state ={item}
-                                >
-                                {item.id}
-                                </Link>
-                              {/* </a> */}
-                            </td>
-                            <td>
-                              <a
-                                href="#"
-                                class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                              >
-                                {item.name}
-                              </a>
-                            </td>
-                            <td>
-                              <div className="row">
-                                {item.images &&
-                                  item.images.map((image, index) => (
-                                    <div className="col-lg-4">
-                                      <img
-                                        src={image}
-                                        class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                                        width="100"
-                                        rel="noopener noreferrer"
-                                      />
-                                    </div>
-                                  ))}
-                              </div>
-                            </td>
-                            <td>
-                              <a
-                                href={item.video}
-                                class='text-dark fw-bolder text-hover-primary d-block mb-1 fs-6'
-                                target={'_blank'}
-                                rel='noopener noreferrer'
-                              >
-                                Video
-                              </a>
-                            </td>
-                            <td class="text-end">
-                              <a
-                                href="#"
-                                class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                              >
-                                <Link
-                                  to={"/master/product-data/items/edit"}
-                                  state={item}
-                                >
-                                  <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                    {/*begin::Svg Icon | path: icons/duotune/art/art005.svg*/}
-                                    <span class="svg-icon svg-icon-3">
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                      >
-                                        <path
-                                          opacity="0.3"
-                                          d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z"
-                                          fill="black"
-                                        />
-                                        <path
-                                          d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z"
-                                          fill="black"
-                                        />
-                                      </svg>
-                                    </span>
-                                    {/*end::Svg Icon*/}
-                                  </button>
-                                </Link>
-                              </a>
-                              <DeleteSpinner
-                                collection={item}
-                                deleting={deleteItem}
-                                url={"/master/product-data/items/"}
-                              />
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
+
                       {/*end::Table body*/}
                     </table>
                     {/*end::Table*/}
@@ -358,4 +318,4 @@ const Items = () => {
   );
 };
 
-export default Items;
+export default ZohoBooks;
