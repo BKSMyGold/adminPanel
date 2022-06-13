@@ -4,27 +4,44 @@ import Header from "../layouts/Header";
 import Dashboard from "./dashboard";
 import axios from "axios";
 import { BASE_URL } from "../Constants";
-
+//========================================================================
 const CollectorSummary = () => {
   const [installments, setInstallments] = useState([]);
   useEffect(() => {
     const fetchcategories = async () => {
       const data = await axios.get(`${BASE_URL}/api/installment`);
-      // console.log("===-------------------->",data.data.data)
-
-      // response = response.data.map(installment =>{
-      //   if(installment.mode === "Online"){
-      //     return(
-      //       installment
-      //     )
-      //   }
-      // } )
-
+    
       setInstallments(data.data.data);
     };
     fetchcategories();
   }, []);
   console.log("==>", installments);
+  //========================================================================
+// let totalCashCollection = 0 ;
+let totalAmount = installments.map(x =>{
+  
+  if(x.mode ==="COD"){
+    return(
+        x.amount
+    )
+
+  }
+})
+console.log("total collection ==>", totalAmount);
+
+let totalCashCollection =0;
+for(let i=0; i < totalAmount.length; i++){
+  if(totalAmount[i] !== undefined){
+
+    totalCashCollection = totalCashCollection + totalAmount[i];
+  }
+
+}
+
+
+console.log("total collection ==>", totalCashCollection);
+
+  //========================================================================
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -86,7 +103,9 @@ const CollectorSummary = () => {
                                       type="checkbox"
                                       value="1"
                                     />
-                                    {installment.collector ? installment.collector : "collector ID"}
+                                    {installment.collector
+                                      ? installment.collector
+                                      : "collector ID"}
                                   </div>
                                 </td>
                                 <td>
@@ -94,9 +113,13 @@ const CollectorSummary = () => {
                                     href="#"
                                     class="text-dark fw-bolder text-hover-primary fs-6"
                                   >
-                                    ₹ {installment.amount}
+                                    ₹{" "}
+                                    {(
+                                      Math.round(installment.amount * 100) / 100
+                                    ).toLocaleString("en-IN")}
                                   </a>
                                 </td>
+
                                 <td>
                                   <a
                                     href="#"
@@ -106,15 +129,14 @@ const CollectorSummary = () => {
                                   </a>
                                 </td>
                                 <td>
-                                  
-                                    <a
-                                      href="#"
-                                      class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                                    >
-                                      {installment.mode}
-                                    </a>
-                                  </td>
-                                  <td>
+                                  <a
+                                    href="#"
+                                    class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
+                                  >
+                                    {installment.mode}
+                                  </a>
+                                </td>
+                                <td>
                                   <a
                                     href="#"
                                     class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
@@ -122,12 +144,20 @@ const CollectorSummary = () => {
                                     {installment.status}
                                   </a>
                                 </td>
-
-                             
                               </tr>
                             );
                           }
                         })}
+                        <tr>
+                          <td></td>
+                          <td>₹  
+                                    {(
+                                      Math.round(totalCashCollection * 100) / 100
+                                    ).toLocaleString("en-IN")}</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
                       </tbody>
                       {/*end::Table body*/}
                     </table>
