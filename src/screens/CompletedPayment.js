@@ -4,9 +4,10 @@ import Header from '../layouts/Header'
 import Dashboard from './dashboard'
 import axios from 'axios'
 import { BASE_URL } from '../Constants'
-
+//======================================================================================
 const CompletedPayment = () => {
   const [categories, setCompletedPayment] = useState([])
+
   useEffect(() => {
     const fetchcategories = async () => {
       const { data } = await axios.get(`${BASE_URL}/api/Category`)
@@ -14,7 +15,35 @@ const CompletedPayment = () => {
       setCompletedPayment(data)
     }
     fetchcategories()
+    
   }, [])
+  //======================================================================================
+  const [users, setUsers] = useState([])
+
+  useEffect(() => {
+    const fetcUser = async () => {
+      const { data } = await axios.get(`${BASE_URL}/api/user`)
+
+      setUsers(data)
+    }
+    fetcUser()
+    
+  }, [])
+  console.log('===>',users)
+  //======================================================================================
+  const [userAmount, setUserAmount] = useState([])
+
+  useEffect(() => {
+    const fetcUser = async () => {
+      const { data } = await axios.get(`${BASE_URL}/api/subscription/balance/user/${"628ca571607e25bd715dd514"}`)
+
+      setUserAmount(data.data)
+    }
+    fetcUser()
+    
+  }, [])
+  console.log('===>',userAmount)
+  //======================================================================================
   return (
     <div className='d-flex flex-column flex-root'>
       <div className='page d-flex flex-row flex-column-fluid'>
@@ -75,7 +104,7 @@ const CompletedPayment = () => {
                       {/*end::Table head*/}
                       {/*begin::Table body*/}
                       <tbody>
-                        {categories.map((categories) => (
+                        {users.map((user) => (
                           <tr>
                             <td>
                               <div class='form-check form-check-sm form-check-custom form-check-solid'>
@@ -91,7 +120,7 @@ const CompletedPayment = () => {
                                 href='#'
                                 class='text-dark fw-bolder text-hover-primary fs-6'
                               >
-                                {categories.id}
+                                {user.id}
                               </a>
                             </td>
                             <td>
@@ -99,10 +128,18 @@ const CompletedPayment = () => {
                                 href='#'
                                 class='text-dark fw-bolder text-hover-primary d-block mb-1 fs-6'
                               >
-                                {categories.category_name}
+                                {user.fname}
                               </a>
                             </td>
                             <td>
+                              <a
+                                href='#'
+                                class='text-dark fw-bolder text-hover-primary d-block mb-1 fs-6'
+                              >
+                                {userAmount.totalBalance  }
+                              </a>
+                            </td>
+                            {/* <td>
                               <a
                                 href='#'
                                 class='text-dark fw-bolder text-hover-primary d-block mb-1 fs-6'
@@ -122,15 +159,15 @@ const CompletedPayment = () => {
                               <span class='badge badge-light-success'>
                                 {categories.images[3]}
                               </span>
-                            </td>
+                            </td> */}
 
                             <td class='text-end'>
-                              <a
+                              {/* <a
                                 href='#'
                                 class='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
-                              >
+                              > */}
                                 {/*begin::Svg Icon | path: icons/duotune/general/gen019.svg*/}
-                                <span class='svg-icon svg-icon-3'>
+                                {/* <span class='svg-icon svg-icon-3'>
                                   <svg
                                     xmlns='http://www.w3.org/2000/svg'
                                     width='24'
@@ -148,9 +185,9 @@ const CompletedPayment = () => {
                                       fill='black'
                                     />
                                   </svg>
-                                </span>
+                                </span> */}
                                 {/*end::Svg Icon*/}
-                              </a>
+                              {/* </a> */}
                               <a
                                 href='#'
                                 class='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
@@ -161,7 +198,7 @@ const CompletedPayment = () => {
                                     xmlns='http://www.w3.org/2000/svg'
                                     width='24'
                                     height='24'
-                                    viewBox='0 0 24 24'
+                                    viewBox='0 0 24 24'                    
                                     fill='none'
                                   >
                                     <path
