@@ -170,7 +170,8 @@ import UserDetails from "./screens/UserDetails";
 import SystemUserDetail from "./screens/SystemUserDetail";
 import ZohoBooks from "./screens/ZohoBooks";
 import ZohoBooksForm from "./components/ZohoBoksForm";
-import EachItemsDetails from './screens/EachItemsDetails'
+import EachItemsDetails from "./screens/EachItemsDetails";
+import PageNotFound from "./screens/PageNotFound";
 
 //====================================================================
 const App = () => {
@@ -181,9 +182,7 @@ const App = () => {
   //====================================================================
 
   useEffect(() => {
-    if (
-      localStorage.getItem("loggedInUser")
-    ) {
+    if (localStorage.getItem("loggedInUser")) {
       let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
       let permissionSet = new Set();
       for (let permissions of localStorageUser.role.permissions) {
@@ -208,6 +207,7 @@ const App = () => {
         <Routes>
           {/*Master =============================================*/}
           {/*Products Data =============================================*/}
+          <Route path="*" element={<PageNotFound/>} />
           <Route
             path="/"
             element={
@@ -221,7 +221,6 @@ const App = () => {
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/register" element={<UserSignUp />} exact />
           <Route path="/registered_User" element={<RegisteredUser />} />
-
           <Route path="/master/plans/plan-bonus" element={<PlanBonus />} />
           <Route
             path="/master/plans/plan-bonus/edit"
@@ -232,20 +231,17 @@ const App = () => {
             element={<PlanBonusForm />}
           />
           <Route path="/system_user_detail" element={<SystemUserDetail />} />
-          <Route path="/view_item_details" element={<EachItemsDetails/>} />
+          <Route path="/view_item_details" element={<EachItemsDetails />} />
           {/* <Route
             path='/master/product-data/metal-groups'
             element={
               <MetalGroups />
             }
           /> */}
-
           <Route path="/user_details" element={<UserDetails />} />
           <Route path="/filtered_users" element={<FilteredUsers />} />
-
           {/* <Route path="/user_transaction" element={<UserTransaction />} /> */}
           {/* <Route path="/user_order" element={<UserOrder />} /> */}
-
           <Route
             path="/view_metal_group"
             element={
@@ -332,7 +328,6 @@ const App = () => {
           />
           <Route path="/master/product-data/items" element={<Items />} />
           <Route path="/master/product-data/offers" element={<Offers />} />
-
           {/*Security =============================================*/}
           <Route
             path="master/product-data/diamonds/add"
@@ -342,7 +337,6 @@ const App = () => {
             path="master/product-data/diamonds/edit"
             element={<DiamondsForm />}
           />
-
           <Route
             path="master/product-data/collections"
             element={<Collections />}
@@ -370,7 +364,6 @@ const App = () => {
             path="master/product-data/categories/edit"
             element={<CategoryForm />}
           />
-
           <Route
             path="/master/security/masterUserRights"
             element={<MasterUserRights />}
@@ -387,7 +380,6 @@ const App = () => {
             path="/master/product-data/varieties/edit"
             element={<VarietyForm />}
           />
-
           <Route
             path="/master/security/permissions"
             element={<Permissions />}
@@ -400,7 +392,6 @@ const App = () => {
             path="/master/security/masterUserRights/edit"
             element={<RoleForm />}
           />
-
           <Route
             path="/master/security/userpasswords"
             element={<UserPasswords />}
@@ -442,15 +433,12 @@ const App = () => {
             path="/master/security/permissions/edit"
             element={<PermissionsForm />}
           />
-
           {/*Duties Taxes =============================================*/}
           <Route path="/master/taxes" element={<TaxesDuties />} />
           {/*Sales Returns Reasons =============================================*/}
           <Route path="/master/sellReasons" element={<SellReasons />} />
-
           {/*Trasanctions =============================================*/}
           {/*Financials =============================================*/}
-
           <Route
             path="/transaction/financials/InStoreReturns"
             element={<InStoreReturns />}
@@ -492,18 +480,14 @@ const App = () => {
             path="/transaction/financials/GoldAdjustments"
             element={<GoldAdjustments />}
           />
-
           {/*Orders =============================================*/}
-
           <Route path="/transaction/order/Shipping" element={<Shipping />} />
           <Route path="/transaction/order/Tracking" element={<Tracking />} />
-
           {/* Data Entry =============================================*/}
           <Route
             path="/transaction/data-entry/reference-data"
             element={<ReferenceData />}
           />
-
           <Route
             path="/transaction/data-entry/gbp-entry"
             element={<GBPEntry />}
@@ -522,7 +506,6 @@ const App = () => {
             path="/transaction/data-entry/enter-master-details/add"
             element={<AddMasterDetails />}
           />
-
           {/* Status Updates============================================= */}
           <Route
             path="/transaction/status-updates/collector"
@@ -544,9 +527,7 @@ const App = () => {
             path="/transaction/status-updates/updateappoinments"
             element={<UpdateAppointments />}
           />
-
           {/*Products =============================================*/}
-
           <Route
             path="master/product-data/items_details"
             element={<ItemDetails />}
@@ -559,9 +540,7 @@ const App = () => {
             path="/transaction/products/OfferDetails"
             element={<OfferDetails />}
           />
-
           {/*Reports=============================================*/}
-
           {/*Daily =============================================*/}
           <Route
             path="/reports/daily-reports/DailyActivity"
@@ -584,7 +563,6 @@ const App = () => {
             element={<PendingPayment />}
           />
           {/*Accounts =============================================*/}
-
           <Route
             path="/reports/accounts-reports/Metal-Currency-Userbased"
             element={<MetalCurrencyUserbased />}
@@ -599,7 +577,6 @@ const App = () => {
           />
           <Route path="/reports/accounts-reports/Ledger" element={<Ledger />} />
           {/*Buy and Save =============================================*/}
-
           {/* All User Data Report ( filter to one or selected users) =============================================*/}
           <Route
             path="/reports/buy-save/userdata/plan"
@@ -758,7 +735,6 @@ const App = () => {
             path="/reports/buy-save/Referal-Refered-Summary/user"
             element={<ReferSummaryUser />}
           />
-
           {/*Sell your old gold =============================================* /}
 
           {/*User Data Report =============================================*/}
@@ -771,7 +747,6 @@ const App = () => {
             element={<SellDetailed />}
           />
           {/*Appointment Report =============================================*/}
-
           {/*In -Store Appointments Report =============================================*/}
           <Route
             path="/reports/sell-old-gold/appointment/in-store/due"
@@ -786,7 +761,6 @@ const App = () => {
             element={<SellInStoreCanceled />}
           />
           {/*Home Visit Appointments Report =============================================*/}
-
           <Route
             path="/reports/sell-old-gold/appointment/home-visit/due"
             element={<SellHomeVisitDue />}
@@ -813,7 +787,6 @@ const App = () => {
             path="/reports/sell-old-gold/verfier/CustomerRelated/CustomerValuation"
             element={<SellVerifierCustomerValuation />}
           />
-
           {/*Payments Report =============================================*/}
           <Route
             path="/reports/sell-old-gold/verfier/CustomerRelated/PaymentReportWithMetals"
@@ -823,7 +796,6 @@ const App = () => {
             path="/reports/sell-old-gold/verfier/CustomerRelated/Completed"
             element={<SellPaymentCompleted />}
           />
-
           {/*Metal Report =============================================*/}
           <Route
             path="/reports/sell-old-gold/verfier/CustomerRelated/CustmerWise"
@@ -833,7 +805,6 @@ const App = () => {
             path="/reports/sell-old-gold/verfier/CustomerRelated/VerifierWise"
             element={<SellVerfierWise />}
           />
-
           <Route
             path="/reports/sell-old-gold/verfier/TamperProof"
             element={<SellTamperProof />}
@@ -871,9 +842,7 @@ const App = () => {
             path="/reports/eshop/CustomeOrderTracking"
             element={<CustomOrderTracking />}
           />
-
           {/*Stock =============================================*/}
-
           <Route
             path="/reports/stock/Summary"
             element={<AccumalatedGoldSummary />}
@@ -918,7 +887,6 @@ const App = () => {
             path="/reports/stock/AccumalatedBonusSummary/FromReferals/Forfieted"
             element={<AccumalatedBonusSummaryReferalsForfieted />}
           />
-
           {/*Delivery ============================================= */}
           <Route
             path="/reports/delivery/summary"
@@ -937,11 +905,8 @@ const App = () => {
             path="/reports/collector/userwise"
             element={<CollectorUserWise />}
           />
-
           {/*Customer Relations  =============================================*/}
-
           {/*SMS  =============================================*/}
-
           <Route
             path="/customer-relations/sms/create"
             element={<SMSCreate />}
@@ -951,7 +916,6 @@ const App = () => {
             path="/customer-relations/sms/report"
             element={<SMSreport />}
           />
-
           {/*Whatsapp  =============================================*/}
           <Route
             path="/customer-relations/whatsapp/create"
@@ -965,7 +929,6 @@ const App = () => {
             path="/customer-relations/whatsapp/report"
             element={<WhatsappReport />}
           />
-
           {/*Email  ============================================= */}
           <Route
             path="/customer-relations/email/create"
@@ -979,9 +942,7 @@ const App = () => {
             path="/customer-relations/email/report"
             element={<EmailReport />}
           />
-
           {/*Push =============================================*/}
-
           <Route
             path="/customer-relations/push/create"
             element={<PushCreate />}
