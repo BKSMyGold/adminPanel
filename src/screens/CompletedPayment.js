@@ -35,7 +35,7 @@ const CompletedPayment = () => {
 
   useEffect(() => {
     const fetcUser = async () => {
-      const { data } = await axios.get(`${BASE_URL}/api/subscription/balance/user/${"628ca571607e25bd715dd514"}`)
+      const { data } = await axios.get(`${BASE_URL}/api/subscription/balance/user/628ca571607e25bd715dd514`)
 
       setUserAmount(data.data)
     }
