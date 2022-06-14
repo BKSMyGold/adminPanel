@@ -3,6 +3,7 @@ import Footer from '../layouts/Footer'
 import Header from '../layouts/Header'
 import Dashboard from './dashboard'
 import axios from 'axios'
+import {Link} from 'react-router-dom'
 
 const formatDate = (date) => {
   date = new Date(date)
@@ -49,6 +50,19 @@ const FixedPlanWeightCycle = () => {
   }, []);
 
 
+  console.log(subscriptions)
+
+  let subByWeight = subscriptions.filter(x =>{
+    if (x.plan && x.plan!== undefined) {
+      if(x.plan.mode === "weight" || x.plan.mode === "Weight"){
+        return(
+          x
+        )
+      }
+
+    }
+  })
+console.log("Lo and Behold =>", subByWeight)
 
   return (
     <div className='d-flex flex-column flex-root'>
@@ -104,7 +118,7 @@ const FixedPlanWeightCycle = () => {
                       </thead>
 
                       <tbody>
-                        {subscriptions.map((subscription) => (
+                        {/* {subscriptions.map((subscription) => (
                           <tr>
                             <td>{subscription.id}</td>
                             <td>{subscription.user.fname}</td>
@@ -115,7 +129,37 @@ const FixedPlanWeightCycle = () => {
                             <td>{subscriptionsByUser[subscription.user.id]} GRAM</td>
                             <td>{subscription.status !== 'Completed' ? 'Un Matured' : 'Matured'}</td>
                           </tr>
-                        ))}
+                        ))} */}
+                          {subByWeight.map(x =>{
+                            return(
+                              <tr>
+                                <td>{x.id}</td>
+                                <Link 
+                                to = '/user_details'
+                                state = {x.user}
+                                > 
+                                <td>{x.user.fname}</td>
+                                </Link>
+                                <td>{x.plan.cyclePeriod.name}</td>
+                                <td>{x.plan.planType}</td>
+                                
+                                <td>{x.maturityDate.substring(0,10)}</td>
+                                <td>{x.status}</td>
+                                <td>{x.installments.map(x => (
+                                  x.gold
+                                ))} gm</td>
+                                  <td>{x.installments.map(x => (
+                                  x.status
+                                ))}</td>
+
+
+                                
+
+
+
+                              </tr>
+                            )
+                          })}
                       </tbody>
                       {/*end::Table body*/}
                     </table>
