@@ -246,44 +246,7 @@ let userAppointment = appointment.filter(x => {
                       </span>
                     </p>
                   </div>
-                  <ul class="social-links list-inline mt-4 mb-0">
-                    <li class="list-inline-item">
-                      <a
-                        title=""
-                        data-placement="top"
-                        data-toggle="tooltip"
-                        class="tooltips"
-                        href=""
-                        data-original-title="Facebook"
-                      >
-                        <i class="fa fa-facebook"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a
-                        title=""
-                        data-placement="top"
-                        data-toggle="tooltip"
-                        class="tooltips"
-                        href=""
-                        data-original-title="Twitter"
-                      >
-                        <i class="fa fa-twitter"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a
-                        title=""
-                        data-placement="top"
-                        data-toggle="tooltip"
-                        class="tooltips"
-                        href=""
-                        data-original-title="Skype"
-                      >
-                        <i class="fa fa-skype"></i>
-                      </a>
-                    </li>
-                  </ul>
+                  
                 </div>
               </div>
 
@@ -334,44 +297,7 @@ let userAppointment = appointment.filter(x => {
                       </div>
                     );
                   })}
-                  <ul class="social-links list-inline mt-4 mb-0">
-                    <li class="list-inline-item">
-                      <a
-                        title=""
-                        data-placement="top"
-                        data-toggle="tooltip"
-                        class="tooltips"
-                        href=""
-                        data-original-title="Facebook"
-                      >
-                        <i class="fa fa-facebook"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a
-                        title=""
-                        data-placement="top"
-                        data-toggle="tooltip"
-                        class="tooltips"
-                        href=""
-                        data-original-title="Twitter"
-                      >
-                        <i class="fa fa-twitter"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a
-                        title=""
-                        data-placement="top"
-                        data-toggle="tooltip"
-                        class="tooltips"
-                        href=""
-                        data-original-title="Skype"
-                      >
-                        <i class="fa fa-skype"></i>
-                      </a>
-                    </li>
-                  </ul>
+                 
                 </div>
               </div>
 
