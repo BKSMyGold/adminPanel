@@ -17,7 +17,7 @@ const formatDate = (date) => {
 const ConvertedNormalUser = () => {
   const [subscriptions, setSubscriptions] = useState([])
   const [subscriptionsByUser, setSubscriptionsByUser] = useState(null)
-  const [handingChargeCalculation, setHandingChargeCalculation] = useState(null)
+  const [handingChargeCalculation, setHandingChargeCalculation] = useState()
   const [charges, setCharges] = useState(null)
   useEffect(() => {
     const fetchSubscriptions = async () => {
@@ -57,6 +57,7 @@ const ConvertedNormalUser = () => {
     }
     getHandingCharges()
   }, [])
+  console.log('-->',subscriptions)
   return (
     <div className='d-flex flex-column flex-root'>
       <div className='page d-flex flex-row flex-column-fluid'>
@@ -165,11 +166,18 @@ const ConvertedNormalUser = () => {
                             </td>
 
                             <td class='text-end'>
-                              {subscriptionsByUser[subscription.user.id]}
+                              {subscription.installments.map(x =>(
+                                x.gold
+                              ))} gm
                             </td>
                             <td class='text-end'>
-                              {subscriptionsByUser[subscription.user.id] * (1 - handingChargeCalculation)} GRAM
+                              {subscription.installments.map(x =>(
+                                x.gold - charges
+                              ))} gm
                             </td>
+                            {/* <td class='text-end'>
+                              {subscriptionsByUser[subscription.user.id] * (1 - charges)} GRAM  
+                            </td> */}
                           </tr>
                         ))}
                       </tbody>
