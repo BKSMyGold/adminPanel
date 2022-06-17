@@ -51,6 +51,7 @@ const PlanBonusDue = () => {
     }
     getCalculations()
   }, [])
+  console.log('==>',subscriptions)
   return (
     <div className='d-flex flex-column flex-root'>
       <div className='page d-flex flex-row flex-column-fluid'>
@@ -107,17 +108,9 @@ const PlanBonusDue = () => {
                       {/*end::Table head*/}
                       {/*begin::Table body*/}
                       <tbody>
-                        {subscriptions.map((subscription) => (
+                        {/* {subscriptions.map((subscription) => (
                           <tr>
-                            <td>
-                              <div class='form-check form-check-sm form-check-custom form-check-solid'>
-                                <input
-                                  class='form-check-input widget-13-check'
-                                  type='checkbox'
-                                  value='1'
-                                />
-                              </div>
-                            </td>
+                           
                             <td>
                               <a
                                 href='#'
@@ -165,7 +158,71 @@ const PlanBonusDue = () => {
                             </td>
 
                           </tr>
-                        ))}
+                        ))} */}
+                         {subscriptions &&
+                          subscriptions.map((subscription) => {
+                            if (
+                              subscription.plan &&
+                              subscription.plan !== undefined
+                            ) {
+                              return (
+                                <tr>
+                                  <td>
+                                    <a
+                                      href="#"
+                                      class="text-dark fw-bolder text-hover-primary fs-6"
+                                    >
+                                      {subscription.id}
+                                    </a>
+                                  </td>
+                                  <td>
+                                    <a
+                                      href="#"
+                                      class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
+                                    >
+                                      {subscription.user.fname}
+                                    </a>
+                                  </td>
+                                  <td>
+                                    <a
+                                      href="#"
+                                      class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
+                                    >
+                                      {subscription.plan.cyclePeriod.name}
+                                    </a>
+                                  </td>
+                                  <td class="text-dark fw-bolder text-hover-primary fs-6">
+                                    {subscription.plan.planType}
+                                  </td>
+                                  <td>
+                                    <span class="badge badge-light-success">
+                                      {subscription.plan !== null
+                                        ? subscription.plan.mode
+                                        : subscription.customPlan.mode}
+                                    </span>
+                                  </td>
+                                  <td>
+                                    <span class="badge badge-light-success">
+                                      {formatDate(subscription.maturityDate)}
+                                    </span>
+                                  </td>
+
+                                  <td>{subscription.status}</td>
+                                  <td>
+                                    {subscription.installments.map(
+                                      (x) => x.gold
+                                    )}{" "}
+                                    gm
+                                  </td>
+                                  <td>
+                                    {subscription.planBonus *
+                                      planBonusCalculation}{" "}
+                                    gm
+                                  </td>
+                                </tr>
+                              );
+                            } 
+                          })}
                       </tbody>
                       {/*end::Table body*/}
                     </table>
