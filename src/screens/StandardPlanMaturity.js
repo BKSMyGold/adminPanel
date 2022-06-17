@@ -16,7 +16,7 @@ const formatDate = (date) => {
 const StandardPlanMaturity = () => {
   const [CyclePeriod, setCyclePeriod] = useState([])
   const [subscriptions, setSubscriptions] = useState([])
-  const [subscriptionsByUser, setSubscriptionsByUser] = useState({})
+  const [subscriptionsByUser, setSubscriptionsByUser] = useState([])
   useEffect(() => {
     const fetchcycleperiods = async () => {
       const { data } = await axios.get(`${BASE_URL}/api/cycle-period`)
@@ -29,19 +29,22 @@ const StandardPlanMaturity = () => {
       const { data } = await axios.get('http://13.59.57.74:5000/api/subscription/')
       setSubscriptions(data.subscriptions)
     }
+    
     fetchSubscriptions()
-
+    
     const fetchtotalOfSubscriptionByUser = () => {
       let subscriptionsData = {}
       subscriptions.forEach(async (subscription) => {
         const { data } = await axios.get(`http://13.59.57.74:5000/api/subscription/balance/individual/${subscription.user.id}/${subscription.id}`)
         subscriptionsData[subscription.user.id] = data.totalGold
       })
-
+      
       setSubscriptionsByUser(subscriptionsData)
     }
     fetchtotalOfSubscriptionByUser()
   }, [])
+  console.log('=========----------->',subscriptionsByUser)
+  console.log('=========----------->',subscriptions)
 
   return (
     <div className='d-flex flex-column flex-root'>
@@ -106,7 +109,9 @@ const StandardPlanMaturity = () => {
                                   <td>{subscription.plan.mode}</td>
                                   <td>{formatDate(subscription.maturityDate)}</td>
                                   <td>{subscription.status}</td>
-                                  <td>{subscriptionsByUser[subscription.user.id]}</td>
+                                  <td>{subscription.installments.map(x =>(
+                                    x.gold
+                                  ))} gm</td>
                                   <td>{subscription.status !== 'Completed' ? 'Un Matured' : 'Matured'}</td>
                                 </tr>
                               )

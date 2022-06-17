@@ -447,7 +447,6 @@ const App = () => {
             path="/transaction/financials/ZohoBooks"
             element={<ZohoBooks />}
           />
-          "/transaction/financials/ZohoBooks/add"
           <Route
             path="/transaction/financials/ZohoBooks/add"
             element={<ZohoBooksForm />}
