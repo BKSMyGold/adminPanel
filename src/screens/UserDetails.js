@@ -23,13 +23,24 @@ export default function UserDetails() {
   React.useEffect(() => {
     const fetchAppointment = async () => {
       const { data } = await axios.get(
-        `${BASE_URL}/api/appointment/user/${user.id}`
+        `${BASE_URL}/api/appointment/`
       );
+      
       setAppointment(data.data);
     };
     fetchAppointment();
   }, []);
-  // console.log("Users appointment ==>", appointment);
+
+let userAppointment = appointment.filter(x => {
+  if(x.user.id === user.id){
+    return(
+      x
+    )
+  }
+})
+
+
+  console.log("Users appointment ==>", userAppointment);
   //===============================================================================================================================
   React.useEffect(() => {
     const fetchSubscription = async () => {
@@ -287,7 +298,7 @@ export default function UserDetails() {
                     for filling space. Fill as many you want.
                   </p>
                   <hr /> */}
-                  {appointment?.map((appointment) => {
+                  {userAppointment && userAppointment.map((appointment) => {
                     return (
                       <div class="text-left">
                         <p class="text-muted font-13">
