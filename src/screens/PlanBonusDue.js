@@ -201,20 +201,20 @@ const PlanBonusDue = () => {
                                         : subscription.customPlan.mode}
                                     </span>
                                   </td>
-                                  <td>
+                                  <td  class="text-dark fw-bolder text-hover-primary fs-6">
                                     <span class="badge badge-light-success">
                                       {formatDate(subscription.maturityDate)}
                                     </span>
                                   </td>
 
-                                  <td>{subscription.status}</td>
-                                  <td>
+                                  <td  class="text-dark fw-bolder text-hover-primary fs-6">{subscription.status}</td>
+                                  <td  class="text-dark fw-bolder text-hover-primary fs-6">
                                     {subscription.installments.map(
                                       (x) => x.gold
                                     )}{" "}
                                     gm
                                   </td>
-                                  <td>
+                                  <td  class="text-dark fw-bolder text-hover-primary fs-6">
                                     {subscription.planBonus *
                                       planBonusCalculation}{" "}
                                     gm
