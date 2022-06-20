@@ -43,9 +43,10 @@
 //   );
 // }
 import React from "react";
-import "./NoAccessComponent.css"
+import "./NoAccessComponent.css";
 
 export default function NoAccessComponent({ user }) {
+  console.log(user);
   return (
     <>
       <div class="gandalf">
@@ -62,11 +63,14 @@ export default function NoAccessComponent({ user }) {
         </div>
       </div>
       <div class="message">
-        <h1 class ="text">You Shall Not Pass Mr. {user.name}</h1>
-        <p class = "text para">
-          Uh oh, Gandalf has denied you permission !
+        <h1 class="text">You Shall Not Pass Mr. {user.name}</h1>
+
+        <p class="text para">
+          Uh oh, Gandalf has denied you permission as a{" "}
+          {Object.keys(user).map((role) => {
+            return user[role].role_name;
+          })}
           <br />
-         
         </p>
       </div>
     </>

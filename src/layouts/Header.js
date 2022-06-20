@@ -197,7 +197,7 @@ let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
                           <div className="menu-item">
                             <a
                               className="menu-link py-3"
-                              href="/view_metal_group"
+                              href="/master/product-data/metal-groups"
                             >
                               <span className="menu-bullet">
                                 <span className="bullet bullet-dot"></span>
