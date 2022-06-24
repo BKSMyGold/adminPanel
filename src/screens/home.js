@@ -5,8 +5,8 @@ import Dashboard from "./dashboard";
 import axios from "axios";
 import { BASE_URL, ROLE_PERMISSION_BASE_URL } from "../Constants";
 import { Link } from "react-router-dom";
-
 import ReactPaginate from "react-paginate";
+import ReactApexChart from "react-apexcharts";
 
 const Home = () => {
   const [latestBuySell, setPrice] = useState([{}]);
@@ -17,6 +17,7 @@ const Home = () => {
   const [buysell, setBuySell] = useState([{}]);
   const [searchUser, setSearchUser] = useState("");
   const [filterUser, setFilterUser] = useState({});
+  const [series, setSeries] = useState([30, 40, 45, 50, 49, 60, 70, 91]);
 
   const [pageNumber, setPageNumber] = useState(0);
 
@@ -106,46 +107,7 @@ const Home = () => {
   }, []);
   //========================================================================
 
-  //  useEffect(()=>{
-  //    axios.get(`${BASE_URL}/api/user/`).then(data => (
-  //      data.data.map( user => {
-  //        if(user.fname === filterUser){
-  //          setUsersCount(user)
-  //        }
-  //      })
-  //    ))
 
-  //  },[filterUser])
-
-  // console.log("==>latestBuySell", latestBuySell);
-  // console.log("==>sliced countUsers", countUsers);
-  // console.log("==>countStandard", countStandard);
-  // console.log("==>Users", Users);
-  // console.log("==>Plans", Plans);
-  // console.log("==>buysell", buysell);
-  // console.log("==>filter user", filterUser);
-  //========================================================================
-  // function handleClick(e) {
-  //   console.log(Number(e.target.value));
-
-  //   setCurrentPage(Number(e.target.value));
-  // }
-  //========================================================================
-  // let todosPerPage = 2;
-  // const indexOfLastTodo = currentPage * todosPerPage;
-  // console.log(indexOfLastTodo);
-  // const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
-  // console.log(indexOfFirstTodo);
-
-  // const currentUser = countUsers.slice(indexOfFirstTodo, indexOfLastTodo);
-  // console.log(currentUser);
-
-  // const pageNumbers = [];
-  // for (let i = 1; i <= Math.ceil(countUsers.length / todosPerPage); i++) {
-  //   pageNumbers.push(i);
-  // }
-  // console.log(pageNumbers);
-//===================================================================================== 
   const usersPerPage = 3;
   const pagesVisited = pageNumber * usersPerPage;
 
@@ -171,7 +133,7 @@ const Home = () => {
             </div>
           </td>
           <td>
-            <span class="active-circle bg-success"></span> Active
+            {user.dob}
           </td>
           <td>{user.mobile}</td>
 
@@ -191,6 +153,38 @@ const Home = () => {
   };
 
   //========================================================================
+
+  const [foundUsers, setFoundUser] = useState(countUsers);
+  const [name, setName] = useState('');
+
+  // const filter = (e) => {
+  //   let keyword = e.target.value;
+  //   if (keyword !== "") {
+  //     const result = countUsers.filter((user) => {
+  //       return user.fname.toLowerCase().startsWith(keyword.toLowerCase());
+  //     });
+  //     setFoundUser(result);
+  //   } else {
+  //     setFoundUser(countUsers);
+  //   }
+  //   setName(keyword);
+  // };
+  const filter = (e) => {
+    let keyword = e.target.value;
+    if (keyword === "") {
+      setFoundUser(countUsers);
+    }else{
+      const result = countUsers.filter((user) => {
+        return user.fname.toLowerCase().startsWith(keyword.toLowerCase());
+      });
+      setFoundUser(result);
+
+    }
+    
+    setName(keyword);
+  };
+  //========================================================================
+
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -202,17 +196,32 @@ const Home = () => {
           <Dashboard />
           {/* ====================================== */}
           {/* <section class="main-content"> */}
+          <div class="latest_price">
+            <div className="price-box w-250px h-150px">
+              <span className="badge badge-success">Buy Price</span>
+              {latestBuySell.buy}
+            </div>
+            <div className="price-box w-250px h-150px">
+              <span className="badge badge-danger">Sell Price</span>
+              {latestBuySell.sell}
+            </div>
+          </div>
           <div class="container">
-            <h1 class="btn text-light bg-dark">{countUsers.length} App's Users</h1>
+            <h1 class="btn text-light bg-dark">
+              {countUsers.length} App's Users
+            </h1>
             <br></br>
 
             <input
+      
               class="form-control mt-5"
               placeholder="Search User"
-              onChange={(e) => {
-                e.preventDefault();
-                setSearchUser(e.target.value);
-              }}
+              // value={name}
+              // onChange={(e) => {
+              //   e.preventDefault();
+              //   setSearchUser(e.target.value);
+              // }}
+              onChange={filter}
             />
 
             <Link to="/filtered_users" state={searchUser}>
@@ -224,26 +233,69 @@ const Home = () => {
               <thead>
                 <tr>
                   <th>User</th>
-                  <th>Status</th>
+                  <th>DOB</th>
                   <th>Phone</th>
                   <th>Action</th>
                   {/* <th>Actions</th> */}
                 </tr>
               </thead>
-              <tbody>{displayUsers}</tbody>
+              <tbody>
+                {foundUsers && foundUsers.length > 0 ? (
+                  foundUsers
+                    .slice(pagesVisited, pagesVisited + usersPerPage)
+                    .map((user) => {
+                      return (
+                        <tr class ="fw-bolder">
+                          <td>
+                            <div class="user-info">
+                              <div class="user-info__img">
+                                <img
+                                  src={
+                                    user.image
+                                      ? user.image
+                                      : "assets/media/avatars/150-2.jpg"
+                                  }
+                                  alt="User Img"
+                                />
+                              </div>
+                              <div class="user-info__basic">
+                                <h5 class="mb-0">{user.fname}</h5>
+                                <p class="text-muted mb-0">{user.email}</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                           {user.dob}
+                          </td>
+                          <td>{user.mobile}</td>
+
+                          <td>
+                            <Link to="/user_details" state={user}>
+                              <button class="btn btn-primary">
+                                Show details
+                              </button>
+                            </Link>
+                          </td>
+                        </tr>
+                      );
+                    })
+                ) : (
+                  <h1>No Result</h1>
+                )}
+              </tbody>
             </table>
           </div>
-          
-            <ReactPaginate
-              previousLabel={"Previous"}
-              nextLabel={"Next"}
-              pageCount={pageCount}
-              onPageChange={changePage}
-              containerClassName={"paginationBttns"}
-              previousLinkClassName={"previousBttn"}
-              nextLinkClassName={"nextBttn"} 
-              activeClassName={"paginationActive"}
-            />
+
+          <ReactPaginate
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
+            pageCount={pageCount}
+            onPageChange={changePage}
+            containerClassName={"paginationBttns"}
+            previousLinkClassName={"previousBttn"}
+            nextLinkClassName={"nextBttn"}
+            activeClassName={"paginationActive"}
+          />
           <Footer />
         </div>
       </div>
