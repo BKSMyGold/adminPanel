@@ -195,12 +195,12 @@ const UserDataPlan = () => {
   sub12month =
     standardSubscriptions &&
     standardSubscriptions.map((sub) => {
-      if (sub.plan && sub.plan.name === "12 Months Savings Plan") {
+      if (sub.plan && sub.plan.name === "12 month Savings Plan") {
         return sub.user;
       }
     });
 
-  console.log("12 month waale : ==>", sub12month);
+  // console.log("12 month waale : ==>", sub12month);
 
   let sub12monthCycle = [];
   sub12monthCycle =
@@ -211,36 +211,32 @@ const UserDataPlan = () => {
       }
     });
 
-  console.log("12 month waali Cycle : ==>", sub12monthCycle);
-  console.log("Ajooba : ==>", sub12month.concat(sub12monthCycle));
+  // console.log("12 month waali Cycle : ==>", sub12monthCycle);
+  // console.log("Ajooba : ==>", sub12month.concat(sub12monthCycle));
 
-  let arr = sub12monthCycle.concat(sub12month)
-
-
-
-
+  let arr = sub12monthCycle.concat(sub12month);
 
   let sub24month = [];
   sub24month =
     standardSubscriptions &&
     standardSubscriptions.map((sub) => {
-      if (sub.plan && sub.plan.name === "24 Months Savings Plan") {
+      if (sub.plan && sub.plan.name === "24 month Savings Plan") {
         return sub.user;
       }
     });
 
-  console.log("24 month waale : ==>", sub24month);
+  // console.log("24 month waale : ==>", sub24month);
 
   let flexi = [];
   flexi =
     standardSubscriptions &&
     standardSubscriptions.map((sub) => {
-      if (sub.plan && sub.plan.name === "	Flexi Plan") {
+      if (sub.customPlan && sub.customPlan.name === "Flexi Plan") {
         return sub.user;
       }
     });
 
-  // console.log("flexi : ==>", flexi);
+  console.log("flexi : ==>", flexi);
 
   //=============================================================================================================
   return (
@@ -277,77 +273,76 @@ const UserDataPlan = () => {
                 {/*begin::Body*/}
                 {/* {Standardplan &&
                   Standardplan.map((Standard) => ( */}
-                    <div class="card-body py-3">
-                      <h1>12 Months Savings Plan</h1>
-                      <div class="table-responsive">
-                        <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
-                          <thead>
-                            <tr class="fw-bolder text-muted">
-                              <th class="min-w-150px">Id</th>
-                              <th class="min-w-140px">Customer Name</th>
-                              <th class="min-w-140px">Mobile</th>
+                <div class="card-body py-3">
+                  <h1>12 Months Savings Plan</h1>
+                  <div class="table-responsive">
+                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                      <thead>
+                        <tr class="fw-bolder text-muted">
+                          <th class="min-w-150px">Id</th>
+                          <th class="min-w-140px">Customer Name</th>
+                          <th class="min-w-140px">Mobile</th>
 
-                              <th class="min-w-100px">Email</th>
-                              <th class="min-w-120px">PAN</th>
-                            
+                          <th class="min-w-100px">Email</th>
+                          <th class="min-w-120px">PAN</th>
+                        </tr>
+                      </thead>
 
-                            
-                            </tr>
-                          </thead>
+                      <tbody>
+                        {sub12month.map((sub12month) => {
+                          if (sub12month !== undefined) {
+                            return (
+                              <tr>
+                                <td>{sub12month.id}</td>
+                                <td>{sub12month.fname}</td>
+                                <td>{sub12month.mobile}</td>
+                                <td>{sub12month.email}</td>
+                                <td>
+                                  {sub12month.pan ? sub12month.pan : "NaN"}
+                                </td>
+                              </tr>
+                            );
+                          }
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
 
-                          <tbody>
-                            {sub12month.map((sub12month) => {
-                              if (typeof sub12month !== "undefined") {
-                                return (
-                                  <tr>
-                                    <td>{sub12month.id}</td>
-                                    <td>{sub12month.fname}</td>
-                                    <td>{sub12month.mobile}</td>
-                                    <td>{sub12month.email}</td>
-                                    <td>{sub12month.pan ? sub12month.pan : "NaN"}</td>
-                                  </tr>
-                                );
-                              }
-                            })}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  
+                <div class="card-body py-3">
+                  <h1>24 Months Savings Plan</h1>
+                  <div class="table-responsive">
+                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                      <thead>
+                        <tr class="fw-bolder text-muted">
+                          <th class="min-w-150px">Id</th>
+                          <th class="min-w-140px">Customer Name</th>
+                          <th class="min-w-140px">Mobile</th>
+                          <th class="min-w-100px">Email</th>
+                          <th class="min-w-120px">PAN</th>
+                        </tr>
+                      </thead>
 
-                    <div class="card-body py-3">
-                      <h1>24 Months Savings Plan</h1>
-                      <div class="table-responsive">
-                        <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
-                          <thead>
-                            <tr class="fw-bolder text-muted">
-                              <th class="min-w-150px">Id</th>
-                              <th class="min-w-140px">Customer Name</th>
-                              <th class="min-w-140px">Mobile</th>
-                              <th class="min-w-100px">Email</th>
-                              <th class="min-w-120px">PAN</th>
-                            </tr>
-                          </thead>
-
-                          <tbody>
-                            {sub24month.map((sub24month) => {
-                              if (typeof sub24month !== "undefined") {
-                                return (
-                                  <tr>
-                                    <td>{sub24month.id}</td>
-                                    <td>{sub24month.fname}</td>
-                                    <td>{sub24month.mobile}</td>
-                                    <td>{sub24month.email}</td>
-                                    <td>{sub24month.pan ? sub24month.pan : "NaN"}</td>
-                                  </tr>
-                                );
-                              }
-                            })}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  
+                      <tbody>
+                        {sub24month.map((sub24month) => {
+                          if (typeof sub24month !== "undefined") {
+                            return (
+                              <tr>
+                                <td>{sub24month.id}</td>
+                                <td>{sub24month.fname}</td>
+                                <td>{sub24month.mobile}</td>
+                                <td>{sub24month.email}</td>
+                                <td>
+                                  {sub24month.pan ? sub24month.pan : "NaN"}
+                                </td>
+                              </tr>
+                            );
+                          }
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
 
                 <div class="card-body py-3">
                   <h1>Flexi Plan</h1>
@@ -365,15 +360,19 @@ const UserDataPlan = () => {
                       </thead>
 
                       <tbody>
-                        {flexiSubscriptions.map((Standard) => (
-                          <tr>
-                            <td>{Users.id}</td>
-                            <td>{Users.fname}</td>
-                            <td>{Users.mobile}</td>
-                            <td>{Users.email}</td>
-                            <td>{Users.pan}</td>
-                          </tr>
-                        ))}
+                        {flexi.map((Users) => {
+                          if (Users !== undefined) {
+                            return (
+                              <tr>
+                                <td>{Users.id}</td>
+                                <td>{Users.fname}</td>
+                                <td>{Users.mobile}</td>
+                                <td>{Users.email}</td>
+                                <td>{Users.pan ? Users.pan : "Nan"}</td>
+                              </tr>
+                            );
+                          }
+                        })}
                       </tbody>
                     </table>
                   </div>

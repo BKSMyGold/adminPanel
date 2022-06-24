@@ -10,46 +10,76 @@ const ZohoBooks = () => {
   const [ItemDetails, setItemDetails] = useState([]);
 
   //=========================================================================================================
+  //   // Create WebSocket connection.
+  // const socket = new WebSocket('ws://books.zoho.in/api/v3/contacts?organization_id=60014963586');
 
+  // // Connection opened
+  // socket.addEventListener('open', function (event) {
+  //     socket.send('Hello Server!');
+  // });
 
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       'https://books.zoho.in/api/v3/contacts?organization_id=60014963586',{
-  //         headers:{
-           
-  //           "authorization": "Zoho-Oauthtoken 1000.064338de523306a2d1a1e1d1ab7bfb11.d7ea1fe7c6bd7333f4d409ea900ac443"
-            
-  //         }
-          
-  //       }
+  // // Listen for messages
+  // socket.addEventListener('message', function (event) {
+  //     console.log('Message from server ', event.data);
+  // });
 
-        
-                                                 
-    
-  //     ).then((res) => setZohoContact(res.contacts));
-  // }, []);
-  
-// console.log("----> here it is", zohoContact)
-  useEffect(()=>{
-      const fetchZohoContact = async()=>{
-          let params = {
-              method: 'GET',
-              contentType: "application/json",
-              // "Access-Control-Allow-Origin": "*",
-              mode: 'no-cors',
-              headers: {Authorization: "Zoho-oauthtoken 1000.89cd37ae63cf2e2a66d29b9639ab584c.b4d590eda5da7b9fbedccaa7c769f44d"},
-     
-            };
+  useEffect(() => {
+    try {
+      console.log("------------> 1");
 
-           let data = await fetch('https://books.zoho.in/api/v3/contacts?organization_id=60014963586',params)
-           setZohoContact(data)
+      axios
+        .get(
+          "https://books.zoho.in/api/v3/contacts?organization_id=60014963586",
+          {
+            headers: {
+              //  "User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36",
+              Authorization:
+                "Zoho-oauthtoken 1000.af4c22a746861d493af2264f9d16db17.57620bda51e00c61704a11ed5f4bbf8f",
+            },
+          }
+        )
+        .then((res) => {
+          setZohoContact(res.contacts);
+          console.log("------------> 3");
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
-      }
+  console.log("----> here it is", zohoContact);
 
-      fetchZohoContact()
-    },[])
-    console.log('================================>', zohoContact)
+  // useEffect(()=>{
+  //   console.log('===> 1')
+  //     const fetchZohoContact = async()=>{
+  //         let params = {
+  //             method: 'GET',
+  //             headers: {
+  //               Authorization : "Zoho-oauthtoken 1000.b48b67d8390499ec1e186a43e5c5fc21.6a105ebf99d889745d5d77e27c11fe56",
+  //               User-Agent:"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"
+
+  //             },
+  //             mode:"no-cors"
+  //           }
+  //           let data = await fetch('https://books.zoho.in/api/v3/contacts?organization_id=60014963586',{params})
+  //           console.log('===> 2')
+  //          console.log("aaya =============>",data);
+  //     }
+  //     fetchZohoContact()
+  //   },[])
+
+  // const ft = async()=>{
+  //   let data = await fetch('https://books.zoho.in/api/v3/contacts?organization_id=60014963586',{ method: 'Get', headers:{"Content-type": "application/x-www-form-urlencoded;charset=UTF-8", "Authorization": "Zoho-oauthtoken 1000.92708fab5d93188490db030ff5d6a4b7.fc11900b1bfa3dfde6b4045d2d4ba705"}})
+  //   console.log('===> 2')
+  //  console.log("aaya =============>",data);
+
+  // }
+  // ft();
+
+  // console.log('================================>', zohoContact)
 
   // const xhr = new XMLHttpRequest();
   // const url = 'https://books.zoho.in/api/v3/contacts?organization_id=60014963586';
@@ -74,10 +104,10 @@ const ZohoBooks = () => {
   //       );
 
   //   setItemDetails(data.data);
-  //     };                                                                                                                                                                     
+  //     };
   //     fetchItemDetails();
   //   }, []);
-   return (
+  return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
         <div

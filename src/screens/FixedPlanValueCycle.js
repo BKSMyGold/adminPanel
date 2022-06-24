@@ -42,34 +42,50 @@ const FixedPlanValueCycle = () => {
     };
     fetchcycleperiods();
 
-    const fetchtotalOfSubscriptionByUser = () => {
-      let subscriptionsData = {};
+    // const fetchtotalOfSubscriptionByUser = () => {
+    //   let subscriptionsData = {};
 
-      subscriptions.forEach(async (subscription) => {
-        const { data } = await axios.get(
-          `http://13.59.57.74:5000/api/subscription/balance/individual/${subscription.user.id}/${subscription.id}`
-        );
-        subscriptionsData[subscription.user.id] = data.totalGold;
-      });
+    //   subscriptions.forEach(async (subscription) => {
+    //     const { data } = await axios.get(
+    //       `http://13.59.57.74:5000/api/subscription/balance/individual/${subscription.user.id}/${subscription.id}`
+    //     );
+    //     subscriptionsData[subscription.user.id] = data.totalGold;
+    //   });
 
-      setSubscriptionsByUser({ ...subscriptionsData });
-    };
-    fetchtotalOfSubscriptionByUser();
+    //   setSubscriptionsByUser({ ...subscriptionsData });
+    // };
+    // fetchtotalOfSubscriptionByUser();
   }, []);
 
-  console.log(CyclePeriod)
-  console.log(subscriptions)
-  // console.log(subscriptionsByUser)
-  // console.log(buySell)
 
-  let subByCycleByValue = subscriptions && subscriptions.filter((x) => {
-    if (x.plan && x.plan!== undefined) {
-      if (x.plan.mode === "value") {
-        return x;
-      }
+  // console.log("===============------>", subscriptions);
+
+
+  let cycleName = CyclePeriod.map(x =>(x.name))
+
+  let flexByValue1 = subscriptions.filter((x) => {
+    if (x.customPlan && x.customPlan.mode === "Weight" && x.customPlan.cyclePeriod.name === cycleName[0]) {
+      return x;
     }
   });
-  console.log("mil gaya ====->", subByCycleByValue);
+
+  console.log("isko hone ka", flexByValue1)
+
+  let flexByValue2 = subscriptions.filter((x) => {
+    if (x.customPlan && x.customPlan.mode === "Weight" && x.customPlan.cyclePeriod.name === cycleName[1]) {
+      return x;
+    }
+  });
+
+  console.log("isko hone ka again", flexByValue2)
+
+ 
+
+ 
+  
+  
+  
+
 
   //========================================================================
   return (
@@ -105,89 +121,95 @@ const FixedPlanValueCycle = () => {
                 {/*end::Header*/}
                 {/*begin::Body*/}
                 {/* {CyclePeriod.map((cycle) => ( */}
-                  <div class="card-body py-3">
-                    <h1>{CyclePeriod.map(x =>{
-                      if(x.name === 'Every Month'){
-                        return(
-                            x.name
-                        )
+                <div class="card-body py-3">
+                  <h1>
+                    {cycleName[0]}
+                  </h1>
+                  <div class="table-responsive">
+                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                      <thead>
+                        <tr class="fw-bolder text-muted">
+                          <th class="min-w-150px">Id</th>
+                          <th class="min-w-140px">Customer Name</th>
+                          <th class="min-w-140px">Mode</th>
 
-                      }
-                    })}</h1>
-                    <div class="table-responsive">
-                      <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
-                        <thead>
-                          <tr class="fw-bolder text-muted">
-                            <th class="min-w-150px">Id</th>
-                            <th class="min-w-140px">Customer Name</th>
-                            <th class="min-w-140px">Mode</th>
+                          <th class="min-w-120px">Maturity Date</th>
+                          <th class="min-w-120px">Status</th>
 
-                            <th class="min-w-120px">Maturity Date</th>
-                            <th class="min-w-120px">Status</th>
+                          <th class="min-w-100px ">Saved Gold</th>
+                          <th class="min-w-100px ">Maturity Status</th>
+                        </tr>
+                      </thead>
 
-                            <th class="min-w-100px ">Saved Gold</th>
-                            <th class="min-w-100px ">Maturity Status</th>
-                          </tr>
-                        </thead>
-
-                        <tbody>
-                          {/* {subscriptions.map((subscription) => {
-                            if (
-                              (subscription.customPlan &&
-                                subscription.customPlan.cyclePeriod.name) ===
-                                buySell[0].name &&
-                              subscription.mode === "Value"
-                            ) {
-                              return (
-                                <tr>
-                                  <td>{subscription.id}</td>
-                                  <td>{subscription.user.fname}</td>
-                                  <td>{subscription.customPlan.mode}</td>
-                                  <td>
-                                    {formatDate(subscription.maturityDate)}
-                                  </td>
-                                  <td>{subscription.status}</td>
-                                  <td>
-                                    {subscriptionsByUser[subscription.user.id]}
-                                  </td>
-                                  <td>
-                                    {subscription.status !== "Completed"
-                                      ? "Un Matured"
-                                      : "Matured"}
-                                  </td>
-                                </tr>
-                              );
-                            }
-                          })} */}
-                          {subByCycleByValue.map(x =>{
-                            return(
-                              <tr>
+                      <tbody>
+                       
+                        {flexByValue1 &&
+                          flexByValue1.map((x) => {
+                            return (
+                              <tr class ="fw-bolder">
                                 <td>{x.id}</td>
                                 <td>{x.user.fname}</td>
-                                <td>{x.plan.mode}</td>
-                                <td>{x.maturityDate.substring(0,10)}</td>
+                                <td>{x.customPlan.mode}</td>
+                                <td>{x.maturityDate.substring(0, 10)}</td>
                                 <td>{x.status}</td>
-                                <td>{x.installments.map(x => (
-                                  x.gold
-                                ))} gm</td>
-                                  <td>{x.installments.map(x => (
-                                  x.status
-                                ))}</td>
-
-
-                                
-
-
-
+                                <td>{x.installments.map((x) => x.gold)} gm</td>
+                                <td>{x.installments.map((x) => x.status)}</td>
                               </tr>
-                            )
+                            );
                           })}
-                        </tbody>
-                      </table>
-                    </div>
-
-                    {/*end::Table container*/}
+                      </tbody>
+                    </table>
                   </div>
+
+                  {/*end::Table container*/}
+                </div>
+
+
+
+                <div class="card-body py-3">
+                  <h1>
+                    {cycleName[1]}
+                  </h1>
+                  <div class="table-responsive">
+                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                      <thead>
+                        <tr class="fw-bolder text-muted">
+                          <th class="min-w-150px">Id</th>
+                          <th class="min-w-140px">Customer Name</th>
+                          <th class="min-w-140px">Mode</th>
+
+                          <th class="min-w-120px">Maturity Date</th>
+                          <th class="min-w-120px">Status</th>
+
+                          <th class="min-w-100px ">Saved Gold</th>
+                          <th class="min-w-100px ">Maturity Status</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                       
+                        {flexByValue2 &&
+                          flexByValue2.map((x) => {
+                            return (
+                              <tr class ="fw-bolder">
+                                <td>{x.id}</td>
+                                <td>{x.user.fname}</td>
+                                <td>{x.customPlan.mode}</td>
+                                <td>{x.maturityDate.substring(0, 10)}</td>
+                                <td>{x.status}</td>
+                                <td>{x.installments.map((x) => x.gold)} gm</td>
+                                <td>{x.installments.map((x) => x.status)}</td>
+                              </tr>
+                            );
+                          })}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/*end::Table container*/}
+                </div>
+
+
                 {/* // ))} */}
                 {/*begin::Body*/}
               </div>

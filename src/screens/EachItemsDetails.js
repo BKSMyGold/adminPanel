@@ -12,7 +12,7 @@ const EachItemsDetails = () => {
 
   const location = useLocation();
   const item = location.state;
-  console.log("========>", item.name);
+  console.log("========>", item);
   //===========================================================================================================
 
   useEffect(() => {
@@ -45,20 +45,9 @@ const EachItemsDetails = () => {
           return (
             <div class="container mb-5">
               <div>
-                {item.item.images.map((image) => {
-                  image ? (
-                    <img class="product-imitation w-200px" src={image} />
-                  ) : (
-                    <img
-                      class="product-imitation w-400px"
-                      src="https://4.imimg.com/data4/AJ/WE/MY-23163465/gold-necklace-500x500.jpg"
-                    />
-                  );
+                {item.item.images.map((img) => {
+                  return <img class="product-imitation w-100px" src={img} />;
                 })}
-                {/* <img
-                    class="product-imitation w-200px"
-                    src="https://4.imimg.com/data4/AJ/WE/MY-23163465/gold-necklace-500x500.jpg"
-                  /> */}
               </div>
 
               <div class="row">
@@ -167,78 +156,7 @@ const EachItemsDetails = () => {
           );
         }
       })}
-      {/* else (
-      <div class="container mb-5">
-        <img
-          class="product-imitation w-200px"
-          src="https://4.imimg.com/data4/AJ/WE/MY-23163465/gold-necklace-500x500.jpg"
-        />
-
-        <div class="row">
-          <div class="col-md-3">
-            <div class="ibox">
-              <div class="ibox-content product-box w-900px">
-                <div class="product-desc">
-                  <span class="product-price">₹ 00.00</span>
-
-                  <table style={{ width: "75%" }}>
-                    <tr>
-                      <th class="text-muted">Item Name</th>
-                      <td class="badge text-light bg-dark"></td>
-                    </tr>
-                    <tr>
-                      <th class="text-muted">SKU</th>
-                      <td class="badge text-light bg-dark"></td>
-                    </tr>
-                    <tr>
-                      <th class="text-muted">Description</th>
-                      <td class="badge text-light bg-dark"></td>
-                    </tr>
-                    <tr>
-                      <th class="text-muted">Gross Weight</th>
-                      <td class="badge text-light bg-dark">gm</td>
-                    </tr>
-                    <tr>
-                      <th class="text-muted">Measurements</th>
-                      <td class="badge text-light bg-dark"></td>
-                    </tr>
-                    <tr>
-                      <th class="text-muted">Ring Size</th>
-                      <td class="badge text-light bg-dark"></td>
-                    </tr>
-                    <tr>
-                      <th class="text-muted">Units Left</th>
-                      <td class="badge text-light bg-dark"></td>
-                    </tr>
-
-                    <tr>
-                      <th class="text-muted">Charges</th>
-
-                      <td class="badge text-light bg-dark"></td>
-                    </tr>
-                    <tr>
-                      <th class="text-muted">Charge Percentage</th>
-
-                      <td class="badge text-light bg-dark">%</td>
-                    </tr>
-                    <tr>
-                      <th class="text-muted">Certify Authority</th>
-
-                      <td class="badge text-light bg-dark"></td>
-                    </tr>
-                    <tr>
-                      <th class="text-muted">Weight</th>
-
-                      <td class="badge text-light bg-dark">gm</td>
-                    </tr>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      ); */}
+      
     </>
   );
 };

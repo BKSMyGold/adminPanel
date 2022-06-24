@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import Footer from '../layouts/Footer'
-import Header from '../layouts/Header'
-import { BASE_URL } from '../Constants'
-import axios from 'axios'
+import React, { useState, useEffect } from "react";
+import Footer from "../layouts/Footer";
+import Header from "../layouts/Header";
+import { BASE_URL } from "../Constants";
+import axios from "axios";
 
 const UserDataCycle = () => {
-  const [CyclePeriod, setCyclePeriod] = useState([])
-  const [Standardplan, setStandardplans] = useState([])
+  const [CyclePeriod, setCyclePeriod] = useState([]);
+  const [Standardplan, setStandardplans] = useState([]);
   const [standardSubscriptionsByCyclePeriod, setStandardSubscriptions] =
-    useState([])
-  const [flexiSubscriptionsByCyclePeriod, setFlexiSubscriptions] = useState([])
-  const [Users, setUsers] = useState([])
-  const [sub, setSub] = useState([])
+    useState([]);
+  const [flexiSubscriptionsByCyclePeriod, setFlexiSubscriptions] = useState([]);
+  const [Users, setUsers] = useState([]);
+  const [sub, setSub] = useState([]);
 
   {
     /*Step 1 Get all Cycle Periods */
@@ -33,7 +33,7 @@ const UserDataCycle = () => {
   //   {
   //     /*
   //    	Get all Standard Plans Avaialable using api/plan/type/standard
-	// */
+  // */
   //   }
 
   //   const standardPlanResponse = [].constructor(2).fill({
@@ -98,8 +98,8 @@ const UserDataCycle = () => {
   // useEffect(() => {
   //   {
   //     /*
-  //    	/*endpont = /api/subscription/   
-	// */
+  //    	/*endpont = /api/subscription/
+  // */
   //   }
 
   //   const FlexiSubscriptionResponse = [].constructor(2).fill({
@@ -180,77 +180,67 @@ const UserDataCycle = () => {
 
   //   setUsers(userResponse)
   // }, [])
-//===================================================================================
-useEffect(()=>{
-  axios.get(`${BASE_URL}/api/subscription/`)
-  .then(res => setSub(res.data.subscriptions))
-},[])
-console.log('==>', sub)
+  //===================================================================================
+  useEffect(() => {
+    axios
+      .get(`${BASE_URL}/api/subscription/`)
+      .then((res) => setSub(res.data.subscriptions));
+  }, []);
+  console.log('==>', sub)
 
-// let cycleSub = sub.map(sub =>{
-//   if(sub.plan.cyclePeriod !== undefined){
-//     if(sub.plan.cyclePeriod.name === "Every Month"){
-//       return(
-//         sub
-//       )
-//     }
+  useEffect(() => {
+    axios
+      .get(`${BASE_URL}/api/cycle-period/`)
+      .then((res) => setCyclePeriod(res.data));
+  }, []);
+  // console.log('==>', CyclePeriod)
 
-//   }
-// })
-let cycleSub = sub.filter(sub =>{
- 
-    if(sub.plan && sub.plan.cyclePeriod.name === "Every Month"){
-    //  console.log('===>', sub.plan.cyclePeriod.name)
-    return(
-      sub
-    )
+  let cycleName = [];
+  cycleName = CyclePeriod.map((name) => name.name);
+  console.log('==>', cycleName)
+
+  let cycleSub = sub.filter((sub) => {
+    if (sub.plan && sub.plan.cyclePeriod.name === cycleName[0]) {
+      //  console.log('===>', sub.plan.cyclePeriod.name)
+      return sub;
     }
+  });
+  console.log("Mil gaya =====>", cycleSub);
 
-  
-})
-console.log('Mil gaya =====>', cycleSub)
-
-
-
-let cycleSub2 = sub.map(sub =>{
- 
-  if(sub.plan && sub.plan.cyclePeriod.name === "Weekly"){
-  //  console.log('===>', sub.plan.cyclePeriod.name)
-  return(
-    sub
-  )
-  }
-
-
-})
-console.log('Mil gaya again=====>', cycleSub2)
-//===================================================================================
+  let cycleSub2 = sub.filter((sub) => {
+    if (sub.customPlan  &&  sub.customPlan.cyclePeriod.name === cycleName[1]) {
+      //  console.log('===>', sub.plan.cyclePeriod.name)
+      return sub;
+    }
+  });
+  console.log('Mil gaya again=====>', cycleSub2)
+  //===================================================================================
   return (
-    <div className='d-flex flex-column flex-root'>
-      <div className='page d-flex flex-row flex-column-fluid'>
+    <div className="d-flex flex-column flex-root">
+      <div className="page d-flex flex-row flex-column-fluid">
         <div
-          className='wrapper d-flex flex-column flex-row-fluid'
-          id='kt_wrapper'
+          className="wrapper d-flex flex-column flex-row-fluid"
+          id="kt_wrapper"
         >
           <Header />
 
           <div
-            id='kt_content_container'
-            class='d-flex flex-column-fluid align-items-start container-xxl mt-20'
+            id="kt_content_container"
+            class="d-flex flex-column-fluid align-items-start container-xxl mt-20"
           >
             {/*begin::Post*/}
-            <div class='content flex-row-fluid' id='kt_content'>
+            <div class="content flex-row-fluid" id="kt_content">
               {/*begin::Row*/}
 
               {/*begin::Tables Widget 13*/}
-              <div class='card mb-5 mb-xl-8'>
+              <div class="card mb-5 mb-xl-8">
                 {/*begin::Header*/}
-                <div class='card-header border-0 pt-5'>
-                  <h3 class='card-title align-items-start flex-column'>
-                    <span class='card-label fw-bolder fs-3 mb-1'>
+                <div class="card-header border-0 pt-5">
+                  <h3 class="card-title align-items-start flex-column">
+                    <span class="card-label fw-bolder fs-3 mb-1">
                       User Details As Per Cycle Period
                     </span>
-                    <span class='text-muted mt-1 fw-bold fs-7'>
+                    <span class="text-muted mt-1 fw-bold fs-7">
                       All Users Data as per Cycle Periods
                     </span>
                   </h3>
@@ -258,51 +248,111 @@ console.log('Mil gaya again=====>', cycleSub2)
                 {/*end::Header*/}
                 {/*begin::Body*/}
                 {/* {cycleSub.map((cycle) => ( */}
-                  <div class='card-body py-3'>
-                    {/* <h1>{cycle.name}</h1> */}
-                    <h1>Every Month</h1>
-                    <div class='table-responsive'>
-                      <table class='table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3'>
-                        <thead>
-                          <tr class='fw-bolder text-muted'>
-                            <th class='min-w-150px'>Id</th>
-                            <th class='min-w-140px'>Customer Name</th>
-                            <th class='min-w-140px'>Cycle Name</th>
-                            <th class='min-w-100px'>Plan Type</th>
-                            <th class='min-w-100px'>Mode</th>
-                            <th class='min-w-120px'>Maturity Date</th>
-                            <th class='min-w-120px'>Status</th>
-                            <th class='min-w-100px '>Saved Gold</th>
-                            <th class='min-w-100px '>Maturity Status</th>
-                          </tr>
-                        </thead>
+                <div class="card-body py-3">
+                  {/* <h1>{cycle.name}</h1> */}
+                  <h1>{cycleName[0]}</h1>
+                  <div class="table-responsive">
+                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                      <thead>
+                        <tr class="fw-bolder text-muted">
+                          <th class="min-w-150px">Id</th>
+                          <th class="min-w-140px">Customer Name</th>
+                          <th class="min-w-140px">Cycle Name</th>
+                          <th class="min-w-100px">Plan Type</th>
+                          <th class="min-w-100px">Mode</th>
+                          <th class="min-w-120px">Maturity Date</th>
+                          <th class="min-w-120px">Status</th>
+                          <th class="min-w-100px ">Saved Gold</th>
+                          <th class="min-w-100px ">Maturity Status</th>
+                        </tr>
+                      </thead>
 
-                        <tbody>
-                          {cycleSub.map(Users =>{
-                            if(Users.plan !== undefined ){
-                            return(
-                          <tr>
-                            <td>{Users.user.id}</td>
-                            <td>{Users.user.fname}</td>
-                            <td>{Users.plan.cyclePeriod.name ?Users.plan.cyclePeriod.name: 'Name' }</td>
-                            <td>{Users.plan.planType}</td>
-                            <td>{Users.plan.mode}</td>
-                            <td>{Users.maturityDate}</td>
-                            <td>{Users.status}</td>
-                            <td>{Users.installments.map(x =>(x.gold))} gm</td>
-                            <td>{Users.installments.map(x =>(x.status))}</td>
-                          </tr>
-                            )    
-                            }
-                          
-                            
-                          })}
-                        </tbody>
-                      </table>
-                    </div>
-
-                    {/*end::Table container*/}
+                      <tbody>
+                        {cycleSub.map((Users) => {
+                          if (Users.plan !== undefined) {
+                            return (
+                              <tr>
+                                <td>{Users.user.id}</td>
+                                <td>{Users.user.fname}</td>
+                                <td>
+                                  {Users.plan.cyclePeriod.name
+                                    ? Users.plan.cyclePeriod.name
+                                    : "Name"}
+                                </td>
+                                <td>{Users.plan.planType}</td>
+                                <td>{Users.plan.mode}</td>
+                                <td>{Users.maturityDate}</td>
+                                <td>{Users.status}</td>
+                                <td>
+                                  {Users.installments.map((x) => x.gold)} gm
+                                </td>
+                                <td>
+                                  {Users.installments.map((x) => x.status)}
+                                </td>
+                              </tr>
+                            );
+                          }
+                        })}
+                      </tbody>
+                    </table>
                   </div>
+
+                  {/*end::Table container*/}
+                </div>
+
+
+                <div class="card-body py-3">
+                  {/* <h1>{cycle.name}</h1> */}
+                  <h1>{cycleName[1]}</h1>
+                  <div class="table-responsive">
+                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                      <thead>
+                        <tr class="fw-bolder text-muted">
+                          <th class="min-w-150px">Id</th>
+                          <th class="min-w-140px">Customer Name</th>
+                          <th class="min-w-140px">Cycle Name</th>
+                          <th class="min-w-100px">Plan Type</th>
+                          <th class="min-w-100px">Mode</th>
+                          <th class="min-w-120px">Maturity Date</th>
+                          <th class="min-w-120px">Status</th>
+                          <th class="min-w-100px ">Saved Gold</th>
+                          <th class="min-w-100px ">Maturity Status</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        {cycleSub2.map((Users) => {
+                          if (Users.plan !== undefined) {
+                            return (
+                              <tr>
+                                <td>{Users.user.id}</td>
+                                <td>{Users.user.fname}</td>
+                                <td>
+                                 {Users.customPlan.cyclePeriod.name}
+                                </td>
+                                <td>{Users.customPlan.planType}</td>
+                                <td>{Users.customPlan.mode || Users.plan.mode}</td>
+                                <td>{Users.maturityDate}</td>
+                                <td>{Users.status}</td>
+                                <td>
+                                  {Users.installments.map((x) => x.gold)} gm
+                                </td>
+                                <td>
+                                  {Users.installments.map((x) => x.status)}
+                                </td>
+                              </tr>
+                            );
+                          }
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/*end::Table container*/}
+                </div>
+
+
+
                 {/* ))} */}
                 {/*begin::Body*/}
               </div>
@@ -314,7 +364,7 @@ console.log('Mil gaya again=====>', cycleSub2)
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default UserDataCycle
+export default UserDataCycle;

@@ -40,17 +40,17 @@ const Dashboard = (props) => {
         </div>
         {/*end::Page title*/}
         {/*begin::Actions*/}
-        <div className="d-flex align-items-center py-3 py-md-1">
-          {/*begin::Wrapper*/}
+        {/* <div className="d-flex align-items-center py-3 py-md-1">
+         
           <div className="me-4">
-            {/*begin::Menu*/}
+           
             <a
               href="#"
               className="btn btn-custom btn-active-white btn-flex btn-color-white btn-active-color-primary fw-bolder"
               data-kt-menu-trigger="click"
               data-kt-menu-placement="bottom-end"
             >
-              {/*begin::Svg Icon | path: icons/duotune/general/gen031.svg*/}
+             
               <span className="svg-icon svg-icon-5 svg-icon-gray-500 me-1">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -65,30 +65,28 @@ const Dashboard = (props) => {
                   />
                 </svg>
               </span>
-              {/*end::Svg Icon*/}Filter
+           Filter
             </a>
-            {/*begin::Menu 1*/}
+           
             <div
               className="menu menu-sub menu-sub-dropdown w-250px w-md-300px"
               data-kt-menu="true"
               id="kt_menu_618d387089331"
             >
-              {/*begin::Header*/}
+            
               <div className="px-7 py-5">
                 <div className="fs-5 text-dark fw-bolder">Filter Options</div>
               </div>
-              {/*end::Header*/}
-              {/*begin::Menu separator*/}
+              
               <div className="separator border-gray-200"></div>
-              {/*end::Menu separator*/}
-              {/*begin::Form*/}
+             
+              
               <div className="px-7 py-5">
-                {/*begin::Input group*/}
+                
                 <div className="mb-10">
-                  {/*begin::Label*/}
+                 
                   <label className="form-label fw-bold">Status:</label>
-                  {/*end::Label*/}
-                  {/*begin::Input*/}
+                  
                   <div>
                     <select
                       className="form-select form-select-solid"
@@ -103,17 +101,15 @@ const Dashboard = (props) => {
                       <option value="2">Rejected</option>
                     </select>
                   </div>
-                  {/*end::Input*/}
+                  
                 </div>
-                {/*end::Input group*/}
-                {/*begin::Input group*/}
+               
                 <div className="mb-10">
-                  {/*begin::Label*/}
+                  
                   <label className="form-label fw-bold">Member Type:</label>
-                  {/*end::Label*/}
-                  {/*begin::Options*/}
+                 
                   <div className="d-flex">
-                    {/*begin::Options*/}
+                    
                     <label className="form-check form-check-sm form-check-custom form-check-solid me-5">
                       <input
                         className="form-check-input"
@@ -122,8 +118,7 @@ const Dashboard = (props) => {
                       />
                       <span className="form-check-label">Author</span>
                     </label>
-                    {/*end::Options*/}
-                    {/*begin::Options*/}
+                   
                     <label className="form-check form-check-sm form-check-custom form-check-solid">
                       <input
                         className="form-check-input"
@@ -133,17 +128,15 @@ const Dashboard = (props) => {
                       />
                       <span className="form-check-label">Customer</span>
                     </label>
-                    {/*end::Options*/}
+                   
                   </div>
-                  {/*end::Options*/}
+                  
                 </div>
-                {/*end::Input group*/}
-                {/*begin::Input group*/}
+                
                 <div className="mb-10">
-                  {/*begin::Label*/}
+                 
                   <label className="form-label fw-bold">Notifications:</label>
-                  {/*end::Label*/}
-                  {/*begin::Switch*/}
+                 
                   <div className="form-check form-switch form-switch-sm form-check-custom form-check-solid">
                     <input
                       className="form-check-input"
@@ -154,44 +147,41 @@ const Dashboard = (props) => {
                     />
                     <label className="form-check-label">Enabled</label>
                   </div>
-                  {/*end::Switch*/}
+                
                 </div>
-                {/*end::Input group*/}
-                {/*begin::Actions*/}
+                
                 <div className="d-flex justify-content-end">
                   <button
                     type="reset"
                     className="btn btn-sm btn-light btn-active-light-primary me-2"
-                    // data-kt-menu-dismiss="true"
+                   
                   >
                     Reset
                   </button>
                   <button
                     type="submit"
                     className="btn btn-sm btn-primary"
-                    // data-kt-menu-dismiss="true"
+                   
                   >
                     Apply
                   </button>
                 </div>
-                {/*end::Actions*/}
+               
               </div>
-              {/*end::Form*/}
+             
             </div>
-            {/*end::Menu 1*/}
-            {/*end::Menu*/}
+            
           </div>
-          {/*end::Wrapper*/}
-          {/*begin::Button*/}
+          
+         
+        </div> */}
           <Link
             className="btn btn-bg-white btn-active-color-primary"
-            // id="kt_toolbar_primary_button"
+           
             to={props.createLink}
           >
             Create
           </Link>
-          {/*end::Button*/}
-        </div>
         {/*end::Actions*/}
       </div>
       {/*end::Container*/}

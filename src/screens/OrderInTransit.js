@@ -12,11 +12,11 @@ const OrderInTransit = () => {
   useEffect(() => {
     const fetchcategories = async () => {
       let { data } = await axios.get('http://13.59.57.74:5000/api/order/transactions')
-      data = data ? data.filter(transaction => transaction.transactions.status === "Order In Transit" && transaction.consignment) : []
+      // data = data ? data.filter(transaction => transaction.transactions.status === "Order In Transit" && transaction.consignment) : []
       setTransactions(data)
     }
     fetchcategories()
-
+    
     const fetchDeliveryCharges = async () => {
       const { data: response } = await axios.get('http://13.59.57.74:5000/api/calculation/61bf85f0fb887283baaa3cf3')
       let deliveryCharge = 0
@@ -44,6 +44,7 @@ const OrderInTransit = () => {
     }
     getOrderAmount()
   }, [])
+  console.log('-->',transactions)
   return (
     <div className='d-flex flex-column flex-root'>
       <div className='page d-flex flex-row flex-column-fluid'>

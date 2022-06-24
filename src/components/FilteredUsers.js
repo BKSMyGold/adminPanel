@@ -27,7 +27,7 @@ const FilteredUsers = (props) => {
     );
   }, []);
 
-  console.log("hellYyeah ==>", obj.mobile);
+  console.log("hellYyeah ==>", obj);
 
   return (
     <div className="d-flex flex-column flex-root">

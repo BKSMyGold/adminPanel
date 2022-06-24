@@ -204,7 +204,7 @@ code {
 }
 
 .paginationBttns {
-  width: 80%;
+  
   height: 40px;
   list-style: none;
   display: flex;
@@ -549,4 +549,22 @@ border-top: 1px solid #e7eaec;
 font-size: 90%;
 background: #ffffff;
 padding: 10px 15px;
+}
+.latest_price{
+display: flex;
+margin: auto;
+margin-top:100px
+}
+.price-box{
+  margin:50px;
+  border-radius: 20px;
+  border:5px solid #921f4a;
+  text-align: center;
+  font-weight: bolder;
+  font-size:24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #d1dade;
+
 }
