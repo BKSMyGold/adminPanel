@@ -4,6 +4,25 @@ import Header from "../layouts/Header";
 import Dashboard from "./dashboard";
 import axios from "axios";
 import { BASE_URL } from "../Constants";
+import { CSVLink } from "react-csv";
+import Table from "./datatable";
+import DataTable, { Export, downloadCSV } from "react-data-table-component";
+
+
+const columns = [
+  {
+    name: "Customer Name",
+    selector: (row) => row.user.fname,
+  },
+  {
+    name: "Mode",
+    selector: (row) => {
+      if (row.plan !== null) {
+        return row.plan.mode;
+      }
+    },
+  },
+];
 
 const UserDataFull = () => {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -16,7 +35,40 @@ const UserDataFull = () => {
   }, []);
   console.log("Isko Karna Hai =-->", sub);
 
+  // const[headers, setHeaders] = useState([]);
+  //   let instal = {}
+  // instal = sub.map(x =>(x.installments))
+  // Object.assign({},instal)
+  // console.log(instal)
+
+  const headers = [
+    { label: "User", key: "user.fname" },
+    { label: "Cycle Name ", key: "plan.cyclePeriod.name" },
+    { label: "Plan Type", key: "plan.planType" },
+    { label: "Mode", key: "plan.mode" },
+    { label: "Maturity Date", key: "maturityDate" },
+    { label: "Status", key: "status" },
+    { label: "installments", key: "installments" },
+  ];
+//  () => {
+//     const actionsMemo = React.useMemo(
+//       () => <Export onExport={() => downloadCSV(sub)} />,
+//       []
+//     );
+ 
+//     return (
+//       <DataTable
+//         title="Movie List"
+//         columns={columns}
+//         data={sub}
+//         actions={actionsMemo}
+//       />
+//     );
+//   };
+
+
   return (
+    
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
         <div
@@ -45,6 +97,21 @@ const UserDataFull = () => {
                       All Subscriptions Full User Data
                     </span>
                   </h3>
+                  <div>
+                    {/* <Table />
+                    <CSVLink
+                      className="csv"
+                      data={sub}
+                      filename="Reports.csv"
+                      target="_blank"
+                      headers={headers}
+                    >
+                      Export
+                    </CSVLink> */}
+                    click me
+                    {/* <DataTable columns={columns} data={sub} /> */}
+                    {/* <button onClick={HandleClick}>Click</button> */}
+                  </div>
                 </div>
                 {/*end::Header*/}
                 {/*begin::Body*/}
@@ -52,7 +119,7 @@ const UserDataFull = () => {
                   {/*begin::Table container*/}
                   <div class="table-responsive">
                     {/*begin::Table*/}
-                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3" id ="example">
                       {/*begin::Table head*/}
                       <thead>
                         <tr class="fw-bolder text-muted">
@@ -75,7 +142,7 @@ const UserDataFull = () => {
                           sub.map((Users) => {
                             if (Users.plan && Users.plan !== undefined) {
                               return (
-                                <tr class ='fw-bolder'>
+                                <tr class="fw-bolder">
                                   <td>{Users.user.id}</td>
                                   <td>{Users.user.fname}</td>
                                   <td>{Users.plan.cyclePeriod.name}</td>
@@ -101,13 +168,10 @@ const UserDataFull = () => {
                   {/*end::Table container*/}
                 </div>
 
-
-
                 <div class="card-header border-0 pt-5">
                   <h3 class="card-title align-items-start flex-column">
-                    
                     <span class="mt-1 fw-bolder fs-3">
-                      People with Custom Plan 
+                      People with Custom Plan
                     </span>
                   </h3>
                 </div>
@@ -136,9 +200,12 @@ const UserDataFull = () => {
                       <tbody>
                         {sub &&
                           sub.map((Users) => {
-                            if (Users.customPlan && Users.customPlan !== undefined) {
+                            if (
+                              Users.customPlan &&
+                              Users.customPlan !== undefined
+                            ) {
                               return (
-                                <tr class ='fw-bolder'>
+                                <tr class="fw-bolder">
                                   <td>{Users.user.id}</td>
                                   <td>{Users.user.fname}</td>
                                   <td>{Users.customPlan.cyclePeriod.name}</td>
@@ -163,7 +230,6 @@ const UserDataFull = () => {
                   </div>
                   {/*end::Table container*/}
                 </div>
-
 
                 {/*begin::Body*/}
               </div>

@@ -11,18 +11,14 @@ import { logo } from "../";
 const PageNotFound = () => {
   //======================================================================================
   return (
-    <div className="d-flex flex-column flex-root">
-      <div className="page d-flex flex-row flex-column-fluid">
-        <div
-          className="wrapper d-flex flex-column flex-row-fluid"
-          id="kt_wrapper">
-          <Header />
-          <img src="../public/assets/error.png" />
-          <h1>Page Not Found- 404</h1>
-          <Footer />
-        </div>
+    <>
+      <div class="error_container">
+        <div class="page_not_found"></div>
       </div>
-    </div>
+      <h3 class="error_msg">
+        Oh ho ! Its look like you have entered wrong URL
+      </h3>
+    </>
   );
 };
 
