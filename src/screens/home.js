@@ -7,8 +7,26 @@ import { BASE_URL, ROLE_PERMISSION_BASE_URL } from "../Constants";
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import ReactApexChart from "react-apexcharts";
+import { Chart, Bar, Line } from "react-chartjs-2";
+import "chart.js/auto";
+import {
+  Chart as ChartJS,
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+} from "chart.js";
 
 const Home = () => {
+  ChartJS.register(
+    LineController,
+    LineElement,
+    PointElement,
+    LinearScale,
+    Title
+  );
+
   const [latestBuySell, setPrice] = useState([{}]);
   const [countUsers, setUsersCount] = useState([{}]);
   const [countStandard, setSubscriptions] = useState([{}]);
@@ -107,7 +125,6 @@ const Home = () => {
   }, []);
   //========================================================================
 
-
   const usersPerPage = 3;
   const pagesVisited = pageNumber * usersPerPage;
 
@@ -132,9 +149,7 @@ const Home = () => {
               </div>
             </div>
           </td>
-          <td>
-            {user.dob}
-          </td>
+          <td>{user.dob}</td>
           <td>{user.mobile}</td>
 
           <td>
@@ -155,7 +170,7 @@ const Home = () => {
   //========================================================================
 
   const [foundUsers, setFoundUser] = useState(countUsers);
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
 
   // const filter = (e) => {
   //   let keyword = e.target.value;
@@ -173,14 +188,13 @@ const Home = () => {
     let keyword = e.target.value;
     if (keyword === "") {
       setFoundUser(countUsers);
-    }else{
+    } else {
       const result = countUsers.filter((user) => {
         return user.fname.toLowerCase().startsWith(keyword.toLowerCase());
       });
       setFoundUser(result);
-
     }
-    
+
     setName(keyword);
   };
   //========================================================================
@@ -193,10 +207,10 @@ const Home = () => {
           id="kt_wrapper"
         >
           <Header />
-          <Dashboard />
-          {/* ====================================== */}
+          {/* <Dashboard /> */}
+          {/* ======================================  Latest Price of Gold */}
           {/* <section class="main-content"> */}
-          <div class="latest_price">
+          {/* <div class="latest_price">
             <div className="price-box w-250px h-150px">
               <span className="badge badge-success">Buy Price</span>
               {latestBuySell.buy}
@@ -205,7 +219,162 @@ const Home = () => {
               <span className="badge badge-danger">Sell Price</span>
               {latestBuySell.sell}
             </div>
+          </div> */}
+          {/* ======================================  dashboard */}
+          <div class="dashboard">
+            <div class="grid_child">
+              <h2 class="text-muted">Total Gold Saved by users</h2>
+              <h3 class="fw-bolder mt-5">📈 ₹ 12,25,369</h3>
+            </div>
+            <div class="grid_child">
+              <h2 class="text-muted">Total Gold Saved by users</h2>
+              <h3 class="fw-bolder mt-5">📉 15,000 kg</h3>
+            </div>
+            <div class="grid_child">
+              <h2 class="text-muted">Total Forfeited Gold</h2>
+              <h3 class="fw-bolder mt-5">💸 5,000 gm </h3>
+            </div>
+
+            <div class="grid_child two_row two_col p-20">
+              <Bar
+                // type="bar"
+                data={{
+                  labels: ["Jun", "Jul", "Aug"],
+                  options: {
+                    layout: {
+                      padding: 20,
+                    },
+                  },
+                  datasets: [
+                    {
+                      backgroundColor: "#1dd3d5",
+                      id: 1,
+                      label: "Jun",
+                      data: [5, 6, 7],
+                    },
+                    {
+                      backgroundColor: "#9991d4",
+                      id: 2,
+                      label: "Jul",
+                      data: [3, 2, 1],
+                    },
+                    {
+                      backgroundColor: "#049ff5",
+                      id: 3,
+                      label: "Aug",
+                      data: [8, 7, 9],
+                    },
+                  ],
+                }}
+              />
+            </div>
+            <div class="grid_child bg_color ">
+              <Line
+                // type="bar"
+                data={{
+                  labels: [
+                    "jan",
+                    "feb",
+                    "mar",
+                    "apr",
+                    "may",
+                    "jun",
+                    "jul",
+                    "aug",
+                    "sept",
+                    "oct",
+                    "nov",
+                  ],
+
+                  datasets: [
+                    {
+                      borderColor: "white",
+                      backgroundColor: "white",
+                      id: 1,
+                      label: "data",
+                      data: [1, 2, 4, 2, 3, 4, 6, 3, 7, 9, 3],
+                    },
+                  ],
+                }}
+              />
+            </div>
+            <div class="grid_child">
+              <div class="d-flex">
+                <span class="mx-3">🔑</span> <h1>23.5 gm</h1>
+              </div>
+              <p class ="fw-bold">Gold added this week</p>
+              <hr class="dashboard_hr" />
+              <div class="d-flex">
+                <span class="mx-3">🧑</span> <h1>21,369</h1>
+              </div>
+              <p class ="fw-bold">New Customer</p>
+            </div>
+
+            <div class="grid_child">
+              <div class="center">
+                <i class="fab fa-facebook-f text-primary f-36 mx-3"></i>
+                <h3>12,789</h3>
+              </div>
+              <p class ="fw-bold">Total Likes This week</p>
+              <hr class="dashboard_hr" />
+              <div class="progress w-75 h-75">
+                <div
+                  class="progress-bar w-75"
+                  style = {{width:"75%"}}
+                  role="progressbar"
+                  aria-valuenow="75"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  75 %
+                </div>
+              </div>
+            </div>
+            <div class="grid_child">
+            <div class="center">
+            <i class="fab fa-twitter text-c-blue f-36 mx-3"></i>
+                <h3>1,125</h3>
+              </div>
+              <p class ="fw-bold">Total Likes This week</p>
+              <hr class="dashboard_hr" />
+              <div class="progress w-75 h-75">
+                <div
+                  class="progress-bar w-95"
+                  style = {{width:"35%"}}
+                  role="progressbar"
+                  aria-valuenow="35"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  35 %
+                </div>
+              </div>
+            </div>
+            <div class="grid_child">
+            <div class="center">
+            <i class="fab fa-google-plus-g text-c-red f-36 mx-3"></i>
+                <h3>24,457</h3>
+              </div>
+              <p class ="fw-bold">Total Likes This week</p>
+              <hr class="dashboard_hr" />
+              <div class="progress w-75 h-75">
+                <div
+                  class="progress-bar"
+                  style = {{width:"95%"}}
+                  role="progressbar"
+                  aria-valuenow="95"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                95%
+                </div>
+              </div>
+            </div>
+            {/* <div class="grid_child">10</div>
+            <div class="grid_child">11</div>
+            <div class="grid_child">12</div> */}
           </div>
+          {/* ====================================== */}
           <div class="container">
             <h1 class="btn text-light bg-dark">
               {countUsers.length} App's Users
@@ -213,7 +382,6 @@ const Home = () => {
             <br></br>
 
             <input
-      
               class="form-control mt-5"
               placeholder="Search User"
               // value={name}
@@ -245,7 +413,7 @@ const Home = () => {
                     .slice(pagesVisited, pagesVisited + usersPerPage)
                     .map((user) => {
                       return (
-                        <tr class ="fw-bolder">
+                        <tr class="fw-bolder">
                           <td>
                             <div class="user-info">
                               <div class="user-info__img">
@@ -264,9 +432,7 @@ const Home = () => {
                               </div>
                             </div>
                           </td>
-                          <td>
-                           {user.dob}
-                          </td>
+                          <td>{user.dob}</td>
                           <td>{user.mobile}</td>
 
                           <td>

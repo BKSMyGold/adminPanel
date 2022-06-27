@@ -172,6 +172,7 @@ import ZohoBooks from "./screens/ZohoBooks";
 import ZohoBooksForm from "./components/ZohoBoksForm";
 import EachItemsDetails from "./screens/EachItemsDetails";
 import PageNotFound from "./screens/PageNotFound";
+import ForgotPassword from './components/ForgotPassword'
 
 //====================================================================
 const App = () => {
@@ -208,6 +209,8 @@ const App = () => {
           {/*Master =============================================*/}
           {/*Products Data =============================================*/}
           <Route path="*" element={<PageNotFound />} />
+          <Route path="/forgot_password" element={<ForgotPassword />} />
+
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/register" element={<UserSignUp />} exact />

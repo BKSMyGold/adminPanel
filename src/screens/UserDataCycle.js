@@ -3,8 +3,76 @@ import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import { BASE_URL } from "../Constants";
 import axios from "axios";
+import jsPDF from "jspdf";
+// import jsCSV from "jscsv";
+import autoTable from "jspdf-autotable";
+import { CSVLink } from "react-csv";
 
 const UserDataCycle = () => {
+
+  function tableToCSV() {
+ 
+    // Variable to store the final csv data
+    var csv_data = [];
+ 
+    // Get each row data
+    var rows = document.getElementsByTagName('tr');
+    for (var i = 0; i < rows.length; i++) {
+ 
+        // Get each column data
+        var cols = rows[i].querySelectorAll('td,th');
+ 
+        // Stores each csv row data
+        var csvrow = [];
+        for (var j = 0; j < cols.length; j++) {
+ 
+            // Get the text data of each cell of
+            // a row and push it to csvrow
+            csvrow.push(cols[j].innerHTML);
+        }
+ 
+        // Combine each column value with comma
+        csv_data.push(csvrow.join(","));
+    }
+    // combine each row data with new line character
+    csv_data = csv_data.join('\n');
+ 
+    /* We will use this function later to download
+    the data in a csv file downloadCSVFile(csv_data);
+    */
+    downloadCSVFile(csv_data);
+
+}
+
+
+function downloadCSVFile(csv_data) {
+ 
+  // Create CSV file object and feed our
+  // csv_data into it
+  let CSVFile = new Blob([csv_data], { type: "text/csv" });
+
+  // Create to temporary link to initiate
+  // download process
+  var temp_link = document.createElement('a');
+
+  // Download csv file
+  temp_link.download = "GfG.csv";
+  var url = window.URL.createObjectURL(CSVFile);
+  temp_link.href = url;
+
+  // This link should not be displayed
+  temp_link.style.display = "none";
+  document.body.appendChild(temp_link);
+
+  // Automatically click the link to trigger download
+  temp_link.click();
+  document.body.removeChild(temp_link);
+}
+
+ 
+  let x = document.getElementById("my-table");
+  console.log(x)
+
   const [CyclePeriod, setCyclePeriod] = useState([]);
   const [Standardplan, setStandardplans] = useState([]);
   const [standardSubscriptionsByCyclePeriod, setStandardSubscriptions] =
@@ -13,180 +81,14 @@ const UserDataCycle = () => {
   const [Users, setUsers] = useState([]);
   const [sub, setSub] = useState([]);
 
-  {
-    /*Step 1 Get all Cycle Periods */
-  }
-
-  // useEffect(() => {
-  //   const fetchcycleperiods = async () => {
-  //     const { data } = await axios.get(`${BASE_URL}/api/cycle-period`)
-
-  //     setCyclePeriod(data)
-  //   }
-  //   fetchcycleperiods()
-  // }, [])
-
-  // {
-  //   /*Step 2 Get all standard plan ID which matches the cycle period  */
-  // }
-  // useEffect(() => {
-  //   {
-  //     /*
-  //    	Get all Standard Plans Avaialable using api/plan/type/standard
-  // */
-  //   }
-
-  //   const standardPlanResponse = [].constructor(2).fill({
-  //     bonus: 1,
-  //     createdAt: '2021-12-10T19:33:23.048Z',
-  //     cyclePeriod: {
-  //       createdAt: '2021-12-10T19:09:32.282Z',
-  //       cycle: 10,
-  //       docType: 'CyclePeriod',
-  //       graceperiod: 240,
-  //       id: '61b3a5ecea31faacc7b37863',
-  //       minValue: 5000,
-  //       minWeight: 1,
-  //       name: 'Every Month',
-  //       shortName: 'M',
-  //       status: 'Active',
-  //       updatedAt: '2021-12-10T19:09:32.282Z',
-  //     },
-  //     docType: 'Plan',
-  //     duration: 24,
-  //     id: '61b3ab83d59d6bacdd6ef5a3',
-  //     mode: 'weight',
-  //     name: '24 month Savings Plan',
-  //     planType: 'Standard',
-  //     updatedAt: '2021-12-10T19:33:23.048Z',
-  //   })
-
-  //   setStandardplans(standardPlanResponse)
-  // }, [])
-
-  // useEffect(() => {
-  //   {
-  //     /*Use Endpoint to get all subscriptions which matches the plan id we got each */
-  //   }
-  //   {
-  //     /*endpont = /api/subscription/   */
-  //   }
-  //   const StandardSubscriptionResponse = {
-  //     createdAt: '2021-12-13T11:51:10.930Z',
-  //     docType: 'Subscription',
-  //     id: '61b733aeb2cb7fdd62a1ea29',
-  //     installments: ['61b733acb2cb7fdd62a1ea28'],
-  //     maturityDate: '2022-08-10T11:51:10.892Z',
-  //     plan: '61b3ab83d59d6bacdd6ef5a3',
-  //     planBonus: 2.4,
-  //     skipCount: 0,
-  //     status: 'Running',
-  //     trackingId: '',
-  //     unpaidInvestments: 0,
-  //     unpaidSkips: 0,
-  //     updatedAt: '2021-12-13T11:51:10.930Z',
-  //     user: '61b3a63aea31faacc7b37864',
-  //   }
-
-  //   setStandardSubscriptions(StandardSubscriptionResponse)
-  // }, [])
-
-  // {
-  //   /*then Get the all subscription details Where plantype Flexi and matches cycle period in custom plan*/
-  // }
-
-  // useEffect(() => {
-  //   {
-  //     /*
-  //    	/*endpont = /api/subscription/
-  // */
-  //   }
-
-  //   const FlexiSubscriptionResponse = [].constructor(2).fill({
-  //     createdAt: '2021-12-13T11:53:44.682Z',
-  //     customPlan: {
-  //       cyclePeriod: [
-  //         {
-  //           createdAt: '2021-12-10T19:09:32.282Z',
-  //           cycle: 10,
-  //           docType: 'CyclePeriod',
-  //           graceperiod: 240,
-  //           id: '61b3a5ecea31faacc7b37863',
-  //           minValue: 5000,
-  //           minWeight: 1,
-  //           name: 'Every Month',
-  //           shortName: 'M',
-  //           status: 'Active',
-  //           updatedAt: '2021-12-10T19:09:32.282Z',
-  //         },
-  //       ],
-  //       duration: 24,
-  //       id: '61b73448b2cb7fdd62a1ea2b',
-  //       mode: 'Value',
-  //       name: 'Flexi Plan',
-  //       planType: 'Flexi',
-  //     },
-  //     docType: 'Subscription',
-  //     id: '61b73448b2cb7fdd62a1ea2c',
-  //     installments: ['61b73446b2cb7fdd62a1ea2a'],
-  //     maturityDate: null,
-  //     planBonus: 0,
-  //     skipCount: 0,
-  //     status: 'Running',
-  //     trackingId: '',
-  //     unpaidInvestments: 0,
-  //     unpaidSkips: 0,
-  //     updatedAt: '2021-12-13T11:53:44.682Z',
-  //     user: '61b716a57c3e83d0f634da04',
-  //   })
-
-  //   setFlexiSubscriptions(FlexiSubscriptionResponse)
-  // }, [])
-
-  // useEffect(() => {
-  //   {
-  //     /*Use Endpoint to get  user data for each subscription */
-  //   }
-  //   {
-  //     /*endpont = api/user/:userId   */
-  //   }
-  //   const userResponse = {
-  //     GBPBonusEntries: [],
-  //     GBPcode: '',
-  //     addresses: [],
-  //     createdAt: '2021-12-10T19:10:50.435Z',
-  //     deviceToken:
-  //       'doHSXifERQGpCQyeHMMij6:APA91bHf9rudMzbqdwv3OjNuiLkI98pDgMKzrsJecfPt0i6F5whpi2d5R1sVleS5Ew823FwiECkEE8oEx6ezFt85NZpshZfcs2PuEpetIzBt5NMZSf7ZZPzefc3qAHixB6YaE4VuxV8x',
-  //     dob: '2000-11-23',
-  //     docType: 'User',
-  //     email: 'ashutoshsenapati2311@gmail.com',
-  //     fname: 'Ashutosh Senapati',
-  //     id: '61b3a63aea31faacc7b37864',
-  //     image:
-  //       'https://bks-gold.s3.ap-south-1.amazonaws.com/User%2Fimage_picker6967090782453535724.jpg',
-  //     isInvested: false,
-  //     isWhatsapp: true,
-  //     joiningBonus: 0,
-  //     level: '',
-  //     mobile: 9777139671,
-  //     pan: 'DEPPP5884H',
-  //     refCode: '',
-  //     referenceType: '',
-  //     referral: null,
-  //     referralBonusEntries: [],
-  //     role: '',
-  //     updatedAt: '2021-12-14T05:50:11.532Z',
-  //   }
-
-  //   setUsers(userResponse)
-  // }, [])
+ 
   //===================================================================================
   useEffect(() => {
     axios
       .get(`${BASE_URL}/api/subscription/`)
       .then((res) => setSub(res.data.subscriptions));
   }, []);
-  console.log('==>', sub)
+  console.log("==>", sub);
 
   useEffect(() => {
     axios
@@ -197,7 +99,7 @@ const UserDataCycle = () => {
 
   let cycleName = [];
   cycleName = CyclePeriod.map((name) => name.name);
-  console.log('==>', cycleName)
+  console.log("==>", cycleName);
 
   let cycleSub = sub.filter((sub) => {
     if (sub.plan && sub.plan.cyclePeriod.name === cycleName[0]) {
@@ -208,162 +110,190 @@ const UserDataCycle = () => {
   console.log("Mil gaya =====>", cycleSub);
 
   let cycleSub2 = sub.filter((sub) => {
-    if (sub.customPlan  &&  sub.customPlan.cyclePeriod.name === cycleName[1]) {
+    if (sub.customPlan && sub.customPlan.cyclePeriod.name === cycleName[1]) {
       //  console.log('===>', sub.plan.cyclePeriod.name)
       return sub;
     }
   });
-  console.log('Mil gaya again=====>', cycleSub2)
+  console.log("Mil gaya again=====>", cycleSub2);
   //===================================================================================
+
   return (
-    <div className="d-flex flex-column flex-root">
-      <div className="page d-flex flex-row flex-column-fluid">
-        <div
-          className="wrapper d-flex flex-column flex-row-fluid"
-          id="kt_wrapper"
-        >
-          <Header />
-
+    <>
+      <div className="d-flex flex-column flex-root">
+        <div className="page d-flex flex-row flex-column-fluid">
           <div
-            id="kt_content_container"
-            class="d-flex flex-column-fluid align-items-start container-xxl mt-20"
+            className="wrapper d-flex flex-column flex-row-fluid"
+            id="kt_wrapper"
           >
-            {/*begin::Post*/}
-            <div class="content flex-row-fluid" id="kt_content">
-              {/*begin::Row*/}
+            <Header />
 
-              {/*begin::Tables Widget 13*/}
-              <div class="card mb-5 mb-xl-8">
-                {/*begin::Header*/}
-                <div class="card-header border-0 pt-5">
-                  <h3 class="card-title align-items-start flex-column">
-                    <span class="card-label fw-bolder fs-3 mb-1">
-                      User Details As Per Cycle Period
-                    </span>
-                    <span class="text-muted mt-1 fw-bold fs-7">
-                      All Users Data as per Cycle Periods
-                    </span>
-                  </h3>
-                </div>
-                {/*end::Header*/}
-                {/*begin::Body*/}
-                {/* {cycleSub.map((cycle) => ( */}
-                <div class="card-body py-3">
-                  {/* <h1>{cycle.name}</h1> */}
-                  <h1>{cycleName[0]}</h1>
-                  <div class="table-responsive">
-                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
-                      <thead>
-                        <tr class="fw-bolder text-muted">
-                          <th class="min-w-150px">Id</th>
-                          <th class="min-w-140px">Customer Name</th>
-                          <th class="min-w-140px">Cycle Name</th>
-                          <th class="min-w-100px">Plan Type</th>
-                          <th class="min-w-100px">Mode</th>
-                          <th class="min-w-120px">Maturity Date</th>
-                          <th class="min-w-120px">Status</th>
-                          <th class="min-w-100px ">Saved Gold</th>
-                          <th class="min-w-100px ">Maturity Status</th>
-                        </tr>
-                      </thead>
+            <div
+              id="kt_content_container"
+              class="d-flex flex-column-fluid align-items-start container-xxl mt-20"
+            >
+              {/*begin::Post*/}
+              <div class="content flex-row-fluid" id="kt_content">
+                {/*begin::Row*/}
 
-                      <tbody>
-                        {cycleSub.map((Users) => {
-                          if (Users.plan !== undefined) {
-                            return (
-                              <tr>
-                                <td>{Users.user.id}</td>
-                                <td>{Users.user.fname}</td>
-                                <td>
-                                  {Users.plan.cyclePeriod.name
-                                    ? Users.plan.cyclePeriod.name
-                                    : "Name"}
-                                </td>
-                                <td>{Users.plan.planType}</td>
-                                <td>{Users.plan.mode}</td>
-                                <td>{Users.maturityDate}</td>
-                                <td>{Users.status}</td>
-                                <td>
-                                  {Users.installments.map((x) => x.gold)} gm
-                                </td>
-                                <td>
-                                  {Users.installments.map((x) => x.status)}
-                                </td>
-                              </tr>
-                            );
-                          }
-                        })}
-                      </tbody>
-                    </table>
+                {/*begin::Tables Widget 13*/}
+                <div class="card mb-5 mb-xl-8">
+                  {/*begin::Header*/}
+                  <div class="card-header border-0 pt-5">
+                    <h3 class="card-title align-items-start flex-column">
+                      <span class="card-label fw-bolder fs-3 mb-1">
+                        User Details As Per Cycle Period
+                      </span>
+                      <span class="text-muted mt-1 fw-bold fs-7">
+                        All Users Data as per Cycle Periods
+                      </span>
+                    </h3>
                   </div>
 
-                  {/*end::Table container*/}
-                </div>
+                  <div class="card-body py-3">
+                    <button
+                      class="btn btn-success"
+                      onClick={() => {
+                        const doc = new jsPDF();
 
+                        doc.autoTable({
+                          html: "#my-table",
+                          styles: {
+                             overflow: "linebreak", 
+                             fontSize: 9
+                             },
+                        });
+                        doc.save("Report");
+                      }}
+                    >
+                      Download PDF
+                    </button>
+                    <button
+                      class="btn btn-warning"
+                      onClick={tableToCSV}
+                    >
+                      Download CSV
+                    </button>
+                    {/* <CSVLink
+                    data = {x}
+                    
+                    >Export to csv </CSVLink> */}
+                    {/* <h1>{cycle.name}</h1> */}
+                    <h1>{cycleName[0]}</h1>
+                    <div class="table-responsive">
+                      <table
+                        class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3"
+                        id="my-table"
+                      >
+                        <thead>
+                          <tr class="fw-bolder text-muted">
+                            <th class="min-w-150px">Id</th>
+                            <th class="min-w-140px">Customer Name</th>
+                            <th class="min-w-140px">Cycle Name</th>
+                            <th class="min-w-100px">Plan Type</th>
+                            <th class="min-w-100px">Mode</th>
+                            <th class="min-w-120px">Maturity Date</th>
+                            <th class="min-w-120px">Status</th>
+                            <th class="min-w-100px ">Saved Gold</th>
+                            <th class="min-w-100px ">Maturity Status</th>
+                          </tr>
+                        </thead>
 
-                <div class="card-body py-3">
-                  {/* <h1>{cycle.name}</h1> */}
-                  <h1>{cycleName[1]}</h1>
-                  <div class="table-responsive">
-                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
-                      <thead>
-                        <tr class="fw-bolder text-muted">
-                          <th class="min-w-150px">Id</th>
-                          <th class="min-w-140px">Customer Name</th>
-                          <th class="min-w-140px">Cycle Name</th>
-                          <th class="min-w-100px">Plan Type</th>
-                          <th class="min-w-100px">Mode</th>
-                          <th class="min-w-120px">Maturity Date</th>
-                          <th class="min-w-120px">Status</th>
-                          <th class="min-w-100px ">Saved Gold</th>
-                          <th class="min-w-100px ">Maturity Status</th>
-                        </tr>
-                      </thead>
+                        <tbody>
+                          {cycleSub.map((Users) => {
+                            if (Users.plan !== undefined) {
+                              return (
+                                <tr>
+                                  <td>{Users.user.id}</td>
+                                  <td>{Users.user.fname}</td>
+                                  <td>
+                                    {Users.plan.cyclePeriod.name
+                                      ? Users.plan.cyclePeriod.name
+                                      : "Name"}
+                                  </td>
+                                  <td>{Users.plan.planType}</td>
+                                  <td>{Users.plan.mode}</td>
+                                  <td>{Users.maturityDate.substring(0, 10)}</td>
+                                  <td>{Users.status}</td>
+                                  <td>
+                                    {Users.installments.map((x) => x.gold)} gm
+                                  </td>
+                                  <td>
+                                    {Users.installments.map((x) => x.status)}
+                                  </td>
+                                </tr>
+                              );
+                            }
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
 
-                      <tbody>
-                        {cycleSub2.map((Users) => {
-                          if (Users.plan !== undefined) {
-                            return (
-                              <tr>
-                                <td>{Users.user.id}</td>
-                                <td>{Users.user.fname}</td>
-                                <td>
-                                 {Users.customPlan.cyclePeriod.name}
-                                </td>
-                                <td>{Users.customPlan.planType}</td>
-                                <td>{Users.customPlan.mode || Users.plan.mode}</td>
-                                <td>{Users.maturityDate}</td>
-                                <td>{Users.status}</td>
-                                <td>
-                                  {Users.installments.map((x) => x.gold)} gm
-                                </td>
-                                <td>
-                                  {Users.installments.map((x) => x.status)}
-                                </td>
-                              </tr>
-                            );
-                          }
-                        })}
-                      </tbody>
-                    </table>
+                    {/*end::Table container*/}
                   </div>
 
-                  {/*end::Table container*/}
+                  <div class="card-body py-3">
+                    {/* <h1>{cycle.name}</h1> */}
+                    <h1>{cycleName[1]}</h1>
+                    <div class="table-responsive">
+                      <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                        <thead>
+                          <tr class="fw-bolder text-muted">
+                            <th class="min-w-150px">Id</th>
+                            <th class="min-w-140px">Customer Name</th>
+                            <th class="min-w-140px">Cycle Name</th>
+                            <th class="min-w-100px">Plan Type</th>
+                            <th class="min-w-100px">Mode</th>
+                            <th class="min-w-120px">Maturity Date</th>
+                            <th class="min-w-120px">Status</th>
+                            <th class="min-w-100px ">Saved Gold</th>
+                            <th class="min-w-100px ">Maturity Status</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          {cycleSub2.map((Users) => {
+                            if (Users.plan !== undefined) {
+                              return (
+                                <tr>
+                                  <td>{Users.user.id}</td>
+                                  <td>{Users.user.fname}</td>
+                                  <td>{Users.customPlan.cyclePeriod.name}</td>
+                                  <td>{Users.customPlan.planType}</td>
+                                  <td>
+                                    {Users.customPlan.mode || Users.plan.mode}
+                                  </td>
+                                  <td>{Users.maturityDate}</td>
+                                  <td>{Users.status}</td>
+                                  <td>
+                                    {Users.installments.map((x) => x.gold)} gm
+                                  </td>
+                                  <td>
+                                    {Users.installments.map((x) => x.status)}
+                                  </td>
+                                </tr>
+                              );
+                            }
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+
+                    {/*end::Table container*/}
+                  </div>
+
+                  {/* ))} */}
+                  {/*begin::Body*/}
                 </div>
-
-
-
-                {/* ))} */}
-                {/*begin::Body*/}
+                {/*end::Tables Widget 13*/}
               </div>
-              {/*end::Tables Widget 13*/}
+              {/*end::Post*/}
             </div>
-            {/*end::Post*/}
+            <Footer />
           </div>
-          <Footer />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
