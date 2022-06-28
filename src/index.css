@@ -26,6 +26,7 @@ code {
 }
 .registeredUser {
   background-color: white;
+  padding:30px
 }
 .gray {
   color: rgb(68, 68, 68);
@@ -608,7 +609,7 @@ table.shoping-cart-table tr td:last-child {
 }
 .forgot_page {
   width: 32vw;
-  height: fit-content;
+  height: 80vh;
   border-radius: 30px;
   background-color: white;
   box-shadow: 0px 0px 7px 3px rgb(180, 176, 176);
@@ -692,4 +693,17 @@ table.shoping-cart-table tr td:last-child {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.role_right{
+  background-color: white;
+  height: 100%;
+  padding:30px
+}
+.role_master{
+  background-color: #e2e5f4;
+  /* width: 50%; */
+  margin:auto;
+  padding:20px;
+  border-radius: 20px;
+  border:10px solid #aeb2c9
 }

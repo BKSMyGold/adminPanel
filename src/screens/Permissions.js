@@ -8,9 +8,14 @@ import { dateFormatter } from "../Constants";
 import { ROLE_PERMISSION_BASE_URL } from "../Constants";
 import axios from "axios";
 import DeleteSpinner from "../delete";
-
-const Permissions = () => {
+//=======================================
+const Permissions = (props) => {
+  //=======================================
   const [Permissions, setPermissions] = useState([]);
+  const [userPermissions, setUserPermissions] = useState(new Set());
+
+  //=======================================
+
   useEffect(() => {
     const fetchPermissions = async () => {
       const { data } = await axios.get(
@@ -22,6 +27,16 @@ const Permissions = () => {
     };
     fetchPermissions();
   }, []);
+//=======================================
+useEffect(() => {
+  props.user.role.permissions.map((permission) => {
+    return userPermissions.add(permission.permission_name);
+  });
+}, []);
+// console.log("userPermissions ==>", userPermissions);
+
+
+//====================================================================
 
   return (
     <div className="d-flex flex-column flex-root">
@@ -131,30 +146,6 @@ const Permissions = () => {
                               </a>
                             </td>
                             <td class="text-end">
-                              {/* <a
-                                href="#"
-                                class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                              >
-                                <span class="svg-icon svg-icon-3">
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                  >
-                                    <path
-                                      d="M17.5 11H6.5C4 11 2 9 2 6.5C2 4 4 2 6.5 2H17.5C20 2 22 4 22 6.5C22 9 20 11 17.5 11ZM15 6.5C15 7.9 16.1 9 17.5 9C18.9 9 20 7.9 20 6.5C20 5.1 18.9 4 17.5 4C16.1 4 15 5.1 15 6.5Z"
-                                      fill="black"
-                                    />
-                                    <path
-                                      opacity="0.3"
-                                      d="M17.5 22H6.5C4 22 2 20 2 17.5C2 15 4 13 6.5 13H17.5C20 13 22 15 22 17.5C22 20 20 22 17.5 22ZM4 17.5C4 18.9 5.1 20 6.5 20C7.9 20 9 18.9 9 17.5C9 16.1 7.9 15 6.5 15C5.1 15 4 16.1 4 17.5Z"
-                                      fill="black"
-                                    />
-                                  </svg>
-                                </span>
-                              </a> */}
                               <Link
                                 to={"/master/security/permissions/edit"}
                                 state={Permissions}
@@ -183,12 +174,14 @@ const Permissions = () => {
                                   {/*end::Svg Icon*/}
                                 </button>
                               </Link>
-                              {/*  */}
-                              <DeleteSpinner
-                                collection={Permissions}
-                                deleting={deletePermission}
-                                url={"/master/security/permissions/"}
-                              />
+                              {userPermissions.has("delete_permission") ? (
+                                <DeleteSpinner
+                                  collection={Permissions}
+                                  deleting={deletePermission}
+                                  url={"/master/security/permissions/"}
+                                />
+
+                              ) : (null)}
                             </td>
                           </tr>
                         ))}

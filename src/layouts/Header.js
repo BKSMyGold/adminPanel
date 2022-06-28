@@ -346,6 +346,17 @@ let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
                         <div className="menu-item">
                           <a
                             className="menu-link py-3"
+                            href="/master/security/role_right"
+                          >
+                            <span className="menu-bullet">
+                              <span className="bullet bullet-dot"></span>
+                            </span>
+                            <span className="menu-title">Role Rights</span>
+                          </a>
+                        </div>
+                        <div className="menu-item">
+                          <a
+                            className="menu-link py-3"
                             href="/master/security/masterUserRights"
                           >
                             <span className="menu-bullet">

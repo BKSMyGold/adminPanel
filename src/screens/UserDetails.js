@@ -142,7 +142,7 @@ export default function UserDetails() {
   return (
     <>
       <Header />
-      <Dashboard />
+      
       <div class="content">
         <div class="container">
           <div class="row">
