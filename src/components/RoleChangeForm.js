@@ -1,22 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import AddUpdateSpinner from "../AddUpdateSpinner";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import axios from "axios";
 import { ROLE_PERMISSION_BASE_URL } from "../Constants";
-
+//===================================================================
 export default function RoleChangeForm() {
+  //===================================================================
   const location = useLocation();
   console.log(location.state);
-
   const [roles, setRoles] = React.useState([]);
-
+  //===================================================================
   React.useEffect(() => {
     axios
       .get(`${ROLE_PERMISSION_BASE_URL}/api/system-user`)
       .then((res) => setRoles(res.data));
   }, []);
+  //===================================================================
+  let parentRoles = [
+    "Super Admin",
+    "Admin",
+    "IT",
+    "SHOP",
+    "Sales & Marketing",
+    "CRM",
+    "Other Parent Role",
+  ];
+  //===================================================================
+  const [roleData, setRoleData] = useState({
+    parentRole: "",
+    newRole: "",
+  });
+  //===================================================================
 
   return (
     <div className="d-flex flex-column flex-root">
@@ -68,7 +84,7 @@ export default function RoleChangeForm() {
                           name="category_name"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter Category Name"
-                          defaultValue={location.state.name}
+                          value={location.state.name}
                         />
                       </div>
 
@@ -86,7 +102,7 @@ export default function RoleChangeForm() {
                           name="category_name"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter Category Name"
-                          defaultValue={location.state.role.role_name}
+                          value={location.state.role.role_name}
                         />
                       </div>
 
@@ -100,9 +116,17 @@ export default function RoleChangeForm() {
                             title="Specify your unique app name"
                           ></i>
                         </label>
-                        <select class="form-control">
+                        <select
+                          class="form-control"
+                          onChange={(e) => {
+                            setRoleData({
+                              ...roleData,
+                              newRole: e.target.value,
+                            });
+                          }}
+                        >
+                          <option class="form-control">Choose Role</option>;
                           {roles.map((role) => {
-                            <option class="form-control">Choose Role</option>;
                             if (
                               role.role &&
                               role.role.role_name !== undefined
@@ -120,26 +144,44 @@ export default function RoleChangeForm() {
                       <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                           <span class="required">Parent Role</span>
+
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
                             title="Specify your unique app name"
                           ></i>
                         </label>
-                        <input
-                          type="text"
-                          name="category_name"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Category Name"
-                          defaultValue="Parent Role"
-                        />
-                      </div>
+                        <select
+                          class="form-control"
+                          onChange={(e) => {
+                            setRoleData({
+                              ...roleData,
+                              parentRole: e.target.value,
+                            });
+                          }}
+                        >
+                          <option class="form-control">Parent Role</option>;
+                          {parentRoles.map((role) => {
 
-                   
+                            return (
+                              <option class="form-control" value={role}>
+                                {role}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
                       <div>
                         <br />
-
-                        <button class="btn btn-danger">Add</button>
+                        <button
+                          class="btn btn-danger"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            console.log(roleData);
+                          }}
+                        >
+                          Add
+                        </button>
                       </div>
                     </form>
                   </div>
