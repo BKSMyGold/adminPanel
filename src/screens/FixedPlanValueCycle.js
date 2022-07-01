@@ -3,6 +3,8 @@ import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import { BASE_URL } from "../Constants";
 import axios from "axios";
+import jsPDF from "jspdf";
+
 //========================================================================
 const formatDate = (date) => {
   date = new Date(date);
@@ -86,7 +88,94 @@ const FixedPlanValueCycle = () => {
   
   
 
-
+  function tableToCSV() {
+    // Variable to store the final csv data
+    var csv_data = [];
+  
+    // Get each row data
+    var rows = document.getElementsByClassName("table0");
+    for (var i = 0; i < rows.length; i++) {
+      // Get each column data
+      var cols = rows[i].querySelectorAll("td,th");
+  
+      // Stores each csv row data
+      var csvrow = [];
+      for (var j = 0; j < cols.length; j++) {
+        // Get the text data of each cell of
+        // a row and push it to csvrow
+        csvrow.push(cols[j].innerHTML);
+      }
+  
+      // Combine each column value with comma
+      csv_data.push(csvrow.join(","));
+    }
+    // combine each row data with new line character
+    csv_data = csv_data.join("\n");
+  
+    /* We will use this function later to download
+    the data in a csv file downloadCSVFile(csv_data);
+    */
+    downloadCSVFile(csv_data);
+  }
+  
+  //===============================================================
+  function tableToCSV1() {
+    // Variable to store the final csv data
+    var csv_data = [];
+  
+    // Get each row data
+    var rows = document.getElementsByClassName("table1");
+    for (var i = 0; i < rows.length; i++) {
+      // Get each column data
+      var cols = rows[i].querySelectorAll("td,th");
+  
+      // Stores each csv row data
+      var csvrow = [];
+      for (var j = 0; j < cols.length; j++) {
+        // Get the text data of each cell of
+        // a row and push it to csvrow
+        csvrow.push(cols[j].innerHTML);
+      }
+  
+      // Combine each column value with comma
+      csv_data.push(csvrow.join(","));
+    }
+    // combine each row data with new line character
+    csv_data = csv_data.join("\n");
+  
+    /* We will use this function later to download
+    the data in a csv file downloadCSVFile(csv_data);
+    */
+    downloadCSVFile(csv_data);
+  }
+  
+  //===============================================================
+  
+  
+    function downloadCSVFile(csv_data) {
+      // Create CSV file object and feed our
+      // csv_data into it
+      let CSVFile = new Blob([csv_data], { type: "text/csv" });
+  
+      // Create to temporary link to initiate
+      // download process
+      var temp_link = document.createElement("a");
+  
+      // Download csv file
+      temp_link.download = "report.csv";
+      var url = window.URL.createObjectURL(CSVFile);
+      temp_link.href = url;
+  
+      // This link should not be displayed
+      temp_link.style.display = "none";
+      document.body.appendChild(temp_link);
+  
+      // Automatically click the link to trigger download
+      temp_link.click();
+      document.body.removeChild(temp_link);
+    }
+    //=============================================================================================================
+   
   //========================================================================
   return (
     <div className="d-flex flex-column flex-root">
@@ -125,10 +214,30 @@ const FixedPlanValueCycle = () => {
                   <h1>
                     {cycleName[0]}
                   </h1>
+                  <div class="exportables">
+                      <button
+                        class="pdf_button"
+                        onClick={() => {
+                          const doc = new jsPDF();
+
+                          doc.autoTable({
+                            html: "#my-table",
+                            styles: {
+                              overflow: "linebreak",
+                              fontSize: 9,
+                            },
+                          });
+                          doc.save("Report");
+                        }}
+                      >
+                       
+                      </button>
+                      <button class="csv_button" onClick={tableToCSV}></button>
+                    </div>
                   <div class="table-responsive">
-                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                    <table id ="my-table" class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                       <thead>
-                        <tr class="fw-bolder text-muted">
+                        <tr class="fw-bolder text-muted table0">
                           <th class="min-w-150px">Id</th>
                           <th class="min-w-140px">Customer Name</th>
                           <th class="min-w-140px">Mode</th>
@@ -146,7 +255,7 @@ const FixedPlanValueCycle = () => {
                         {flexByValue1 &&
                           flexByValue1.map((x) => {
                             return (
-                              <tr class ="fw-bolder">
+                              <tr class ="fw-bolder table0">
                                 <td>{x.id}</td>
                                 <td>{x.user.fname}</td>
                                 <td>{x.customPlan.mode}</td>
@@ -170,10 +279,30 @@ const FixedPlanValueCycle = () => {
                   <h1>
                     {cycleName[1]}
                   </h1>
+                  <div class="exportables">
+                      <button
+                        class="pdf_button"
+                        onClick={() => {
+                          const doc = new jsPDF();
+
+                          doc.autoTable({
+                            html: "#my-table1",
+                            styles: {
+                              overflow: "linebreak",
+                              fontSize: 9,
+                            },
+                          });
+                          doc.save("Report");
+                        }}
+                      >
+                       
+                      </button>
+                      <button class="csv_button" onClick={tableToCSV1}></button>
+                    </div>
                   <div class="table-responsive">
-                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                    <table id="my-table1" class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                       <thead>
-                        <tr class="fw-bolder text-muted">
+                        <tr class="fw-bolder text-muted table1">
                           <th class="min-w-150px">Id</th>
                           <th class="min-w-140px">Customer Name</th>
                           <th class="min-w-140px">Mode</th>
@@ -191,7 +320,7 @@ const FixedPlanValueCycle = () => {
                         {flexByValue2 &&
                           flexByValue2.map((x) => {
                             return (
-                              <tr class ="fw-bolder">
+                              <tr class ="fw-bolder table1">
                                 <td>{x.id}</td>
                                 <td>{x.user.fname}</td>
                                 <td>{x.customPlan.mode}</td>

@@ -4,69 +4,109 @@ import Header from "../layouts/Header";
 import Dashboard from "./dashboard";
 import axios from "axios";
 import { BASE_URL } from "../Constants";
-import { CSVLink } from "react-csv";
-import Table from "./datatable";
-import DataTable, { Export, downloadCSV } from "react-data-table-component";
+import jsPDF from "jspdf";
 
-
-const columns = [
-  {
-    name: "Customer Name",
-    selector: (row) => row.user.fname,
-  },
-  {
-    name: "Mode",
-    selector: (row) => {
-      if (row.plan !== null) {
-        return row.plan.mode;
-      }
-    },
-  },
-];
+//==================================================================
 
 const UserDataFull = () => {
+  //==================================================================
   const [subscriptions, setSubscriptions] = useState([]);
   const [sub, setSub] = useState([]);
-
+//==================================================================
   useEffect(() => {
     axios
       .get(`${BASE_URL}/api/subscription`)
       .then((res) => setSub(res.data.subscriptions));
   }, []);
   console.log("Isko Karna Hai =-->", sub);
+//==================================================================
+function tableToCSV() {
+  // Variable to store the final csv data
+  var csv_data = [];
 
-  // const[headers, setHeaders] = useState([]);
-  //   let instal = {}
-  // instal = sub.map(x =>(x.installments))
-  // Object.assign({},instal)
-  // console.log(instal)
+  // Get each row data
+  var rows = document.getElementsByClassName("table0");
+  for (var i = 0; i < rows.length; i++) {
+    // Get each column data
+    var cols = rows[i].querySelectorAll("td,th");
 
-  const headers = [
-    { label: "User", key: "user.fname" },
-    { label: "Cycle Name ", key: "plan.cyclePeriod.name" },
-    { label: "Plan Type", key: "plan.planType" },
-    { label: "Mode", key: "plan.mode" },
-    { label: "Maturity Date", key: "maturityDate" },
-    { label: "Status", key: "status" },
-    { label: "installments", key: "installments" },
-  ];
-//  () => {
-//     const actionsMemo = React.useMemo(
-//       () => <Export onExport={() => downloadCSV(sub)} />,
-//       []
-//     );
- 
-//     return (
-//       <DataTable
-//         title="Movie List"
-//         columns={columns}
-//         data={sub}
-//         actions={actionsMemo}
-//       />
-//     );
-//   };
+    // Stores each csv row data
+    var csvrow = [];
+    for (var j = 0; j < cols.length; j++) {
+      // Get the text data of each cell of
+      // a row and push it to csvrow
+      csvrow.push(cols[j].innerHTML);
+    }
+
+    // Combine each column value with comma
+    csv_data.push(csvrow.join(","));
+  }
+  // combine each row data with new line character
+  csv_data = csv_data.join("\n");
+
+  /* We will use this function later to download
+  the data in a csv file downloadCSVFile(csv_data);
+  */
+  downloadCSVFile(csv_data);
+}
+
+//===============================================================
+function tableToCSV1() {
+  // Variable to store the final csv data
+  var csv_data = [];
+
+  // Get each row data
+  var rows = document.getElementsByClassName("table1");
+  for (var i = 0; i < rows.length; i++) {
+    // Get each column data
+    var cols = rows[i].querySelectorAll("td,th");
+
+    // Stores each csv row data
+    var csvrow = [];
+    for (var j = 0; j < cols.length; j++) {
+      // Get the text data of each cell of
+      // a row and push it to csvrow
+      csvrow.push(cols[j].innerHTML);
+    }
+
+    // Combine each column value with comma
+    csv_data.push(csvrow.join(","));
+  }
+  // combine each row data with new line character
+  csv_data = csv_data.join("\n");
+
+  /* We will use this function later to download
+  the data in a csv file downloadCSVFile(csv_data);
+  */
+  downloadCSVFile(csv_data);
+}
+
+//===============================================================
 
 
+  function downloadCSVFile(csv_data) {
+    // Create CSV file object and feed our
+    // csv_data into it
+    let CSVFile = new Blob([csv_data], { type: "text/csv" });
+
+    // Create to temporary link to initiate
+    // download process
+    var temp_link = document.createElement("a");
+
+    // Download csv file
+    temp_link.download = "report.csv";
+    var url = window.URL.createObjectURL(CSVFile);
+    temp_link.href = url;
+
+    // This link should not be displayed
+    temp_link.style.display = "none";
+    document.body.appendChild(temp_link);
+
+    // Automatically click the link to trigger download
+    temp_link.click();
+    document.body.removeChild(temp_link);
+  }
+  //=============================================================================================================
   return (
     
     <div className="d-flex flex-column flex-root">
@@ -97,32 +137,38 @@ const UserDataFull = () => {
                       All Subscriptions Full User Data
                     </span>
                   </h3>
-                  <div>
-                    {/* <Table />
-                    <CSVLink
-                      className="csv"
-                      data={sub}
-                      filename="Reports.csv"
-                      target="_blank"
-                      headers={headers}
-                    >
-                      Export
-                    </CSVLink> */}
-                    click me
-                    {/* <DataTable columns={columns} data={sub} /> */}
-                    {/* <button onClick={HandleClick}>Click</button> */}
-                  </div>
+                
                 </div>
                 {/*end::Header*/}
                 {/*begin::Body*/}
                 <div class="card-body py-3">
                   {/*begin::Table container*/}
+                  <div class="exportables">
+                      <button
+                        class="pdf_button"
+                        onClick={() => {
+                          const doc = new jsPDF();
+
+                          doc.autoTable({
+                            html: "#my-table",
+                            styles: {
+                              overflow: "linebreak",
+                              fontSize: 9,
+                            },
+                          });
+                          doc.save("Report");
+                        }}
+                      >
+                       
+                      </button>
+                      <button class="csv_button" onClick={tableToCSV}></button>
+                    </div>
                   <div class="table-responsive">
                     {/*begin::Table*/}
-                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3" id ="example">
+                    <table id="my-table" class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                       {/*begin::Table head*/}
                       <thead>
-                        <tr class="fw-bolder text-muted">
+                        <tr class="fw-bolder text-muted table0">
                           <th class="min-w-150px">Id</th>
                           <th class="min-w-140px">Customer Name</th>
                           <th class="min-w-140px">Cycle Name</th>
@@ -142,7 +188,7 @@ const UserDataFull = () => {
                           sub.map((Users) => {
                             if (Users.plan && Users.plan !== undefined) {
                               return (
-                                <tr class="fw-bolder">
+                                <tr class="fw-bolder table0">
                                   <td>{Users.user.id}</td>
                                   <td>{Users.user.fname}</td>
                                   <td>{Users.plan.cyclePeriod.name}</td>
@@ -178,11 +224,31 @@ const UserDataFull = () => {
                 <div class="card-body py-3">
                   {/*begin::Table container*/}
                   <div class="table-responsive">
+                  <div class="exportables">
+                      <button
+                        class="pdf_button"
+                        onClick={() => {
+                          const doc = new jsPDF();
+
+                          doc.autoTable({
+                            html: "#my-table1",
+                            styles: {
+                              overflow: "linebreak",
+                              fontSize: 9,
+                            },
+                          });
+                          doc.save("Report");
+                        }}
+                      >
+                       
+                      </button>
+                      <button class="csv_button" onClick={tableToCSV1}></button>
+                    </div>
                     {/*begin::Table*/}
-                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3" id ="my-table1">
                       {/*begin::Table head*/}
                       <thead>
-                        <tr class="fw-bolder text-muted">
+                        <tr class="fw-bolder text-muted table1">
                           <th class="min-w-150px">Id</th>
                           <th class="min-w-140px">Customer Name</th>
                           <th class="min-w-140px">Cycle Name</th>
@@ -205,7 +271,7 @@ const UserDataFull = () => {
                               Users.customPlan !== undefined
                             ) {
                               return (
-                                <tr class="fw-bolder">
+                                <tr class="fw-bolder table1">
                                   <td>{Users.user.id}</td>
                                   <td>{Users.user.fname}</td>
                                   <td>{Users.customPlan.cyclePeriod.name}</td>

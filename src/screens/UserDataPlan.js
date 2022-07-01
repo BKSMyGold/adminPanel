@@ -4,6 +4,8 @@ import Header from "../layouts/Header";
 import Dashboard from "./dashboard";
 import axios from "axios";
 import { BASE_URL } from "../Constants";
+import jsPDF from "jspdf";
+
 //=======================================================================================
 const UserDataPlan = () => {
   const [Standardplan, setStandardplans] = useState([]);
@@ -11,167 +13,8 @@ const UserDataPlan = () => {
   const [flexiSubscriptions, setFlexiSubscriptions] = useState([]);
   const [Users, setUsers] = useState([]);
   //=======================================================================================
-  //   useEffect(() => {
-  //   //   {
-  //   //     /*
-  //   //    	Get all Standard Plans Avaialable using api/plan/type/standard
-  // 	// */
-  //   //   }
-
-  //     // const standardPlanResponse = [].constructor(2).fill({
-  //     //   bonus: 1,
-  //     //   createdAt: '2021-12-10T19:33:23.048Z',
-  //     //   cyclePeriod: {
-  //     //     createdAt: '2021-12-10T19:09:32.282Z',
-  //     //     cycle: 10,
-  //     //     docType: 'CyclePeriod',
-  //     //     graceperiod: 240,
-  //     //     id: '61b3a5ecea31faacc7b37863',
-  //     //     minValue: 5000,
-  //     //     minWeight: 1,
-  //     //     name: 'Every Month',
-  //     //     shortName: 'M',
-  //     //     status: 'Active',
-  //     //     updatedAt: '2021-12-10T19:09:32.282Z',
-  //     //   },
-  //     //   docType: 'Plan',
-  //     //   duration: 24,
-  //     //   id: '61b3ab83d59d6bacdd6ef5a3',
-  //     //   mode: 'weight',
-  //     //   name: '24 month Savings Plan',
-  //     //   planType: 'Standard',
-  //     //   updatedAt: '2021-12-10T19:33:23.048Z',
-  //     // })
-
-  //     axios.get(`${BASE_URL}/api/plan/type/standard`)
-  //     .then(res =>
-
-  //       setStandardplans(res.data.data))
-
-  //   }, [])
-  // console.log('Standardplan are ===>',Standardplan)
-  //   {
-  //     /*then Get the all subscription details which matches for each planID above */
-  //   }
-
-  //   useEffect(() => {
-  //     {
-  //       /*Use Endpoint to get all users */
-  //     }
-  //     {
-  //       /*endpont = /api/subscription/   */
-  //     }
-  //     const StandardSubscriptionResponse = {
-  //       createdAt: '2021-12-13T11:51:10.930Z',
-  //       docType: 'Subscription',
-  //       id: '61b733aeb2cb7fdd62a1ea29',
-  //       installments: ['61b733acb2cb7fdd62a1ea28'],
-  //       maturityDate: '2022-08-10T11:51:10.892Z',
-  //       plan: '61b3ab83d59d6bacdd6ef5a3',
-  //       planBonus: 2.4,
-  //       skipCount: 0,
-  //       status: 'Running',
-  //       trackingId: '',
-  //       unpaidInvestments: 0,
-  //       unpaidSkips: 0,
-  //       updatedAt: '2021-12-13T11:51:10.930Z',
-  //       user: '61b3a63aea31faacc7b37864',
-  //     }
-
-  //     setStandardSubscriptions(StandardSubscriptionResponse)
-  //   }, [])
-
-  //   {
-  //     /*then Get the all subscription details Where plantype Flexi */
-  //   }
-
-  //   useEffect(() => {
-  //     {
-  //       /*
-  //      	/*endpont = /api/subscription/
-  // 	*/
-  //     }
-
-  //     const FlexiSubscriptionResponse = [].constructor(2).fill({
-  //       createdAt: '2021-12-13T11:53:44.682Z',
-  //       customPlan: {
-  //         cyclePeriod: [
-  //           {
-  //             createdAt: '2021-12-10T19:09:32.282Z',
-  //             cycle: 10,
-  //             docType: 'CyclePeriod',
-  //             graceperiod: 240,
-  //             id: '61b3a5ecea31faacc7b37863',
-  //             minValue: 5000,
-  //             minWeight: 1,
-  //             name: 'Every Month',
-  //             shortName: 'M',
-  //             status: 'Active',
-  //             updatedAt: '2021-12-10T19:09:32.282Z',
-  //           },
-  //         ],
-  //         duration: 24,
-  //         id: '61b73448b2cb7fdd62a1ea2b',
-  //         mode: 'Value',
-  //         name: 'Flexi Plan',
-  //         planType: 'Flexi',
-  //       },
-  //       docType: 'Subscription',
-  //       id: '61b73448b2cb7fdd62a1ea2c',
-  //       installments: ['61b73446b2cb7fdd62a1ea2a'],
-  //       maturityDate: null,
-  //       planBonus: 0,
-  //       skipCount: 0,
-  //       status: 'Running',
-  //       trackingId: '',
-  //       unpaidInvestments: 0,
-  //       unpaidSkips: 0,
-  //       updatedAt: '2021-12-13T11:53:44.682Z',
-  //       user: '61b716a57c3e83d0f634da04',
-  //     })
-
-  //     setFlexiSubscriptions(FlexiSubscriptionResponse)
-  //   }, [])
-
-  //   useEffect(() => {
-  //     {
-  //       /*Use Endpoint to get  user data for each subscription */
-  //     }
-  //     {
-  //       /*endpont = api/user/:userId   */
-  //     }
-  //     const userResponse = {
-  //       GBPBonusEntries: [],
-  //       GBPcode: '',
-  //       addresses: [],
-  //       createdAt: '2021-12-10T19:10:50.435Z',
-  //       deviceToken:
-  //         'doHSXifERQGpCQyeHMMij6:APA91bHf9rudMzbqdwv3OjNuiLkI98pDgMKzrsJecfPt0i6F5whpi2d5R1sVleS5Ew823FwiECkEE8oEx6ezFt85NZpshZfcs2PuEpetIzBt5NMZSf7ZZPzefc3qAHixB6YaE4VuxV8x',
-  //       dob: '2000-11-23',
-  //       docType: 'User',
-  //       email: 'ashutoshsenapati2311@gmail.com',
-  //       fname: 'Ashutosh Senapati',
-  //       id: '61b3a63aea31faacc7b37864',
-  //       image:
-  //         'https://bks-gold.s3.ap-south-1.amazonaws.com/User%2Fimage_picker6967090782453535724.jpg',
-  //       isInvested: false,
-  //       isWhatsapp: true,
-  //       joiningBonus: 0,
-  //       level: '',
-  //       mobile: 9777139671,
-  //       pan: 'DEPPP5884H',
-  //       refCode: '',
-  //       referenceType: '',
-  //       referral: null,
-  //       referralBonusEntries: [],
-  //       role: '',
-  //       updatedAt: '2021-12-14T05:50:11.532Z',
-  //     }
-
-  //     setUsers(userResponse)
-  //   }, [])
   //=============================================================================================================
-  useEffect(() => {
+  useEffect(() => { 
     axios
       .get(`${BASE_URL}/api/plan/type/standard`)
       .then((res) => setStandardplans(res.data.data));
@@ -214,7 +57,7 @@ const UserDataPlan = () => {
   // console.log("12 month waali Cycle : ==>", sub12monthCycle);
   // console.log("Ajooba : ==>", sub12month.concat(sub12monthCycle));
 
-  let arr = sub12monthCycle.concat(sub12month);
+  // let arr = sub12monthCycle.concat(sub12month);
 
   let sub24month = [];
   sub24month =
@@ -237,6 +80,126 @@ const UserDataPlan = () => {
     });
 
   console.log("flexi : ==>", flexi);
+
+  //=============================================================
+  function tableToCSV() {
+    // Variable to store the final csv data
+    var csv_data = [];
+
+    // Get each row data
+    var rows = document.getElementsByClassName("table0");
+    for (var i = 0; i < rows.length; i++) {
+      // Get each column data
+      var cols = rows[i].querySelectorAll("td,th");
+
+      // Stores each csv row data
+      var csvrow = [];
+      for (var j = 0; j < cols.length; j++) {
+        // Get the text data of each cell of
+        // a row and push it to csvrow
+        csvrow.push(cols[j].innerHTML);
+      }
+
+      // Combine each column value with comma
+      csv_data.push(csvrow.join(","));
+    }
+    // combine each row data with new line character
+    csv_data = csv_data.join("\n");
+
+    /* We will use this function later to download
+    the data in a csv file downloadCSVFile(csv_data);
+    */
+    downloadCSVFile(csv_data);
+  }
+//===============================================================
+
+function tableToCSV1() {
+  // Variable to store the final csv data
+  var csv_data = [];
+
+  // Get each row data
+  var rows = document.getElementsByClassName("table1");
+  for (var i = 0; i < rows.length; i++) {
+    // Get each column data
+    var cols = rows[i].querySelectorAll("td,th");
+
+    // Stores each csv row data
+    var csvrow = [];
+    for (var j = 0; j < cols.length; j++) {
+      // Get the text data of each cell of
+      // a row and push it to csvrow
+      csvrow.push(cols[j].innerHTML);
+    }
+
+    // Combine each column value with comma
+    csv_data.push(csvrow.join(","));
+  }
+  // combine each row data with new line character
+  csv_data = csv_data.join("\n");
+
+  /* We will use this function later to download
+  the data in a csv file downloadCSVFile(csv_data);
+  */
+  downloadCSVFile(csv_data);
+}
+
+//===============================================================
+function tableToCSV2() {
+  // Variable to store the final csv data
+  var csv_data = [];
+
+  // Get each row data
+  var rows = document.getElementsByClassName("table2");
+  for (var i = 0; i < rows.length; i++) {
+    // Get each column data
+    var cols = rows[i].querySelectorAll("td,th");
+
+    // Stores each csv row data
+    var csvrow = [];
+    for (var j = 0; j < cols.length; j++) {
+      // Get the text data of each cell of
+      // a row and push it to csvrow
+      csvrow.push(cols[j].innerHTML);
+    }
+
+    // Combine each column value with comma
+    csv_data.push(csvrow.join(","));
+  }
+  // combine each row data with new line character
+  csv_data = csv_data.join("\n");
+
+  /* We will use this function later to download
+  the data in a csv file downloadCSVFile(csv_data);
+  */
+  downloadCSVFile(csv_data);
+}
+
+//===============================================================
+
+
+  function downloadCSVFile(csv_data) {
+    // Create CSV file object and feed our
+    // csv_data into it
+    let CSVFile = new Blob([csv_data], { type: "text/csv" });
+
+    // Create to temporary link to initiate
+    // download process
+    var temp_link = document.createElement("a");
+
+    // Download csv file
+    temp_link.download = "report.csv";
+    var url = window.URL.createObjectURL(CSVFile);
+    temp_link.href = url;
+
+    // This link should not be displayed
+    temp_link.style.display = "none";
+    document.body.appendChild(temp_link);
+
+    // Automatically click the link to trigger download
+    temp_link.click();
+    document.body.removeChild(temp_link);
+  }
+
 
   //=============================================================================================================
   return (
@@ -275,10 +238,30 @@ const UserDataPlan = () => {
                   Standardplan.map((Standard) => ( */}
                 <div class="card-body py-3">
                   <h1>12 Months Savings Plan</h1>
+                  <div class="exportables">
+                      <button
+                        class="pdf_button"
+                        onClick={() => {
+                          const doc = new jsPDF();
+
+                          doc.autoTable({
+                            html: "#my-table",
+                            styles: {
+                              overflow: "linebreak",
+                              fontSize: 9,
+                            },
+                          });
+                          doc.save("Report");
+                        }}
+                      >
+                       
+                      </button>
+                      <button class="csv_button" onClick={tableToCSV}></button>
+                    </div>
                   <div class="table-responsive">
-                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3" id="my-table">
                       <thead>
-                        <tr class="fw-bolder text-muted">
+                        <tr class="fw-bolder text-muted table0">
                           <th class="min-w-150px">Id</th>
                           <th class="min-w-140px">Customer Name</th>
                           <th class="min-w-140px">Mobile</th>
@@ -292,7 +275,7 @@ const UserDataPlan = () => {
                         {sub12month.map((sub12month) => {
                           if (sub12month !== undefined) {
                             return (
-                              <tr>
+                              <tr class="table0">
                                 <td>{sub12month.id}</td>
                                 <td>{sub12month.fname}</td>
                                 <td>{sub12month.mobile}</td>
@@ -311,10 +294,30 @@ const UserDataPlan = () => {
 
                 <div class="card-body py-3">
                   <h1>24 Months Savings Plan</h1>
+                  <div class="exportables">
+                      <button
+                        class="pdf_button"
+                        onClick={() => {
+                          const doc = new jsPDF();
+
+                          doc.autoTable({
+                            html: "#my-table1",
+                            styles: {
+                              overflow: "linebreak",
+                              fontSize: 9,
+                            },
+                          });
+                          doc.save("Report");
+                        }}
+                      >
+                       
+                      </button>
+                      <button class="csv_button" onClick={tableToCSV1}></button>
+                    </div>
                   <div class="table-responsive">
-                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3" id ="my-table1">
                       <thead>
-                        <tr class="fw-bolder text-muted">
+                        <tr class="fw-bolder text-muted table1">
                           <th class="min-w-150px">Id</th>
                           <th class="min-w-140px">Customer Name</th>
                           <th class="min-w-140px">Mobile</th>
@@ -327,7 +330,7 @@ const UserDataPlan = () => {
                         {sub24month.map((sub24month) => {
                           if (typeof sub24month !== "undefined") {
                             return (
-                              <tr>
+                              <tr class="table1">
                                 <td>{sub24month.id}</td>
                                 <td>{sub24month.fname}</td>
                                 <td>{sub24month.mobile}</td>
@@ -346,10 +349,30 @@ const UserDataPlan = () => {
 
                 <div class="card-body py-3">
                   <h1>Flexi Plan</h1>
+                  <div class="exportables">
+                      <button
+                        class="pdf_button"
+                        onClick={() => {
+                          const doc = new jsPDF();
+
+                          doc.autoTable({
+                            html: "#my-table2",
+                            styles: {
+                              overflow: "linebreak",
+                              fontSize: 9,
+                            },
+                          });
+                          doc.save("Report");
+                        }}
+                      >
+                       
+                      </button>
+                      <button class="csv_button" onClick={tableToCSV2}></button>
+                    </div>
                   <div class="table-responsive">
-                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3" id="my-table2">
                       <thead>
-                        <tr class="fw-bolder text-muted">
+                        <tr class="fw-bolder text-muted table2">
                           <th class="min-w-150px">Id</th>
                           <th class="min-w-140px">Full Name</th>
                           <th class="min-w-120px">Mobile</th>
@@ -363,7 +386,7 @@ const UserDataPlan = () => {
                         {flexi.map((Users) => {
                           if (Users !== undefined) {
                             return (
-                              <tr>
+                              <tr class="table2">
                                 <td>{Users.id}</td>
                                 <td>{Users.fname}</td>
                                 <td>{Users.mobile}</td>

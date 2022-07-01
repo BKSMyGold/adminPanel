@@ -441,7 +441,7 @@ class MasterUserRights extends React.Component {
           <div class="role_master">
             <table class="table">
               <thead>
-                <tr class="fw-bolder">
+                <tr class="fw-bolder text-center">
                   <th>User Name</th>
                   <th>Status</th>
                   <th>Role</th>
@@ -453,7 +453,7 @@ class MasterUserRights extends React.Component {
                 {this.state.roless.map((x) => {
                   if (x.role && x.role.role_name !== undefined) {
                     return (
-                      <tr>
+                      <tr class ="text-center">
                         <td class="p-5">{x.name}</td>
                         <td>active</td>
                         <td>{x.role.role_name}</td>

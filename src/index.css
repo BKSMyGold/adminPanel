@@ -707,3 +707,24 @@ table.shoping-cart-table tr td:last-child {
   border-radius: 20px;
   border:10px solid #aeb2c9
 }
+.exportables{
+display: flex;
+justify-content: right;
+}
+.pdf_button{
+  background-image: url("./pdf.png");
+  background-repeat: no-repeat;
+  width: 35px;
+  height: 35px;
+  border: none;
+  border-radius: 11px;
+}
+.csv_button{
+  background-image: url("./csv.png");
+  background-repeat: no-repeat;
+  width: 35px;
+  height: 35px;
+  border: none;
+  margin-left:10px;
+  border-radius: 11px;
+}

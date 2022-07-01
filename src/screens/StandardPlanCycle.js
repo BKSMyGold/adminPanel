@@ -4,6 +4,8 @@ import Header from "../layouts/Header";
 import { BASE_URL } from "../Constants";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import jsPDF from "jspdf";
+
 
 const formatDate = (date) => {
   date = new Date(date);
@@ -70,6 +72,65 @@ const StandardPlanCycle = () => {
 
   console.log("Mil gaya ==> ", std);
 
+  function tableToCSV() {
+    // Variable to store the final csv data
+    var csv_data = [];
+  
+    // Get each row data
+    var rows = document.getElementsByClassName("table0");
+    for (var i = 0; i < rows.length; i++) {
+      // Get each column data
+      var cols = rows[i].querySelectorAll("td,th");
+  
+      // Stores each csv row data
+      var csvrow = [];
+      for (var j = 0; j < cols.length; j++) {
+        // Get the text data of each cell of
+        // a row and push it to csvrow
+        csvrow.push(cols[j].innerHTML);
+      }
+  
+      // Combine each column value with comma
+      csv_data.push(csvrow.join(","));
+    }
+    // combine each row data with new line character
+    csv_data = csv_data.join("\n");
+  
+    /* We will use this function later to download
+  the data in a csv file downloadCSVFile(csv_data);
+  */
+    downloadCSVFile(csv_data);
+  }
+  
+  //===============================================================
+  
+  function downloadCSVFile(csv_data) {
+    // Create CSV file object and feed our
+    // csv_data into it
+    let CSVFile = new Blob([csv_data], { type: "text/csv" });
+  
+    // Create to temporary link to initiate
+    // download process
+    var temp_link = document.createElement("a");
+  
+    // Download csv file
+    temp_link.download = "report.csv";
+    var url = window.URL.createObjectURL(CSVFile);
+    temp_link.href = url;
+  
+    // This link should not be displayed
+    temp_link.style.display = "none";
+    document.body.appendChild(temp_link);
+  
+    // Automatically click the link to trigger download
+    temp_link.click();
+    document.body.removeChild(temp_link);
+  }
+  //=============================================================================================================
+   
+
+
+
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -104,11 +165,29 @@ const StandardPlanCycle = () => {
                 {/*begin::Body*/}
                 {/* {CyclePeriod.map((cycle) => ( */}
                 <div class="card-body py-3">
-                  <h1>Every Month</h1> <span class = 'badge badge-danger'>{std.length} Users</span>
+                  <h1>Every Month</h1> 
+                  <div class="exportables">
+                    <button
+                      class="pdf_button"
+                      onClick={() => {
+                        const doc = new jsPDF();
+
+                        doc.autoTable({
+                          html: "#my-table",
+                          styles: {
+                            overflow: "linebreak",
+                            fontSize: 9,
+                          },
+                        });
+                        doc.save("Report");
+                      }}
+                    ></button>
+                    <button class="csv_button" onClick={tableToCSV}></button>
+                  </div>
                   <div class="table-responsive">
-                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                    <table id="my-table" class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                       <thead>
-                        <tr class="fw-bolder text-muted">
+                        <tr class="fw-bolder text-muted table0">
                           <th class="min-w-150px">Id</th>
                           <th class="min-w-140px">Customer Name</th>
                           <th class="min-w-140px">Mode</th>
@@ -122,41 +201,14 @@ const StandardPlanCycle = () => {
                       </thead>
 
                       <tbody>
-                        {/* {subscriptions.map((subscription) => {
-                            if (
-                              (subscription.customPlan &&
-                                subscription.customPlan.cyclePeriod.name) ===
-                                buySell[0].name &&
-                              subscription.mode === "Value"
-                            ) {
-                              return (
-                                <tr>
-                                  <td>{subscription.id}</td>
-                                  <td>{subscription.user.fname}</td>
-                                  <td>{subscription.customPlan.mode}</td>
-                                  <td>
-                                    {formatDate(subscription.maturityDate)}
-                                  </td>
-                                  <td>{subscription.status}</td>
-                                  <td>
-                                    {subscriptionsByUser[subscription.user.id]}
-                                  </td>
-                                  <td>
-                                    {subscription.status !== "Completed"
-                                      ? "Un Matured"
-                                      : "Matured"}
-                                  </td>
-                                </tr>
-                              );
-                            }
-                          })} */}
+                        
                         {std.map((x) => {
                           return (
-                            <tr>
+                            <tr class="table0 fw-bold">
                               <td>{x.id}</td>
-                              <Link to="/user_details" state={x.user}>
+                              {/* <Link to="/user_details" state={x.user}> */}
                                 <td>{x.user.fname}</td>
-                              </Link>
+                              {/* </Link>  */}
                               <td>{x.plan.mode}</td>
                               <td>{x.maturityDate.substring(0, 10)}</td>
 
