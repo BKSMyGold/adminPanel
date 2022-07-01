@@ -176,6 +176,7 @@ import ForgotPassword from "./components/ForgotPassword";
 import RoleRight from "./components/RoleRight";
 import RoleChangeForm from "./components/RoleChangeForm";
 import UserNameChangeForm from "./components/UserNameChangeForm";
+import AllRoles from "./screens/AllRoles";
 
 //====================================================================
 const App = () => {
@@ -239,7 +240,7 @@ const App = () => {
             path="/master/product-data/metal-groups"
             element={
               permissions.has("view_metal_groups") ? (
-                <MetalGroups user={loggedInUser}/>
+                <MetalGroups user={loggedInUser} />
               ) : (
                 <NoAccessComponent user={loggedInUser} />
               )
@@ -267,7 +268,7 @@ const App = () => {
               )
             }
           />
-          
+
           <Route
             path="/master/product-data/offers/add"
             element={
@@ -393,7 +394,7 @@ const App = () => {
             path="/master/product-data/diamonds"
             element={
               permissions.has("view_diamond_gems") ? (
-                <Diamonds user={loggedInUser}/>
+                <Diamonds user={loggedInUser} />
               ) : (
                 <NoAccessComponent user={loggedInUser} />
               )
@@ -403,7 +404,7 @@ const App = () => {
             path="/master/product-data/categories"
             element={
               permissions.has("view_categories") ? (
-                <Categories user={loggedInUser}/>
+                <Categories user={loggedInUser} />
               ) : (
                 <NoAccessComponent user={loggedInUser} />
               )
@@ -413,7 +414,7 @@ const App = () => {
             path="/master/product-data/products"
             element={
               permissions.has("view_products") ? (
-                <Products  user={loggedInUser}/>
+                <Products user={loggedInUser} />
               ) : (
                 <NoAccessComponent user={loggedInUser} />
               )
@@ -423,7 +424,7 @@ const App = () => {
             path="/master/product-data/varieties"
             element={
               permissions.has("view_varities") ? (
-                <Varieties user={loggedInUser}/>
+                <Varieties user={loggedInUser} />
               ) : (
                 <NoAccessComponent user={loggedInUser} />
               )
@@ -460,6 +461,7 @@ const App = () => {
               )
             }
           />
+          <Route path="/master/security/all_roles" element={<AllRoles />} />
 
           <Route
             path="master/product-data/diamonds/add"
@@ -701,7 +703,7 @@ const App = () => {
             path="/master/plans/cycle-periods/"
             element={
               permissions.has("view_cycle_periods") ? (
-                <CyclePeriods user={loggedInUser}/>
+                <CyclePeriods user={loggedInUser} />
               ) : (
                 <NoAccessComponent user={loggedInUser} />
               )
@@ -844,7 +846,7 @@ const App = () => {
             path="master/product-data/items_details"
             element={
               permissions.has("view_item_details") ? (
-                <ItemDetails user={loggedInUser}/>
+                <ItemDetails user={loggedInUser} />
               ) : (
                 <NoAccessComponent user={loggedInUser} />
               )
