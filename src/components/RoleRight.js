@@ -524,6 +524,7 @@ class RoleRight extends React.Component {
           <h3>Role</h3>
           <input
             class="form-control my-5"
+            placeholder="Enter new Role"
             onChange={(e) => {
               this.setState({ role: e.target.value });
             }}
