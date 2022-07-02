@@ -434,13 +434,13 @@ export default function UserDetails() {
                 </div>
               </div>
               {/* ============================= */}
-              <div class="card-box shadow-sm">
+              <div class="table-responsive card-box shadow-sm">
                 <h4 class="header-title mt-0">
                   User's Trasanctions Information
                 </h4>
                 <div class="panel-body">
-                  <table>
-                    <tr>
+                  <table class="">
+                    <tr >
                       <th class="text-muted p-5">Delivery Agent</th>
                       <th class="text-muted p-5">Transacted on</th>
                       <th class="text-muted p-5">Amount</th>
