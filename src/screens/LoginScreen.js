@@ -1,121 +1,37 @@
-// import React, { useState } from 'react'
-// import { useNavigate } from 'react-router-dom'
-// import Header from '../layouts/Header'
-// import Footer from '../layouts/Footer'
-// import Dashboard from './dashboard'
-// import { loginUser } from '../apis/Auth'
-
-// const LoginScreen = () => {
-//   let navigate = useNavigate()
-//   const [credentials, setCredentials] = useState({ email: '', password: '' })
-
-//   const onCredentialsModify = (e) => {
-//     setCredentials({ ...credentials, [e.target.name]: e.target.value })
-//   }
-
-//   return (
-//     <div className='d-flex flex-column flex-root'>
-//       <div className='page d-flex flex-row flex-column-fluid'>
-//         <div
-//           className='wrapper d-flex flex-column flex-row-fluid'
-//           id='kt_wrapper'
-//         >
-//           <Header />
-//           <Dashboard />
-//           <div
-//             id='kt_content_container'
-//             class='d-flex flex-column-fluid align-items-start container-xxl'
-//           >
-//             {/*begin::Post*/}
-//             <div class='content flex-row-fluid' id='kt_content'>
-//               {/*begin::Row*/}
-
-//               {/*begin::Tables Widget 13*/}
-//               <div class='card mb-5 mb-xl-8'>
-//                 {/*begin::Header*/}
-//                 <div class='card-header border-0 pt-5'>
-//                   <form>
-//                     <div class='row align-items-center'>
-//                       <input
-//                         className='form-control'
-//                         type={'text'}
-//                         name={'email'}
-//                         placeholder='Email'
-//                         onChange={onCredentialsModify}
-//                       />
-//                     </div>
-//                     <div class='row align-items-center'>
-//                       <input
-//                       className='form-control mt-2'
-//                         type='password'
-//                         name={'password'}
-//                         placeholder='Password'
-//                         onChange={onCredentialsModify}
-//                       />
-//                     </div>
-//                     <button
-//                     className='btn btn-danger mt-2'
-//                       onClick={(e) => {
-//                         e.preventDefault()
-//                         loginUser({ ...credentials }).then(
-//                           ({ data: loggedInUser }) => {
-//                             localStorage.setItem(
-//                               'loggedInUser',
-//                               JSON.stringify(loggedInUser)
-//                             )
-//                             navigate('/')
-//                             window.location.reload(false)
-//                           }
-//                         )
-//                       }}
-//                     >
-//                       Login
-//                     </button>
-//                   </form>
-//                 </div>
-//                 {/*end::Header*/}
-//                 {/*begin::Body*/}
-//                 <div class='card-body py-3'></div>
-//                 {/*begin::Body*/}
-//               </div>
-//               {/*end::Tables Widget 13*/}
-//             </div>
-//             {/*end::Post*/}
-//           </div>
-//           <Footer />
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }
-
-// export default LoginScreen
-
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../layouts/Footer";
 import { loginUser } from "../apis/Auth";
 import { useNavigate } from "react-router-dom";
-
+import mon from "../public/images/mon.jpg";
+//================================================================================
 export default function LoginScreen() {
   let navigate = useNavigate();
+  //================================================================================
   const [credentials, setCredentials] = useState({ email: "", password: "" });
-
+  //================================================================================
   const onCredentialsModify = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
+  //================================================================================
   const handleSubmit = (e) => {
-    e.preventDefault();
-    loginUser({ ...credentials }).then(({ data: loggedInUser }) => {
-      localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
-      navigate("/");
-      window.location.reload(false);
-    });
+
+      console.log(e.target.value)
+   
+
+      e.preventDefault();
+      loginUser({ ...credentials }).then(({ data: loggedInUser }) => {
+        localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
+        navigate("/");
+        window.location.reload(false);
+    })
+    
   };
+  //================================================================================
   return (
     <>
-      <div class="login_container">
-        <div class="login_image"></div>
+      {/* <div class="login_container">
+        <img src={mon} id="login_image" />
 
         <div class="login_input">
           <h1>Log in</h1>
@@ -123,14 +39,14 @@ export default function LoginScreen() {
           <form onSubmit={handleSubmit}>
             <label class="fw-bolder">Email address</label>
             <input
-              placeholder="ENTER EMAIL"
+              placeholder="Enter Email"
               name={"email"}
               class="form-control"
               onChange={onCredentialsModify}
             ></input>
             <label class="fw-bolder">Password</label>
             <input
-              placeholder="ENTER PASSWORD"
+              placeholder="Enter Password"
               type="password"
               name={"password"}
               class="form-control"
@@ -145,8 +61,26 @@ export default function LoginScreen() {
           </form>
         </div>
       </div>
-
-      <Footer />
+      <Footer /> */}
+      <div class="container">
+  <section id="content">
+    <form action="">
+      <h1>Login Form</h1>
+      <div>
+        <input type="text" placeholder="Username" required="" id="username" />
+      </div>
+      <div>
+        <input type="password" placeholder="Password" required="" id="password" />
+      </div>
+      <div>
+        <input type="submit" value="Log in" />
+        <a href="#">Lost your password?</a>
+        <a href="#">Register</a>
+      </div>
+    </form>
+    
+  </section>
+</div>
     </>
   );
 }
