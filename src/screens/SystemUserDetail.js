@@ -23,7 +23,7 @@ export default function SystemUserDetail() {
 
       {/* <div class="page"> */}
       <div class="">
-        <div class="card" style={{ width: "100rem" }}>
+        <div class="SystemUsercard">
           <img
             className="h-150px w-150px rounded"
             src="assets/media/avatars/150-2.jpg"

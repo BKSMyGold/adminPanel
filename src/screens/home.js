@@ -213,7 +213,8 @@ const Home = () => {
 
             <div class="grid_child two_row two_col p-20">
               <Bar
-                class ="f"
+                // height="100%"
+                class ="graph"
                 data={{
                   labels: ["Jun", "Jul", "Aug"],
                   options: {

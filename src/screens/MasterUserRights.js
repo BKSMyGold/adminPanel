@@ -42,7 +42,7 @@ class MasterUserRights extends React.Component {
         <div class="role_right">
           <h1>Role Master</h1>
 
-          <div class="role_master">
+          <div class="role_master table-responsive">
             <table class="table">
               <thead>
                 <tr class="fw-bolder text-center">
