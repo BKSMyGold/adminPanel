@@ -172,18 +172,6 @@ const Home = () => {
   const [foundUsers, setFoundUser] = useState(countUsers);
   const [name, setName] = useState("");
 
-  // const filter = (e) => {
-  //   let keyword = e.target.value;
-  //   if (keyword !== "") {
-  //     const result = countUsers.filter((user) => {
-  //       return user.fname.toLowerCase().startsWith(keyword.toLowerCase());
-  //     });
-  //     setFoundUser(result);
-  //   } else {
-  //     setFoundUser(countUsers);
-  //   }
-  //   setName(keyword);
-  // };
   const filter = (e) => {
     let keyword = e.target.value;
     if (keyword === "") {
@@ -207,21 +195,9 @@ const Home = () => {
           id="kt_wrapper"
         >
           <Header />
-          {/* <Dashboard /> */}
-          {/* ======================================  Latest Price of Gold */}
-          {/* <section class="main-content"> */}
-          {/* <div class="latest_price">
-            <div className="price-box w-250px h-150px">
-              <span className="badge badge-success">Buy Price</span>
-              {latestBuySell.buy}
-            </div>
-            <div className="price-box w-250px h-150px">
-              <span className="badge badge-danger">Sell Price</span>
-              {latestBuySell.sell}
-            </div>
-          </div> */}
+
           {/* ======================================  dashboard */}
-          <div class="dashboard">
+          <div class="dashboard responsive_dashboard">
             <div class="grid_child">
               <h2 class="text-muted">Total Gold Saved by users</h2>
               <h3 class="fw-bolder mt-5">📈 ₹ 12,25,369</h3>
@@ -237,7 +213,7 @@ const Home = () => {
 
             <div class="grid_child two_row two_col p-20">
               <Bar
-                // type="bar"
+                class ="f"
                 data={{
                   labels: ["Jun", "Jul", "Aug"],
                   options: {
@@ -302,12 +278,12 @@ const Home = () => {
               <div class="d-flex">
                 <span class="mx-3">🔑</span> <h1>23.5 gm</h1>
               </div>
-              <p class ="fw-bold">Gold added this week</p>
+              <p class="fw-bold">Gold added this week</p>
               <hr class="dashboard_hr" />
               <div class="d-flex">
                 <span class="mx-3">🧑</span> <h1>21,369</h1>
               </div>
-              <p class ="fw-bold">New Customer</p>
+              <p class="fw-bold">New Customer</p>
             </div>
 
             <div class="grid_child">
@@ -315,12 +291,12 @@ const Home = () => {
                 <i class="fab fa-facebook-f text-primary f-36 mx-3"></i>
                 <h3>12,789</h3>
               </div>
-              <p class ="fw-bold">Total Likes This week</p>
+              <p class="fw-bold">Total Likes This week</p>
               <hr class="dashboard_hr" />
               <div class="progress w-75 h-75">
                 <div
                   class="progress-bar w-75"
-                  style = {{width:"75%"}}
+                  style={{ width: "75%" }}
                   role="progressbar"
                   aria-valuenow="75"
                   aria-valuemin="0"
@@ -331,16 +307,16 @@ const Home = () => {
               </div>
             </div>
             <div class="grid_child">
-            <div class="center">
-            <i class="fab fa-twitter text-c-blue f-36 mx-3"></i>
+              <div class="center">
+                <i class="fab fa-twitter text-c-blue f-36 mx-3"></i>
                 <h3>1,125</h3>
               </div>
-              <p class ="fw-bold">Total Likes This week</p>
+              <p class="fw-bold">Total Likes This week</p>
               <hr class="dashboard_hr" />
               <div class="progress w-75 h-75">
                 <div
                   class="progress-bar w-95"
-                  style = {{width:"35%"}}
+                  style={{ width: "35%" }}
                   role="progressbar"
                   aria-valuenow="35"
                   aria-valuemin="0"
@@ -351,117 +327,108 @@ const Home = () => {
               </div>
             </div>
             <div class="grid_child">
-            <div class="center">
-            <i class="fab fa-google-plus-g text-c-red f-36 mx-3"></i>
+              <div class="center">
+                <i class="fab fa-google-plus-g text-c-red f-36 mx-3"></i>
                 <h3>24,457</h3>
               </div>
-              <p class ="fw-bold">Total Likes This week</p>
+              <p class="fw-bold">Total Likes This week</p>
               <hr class="dashboard_hr" />
               <div class="progress w-75 h-75">
                 <div
                   class="progress-bar"
-                  style = {{width:"95%"}}
+                  style={{ width: "95%" }}
                   role="progressbar"
                   aria-valuenow="95"
                   aria-valuemin="0"
                   aria-valuemax="100"
                 >
-                95%
+                  95%
                 </div>
               </div>
             </div>
-            {/* <div class="grid_child">10</div>
-            <div class="grid_child">11</div>
-            <div class="grid_child">12</div> */}
           </div>
           {/* ====================================== */}
-          <div class="container">
-            <h1 class="btn text-light bg-dark">
-              {countUsers.length} App's Users
-            </h1>
-            <br></br>
+          <div class="table-responsive">
+            <div class="container">
+              <h1 class="btn text-light bg-dark">
+                {countUsers.length} App's Users
+              </h1>
+              <br></br>
 
-            <input
-              class="form-control mt-5"
-              placeholder="Search User"
-              // value={name}
-              // onChange={(e) => {
-              //   e.preventDefault();
-              //   setSearchUser(e.target.value);
-              // }}
-              onChange={filter}
+              <input
+                class="form-control mt-5"
+                placeholder="Enter User Name"
+                onChange={filter}
+              />
+
+              <button class="btn btn-warning mt-5">Search User</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>DOB</th>
+                    <th>Phone</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {foundUsers && foundUsers.length > 0 ? (
+                    foundUsers
+                      .slice(pagesVisited, pagesVisited + usersPerPage)
+                      .map((user) => {
+                        return (
+                          <tr class="fw-bolder">
+                            <td>
+                              <div class="user-info">
+                                <div class="user-info__img">
+                                  <img
+                                    src={
+                                      user.image
+                                        ? user.image
+                                        : "assets/media/avatars/150-2.jpg"
+                                    }
+                                    alt="User Img"
+                                  />
+                                </div>
+                                <div class="user-info__basic">
+                                  <h5 class="mb-0">{user.fname}</h5>
+                                  <p class="text-muted mb-0">{user.email}</p>
+                                </div>
+                              </div>
+                            </td>
+                            <td>{user.dob}</td>
+                            <td>{user.mobile}</td>
+
+                            <td>
+                              <Link to="/user_details" state={user}>
+                                <button class="btn btn-primary">
+                                  Show details
+                                </button>
+                              </Link>
+                            </td>
+                          </tr>
+                        );
+                      })
+                  ) : (
+                    <h1>No Result</h1>
+                  )}
+                </tbody>
+              </table>
+            </div>
+
+            <ReactPaginate
+              previousLabel={"Previous"}
+              nextLabel={"Next"}
+              pageCount={pageCount}
+              onPageChange={changePage}
+              containerClassName={"paginationBttns"}
+              previousLinkClassName={"previousBttn"}
+              nextLinkClassName={"nextBttn"}
+              activeClassName={"paginationActive"}
             />
-
-            <Link to="/filtered_users" state={searchUser}>
-              <button class="btn btn-warning mt-5">Search</button>
-            </Link>
           </div>
-          <div class="user-table">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>User</th>
-                  <th>DOB</th>
-                  <th>Phone</th>
-                  <th>Action</th>
-                  {/* <th>Actions</th> */}
-                </tr>
-              </thead>
-              <tbody>
-                {foundUsers && foundUsers.length > 0 ? (
-                  foundUsers
-                    .slice(pagesVisited, pagesVisited + usersPerPage)
-                    .map((user) => {
-                      return (
-                        <tr class="fw-bolder">
-                          <td>
-                            <div class="user-info">
-                              <div class="user-info__img">
-                                <img
-                                  src={
-                                    user.image
-                                      ? user.image
-                                      : "assets/media/avatars/150-2.jpg"
-                                  }
-                                  alt="User Img"
-                                />
-                              </div>
-                              <div class="user-info__basic">
-                                <h5 class="mb-0">{user.fname}</h5>
-                                <p class="text-muted mb-0">{user.email}</p>
-                              </div>
-                            </div>
-                          </td>
-                          <td>{user.dob}</td>
-                          <td>{user.mobile}</td>
-
-                          <td>
-                            <Link to="/user_details" state={user}>
-                              <button class="btn btn-primary">
-                                Show details
-                              </button>
-                            </Link>
-                          </td>
-                        </tr>
-                      );
-                    })
-                ) : (
-                  <h1>No Result</h1>
-                )}
-              </tbody>
-            </table>
-          </div>
-
-          <ReactPaginate
-            previousLabel={"Previous"}
-            nextLabel={"Next"}
-            pageCount={pageCount}
-            onPageChange={changePage}
-            containerClassName={"paginationBttns"}
-            previousLinkClassName={"previousBttn"}
-            nextLinkClassName={"nextBttn"}
-            activeClassName={"paginationActive"}
-          />
           <Footer />
         </div>
       </div>
