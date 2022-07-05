@@ -5,6 +5,7 @@ import Dashboard from "./dashboard";
 import axios from "axios";
 import { BASE_URL } from "../Constants";
 import jsPDF from "jspdf";
+import ReactPaginate from "react-paginate";
 
 //==================================================================
 
@@ -12,77 +13,78 @@ const UserDataFull = () => {
   //==================================================================
   const [subscriptions, setSubscriptions] = useState([]);
   const [sub, setSub] = useState([]);
-//==================================================================
+  const [pageNumber, setPageNumber] = useState(0);
+
+  //==================================================================
   useEffect(() => {
     axios
       .get(`${BASE_URL}/api/subscription`)
       .then((res) => setSub(res.data.subscriptions));
   }, []);
   console.log("Isko Karna Hai =-->", sub);
-//==================================================================
-function tableToCSV() {
-  // Variable to store the final csv data
-  var csv_data = [];
+  //==================================================================
+  function tableToCSV() {
+    // Variable to store the final csv data
+    var csv_data = [];
 
-  // Get each row data
-  var rows = document.getElementsByClassName("table0");
-  for (var i = 0; i < rows.length; i++) {
-    // Get each column data
-    var cols = rows[i].querySelectorAll("td,th");
+    // Get each row data
+    var rows = document.getElementsByClassName("table0");
+    for (var i = 0; i < rows.length; i++) {
+      // Get each column data
+      var cols = rows[i].querySelectorAll("td,th");
 
-    // Stores each csv row data
-    var csvrow = [];
-    for (var j = 0; j < cols.length; j++) {
-      // Get the text data of each cell of
-      // a row and push it to csvrow
-      csvrow.push(cols[j].innerHTML);
+      // Stores each csv row data
+      var csvrow = [];
+      for (var j = 0; j < cols.length; j++) {
+        // Get the text data of each cell of
+        // a row and push it to csvrow
+        csvrow.push(cols[j].innerHTML);
+      }
+
+      // Combine each column value with comma
+      csv_data.push(csvrow.join(","));
     }
+    // combine each row data with new line character
+    csv_data = csv_data.join("\n");
 
-    // Combine each column value with comma
-    csv_data.push(csvrow.join(","));
-  }
-  // combine each row data with new line character
-  csv_data = csv_data.join("\n");
-
-  /* We will use this function later to download
+    /* We will use this function later to download
   the data in a csv file downloadCSVFile(csv_data);
   */
-  downloadCSVFile(csv_data);
-}
-
-//===============================================================
-function tableToCSV1() {
-  // Variable to store the final csv data
-  var csv_data = [];
-
-  // Get each row data
-  var rows = document.getElementsByClassName("table1");
-  for (var i = 0; i < rows.length; i++) {
-    // Get each column data
-    var cols = rows[i].querySelectorAll("td,th");
-
-    // Stores each csv row data
-    var csvrow = [];
-    for (var j = 0; j < cols.length; j++) {
-      // Get the text data of each cell of
-      // a row and push it to csvrow
-      csvrow.push(cols[j].innerHTML);
-    }
-
-    // Combine each column value with comma
-    csv_data.push(csvrow.join(","));
+    downloadCSVFile(csv_data);
   }
-  // combine each row data with new line character
-  csv_data = csv_data.join("\n");
 
-  /* We will use this function later to download
+  //===============================================================
+  function tableToCSV1() {
+    // Variable to store the final csv data
+    var csv_data = [];
+
+    // Get each row data
+    var rows = document.getElementsByClassName("table1");
+    for (var i = 0; i < rows.length; i++) {
+      // Get each column data
+      var cols = rows[i].querySelectorAll("td,th");
+
+      // Stores each csv row data
+      var csvrow = [];
+      for (var j = 0; j < cols.length; j++) {
+        // Get the text data of each cell of
+        // a row and push it to csvrow
+        csvrow.push(cols[j].innerHTML);
+      }
+
+      // Combine each column value with comma
+      csv_data.push(csvrow.join(","));
+    }
+    // combine each row data with new line character
+    csv_data = csv_data.join("\n");
+
+    /* We will use this function later to download
   the data in a csv file downloadCSVFile(csv_data);
   */
-  downloadCSVFile(csv_data);
-}
+    downloadCSVFile(csv_data);
+  }
 
-//===============================================================
-
+  //===============================================================
 
   function downloadCSVFile(csv_data) {
     // Create CSV file object and feed our
@@ -107,8 +109,17 @@ function tableToCSV1() {
     document.body.removeChild(temp_link);
   }
   //=============================================================================================================
+  const usersPerPage = 3;
+  const pagesVisited = pageNumber * usersPerPage;
+
+  const pageCount = Math.ceil(sub.length / usersPerPage);
+
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
+
+  //=============================================================================================================
   return (
-    
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
         <div
@@ -137,35 +148,35 @@ function tableToCSV1() {
                       All Subscriptions Full User Data
                     </span>
                   </h3>
-                
                 </div>
                 {/*end::Header*/}
                 {/*begin::Body*/}
                 <div class="card-body py-3">
                   {/*begin::Table container*/}
                   <div class="exportables">
-                      <button
-                        class="pdf_button"
-                        onClick={() => {
-                          const doc = new jsPDF();
+                    <button
+                      class="pdf_button"
+                      onClick={() => {
+                        const doc = new jsPDF();
 
-                          doc.autoTable({
-                            html: "#my-table",
-                            styles: {
-                              overflow: "linebreak",
-                              fontSize: 9,
-                            },
-                          });
-                          doc.save("Report");
-                        }}
-                      >
-                       
-                      </button>
-                      <button class="csv_button" onClick={tableToCSV}></button>
-                    </div>
+                        doc.autoTable({
+                          html: "#my-table",
+                          styles: {
+                            overflow: "linebreak",
+                            fontSize: 9,
+                          },
+                        });
+                        doc.save("Report");
+                      }}
+                    ></button>
+                    <button class="csv_button" onClick={tableToCSV}></button>
+                  </div>
                   <div class="table-responsive">
                     {/*begin::Table*/}
-                    <table id="my-table" class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                    <table
+                      id="my-table"
+                      class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3"
+                    >
                       {/*begin::Table head*/}
                       <thead>
                         <tr class="fw-bolder text-muted table0">
@@ -185,27 +196,31 @@ function tableToCSV1() {
 
                       <tbody>
                         {sub &&
-                          sub.map((Users) => {
-                            if (Users.plan && Users.plan !== undefined) {
-                              return (
-                                <tr class="fw-bolder table0">
-                                  <td>{Users.user.id}</td>
-                                  <td>{Users.user.fname}</td>
-                                  <td>{Users.plan.cyclePeriod.name}</td>
-                                  <td>{Users.plan.planType}</td>
-                                  <td>{Users.plan.mode}</td>
-                                  <td>{Users.maturityDate.substring(0, 10)}</td>
-                                  <td>{Users.status}</td>
-                                  <td>
-                                    {Users.installments.map((x) => x.gold)} gm
-                                  </td>
-                                  <td>
-                                    {Users.installments.map((x) => x.status)}
-                                  </td>
-                                </tr>
-                              );
-                            }
-                          })}
+                          sub
+                            .slice(pagesVisited, pagesVisited + usersPerPage)
+                            .map((Users) => {
+                              if (Users.plan && Users.plan !== undefined) {
+                                return (
+                                  <tr class="fw-bolder table0">
+                                    <td>{Users.user.id}</td>
+                                    <td>{Users.user.fname}</td>
+                                    <td>{Users.plan.cyclePeriod.name}</td>
+                                    <td>{Users.plan.planType}</td>
+                                    <td>{Users.plan.mode}</td>
+                                    <td>
+                                      {Users.maturityDate.substring(0, 10)}
+                                    </td>
+                                    <td>{Users.status}</td>
+                                    <td>
+                                      {Users.installments.map((x) => x.gold)} gm
+                                    </td>
+                                    <td>
+                                      {Users.installments.map((x) => x.status)}
+                                    </td>
+                                  </tr>
+                                );
+                              }
+                            })}
                       </tbody>
                       {/*end::Table body*/}
                     </table>
@@ -213,6 +228,16 @@ function tableToCSV1() {
                   </div>
                   {/*end::Table container*/}
                 </div>
+                <ReactPaginate
+                  previousLabel={"Previous"}
+                  nextLabel={"Next"}
+                  pageCount={pageCount}
+                  onPageChange={changePage}
+                  containerClassName={"paginationBttns"}
+                  previousLinkClassName={"previousBttn"}
+                  nextLinkClassName={"nextBttn"}
+                  activeClassName={"paginationActive"}
+                />
 
                 <div class="card-header border-0 pt-5">
                   <h3 class="card-title align-items-start flex-column">
@@ -224,7 +249,7 @@ function tableToCSV1() {
                 <div class="card-body py-3">
                   {/*begin::Table container*/}
                   <div class="table-responsive">
-                  <div class="exportables">
+                    <div class="exportables">
                       <button
                         class="pdf_button"
                         onClick={() => {
@@ -239,13 +264,14 @@ function tableToCSV1() {
                           });
                           doc.save("Report");
                         }}
-                      >
-                       
-                      </button>
+                      ></button>
                       <button class="csv_button" onClick={tableToCSV1}></button>
                     </div>
                     {/*begin::Table*/}
-                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3" id ="my-table1">
+                    <table
+                      class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3"
+                      id="my-table1"
+                    >
                       {/*begin::Table head*/}
                       <thead>
                         <tr class="fw-bolder text-muted table1">
@@ -265,30 +291,35 @@ function tableToCSV1() {
 
                       <tbody>
                         {sub &&
-                          sub.map((Users) => {
-                            if (
-                              Users.customPlan &&
-                              Users.customPlan !== undefined
-                            ) {
-                              return (
-                                <tr class="fw-bolder table1">
-                                  <td>{Users.user.id}</td>
-                                  <td>{Users.user.fname}</td>
-                                  <td>{Users.customPlan.cyclePeriod.name}</td>
-                                  <td>{Users.customPlan.planType}</td>
-                                  <td>{Users.customPlan.mode}</td>
-                                  <td>{Users.maturityDate.substring(0, 10)}</td>
-                                  <td>{Users.status}</td>
-                                  <td>
-                                    {Users.installments.map((x) => x.gold)} gm
-                                  </td>
-                                  <td>
-                                    {Users.installments.map((x) => x.status)}
-                                  </td>
-                                </tr>
-                              );
-                            }
-                          })}
+                          sub
+                            .slice(pagesVisited, pagesVisited + usersPerPage)
+
+                            .map((Users) => {
+                              if (
+                                Users.customPlan &&
+                                Users.customPlan !== undefined
+                              ) {
+                                return (
+                                  <tr class="fw-bolder table1">
+                                    <td>{Users.user.id}</td>
+                                    <td>{Users.user.fname}</td>
+                                    <td>{Users.customPlan.cyclePeriod.name}</td>
+                                    <td>{Users.customPlan.planType}</td>
+                                    <td>{Users.customPlan.mode}</td>
+                                    <td>
+                                      {Users.maturityDate.substring(0, 10)}
+                                    </td>
+                                    <td>{Users.status}</td>
+                                    <td>
+                                      {Users.installments.map((x) => x.gold)} gm
+                                    </td>
+                                    <td>
+                                      {Users.installments.map((x) => x.status)}
+                                    </td>
+                                  </tr>
+                                );
+                              }
+                            })}
                       </tbody>
                       {/*end::Table body*/}
                     </table>
@@ -296,6 +327,16 @@ function tableToCSV1() {
                   </div>
                   {/*end::Table container*/}
                 </div>
+                <ReactPaginate
+                  previousLabel={"Previous"}
+                  nextLabel={"Next"}
+                  pageCount={pageCount}
+                  onPageChange={changePage}
+                  containerClassName={"paginationBttns"}
+                  previousLinkClassName={"previousBttn"}
+                  nextLinkClassName={"nextBttn"}
+                  activeClassName={"paginationActive"}
+                />
 
                 {/*begin::Body*/}
               </div>

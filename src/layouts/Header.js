@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { Component } from "react";
-import { Link, useNavigate,  } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ROLE_PERMISSION_BASE_URL } from "../Constants";
 
 // export class Header extends Component {
@@ -19,20 +19,15 @@ import { ROLE_PERMISSION_BASE_URL } from "../Constants";
 //    window.location.reload(false);
 //  };
 export default function Header() {
-  let navigate = useNavigate
+  let navigate = useNavigate;
   const [name, setName] = React.useState("");
-React.useEffect(()=>{
+  React.useEffect(() => {
+    let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    setName(localStorageUser ? localStorageUser.name : "Name");
+  }, []);
+
   let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
-  setName(localStorageUser ? localStorageUser.name : "Name" )
-
-},[]) 
-
-let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
-// console.log('logged user ==>', localStorageUser)
-
-
-
- 
+  // console.log('logged user ==>', localStorageUser)
 
   // const [users, setUsers] = React.useState([{}]);
 
@@ -97,22 +92,18 @@ let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
         </div>
         {/*end::Heaeder menu toggle*/}
         {/*begin::Header Logo*/}
-        
-        
-            <img
 
-              alt="Logo"
-              src="assets/media/logos/logo-demo2-sticky.png"
-              class = 'logo'
-            />
-      
-            {/* <img
+        <img
+          alt="Logo"
+          src="assets/media/logos/logo-demo2-sticky.png"
+          class="logo"
+        />
+
+        {/* <img
               alt="Logo"
               src="assets/media/logos/logo-demo2-sticky.png"
               className="logo-sticky h-50px"
             /> */}
-          
-        
 
         <div className="d-flex align-items-stretch justify-content-between flex-lg-grow-1">
           <div className="d-flex align-items-stretch" id="kt_header_nav">
@@ -122,7 +113,7 @@ let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
               data-kt-drawer-name="header-menu"
               data-kt-drawer-activate="{default: true, lg: false}"
               data-kt-drawer-overlay="true"
-              data-kt-drawer-width="{default:'200px', '300px': '250px'}"          
+              data-kt-drawer-width="{default:'200px', '300px': '250px'}"
               data-kt-drawer-direction="start"
               data-kt-drawer-toggle="#kt_header_menu_mobile_toggle"
               data-kt-swapper="true"
@@ -197,12 +188,56 @@ let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
                           <div className="menu-item">
                             <a
                               className="menu-link py-3"
-                              href="/master/product-data/metal-groups"
+                              href="/master/product-data/metal"
                             >
                               <span className="menu-bullet">
                                 <span className="bullet bullet-dot"></span>
                               </span>
-                              <span className="menu-title">Metal Groups</span>
+                              <span className="menu-title">Metal</span>
+                            </a>
+                          </div>
+                          <div className="menu-item">
+                            <a
+                              className="menu-link py-3"
+                              href="/master/product-data/metal_groups"
+                            >
+                              <span className="menu-bullet">
+                                <span className="bullet bullet-dot"></span>
+                              </span>
+                              <span className="menu-title">Metal Group</span>
+                            </a>
+                          </div>
+                          <div className="menu-item">
+                            <a
+                              className="menu-link py-3"
+                              href="/master/product-data/units"
+                            >
+                              <span className="menu-bullet">
+                                <span className="bullet bullet-dot"></span>
+                              </span>
+                              <span className="menu-title">Units</span>
+                            </a>
+                          </div>
+                          <div className="menu-item">
+                            <a
+                              className="menu-link py-3"
+                              href="/master/product-data/ornament"
+                            >
+                              <span className="menu-bullet">
+                                <span className="bullet bullet-dot"></span>
+                              </span>
+                              <span className="menu-title">Ornaments</span>
+                            </a>
+                          </div>
+                          <div className="menu-item">
+                            <a
+                              className="menu-link py-3"
+                              href="/master/product-data/style"
+                            >
+                              <span className="menu-bullet">
+                                <span className="bullet bullet-dot"></span>
+                              </span>
+                              <span className="menu-title">Style</span>
                             </a>
                           </div>
                           <div className="menu-item">
@@ -585,7 +620,7 @@ let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
                         <span className="menu-arrow"></span>
                       </span>
                       <div className="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg py-lg-4 w-lg-225px">
-                      <div className="menu-item">
+                        <div className="menu-item">
                           <a
                             className="menu-link py-3"
                             href="/master/plans/plan-bonus"
@@ -725,7 +760,7 @@ let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
                         <span className="menu-arrow"></span>
                       </span>
                       <div className="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg py-lg-4 w-lg-225px">
-                      <div className="menu-item">
+                        <div className="menu-item">
                           <a
                             className="menu-link py-3"
                             href="/transaction/financials/ZohoBooks"
@@ -3323,10 +3358,7 @@ let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
                   {/*end::Menu separator*/}
                   {/*begin::Menu item*/}
                   <div className="menu-item px-5">
-                    <a
-                      href="/system_user_detail"
-                      className="menu-link px-5"
-                    >
+                    <a href="/system_user_detail" className="menu-link px-5">
                       My Profile
                     </a>
                   </div>
@@ -3533,7 +3565,7 @@ let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
                   {/*end::Menu item*/}
                   {/*begin::Menu separator*/}
                   <div className="separator my-2"></div>
-               
+
                   {/* <div className="menu-item px-5">
                     <div className="menu-content px-5">
                       <label
@@ -3555,7 +3587,6 @@ let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
                       </label>
                     </div>
                   </div> */}
-                
                 </div>
                 {/*end::Menu*/}
                 {/*end::Menu wrapper*/}
@@ -3573,4 +3604,4 @@ let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
       {/*end::Container*/}
     </div>
   );
-}
+} 

@@ -53,7 +53,7 @@ const Home = () => {
       const { data: latest } = await axios.get(
         `${BASE_URL}/api/buy-sell-price/letest`
       );
-      setPrice(latest.data);
+      setPrice(latest.data);  
     };
     fetchLatest();
   }, []);
@@ -277,7 +277,7 @@ const Home = () => {
             </div>
             <div class="grid_child">
               <div class="d-flex">
-                <span class="mx-3">🔑</span> <h1>23.5 gm</h1>
+                <span class="mx-3">🔑</span> <h1>23.5 gm</h1> {/* // should come custom reactive components */}
               </div>
               <p class="fw-bold">Gold added this week</p>
               <hr class="dashboard_hr" />
@@ -438,3 +438,6 @@ const Home = () => {
 };
 
 export default Home;
+
+
+

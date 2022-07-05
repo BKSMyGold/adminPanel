@@ -7,8 +7,6 @@ import { isValidMetalGroup } from "../Validator";
 import { addMetalGroup, updateMetalGroup } from "../apis/MetalGroup";
 import AddUpdateSpinner from "../AddUpdateSpinner";
 
-
-
 const MetalGroupForm = (props) => {
   let location = useLocation();
 
@@ -49,13 +47,12 @@ const MetalGroupForm = (props) => {
                 <div class="card-header border-0 pt-5">
                   <h3 class="card-title align-items-start flex-column">
                     <span class="card-label fw-bolder fs-3 mb-1">
-                    {isUpdate ? "Update Metal Group" : "Add Metal Group"}
+                      {isUpdate ? "Update Metal Group" : "Add Metal Group"}
                     </span>
                     <span class="text-muted mt-1 fw-bold fs-7">
-                    {isUpdate ? "Update Metal Group" : "Add Metal Group"}
+                      {isUpdate ? "Update Metal Group" : "Add Metal Group"}
                     </span>
                   </h3>
-                  
                 </div>
                 {/*end::Header*/}
                 {/*begin::Body*/}
@@ -64,10 +61,14 @@ const MetalGroupForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                      <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-																		<span class="required">Karatage</span>
-																		<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify your unique app name"></i>
-																	</label>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Karatage</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify your unique app name"
+                          ></i>
+                        </label>
                         <input
                           type="text"
                           name="karatage"
@@ -83,10 +84,14 @@ const MetalGroupForm = (props) => {
                         />
                       </div>
                       <div>
-                      <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-																		<span class="required">Short Name</span>
-																		<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify your unique app name"></i>
-																	</label>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Short Name</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify your unique app name"
+                          ></i>
+                        </label>
                         <input
                           type="text"
                           name="shortName"
@@ -102,10 +107,14 @@ const MetalGroupForm = (props) => {
                         />
                       </div>
                       <div>
-                      <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-																		<span class="required">Fineness</span>
-																		<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify your unique app name"></i>
-																	</label>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Fineness</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify your unique app name"
+                          ></i>
+                        </label>
                         <input
                           type="text"
                           name="fineness"
@@ -121,10 +130,14 @@ const MetalGroupForm = (props) => {
                         />
                       </div>
                       <div>
-                      <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-																		<span class="required">Reference ID</span>
-																		<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify your unique app name"></i>
-																	</label>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Reference ID</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify your unique app name"
+                          ></i>
+                        </label>
                         <input
                           type="number"
                           name="referenceId"
@@ -164,17 +177,13 @@ const MetalGroupForm = (props) => {
                           {isUpdate ? "Update Metal Group" : "Add Metal Group"}
                         </button>
                       </div> */}
-                              <AddUpdateSpinner 
-                              update = {isUpdate ? true : false}
-                              collection = {metalGroup}
-                              adding = {addMetalGroup}
-                              updating = {updateMetalGroup}
-                              url = {"/master/product-data/metal-groups/"}
-                            />
-                            
-                          
-                        
-                         
+                      <AddUpdateSpinner
+                        update={isUpdate ? true : false}
+                        collection={metalGroup}
+                        adding={addMetalGroup}
+                        updating={updateMetalGroup}
+                        url={"/master/product-data/metal-groups/"}
+                      />
                     </form>
                   </div>
                   {/*end::Table container*/}

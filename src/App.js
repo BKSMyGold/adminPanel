@@ -177,6 +177,13 @@ import RoleRight from "./components/RoleRight";
 import RoleChangeForm from "./components/RoleChangeForm";
 import UserNameChangeForm from "./components/UserNameChangeForm";
 import AllRoles from "./screens/AllRoles";
+import Units from "./screens/Units";
+import Style from "./screens/Style";
+import Metal from "./screens/Metal";
+import MetalForm from "./components/MetalForm";
+import UnitsForm from "./components/UnitsForm";
+import Ornament from "./screens/Ornament";
+import OrnamentForm from "./components/OrnamentForm";
 
 //====================================================================
 const App = () => {
@@ -225,6 +232,17 @@ const App = () => {
           <Route path="/registered_User" element={<RegisteredUser />} />
 
           <Route path="/master/plans/plan-bonus" element={<PlanBonus />} />
+          <Route path="/master/product-data/units" element={<Units />} />
+          <Route
+            path="/master/product-data/units/add"
+            element={<UnitsForm />}
+          />
+          <Route
+            path="/master/product-data/units/edit"
+            element={<UnitsForm />}
+          />
+
+          <Route path="/master/product-data/style" element={<Style />} />
 
           <Route
             path="/master/plans/plan-bonus/edit"
@@ -237,7 +255,27 @@ const App = () => {
           <Route path="/system_user_detail" element={<SystemUserDetail />} />
           <Route path="/view_item_details" element={<EachItemsDetails />} />
           <Route
-            path="/master/product-data/metal-groups"
+            path="/master/product-data/metal"
+            // element={
+            //   permissions.has("view_metal_groups") ? (
+            //     <Metal user={loggedInUser} />
+            //   ) : (
+            //     <NoAccessComponent user={loggedInUser} />
+            //   )
+            // }
+            element={<Metal />}
+          />
+          <Route
+            path="/master/product-data/metal/edit"
+            element={<MetalForm />}
+          />
+          <Route
+            path="/master/product-data/metal/add"
+            element={<MetalForm />}
+          />
+
+          <Route
+            path="/master/product-data/metal_groups"
             element={
               permissions.has("view_metal_groups") ? (
                 <MetalGroups user={loggedInUser} />
@@ -246,10 +284,16 @@ const App = () => {
               )
             }
           />
+
+          <Route path="/master/product-data/ornament" element={<Ornament />} />
+          <Route path="/master/product-data/ornament/add" element={<OrnamentForm />} />
+          <Route path="/master/product-data/ornament/edit" element={<OrnamentForm />} />
+
+
           <Route path="/user_details" element={<UserDetails />} />
           <Route path="/filtered_users" element={<FilteredUsers />} />
           <Route
-            path="/master/product-data/metal-groups/add"
+            path="/master/product-data/metal_groups/add"
             element={
               permissions.has("add_metal_groups") ? (
                 <MetalGroupForm />
@@ -259,7 +303,7 @@ const App = () => {
             }
           />
           <Route
-            path="/master/product-data/metal-groups/edit"
+            path="/master/product-data/metal_groups/edit"
             element={
               permissions.has("edit_metal_groups") ? (
                 <MetalGroupForm />

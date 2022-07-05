@@ -12,27 +12,62 @@ import { CSVLink } from "react-csv";
 const MetalGroups = (props) => {
   // console.log("==>", props.user)
   //============================================================================
-  const [metalgroups, setMetalGroups] = useState([]);
-  const [userPermissions, setUserPermissions] = useState(new Set());
+  // const [metalgroups, setMetalGroups] = useState([]);
+  // const [userPermissions, setUserPermissions] = useState(new Set());
 
-  //============================================================================
-  useEffect(() => {
-    const fetchmetalgroups = async () => {
-      const { data } = await axios.get(`${BASE_URL}/api/metal-group`);
-      setMetalGroups(data);
-    };
-    fetchmetalgroups();
-  }, []);
-  //============================================================================
-  useEffect(() => {
-    props.user.role.permissions.map((permission) => {
-     
-        return( userPermissions.add(permission.permission_name))
-      
-      setUserPermissions(userPermissions);
-    });
-  }, []);
-  // console.log("userPermissions ==>", userPermissions);
+  // //============================================================================
+  // useEffect(() => {
+  //   const fetchmetalgroups = async () => {
+  //     const { data } = await axios.get(`${BASE_URL}/api/metal-group`);
+  //     setMetalGroups(data);
+  //   };
+  //   fetchmetalgroups();
+  // }, []);
+  // //============================================================================
+  // useEffect(() => {
+  //   props.user.role.permissions.map((permission) => {
+
+  //       return( userPermissions.add(permission.permission_name))
+
+  //     setUserPermissions(userPermissions);
+  //   });
+  // }, []);
+  // // console.log("userPermissions ==>", userPermissions);
+  const metalGroup = [
+    {
+      id: 1,
+      itemGroupName: "18 KT Gold",
+      metalID: "18 KT",
+      itemMasterGroupName: "Gold",
+      purity: 98,
+      unitName: "gram",
+      roundingDigit: 3,
+      OrnamentType: "FINE METAL",
+      status: "Active",
+    },
+    {
+      id: 2,
+      itemGroupName: "24 KT Gold",
+      metalID: "24 KT",
+      itemMasterGroupName: "Gold",
+      purity: 98,
+      unitName: "gram",
+      roundingDigit: 3,
+      OrnamentType: "FINE METAL",
+      status: "Active",
+    },
+    {
+      id: 3,
+      itemGroupName: "GH-VS Baguette",
+      metalID: "GS VS",
+      itemMasterGroupName: "Diamond",
+      purity: 98,
+      unitName: "gram",
+      roundingDigit: 3,
+      OrnamentType: "FINE METAL",
+      status: "Active",
+    },
+  ];
 
   //============================================================================
   return (
@@ -43,7 +78,7 @@ const MetalGroups = (props) => {
           id="kt_wrapper"
         >
           <Header />
-          <Dashboard createLink={"/master/product-data/metal-groups/add"} />
+          <Dashboard createLink={"/master/product-data/metal_groups/add"} />
           <div
             id="kt_content_container"
             class="d-flex flex-column-fluid align-items-start container-xxl"
@@ -64,7 +99,6 @@ const MetalGroups = (props) => {
                       Metal Groups
                     </span>
                   </h3>
-                
                 </div>
                 {/*end::Header*/}
                 {/*begin::Body*/}
@@ -74,76 +108,39 @@ const MetalGroups = (props) => {
                     {/*begin::Table*/}
                     <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                       {/*begin::Table head*/}
-                      <thead>
+                      <thead class="text-center">
                         <tr class="fw-bolder text-muted">
-                          <th class="w-25px">
-                            <div class="form-check form-check-sm form-check-custom form-check-solid">
-                              <input
-                                class="form-check-input"
-                                type="checkbox"
-                                value="1"
-                                data-kt-check="true"
-                                data-kt-check-target=".widget-13-check"
-                              />
-                            </div>
-                          </th>
                           <th class="min-w-150px">Metal Group Id</th>
-                          <th class="min-w-140px">Karatage</th>
-                          <th class="min-w-120px">Fineness</th>
-                          <th class="min-w-120px">Reference</th>
-                          <th class="min-w-120px">Short Name</th>
-                          <th class="min-w-100px text-end">Actions</th>
+                          <th class="min-w-140px">Item Group Name</th>
+                          <th class="min-w-120px">Metal ID</th>
+                          <th class="min-w-120px">Item Master Group Name</th>
+                          <th class="min-w-120px">Purity</th>
+                          <th class="min-w-100px">Unit</th>
+                          <th class="min-w-100px">Rounding Digit</th>
+                          <th class="min-w-100px">Ornament Type</th>
+                          <th class="min-w-100px">Status</th>
+                          <th class="min-w-100px">Action</th>
                         </tr>
                       </thead>
                       {/*end::Table head*/}
                       {/*begin::Table body*/}
                       <tbody>
-                        {metalgroups.map((metalgroup) => (
-                          <tr>
+                        {metalGroup.map((metalgroup) => (
+                          <tr class="text-center fw-bolder">
+                            <td>{metalgroup.id}</td>
+                            <td>{metalgroup.itemGroupName}</td>
+                            <td>{metalgroup.metalID}</td>
                             <td>
-                              <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                <input
-                                  class="form-check-input widget-13-check"
-                                  type="checkbox"
-                                  value="1"
-                                />
-                              </div>
+                              {metalgroup.itemMasterGroupName}
                             </td>
-                            <td>
-                              <a
-                                href="#"
-                                class="text-dark fw-bolder text-hover-primary fs-6"
-                              >
-                                {metalgroup.id}
-                              </a>
-                            </td>
-                            <td>
-                              <a
-                                href="#"
-                                class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                              >
-                                {metalgroup.karatage}
-                              </a>
-                            </td>
-                            <td>
-                              <a
-                                href="#"
-                                class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                              >
-                                {metalgroup.fineness}
-                              </a>
-                            </td>
-                            <td class="text-dark fw-bolder text-hover-primary fs-6">
-                              {metalgroup.referenceId}
-                            </td>
-                            <td>
-                              <span class="badge badge-light-success">
-                                {metalgroup.shortName}
-                              </span>
-                            </td>
-                            <td class="text-end">
+                            <td>{metalgroup.purity}</td>
+                            <td>{metalgroup.unitName}</td>
+                            <td>{metalgroup.roundingDigit}</td>
+                            <td>{metalgroup.OrnamentType}</td>
+                            <td>{metalgroup.status}</td>
+                            <td class="text-center">
                               <Link
-                                to={"/master/product-data/metal-groups/edit"}
+                                to={"/master/product-data/metal_groups/edit"}
                                 state={metalgroup}
                               >
                                 <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
@@ -167,19 +164,15 @@ const MetalGroups = (props) => {
                                       />
                                     </svg>
                                   </span>
-                                 
                                 </button>
                               </Link>
-                              {userPermissions.has("delete_metal_groups") ? (
-                                <DeleteSpinner
-                                
-                                  collection={metalgroup}
-                                  deleting={deleteMetalGroup}
-                                  url={"/master/product-data/metal-groups/"}
-                                />
-                              ) : null
-                              // <button class ="btn btn-warning">No Delete</button>
-                              }
+                              {/* {userPermissions.has("delete_metal_groups") ? ( */}
+                              <DeleteSpinner
+                                collection={metalgroup}
+                                deleting={deleteMetalGroup}
+                                url={"/master/product-data/metal-groups/"}
+                              />
+                              {/* ) : null} */}
                             </td>
                           </tr>
                         ))}
