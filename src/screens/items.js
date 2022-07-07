@@ -69,21 +69,11 @@ useEffect(() => {
                       {/*begin::Table head*/}
                       <thead>
                         <tr class="fw-bolder text-muted">
-                          <th class="w-25px">
-                            <div class="form-check form-check-sm form-check-custom form-check-solid">
-                              <input
-                                class="form-check-input"
-                                type="checkbox"
-                                value="1"
-                                data-kt-check="true"
-                                data-kt-check-target=".widget-13-check"
-                              />
-                            </div>
-                          </th>
+                         
                           <th class="min-w-150px">Item Id</th>
                           <th class="min-w-140px">Item Name</th>
-                          <th class="min-w-140px">Item Image</th>
-                          <th class="min-w-140px">Item Videos</th>
+                          {/* <th class="min-w-140px">Item Image</th>
+                          <th class="min-w-140px">Item Videos</th> */}
                           <th class="min-w-100px text-end">Actions</th>
                         </tr>
                       </thead>
@@ -92,7 +82,7 @@ useEffect(() => {
                       <tbody>
                         {items.map((item) => (
                           <tr>
-                            <td>
+                            {/* <td>
                               <div class="form-check form-check-sm form-check-custom form-check-solid">
                                 <input
                                   class="form-check-input widget-13-check"
@@ -100,18 +90,11 @@ useEffect(() => {
                                   value="1"
                                 />
                               </div>
-                            </td>
+                            </td> */}
                             <td>
-                              {/* <a
-                                href="/view_item_details"
-                                class="text-dark fw-bolder text-hover-primary fs-6"
-                              > */}
-                                <Link to ="/view_item_details"
-                                state ={item}
-                                >
+                             
                                 {item.id}
-                                </Link>
-                              {/* </a> */}
+                              
                             </td>
                             <td>
                               <a
@@ -121,7 +104,7 @@ useEffect(() => {
                                 {item.name}
                               </a>
                             </td>
-                            <td>
+                            {/* <td>
                               <div className="row">
                                 {item.images &&
                                   item.images.map((image, index) => (
@@ -145,7 +128,7 @@ useEffect(() => {
                               >
                                 Video
                               </a>
-                            </td>
+                            </td> */}
                             <td class="text-end">
                               <a
                                 href="#"

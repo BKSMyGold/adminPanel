@@ -17,8 +17,8 @@ const ItemForm = (props) => {
   const [Item, setItem] = useState(
     location?.state ?? {
       name: "",
-      images: [],
-      video: "",
+      // images: [],
+      // video: "",
     }
   );
 
@@ -60,11 +60,11 @@ const ItemForm = (props) => {
                     <form>
                       <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Name</span>
+                          <span class="required">Item Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
+                            title="Specify your Item's name"
                           ></i>
                         </label>
                         <input
@@ -81,7 +81,7 @@ const ItemForm = (props) => {
                           value={Item.name}
                         />
                       </div>
-                      <div>
+                      {/* <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                           <span class="required">Images</span>
                           <i
@@ -127,7 +127,7 @@ const ItemForm = (props) => {
                           }
                           // value={Item.video}
                         />
-                      </div>
+                      </div> */}
 
                       <div>
                         <br />
