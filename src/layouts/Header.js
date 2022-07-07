@@ -232,6 +232,40 @@ export default function Header() {
                           <div className="menu-item">
                             <a
                               className="menu-link py-3"
+                              href="/master/product-data/cut-shape"
+                            >
+                              <span className="menu-bullet">
+                                <span className="bullet bullet-dot"></span>
+                              </span>
+                              <span className="menu-title">Cut/shape</span>
+                            </a>
+                          </div>
+                          <div className="menu-item">
+                            <a
+                              className="menu-link py-3"
+                              href="/master/product-data/clarity"
+                            >
+                              <span className="menu-bullet">
+                                <span className="bullet bullet-dot"></span>
+                              </span>
+                              <span className="menu-title">Clarity</span>
+                            </a>
+                          </div>
+                          <div className="menu-item">
+                            <a
+                              className="menu-link py-3"
+                              href="/master/product-data/colour"
+                            >
+                  
+                              <span className="menu-bullet">
+                                <span className="bullet bullet-dot"></span>
+                              </span>
+                              <span className="menu-title">Colour</span>
+                            </a>
+                          </div>
+                          <div className="menu-item">
+                            <a
+                              className="menu-link py-3"
                               href="/master/product-data/style"
                             >
                               <span className="menu-bullet">
@@ -240,6 +274,19 @@ export default function Header() {
                               <span className="menu-title">Style</span>
                             </a>
                           </div>
+
+                          <div className="menu-item">
+                            <a
+                              className="menu-link py-3"
+                              href="/master/product-data/making-charges"
+                            >
+                              <span className="menu-bullet">
+                                <span className="bullet bullet-dot"></span>
+                              </span>
+                              <span className="menu-title">Making Charges</span>
+                            </a>
+                          </div>
+
                           <div className="menu-item">
                             <a
                               className="menu-link py-3"
@@ -251,7 +298,7 @@ export default function Header() {
                               <span className="menu-title">Collections</span>
                             </a>
                           </div>
-                          <div className="menu-item">
+                          {/* <div className="menu-item">
                             <a
                               className="menu-link py-3"
                               href="/master/product-data/diamonds"
@@ -263,7 +310,7 @@ export default function Header() {
                                 Diamonds &amp; Gems
                               </span>
                             </a>
-                          </div>
+                          </div> */}
                           <div className="menu-item">
                             <a
                               className="menu-link py-3"
@@ -309,7 +356,7 @@ export default function Header() {
                               <span className="menu-title">Items</span>
                             </a>
                           </div>
-                          <div className="menu-item">
+                          {/* <div className="menu-item">
                             <a
                               className="menu-link py-3"
                               href="/master/product-data/items_details"
@@ -319,7 +366,7 @@ export default function Header() {
                               </span>
                               <span className="menu-title">Items Details</span>
                             </a>
-                          </div>
+                          </div> */}
                           <div className="menu-item">
                             <a
                               className="menu-link py-3"

@@ -4,6 +4,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import axios from 'axios'
+
+axios.defaults.headers.common = {
+  Authorization : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYzY4ZDhlYzAzYTJlZWUzMGE3NzEyYiIsImVtYWlsIjoibmFvbWlfcmVpbGx5QHlhaG9vLmNvbSIsImlhdCI6MTY1NzE5MDk0OCwiZXhwIjoxNjU3NzkwOTQ4fQ._jTbApkQEz0gAIjZTun_Znv4l0JhFEOfZ3WEdv1XZ_s"
+}
 
 
 ReactDOM.render(

@@ -20,7 +20,7 @@ import InStoreCashCollection from "./screens/InStoreCashCollection";
 import InStoreRedeem from "./screens/InStoreRedeem";
 import InStoreReturns from "./screens/InStoreReturns";
 import InStoreTokenRefund from "./screens/InStoreTokenRefund";
-import ItemDetails from "./screens/ItemDetails";
+import ItemDetails from "./screens/Products";
 import Items from "./screens/items";
 import MasterUserRights from "./screens/MasterUserRights";
 import MetalGroups from "./screens/MetalGroups";
@@ -164,7 +164,7 @@ import NoAccessComponent from "./screens/NoAccessComponent";
 import FilteredUsers from "./components/FilteredUsers";
 import PlanBonus from "./screens/PlanBonus";
 import PlanBonusForm from "./components/PlanBonusForm";
-import ItemDetailsForm from "./components/ItemDetailsForm";
+import ItemDetailsForm from "./components/ProductForm";
 // import UserTransaction from "./screens/UserTransaction"
 import UserDetails from "./screens/UserDetails";
 import SystemUserDetail from "./screens/SystemUserDetail";
@@ -179,11 +179,20 @@ import UserNameChangeForm from "./components/UserNameChangeForm";
 import AllRoles from "./screens/AllRoles";
 import Units from "./screens/Units";
 import Style from "./screens/Style";
+import StyleForm from "./components/StyleForm";
 import Metal from "./screens/Metal";
 import MetalForm from "./components/MetalForm";
 import UnitsForm from "./components/UnitsForm";
 import Ornament from "./screens/Ornament";
 import OrnamentForm from "./components/OrnamentForm";
+import CutShape from "./screens/CutShape";
+import CutShapeForm from "./components/CutShapeForm";
+import Clarity from "./screens/Clarity";
+import ClarityForm from "./components/ClarityForm";
+import Colour from "./screens/Colour";
+import ColourForm from "./components/ColourForm"
+import MakingCharges from "./screens/MakingCharges";
+import MakingChargesForm from "./components/MakingChargesForm"
 
 //====================================================================
 const App = () => {
@@ -243,6 +252,14 @@ const App = () => {
           />
 
           <Route path="/master/product-data/style" element={<Style />} />
+          <Route path="/master/product-data/style/add" element={<StyleForm />} />
+          <Route path="/master/product-data/style/edit" element={<StyleForm />} />
+
+
+          <Route path="/master/product-data/making-charges" element={<MakingCharges />} />
+          <Route path="/master/product-data/making-charges/add" element={<MakingChargesForm />} />
+          <Route path="/master/product-data/making-charges/edit" element={<MakingChargesForm/>} />
+
 
           <Route
             path="/master/plans/plan-bonus/edit"
@@ -286,8 +303,26 @@ const App = () => {
           />
 
           <Route path="/master/product-data/ornament" element={<Ornament />} />
-          <Route path="/master/product-data/ornament/add" element={<OrnamentForm />} />
-          <Route path="/master/product-data/ornament/edit" element={<OrnamentForm />} />
+          <Route
+            path="/master/product-data/ornament/add"
+            element={<OrnamentForm />}
+          />
+          <Route
+            path="/master/product-data/ornament/edit"
+            element={<OrnamentForm />}
+          />
+
+          <Route path="/master/product-data/cut-shape" element={<CutShape />} />
+          <Route path="/master/product-data/cut-shape/add" element={<CutShapeForm />} />
+          <Route path="/master/product-data/cut-shape/edit" element={<CutShapeForm />} />
+
+          <Route path="/master/product-data/clarity" element={<Clarity />} />
+          <Route path="/master/product-data/clarity/add" element={<ClarityForm />} />
+          <Route path="/master/product-data/clarity/edit" element={<ClarityForm />} />
+
+          <Route path="/master/product-data/colour" element={<Colour />} />
+          <Route path="/master/product-data/colour/add" element={<ColourForm />} />
+          <Route path="/master/product-data/colour/edit" element={<ColourForm />} />
 
 
           <Route path="/user_details" element={<UserDetails />} />

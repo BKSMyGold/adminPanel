@@ -15,11 +15,14 @@ export default function AddUpdateSpinner({url,adding, updating, collection,updat
   
   //===============================================
   const handleAdd = () => {
+    let {conversionFactor, name} = collection
+    console.log(typeof(conversionFactor))
+
     setOn(true);
     adding({ ...collection }).then(() => {
       navigate(url);
     });
-    console.log("====> adding");
+    console.log("====> adding", collection);
   };
   //===============================================
   const handleUpdate = () => {
