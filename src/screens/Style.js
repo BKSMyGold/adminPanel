@@ -1,35 +1,38 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Dashboard from "./dashboard";
 import axios from "axios";
-import { BASE_URL } from "../Constants";
-import { Link } from "react-router-dom";
-import { deletecollection } from "../apis/Collections";
-import { CSVLink } from "react-csv";
+import { deleteMetalGroup } from "../apis/MetalGroup";
 import DeleteSpinner from "../delete";
-//=====================================================
+import { BASE_URL } from "../Constants";
+import { CSVLink } from "react-csv";
+//============================================================================
 const Style = (props) => {
-  console.log(props.user);
-  //=====================================================
-  const [collections, setCollections] = useState([]);
-  const [userPermissions, setUserPermissions] = useState(new Set());
-
-  //=====================================================
-  useEffect(() => {
-    const fetchcollections = async () => {
-      const { data: foundCollections } = await axios.get(
-        `${BASE_URL}/api/collection`
-      );
-      console.log(foundCollections);
-      setCollections(foundCollections);
-    };
-    fetchcollections();
-  }, []);
-  //=====================================================
-
+  const style = [
+    {
+      id: 1,
+      styleName: "Dia",
+      metalGroup:"Diamond",
+      conversionFactor:.02
+    },
+    {
+      id: 2,
+      styleName: "Dia",
+      metalGroup:"Gold",
+      conversionFactor:.02
+    },
+    {
+      id: 3,
+      styleName: "Dia",
+      metalGroup:"SIlver",
+      conversionFactor:.02
+    },
+   
+   
+  ];
   //============================================================================
-
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -38,30 +41,39 @@ const Style = (props) => {
           id="kt_wrapper"
         >
           <Header />
-          <Dashboard createLink={"/master/product-data/collections/add"} />
+          <Dashboard createLink={"/master/product-data/style/add"} />
           <div
             id="kt_content_container"
             class="d-flex flex-column-fluid align-items-start container-xxl"
           >
+            {/*begin::Post*/}
             <div class="content flex-row-fluid" id="kt_content">
+              {/*begin::Row*/}
+
+              {/*begin::Tables Widget 13*/}
               <div class="card mb-5 mb-xl-8">
+                {/*begin::Header*/}
                 <div class="card-header border-0 pt-5">
                   <h3 class="card-title align-items-start flex-column">
                     <span class="card-label fw-bolder fs-3 mb-1">
-                      Collections
+                    Style Name
                     </span>
                     <span class="text-muted mt-1 fw-bold fs-7">
-                      Define Collections
+                    Style Name
                     </span>
                   </h3>
                 </div>
-
+                {/*end::Header*/}
+                {/*begin::Body*/}
                 <div class="card-body py-3">
+                  {/*begin::Table container*/}
                   <div class="table-responsive">
+                    {/*begin::Table*/}
                     <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                      {/*begin::Table head*/}
                       <thead>
-                        <tr class="fw-bolder text-muted">
-                          <th class="w-25px">
+                        <tr class="fw-bolder text-muted text-center">
+                          {/* <th class="w-25px">
                             <div class="form-check form-check-sm form-check-custom form-check-solid">
                               <input
                                 class="form-check-input"
@@ -71,54 +83,38 @@ const Style = (props) => {
                                 data-kt-check-target=".widget-13-check"
                               />
                             </div>
-                          </th>
-                          <th class="min-w-150px">Header1</th>
-                          <th class="min-w-140px">Header2</th>
-                          <th class="min-w-120px">Header3</th>
-                          <th class="min-w-120px">Header4</th>
-                          <th class="min-w-100px text-end">Actions</th>
+                          </th> */}
+                          <th class="fw-bolder text-muted">Style Id</th>
+                          <th class="fw-bolder text-muted">Style Name</th>
+                          <th class="fw-bolder text-muted">Metal Group Name</th>
+                          <th class="fw-bolder text-muted">Conversion Factor</th>
+                          <th class="fw-bolder text-muted">Action</th>
                         </tr>
                       </thead>
-
+                      {/*end::Table head*/}
+                      {/*begin::Table body*/}
                       <tbody>
-                        <tr>
-                          <td>
-                            <div class="form-check form-check-sm form-check-custom form-check-solid">
-                              <input
-                                class="form-check-input widget-13-check"
-                                type="checkbox"
-                                value="1"
-                              />
-                            </div>
-                          </td>
-                       
+                        {style.map((style) => (
+                          <tr class="text-center">
+                            {/* <td>
+                              <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                <input
+                                  class="form-check-input widget-13-check"
+                                  type="checkbox"
+                                  value="1"
+                                />
+                              </div>
+                            </td> */}
+                            <td class="fw-bolder">{style.id}</td>
+                            <td class="fw-bolder">{style.styleName}</td>
+                            <td class="fw-bolder">{style.metalGroup}</td>
+                            <td class="fw-bolder">{style.conversionFactor}</td>
 
-                        
-                          <td>
-                            <a
-                              href="#"
-                              class="text-dark fw-bolder text-hover-primary fs-6"
-                            >
-                              Data
-                            </a>
-                          </td>
-                          <td>
-                            <a
-                              href="#"
-                              class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                            >
-                              Data
-                            </a>
-                          </td>
-
-                          <td class="text-end">
-                            <a
-                              href="#"
-                              class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                            >
+                          
+                            <td class="text-center">
                               <Link
-                                to={"/master/product-data/collections/edit"}
-                                state={""}
+                                to={"/master/product-data/style/edit"}
+                                state={style}
                               >
                                 <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                   {/*begin::Svg Icon | path: icons/duotune/art/art005.svg*/}
@@ -141,19 +137,19 @@ const Style = (props) => {
                                       />
                                     </svg>
                                   </span>
-                                  {/*end::Svg Icon*/}
                                 </button>
                               </Link>
-                            </a>
-                            {userPermissions.has("delete_collections") ? (
+                              {/* {userPermissions.has("delete_metal_groups") ? ( */}
                               <DeleteSpinner
-                                collection={""}
-                                deleting={deletecollection}
-                                url={"/master/product-data/collections/"}
+                                collection={style}
+                                deleting={deleteMetalGroup}
+                                url={"/master/product-data/clarity/"}
                               />
-                            ) : null}
-                          </td>
-                        </tr>
+                              {/* ) : null
+                              } */}
+                            </td>
+                          </tr>
+                        ))}
                       </tbody>
                       {/*end::Table body*/}
                     </table>
