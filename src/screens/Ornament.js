@@ -8,31 +8,33 @@ import { Link } from "react-router-dom";
 import { deletecollection } from "../apis/Collections";
 import { CSVLink } from "react-csv";
 import DeleteSpinner from "../delete";
+import { getOrnament } from "../APIs_Hai/Ornament";
+import { deleteOrnament } from "../APIs_Hai/Ornament";
 //=====================================================
 const Ornament = (props) => {
   //=====================================================
-  const ornaments = [
-    {
-      id: 1,
-      ornamentName: "Fine Metal",
-    },
-    {
-      id: 2,
-      ornamentName: "Ornaments",
-    },
-    {
-      id: 3,
-      ornamentName: "Old Metal",
-    },
-    {
-      id: 4,
-      ornamentName: "Packaging Material",
-    },
-    {
-      id: 5,
-      ornamentName: "Other",
-    },
-  ];
+  // const ornaments = [
+  //   {
+  //     id: 1,
+  //     ornamentName: "Fine Metal",
+  //   },
+  //   {
+  //     id: 2,
+  //     ornamentName: "Ornaments",
+  //   },
+  //   {
+  //     id: 3,
+  //     ornamentName: "Old Metal",
+  //   },
+  //   {
+  //     id: 4,
+  //     ornamentName: "Packaging Material",
+  //   },
+  //   {
+  //     id: 5,
+  //     ornamentName: "Other",
+  //   },
+  // ];
 
   // //=====================================================
   // useEffect(() => {
@@ -47,6 +49,13 @@ const Ornament = (props) => {
   // }, []);
 
   //============================================================================
+const[ornament, setOrnament] = useState([])
+
+useEffect(()=>{
+  getOrnament().then(res =>setOrnament(res.data.data.data))
+},[])
+
+console.log('--->', ornament)
 
   return (
     <div className="d-flex flex-column flex-root">
@@ -97,7 +106,7 @@ const Ornament = (props) => {
                       </thead>
 
                       <tbody>
-                        {ornaments.map((ornaments) => {
+                        {ornament.map((ornaments) => {
                           return (
                             <tr class="text-center fw-bolder">
                               <td>
@@ -113,7 +122,7 @@ const Ornament = (props) => {
                                   href="#"
                                   class="text-dark fw-bolder text-hover-primary fs-6"
                                 >
-                                  {ornaments.ornamentName}
+                                  {ornaments.name}
                                 </a>
                               </td>
 
@@ -153,9 +162,9 @@ const Ornament = (props) => {
                                 </a>
                                 {/* {userPermissions.has("delete_collections") ? ( */}
                                 <DeleteSpinner
-                                  collection={""}
-                                  deleting={deletecollection}
-                                  url={"/master/product-data/collections/"}
+                                  collection={ornaments}
+                                  deleting={deleteOrnament}
+                                  url={"/master/product-data/ornament/"}
                                 />
                                 {/* ) : null} */}
                               </td>

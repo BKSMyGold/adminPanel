@@ -4,8 +4,9 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidMetalGroup } from "../Validator";
-import { addMetalGroup, updateMetalGroup } from "../apis/MetalGroup";
 import AddUpdateSpinner from "../AddUpdateSpinner";
+import { addUnit,updateUnit} from "../APIs_Hai/Unit";
+
 //===================================================================================
 const UnitsForm = (props) => {
   //===================================================================================
@@ -16,8 +17,8 @@ const UnitsForm = (props) => {
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
   const [units, setUnits] = useState(
     location?.state ?? {
-      unitName: "",
-      conversionFactorToGold:0,
+      name: "",
+      conversionFactor:0,
     }
   );
   //===================================================================================
@@ -68,16 +69,16 @@ const UnitsForm = (props) => {
                         </label>
                         <input
                           type="text"
-                          name="unitName"
+                          name="name"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter Unit Name"
                           onChange={(e) =>
                             setUnits({
                               ...units,
-                              unitName: e.target.value,
+                              name: e.target.value,
                             })
                           }
-                            value={units.unitName}                          
+                            value={units.name}                          
                         />
                       </div>
                       <div>
@@ -91,20 +92,20 @@ const UnitsForm = (props) => {
                         </label>
                         <input
                           type="number"
-                          name="converionFactor"
+                          name="conversionFactor"
                           multiple
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter the conversion factor"
-                          value={units.conversionFactorToGold}    
+                          value={units.conversionFactor}    
                           onChange={(e) => {
                             setUnits({
                               ...units,
-                              conversionFactorToGold: e.target.value,
+                              conversionFactor: e.target.value,
                             });
                           }}
                         />
                       </div>
-                      <div>
+                      {/* <div>
                         <br />
                         <button
                           className="btn btn-lg btn-primary"
@@ -117,14 +118,14 @@ const UnitsForm = (props) => {
                         >
                           {isUpdate ? "Update Units" : "Add Units"}
                         </button>
-                      </div>
-                      {/* <AddUpdateSpinner
+                      </div> */}
+                      <AddUpdateSpinner
                         update={isUpdate ? true : false}
-                        collection={metalGroup}
-                        adding={addMetalGroup}
-                        updating={updateMetalGroup}
-                        url={"/master/product-data/metal-groups/"}
-                      /> */}
+                        collection={units}
+                        adding={addUnit}
+                        updating={updateUnit}
+                        url={"/master/product-data/units"}
+                      />
                     </form>
                   </div>
                   {/*end::Table container*/}

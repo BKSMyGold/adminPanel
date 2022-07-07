@@ -4,8 +4,8 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidMetalGroup } from "../Validator";
-import { addMetalGroup, updateMetalGroup } from "../apis/MetalGroup";
 import AddUpdateSpinner from "../AddUpdateSpinner";
+import {addOrnament,updateOrnament} from "../APIs_Hai/Ornament"
 //===================================================================================
 const OrnamentForm = (props) => {
   //===================================================================================
@@ -16,7 +16,7 @@ const OrnamentForm = (props) => {
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
   const [ornament, setOrnament] = useState(
     location?.state ?? {
-      ornamentName: "",
+      name: "",
       
     }
   );
@@ -68,20 +68,20 @@ const OrnamentForm = (props) => {
                         </label>
                         <input
                           type="text"
-                          name="ornamentName"
+                          name="name"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter Unit Name"
                           onChange={(e) =>
                             setOrnament({
                               ...ornament,
-                              ornamentName: e.target.value,
+                              name: e.target.value,
                             })
                           }
-                            value={ornament.ornamentName}                          
+                            value={ornament.name}                          
                         />
                       </div>
                      
-                      <div>
+                      {/* <div>
                         <br />
                         <button
                           className="btn btn-lg btn-primary"
@@ -94,14 +94,14 @@ const OrnamentForm = (props) => {
                         >
                           {isUpdate ? "Update Ornament" : "Add Ornament"}
                         </button>
-                      </div>
-                      {/* <AddUpdateSpinner
+                      </div> */}
+                      <AddUpdateSpinner
                         update={isUpdate ? true : false}
-                        collection={metalGroup}
-                        adding={addMetalGroup}
-                        updating={updateMetalGroup}
-                        url={"/master/product-data/metal-groups/"}
-                      /> */}
+                        collection={ornament}
+                        adding={addOrnament}
+                        updating={updateOrnament}
+                        url={"/master/product-data/ornament/"}
+                      />
                     </form>
                   </div>
                   {/*end::Table container*/}

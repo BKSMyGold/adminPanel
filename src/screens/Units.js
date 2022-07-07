@@ -8,42 +8,21 @@ import { Link } from "react-router-dom";
 import { deletecollection } from "../apis/Collections";
 import { CSVLink } from "react-csv";
 import DeleteSpinner from "../delete";
+import { getAllUnit } from "../APIs_Hai/Unit";
+import { getSelectUnstyledUtilityClass } from "@mui/base";
+import { deleteUnit } from "../APIs_Hai/Unit";
 //=====================================================
 const Units = (props) => {
   //=====================================================
-  const units = [
-    {
-      unitName: "carat",
-      conversionFactorToGold: 0.2,
-    },
-    {
-      unitName: "cent",
-      conversionFactorToGold: 0.002,
-    },
-    {
-      unitName: "gram",
-      conversionFactorToGold: 1,
-    },
-    {
-      unitName: "pcs",
-      conversionFactorToGold: 1,
-    },
-  ];
-
-  // //=====================================================
-  // useEffect(() => {
-  //   const fetchcollections = async () => {
-  //     const { data: foundCollections } = await axios.get(
-  //       `${BASE_URL}/api/collection`
-  //     );
-  //     console.log(foundCollections);
-  //     setCollections(foundCollections);
-  //   };
-  //   fetchcollections();
-  // }, []);
+const[unit,setUnit] = useState([])
 
   //============================================================================
+useEffect(()=>{
+getAllUnit().then(res => setUnit(res.data.data.data))
 
+},[])
+console.log("-------->", unit)
+  //=================================================
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -84,6 +63,7 @@ const Units = (props) => {
                               />
                             </div>
                           </th> */}
+                          <th class="min-w-150px">Units ID</th>
                           <th class="min-w-150px">Units</th>
                           <th class="min-w-140px">
                             Conversion Factor(to gold)
@@ -93,7 +73,7 @@ const Units = (props) => {
                       </thead>
 
                       <tbody>
-                        {units.map((units) => {
+                        {unit.map((units) => {
                           return (
                             <tr class="text-center fw-bolder">
                               <td>
@@ -101,7 +81,15 @@ const Units = (props) => {
                                   href="#"
                                   class="text-dark fw-bolder text-hover-primary fs-6"
                                 >
-                                  {units.unitName}
+                                  {units.id}
+                                </a>
+                              </td>
+                              <td>
+                                <a
+                                  href="#"
+                                  class="text-dark fw-bolder text-hover-primary fs-6"
+                                >
+                                  {units.name}
                                 </a>
                               </td>
                               <td>
@@ -109,7 +97,7 @@ const Units = (props) => {
                                   href="#"
                                   class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                                 >
-                                  {units.conversionFactorToGold}
+                                  {units.conversionFactor}
                                 </a>
                               </td>
 
@@ -149,9 +137,9 @@ const Units = (props) => {
                                 </a>
                                 {/* {userPermissions.has("delete_collections") ? ( */}
                                 <DeleteSpinner
-                                  collection={""}
-                                  deleting={deletecollection}
-                                  url={"/master/product-data/collections/"}
+                                  collection={units}
+                                  deleting={deleteUnit}
+                                  url={"/master/product-data/units/"}
                                 />
                                 {/* ) : null} */}
                               </td>

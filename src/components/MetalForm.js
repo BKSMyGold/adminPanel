@@ -4,23 +4,29 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidMetalGroup } from "../Validator";
-import { addMetalGroup, updateMetalGroup } from "../apis/MetalGroup";
 import AddUpdateSpinner from "../AddUpdateSpinner";
+import { ADMIN_API } from "../Constants";
+import { updateMetal, addAllMetal } from "../APIs_Hai/Metal";
 //===================================================================================
 const MetalForm = (props) => {
   //===================================================================================
   let location = useLocation();
-  console.log(location.state);
+  console.log("---------=============---->",location.state);
   let navigate = useNavigate();
   //===================================================================================
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
   const [metal, setMetal] = useState(
     location?.state ?? {
-      metalName: "",
+      name: "",
       icon: [],
     }
   );
   //===================================================================================
+
+
+
+    //===================================================================================
+
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -68,16 +74,16 @@ const MetalForm = (props) => {
                         </label>
                         <input
                           type="text"
-                          name="metalName"
+                          name="name"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter Metal Name"
                           onChange={(e) =>
                             setMetal({
                               ...metal,
-                              metalName: e.target.value,
+                              name: e.target.value,
                             })
                           }
-                            value={metal.metalName}                          
+                            value={metal.name}                          
                         />
                       </div>
                       <div>
@@ -90,7 +96,7 @@ const MetalForm = (props) => {
                           ></i>
                         </label>
                         <input
-                          type="file"
+                          type="text"
                           name="icon"
                           multiple
                           className="form-control form-control-lg form-control-solid"
@@ -98,12 +104,12 @@ const MetalForm = (props) => {
                           onChange={(e) => {
                             setMetal({
                               ...metal,
-                              icon: e.target.files,
+                              icon: e.target.value,
                             });
                           }}
                         />
                       </div>
-                      <div>
+                      {/* <div>
                         <br />
                         <button
                           className="btn btn-lg btn-primary"
@@ -116,14 +122,14 @@ const MetalForm = (props) => {
                         >
                           {isUpdate ? "Update Metal" : "Add Metal"}
                         </button>
-                      </div>
-                      {/* <AddUpdateSpinner
+                      </div> */}
+                      <AddUpdateSpinner
                         update={isUpdate ? true : false}
-                        collection={metalGroup}
-                        adding={addMetalGroup}
-                        updating={updateMetalGroup}
-                        url={"/master/product-data/metal-groups/"}
-                      /> */}
+                        collection={metal}
+                        adding={addAllMetal}
+                        updating={updateMetal}
+                        url={"/master/product-data/metal/"}
+                      />
                     </form>
                   </div>
                   {/*end::Table container*/}
