@@ -91,8 +91,8 @@ const Categories = (props) => {
                           </th>
                           <th class='min-w-150px'>Category Id</th>
                           <th class='min-w-140px'>Category Name</th>
-                          <th class='min-w-120px'>Images</th>
-                          <th class='min-w-120px'>Video</th>
+                          {/* <th class='min-w-120px'>Images</th>
+                          <th class='min-w-120px'>Video</th> */}
                           <th class='min-w-100px text-end'>Actions</th>
                         </tr>
                       </thead>
@@ -127,7 +127,7 @@ const Categories = (props) => {
                                 {category.category_name}
                               </a>
                             </td>
-                            <td>
+                            {/* <td>
                               <div className='row'>
                                 {category.images &&
                                   category.images.map((image, index) => (
@@ -151,7 +151,7 @@ const Categories = (props) => {
                               >
                                 Video
                               </a>
-                            </td>
+                            </td> */}
 
                             <td class='text-end'>
                               

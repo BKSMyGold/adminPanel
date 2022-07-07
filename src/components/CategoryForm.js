@@ -17,8 +17,8 @@ const CategoryForm = (props) => {
   const [category, setCategory] = useState(
     location?.state ?? {
       category_name: "",
-      images: [],
-      video: "",
+      // images: [],
+      // video: "",
     }
   );
 
@@ -30,7 +30,7 @@ const CategoryForm = (props) => {
           id="kt_wrapper"
         >
           <Header />
-          <Dashboard />
+          {/* <Dashboard /> */}
           <div
             id="kt_content_container"
             class="d-flex flex-column-fluid align-items-start container-xxl"
@@ -81,7 +81,7 @@ const CategoryForm = (props) => {
                           value={category.category_name}
                         />
                       </div>
-                      <div>
+                      {/* <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                           <span class="required">Category Images</span>
                           <i
@@ -126,7 +126,7 @@ const CategoryForm = (props) => {
                             });
                           }}
                         />
-                      </div>
+                      </div> */}
 
                       <div>
                         <br />
