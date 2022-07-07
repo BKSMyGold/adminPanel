@@ -80,8 +80,8 @@ const Varieties = (props) => {
                           </th>
                           <th class='min-w-150px'>Variety Id</th>
                           <th class='min-w-140px'>Variety Name</th>
-                          <th class='min-w-120px'>Images</th>
-                          <th class='min-w-120px'>Video</th>
+                          {/* <th class='min-w-120px'>Images</th>
+                          <th class='min-w-120px'>Video</th> */}
 
                           <th class='min-w-100px text-end'>Actions</th>
                         </tr>
@@ -116,7 +116,7 @@ const Varieties = (props) => {
                                 {variety.name}
                               </a>
                             </td>
-                            <td>
+                            {/* <td>
                               <div className='row'>
                                 {variety.images &&
                                   variety.images.map((image, index) => (
@@ -140,7 +140,7 @@ const Varieties = (props) => {
                               >
                                 Video
                               </a>
-                            </td>
+                            </td> */}
 
                             <td class='text-end'>
                            

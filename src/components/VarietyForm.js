@@ -17,8 +17,8 @@ const VarietyForm = (props) => {
   const [variety, setVariety] = useState(
     location?.state ?? {
       variety_name: "",
-      images: [],
-      video: "",
+      // images: [],
+      // video: "",
     }
   );
 
@@ -81,7 +81,7 @@ const VarietyForm = (props) => {
                           defaultValue={variety.name}
                         />
                       </div>
-                      <div>
+                      {/* <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                           <span class="required">Variety Images</span>
                           <i
@@ -125,7 +125,7 @@ const VarietyForm = (props) => {
                             })
                           }
                         />
-                      </div>
+                      </div> */}
 
                       <div>
                         <br />
