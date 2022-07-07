@@ -17,8 +17,8 @@ const CollectionForm = (props) => {
   const [Collection, setCollection] = useState(
     location?.state ?? {
       collection_name: "",
-      images: [],
-      video: "",
+      // images: [],
+      // video: "",
     }
   );
 
@@ -30,7 +30,7 @@ const CollectionForm = (props) => {
           id="kt_wrapper"
         >
           <Header />
-          <Dashboard />
+          {/* <Dashboard /> */}
           <div
             id="kt_content_container"
             class="d-flex flex-column-fluid align-items-start container-xxl"
@@ -81,7 +81,7 @@ const CollectionForm = (props) => {
                           defaultValue={Collection.name}
                         />
                       </div>
-                      <div>
+                      {/* <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                           <span class="required">Collection Images</span>
                           <i
@@ -126,7 +126,7 @@ const CollectionForm = (props) => {
                             });
                           }}
                         />
-                      </div>
+                      </div> */}
 
                       {/* <div>
                         <br />

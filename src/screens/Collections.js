@@ -80,8 +80,8 @@ const Collections = (props) => {
                           </th>
                           <th class="min-w-150px">Collection Id</th>
                           <th class="min-w-140px">Collection Name</th>
-                          <th class="min-w-120px">Images</th>
-                          <th class="min-w-120px">Video</th>
+                          {/* <th class="min-w-120px">Images</th>
+                          <th class="min-w-120px">Video</th> */}
 
                           <th class="min-w-100px text-end">Actions</th>
                         </tr>
@@ -115,7 +115,7 @@ const Collections = (props) => {
                                 {collection.name}
                               </a>
                             </td>
-                            <td>
+                            {/* <td>
                               <div className="row">
                                 {collection.images &&
                                   collection.images.map((image, index) => (
@@ -129,8 +129,8 @@ const Collections = (props) => {
                                     </div>
                                   ))}
                               </div>
-                            </td>
-                            <td>
+                            </td> */}
+                            {/* <td>
                               <a
                                 href={collection.video}
                                 class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
@@ -139,7 +139,7 @@ const Collections = (props) => {
                               >
                                 Video
                               </a>
-                            </td>
+                            </td> */}
 
                             <td class="text-end">
                               <a
