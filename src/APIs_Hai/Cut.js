@@ -2,8 +2,8 @@ import axios from "axios";
 import { ADMIN_API } from "../Constants";
 //=====================================================
 
-export const addCutShape = async (ornament) => {                           // POST
-    await axios.post(`${ADMIN_API}/admin/shape/create/`,{...ornament});
+export const addCutShape = async (cutShape) => {                           // POST
+    await axios.post(`${ADMIN_API}/admin/shape/create/`,{...cutShape});
 };
 
 export const getCutShape = async () => {
@@ -11,9 +11,9 @@ export const getCutShape = async () => {
   
 };
 
-export const updateCutShape = async (ornament) => {
+export const updateCutShape = async (cutShape) => {
  
-  return await axios.put(`${ADMIN_API}/admin/shape/update/${ornament.id}`, {...ornament}); // PUT
+  return await axios.put(`${ADMIN_API}/admin/shape/update/${cutShape.id}`, {...cutShape}); // PUT
 };
 
 export const deleteCutShape = async (id) => {
