@@ -4,8 +4,8 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidMetalGroup } from "../Validator";
-import { addMetalGroup, updateMetalGroup } from "../apis/MetalGroup";
 import AddUpdateSpinner from "../AddUpdateSpinner";
+import { addClarity, updateClarity } from "../APIs_Hai/Clarity";
 //===================================================================================
 const ClarityForm = (props) => {
   //===================================================================================
@@ -16,7 +16,7 @@ const ClarityForm = (props) => {
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
   const [clarity, setClarity] = useState(
     location?.state ?? {
-        clarity: "",
+        name: "",
       
     }
   );
@@ -68,21 +68,21 @@ const ClarityForm = (props) => {
                         </label>
                         <input
                           type="text"
-                          name="clarity"
+                          name="name"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter Clarity Name"
                           onChange={(e) =>
                             setClarity({
                               ...clarity,
-                              clarity: e.target.value,
+                              name: e.target.value,
                             })
                           }
-                            value={clarity.clarity}                          
+                            value={clarity.name}                          
                         />
                       </div>
                       
 
-                      <div>
+                      {/* <div>
                         <br />
                         <button
                           className="btn btn-lg btn-primary"
@@ -95,14 +95,14 @@ const ClarityForm = (props) => {
                         >
                           {isUpdate ? "Update Clarity" : "Add Clarity"}
                         </button>
-                      </div>
-                      {/* <AddUpdateSpinner
+                      </div> */}
+                      <AddUpdateSpinner
                         update={isUpdate ? true : false}
-                        collection={metalGroup}
-                        adding={addMetalGroup}
-                        updating={updateMetalGroup}
-                        url={"/master/product-data/metal-groups/"}
-                      /> */}
+                        collection={clarity}
+                        adding={addClarity}
+                        updating={updateClarity}
+                        url={"/master/product-data/clarity/"}
+                      />
                     </form>
                   </div>
                   {/*end::Table container*/}

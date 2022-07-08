@@ -8,23 +8,30 @@ import { deleteMetalGroup } from "../apis/MetalGroup";
 import DeleteSpinner from "../delete";
 import { BASE_URL } from "../Constants";
 import { CSVLink } from "react-csv";
+import {getClarity} from "../APIs_Hai/Clarity"
+import { deleteClarity } from "../APIs_Hai/Clarity";
 //============================================================================
 const Clarity = (props) => {
-  const clarity = [
-    {
-      id: 1,
-      clarity: "AA+",
-    },
-    {
-        id: 2,
-        clarity: "AAA+",
-      },
-      {
-        id: 3,
-        clarity: "BB+",
-      },
+  // const clarity = [
+  //   {
+  //     id: 1,
+  //     clarity: "AA+",
+  //   },
+  //   {
+  //       id: 2,
+  //       clarity: "AAA+",
+  //     },
+  //     {
+  //       id: 3,
+  //       clarity: "BB+",
+  //     },
    
-  ];
+  // ];
+const[clarity, setClarity] = useState([])
+  useEffect(()=>{
+    getClarity().then(res => {setClarity(res.data.data.data)})
+  },[])
+  console.log("====>",clarity)
   //============================================================================
   return (
     <div className="d-flex flex-column flex-root">
@@ -97,7 +104,7 @@ const Clarity = (props) => {
                               </div>
                             </td> */}
                             <td class="fw-bolder">{clarity.id}</td>
-                            <td class="fw-bolder">{clarity.clarity}</td>
+                            <td class="fw-bolder">{clarity.name}</td>
                           
                             <td class="text-center">
                               <Link
@@ -130,7 +137,7 @@ const Clarity = (props) => {
                               {/* {userPermissions.has("delete_metal_groups") ? ( */}
                               <DeleteSpinner
                                 collection={clarity}
-                                deleting={deleteMetalGroup}
+                                deleting={deleteClarity}
                                 url={"/master/product-data/clarity/"}
                               />
                               {/* ) : null
