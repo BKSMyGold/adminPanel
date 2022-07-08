@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react'
 import Footer from '../layouts/Footer'
 import Header from '../layouts/Header'
 import Dashboard from './dashboard'
-import { getAllVarieties } from '../apis/Varieties'
 import { Link } from 'react-router-dom'
-import { deleteVariety } from '../apis/Varieties'
 import DeleteSpinner from "../delete";
 import { CSVLink } from "react-csv";
+import { getVariety,deleteVariety } from '../APIs_Hai/Variety'
 //=============================================================================
 const Varieties = (props) => {
 
@@ -15,10 +14,7 @@ const Varieties = (props) => {
 //=============================================================================
 
   useEffect(() => {
-    getAllVarieties().then(({ data: foundVarieties }) => {
-      setVarieties(foundVarieties)
-      console.log(varieties)
-    })
+    getVariety().then(res => setVarieties(res.data.data.data))
   }, [])
 //=============================================================================
   useEffect(() => {
@@ -89,7 +85,7 @@ const Varieties = (props) => {
                       {/*end::Table head*/}
                       {/*begin::Table body*/}
                       <tbody>
-                        {varieties.map((variety) => (
+                        {varieties?.map((variety) => (
                           <tr>
                             <td>
                               <div class='form-check form-check-sm form-check-custom form-check-solid'>

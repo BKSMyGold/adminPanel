@@ -4,8 +4,8 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidVariety } from "../Validator";
-import { addVariety, updateVariety } from "../apis/Varieties";
 import AddUpdateSpinner from "../AddUpdateSpinner";
+import { addVariety,updateVariety } from "../APIs_Hai/Variety";
 
 const VarietyForm = (props) => {
   let location = useLocation();
@@ -69,16 +69,16 @@ const VarietyForm = (props) => {
                         </label>
                         <input
                           type="text"
-                          name="variety_name"
+                          name="name"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter Variety Name"
+                          value={variety.name}
                           onChange={(e) =>
                             setVariety({
                               ...variety,
-                              variety_name: e.target.value,
+                              name: e.target.value,
                             })
                           }
-                          defaultValue={variety.name}
                         />
                       </div>
                       {/* <div>
