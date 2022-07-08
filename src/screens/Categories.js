@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 
 import { BASE_URL } from '../Constants'
 import DeleteSpinner from "../delete";
-import { deleteCategory } from '../apis/Categories'
 import { CSVLink } from "react-csv";
+import {deleteCategory,getCategory} from "../APIs_Hai/Category"
 
 
 //====================================================================
@@ -19,13 +19,7 @@ const Categories = (props) => {
 
   //====================================================================
   useEffect(() => {
-    const fetchcategories = async () => {
-      const { data } = await axios.get(`${BASE_URL}/api/category`)
-               
-      setCategories(data)
-      console.log(categories)
-    }
-    fetchcategories()
+    getCategory().then(res => {setCategories(res.data.data.data)})
   }, [])
   //====================================================================
   useEffect(() => {
@@ -124,7 +118,7 @@ const Categories = (props) => {
                                 href='#'
                                 class='text-dark fw-bolder text-hover-primary d-block mb-1 fs-6'
                               >
-                                {category.category_name}
+                                {category.name}
                               </a>
                             </td>
                             {/* <td>

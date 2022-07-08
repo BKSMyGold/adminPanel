@@ -4,8 +4,8 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidCategory } from "../Validator";
-import { addCategory, updateCategory } from "../apis/Categories";
 import AddUpdateSpinner from "../AddUpdateSpinner";
+import { addCategory, updateCategory } from "../APIs_Hai/Category";
 
 const CategoryForm = (props) => {
   let location = useLocation();
@@ -16,7 +16,7 @@ const CategoryForm = (props) => {
 
   const [category, setCategory] = useState(
     location?.state ?? {
-      category_name: "",
+      name: "",
       // images: [],
       // video: "",
     }
@@ -69,16 +69,16 @@ const CategoryForm = (props) => {
                         </label>
                         <input
                           type="text"
-                          name="category_name"
+                          name="name"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter Category Name"
                           onChange={(e) =>
                             setCategory({
                               ...category,
-                              category_name: e.target.value,
+                              name: e.target.value,
                             })
                           }
-                          value={category.category_name}
+                          value={category.name}
                         />
                       </div>
                       {/* <div>
@@ -147,7 +147,7 @@ const CategoryForm = (props) => {
                         >
                           {isUpdate ? "Update Category" : "Add Category"}
                         </button> */}
-                             <AddUpdateSpinner
+                        <AddUpdateSpinner
                           update={isUpdate ? true : false}
                           collection={category}
                           adding={addCategory}
