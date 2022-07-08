@@ -4,8 +4,8 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidMetalGroup } from "../Validator";
-import { addMetalGroup, updateMetalGroup } from "../apis/MetalGroup";
 import AddUpdateSpinner from "../AddUpdateSpinner";
+import {addColour,updateColour} from "../APIs_Hai/Colour"
 //===================================================================================
 const ColourForm = (props) => {
   //===================================================================================
@@ -16,7 +16,7 @@ const ColourForm = (props) => {
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
   const [colour, setColour] = useState(
     location?.state ?? {
-        colourName: "",
+        name: "",
       
     }
   );
@@ -74,15 +74,15 @@ const ColourForm = (props) => {
                           onChange={(e) =>
                             setColour({
                               ...colour,
-                              colourName: e.target.value,
+                              name: e.target.value,
                             })
                           }
-                            value={colour.colourName}                          
+                            value={colour.name}                          
                         />
                       </div>
                       
 
-                      <div>
+                      {/* <div>
                         <br />
                         <button
                           className="btn btn-lg btn-primary"
@@ -95,14 +95,14 @@ const ColourForm = (props) => {
                         >
                           {isUpdate ? "Update Colour" : "Add Colour"}
                         </button>
-                      </div>
-                      {/* <AddUpdateSpinner
+                      </div> */}
+                      <AddUpdateSpinner
                         update={isUpdate ? true : false}
-                        collection={metalGroup}
-                        adding={addMetalGroup}
-                        updating={updateMetalGroup}
-                        url={"/master/product-data/metal-groups/"}
-                      /> */}
+                        collection={colour}
+                        adding={addColour}
+                        updating={updateColour}
+                        url={"/master/product-data/colour/"}
+                      />
                     </form>
                   </div>
                   {/*end::Table container*/}

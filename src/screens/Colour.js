@@ -8,23 +8,30 @@ import { deleteMetalGroup } from "../apis/MetalGroup";
 import DeleteSpinner from "../delete";
 import { BASE_URL } from "../Constants";
 import { CSVLink } from "react-csv";
+import { getColour,deleteColour } from "../APIs_Hai/Colour";
 //============================================================================
 const Colour = (props) => {
-  const colour = [
-    {
-      id: 1,
-      colourName: "Transparent",
-    },
-    {
-        id: 2,
-        colourName: "Red",
-      },
-      {
-        id: 3,
-        colourName: "Green",
-      },
+  // const colour = [
+  //   {
+  //     id: 1,
+  //     colourName: "Transparent",
+  //   },
+  //   {
+  //       id: 2,
+  //       colourName: "Red",
+  //     },
+  //     {
+  //       id: 3,
+  //       colourName: "Green",
+  //     },
    
-  ];
+  // ];
+  const[colour,setColour] = useState([])
+
+  useEffect(()=>{
+    getColour().then(res => {setColour(res.data.data.data)})
+  },[])
+  console.log(colour)
   //============================================================================
   return (
     <div className="d-flex flex-column flex-root">
@@ -85,7 +92,7 @@ const Colour = (props) => {
                       {/*end::Table head*/}
                       {/*begin::Table body*/}
                       <tbody>
-                        {colour.map((colour) => (
+                        {colour?.map((colour) => (
                           <tr class="text-center">
                             {/* <td>
                               <div class="form-check form-check-sm form-check-custom form-check-solid">
@@ -97,7 +104,7 @@ const Colour = (props) => {
                               </div>
                             </td> */}
                             <td class="fw-bolder">{colour.id}</td>
-                            <td class="fw-bolder">{colour.colourName}</td>
+                            <td class="fw-bolder">{colour.name}</td>
                           
                             <td class="text-center">
                               <Link
@@ -130,8 +137,8 @@ const Colour = (props) => {
                               {/* {userPermissions.has("delete_metal_groups") ? ( */}
                               <DeleteSpinner
                                 collection={colour}
-                                deleting={deleteMetalGroup}
-                                url={"/master/product-data/clarity/"}
+                                deleting={deleteColour}
+                                url={"/master/product-data/colour/"}
                               />
                               {/* ) : null
                               } */}
