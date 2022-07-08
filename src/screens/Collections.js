@@ -5,9 +5,10 @@ import Dashboard from "./dashboard";
 import axios from "axios";
 import { BASE_URL } from "../Constants";
 import { Link } from "react-router-dom";
-import { deletecollection } from "../apis/Collections";
 import { CSVLink } from "react-csv";
 import DeleteSpinner from "../delete";
+import {getCollection,deleteCollection} from "../APIs_Hai/Collection"
+
 //=====================================================
 const Collections = (props) => {
   console.log(props.user);
@@ -16,16 +17,9 @@ const Collections = (props) => {
   const [userPermissions, setUserPermissions] = useState(new Set());
 
   //=====================================================
-  useEffect(() => {
-    const fetchcollections = async () => {
-      const { data: foundCollections } = await axios.get(
-        `${BASE_URL}/api/collection`
-      );
-      console.log(foundCollections);
-      setCollections(foundCollections);
-    };
-    fetchcollections();
-  }, []);
+useEffect(()=>{
+  getCollection().then(res => setCollections(res.data.data.data))
+},[])
   //=====================================================
   useEffect(() => {
     props.user.role.permissions.map((permission) => {
@@ -88,7 +82,7 @@ const Collections = (props) => {
                       </thead>
 
                       <tbody>
-                        {collections.map((collection) => (
+                        {collections?.map((collection) => (
                           <tr>
                             <td>
                               <div class="form-check form-check-sm form-check-custom form-check-solid">
@@ -178,7 +172,7 @@ const Collections = (props) => {
                               {userPermissions.has("delete_collections") ? (
                                 <DeleteSpinner
                                   collection={collection}
-                                  deleting={deletecollection}
+                                  deleting={deleteCollection}
                                   url={"/master/product-data/collections/"}
                                 />
                               ) : null}

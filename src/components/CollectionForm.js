@@ -4,8 +4,8 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidCollection } from "../Validator";
-import { addcollection, updatecollection } from "../apis/Collections";
 import AddUpdateSpinner from "../AddUpdateSpinner";
+import {addCollection, updateCollection} from "../APIs_Hai/Collection"
 
 const CollectionForm = (props) => {
   let location = useLocation();
@@ -16,7 +16,7 @@ const CollectionForm = (props) => {
 
   const [Collection, setCollection] = useState(
     location?.state ?? {
-      collection_name: "",
+      name: "",
       // images: [],
       // video: "",
     }
@@ -69,13 +69,13 @@ const CollectionForm = (props) => {
                         </label>
                         <input
                           type="text"
-                          name="collection_name"
+                          name="name"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter Collection Name"
                           onChange={(e) =>
                             setCollection({
                               ...Collection,
-                              collection_name: e.target.value,
+                              name: e.target.value,
                             })
                           }
                           defaultValue={Collection.name}
@@ -151,8 +151,8 @@ const CollectionForm = (props) => {
                       <AddUpdateSpinner
                         update={isUpdate ? true : false}
                         collection={Collection}
-                        adding={addcollection}
-                        updating={updatecollection}
+                        adding={addCollection}
+                        updating={updateCollection}
                         url={"/master/product-data/collections/"}
                       />
                     </form>
