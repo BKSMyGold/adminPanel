@@ -4,8 +4,8 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidItem } from "../Validator";
-import { addItem, updateItem } from "../apis/items";
 import AddUpdateSpinner from "../AddUpdateSpinner";
+import { addItem,updateItem } from "../APIs_Hai/Item";
 
 const ItemForm = (props) => {
   let location = useLocation();

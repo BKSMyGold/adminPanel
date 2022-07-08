@@ -4,9 +4,9 @@ import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Dashboard from "./dashboard";
 import { Link } from "react-router-dom";
-import { deleteItem } from "../apis/items";
 import DeleteSpinner from "../delete";
 import { CSVLink } from "react-csv";
+import {getItem, deleteItem} from '../APIs_Hai/Item'
 //==============================================================
 const Items = (props) => {
   //==============================================================
@@ -15,11 +15,7 @@ const Items = (props) => {
 
 //==============================================================
   useEffect(() => {
-    getAllItems().then(({ data: foundItems }) => {
-      setItems(foundItems);
-
-      console.log(foundItems)
-    });
+    getItem().then(res => setItems(res.data.data.data))
   }, []);
 //==============================================================
 useEffect(() => {
@@ -80,7 +76,7 @@ useEffect(() => {
                       {/*end::Table head*/}
                       {/*begin::Table body*/}
                       <tbody>
-                        {items.map((item) => (
+                        {items?.map((item) => (
                           <tr>
                             {/* <td>
                               <div class="form-check form-check-sm form-check-custom form-check-solid">
