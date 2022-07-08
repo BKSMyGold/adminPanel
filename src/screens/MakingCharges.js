@@ -8,32 +8,40 @@ import { deleteMetalGroup } from "../apis/MetalGroup";
 import DeleteSpinner from "../delete";
 import { BASE_URL } from "../Constants";
 import { CSVLink } from "react-csv";
+import {getMakingCharges,deleteMakingCharges} from '../APIs_Hai/MakingCharges'
 //============================================================================
 const MakingCharges = (props) => {
-  const makingCharges = [
-    {
-      id: 1,
-      supplierName: "Pawan",
-      variety: "ring",
-      item: "rings",
-      metalID: "18KT",
-      fromWeight: 0,
-      toWeight: 0,
-      rateType: "Gross Wt",
-      valueOfRateType: 10,
-    },
-    {
-      id: 2,
-      supplierName: "Suurya",
-      variety: "ring",
-      item: "rings",
-      metalID: "22KT",
-      fromWeight: 0,
-      toWeight: 0,
-      rateType: "Net Wt",
-      valueOfRateType: 5,
-    },
-  ];
+
+  const[makingCharges,setMakingCharges ]= useState([])
+
+  useEffect(()=>{
+    getMakingCharges().then(res => setMakingCharges(res.data.data.data))
+  },[])
+
+  // const makingCharges = [
+  //   {
+  //     id: 1,
+  //     supplierName: "Pawan",
+  //     variety: "ring",
+  //     item: "rings",
+  //     metalID: "18KT",
+  //     fromWeight: 0,
+  //     toWeight: 0,
+  //     rateType: "Gross Wt",
+  //     valueOfRateType: 10,
+  //   },
+  //   {
+  //     id: 2,
+  //     supplierName: "Suurya",
+  //     variety: "ring",
+  //     item: "rings",
+  //     metalID: "22KT",
+  //     fromWeight: 0,
+  //     toWeight: 0,
+  //     rateType: "Net Wt",
+  //     valueOfRateType: 5,
+  //   },
+  // ];
   //============================================================================
   return (
     <div className="d-flex flex-column flex-root">
@@ -109,11 +117,11 @@ const MakingCharges = (props) => {
                             <td class="fw-bolder">{charges.supplierName}</td>
                             <td class="fw-bolder">{charges.variety}</td>
                             <td class="fw-bolder">{charges.item}</td>
-                            <td class="fw-bolder">{charges.metalID}</td>
+                            <td class="fw-bolder">{charges.metalId}</td>
                             <td class="fw-bolder">{charges.fromWeight}</td>
                             <td class="fw-bolder">{charges.toWeight}</td>
                             <td class="fw-bolder">{charges.rateType}</td>
-                            <td class="fw-bolder">{charges.valueOfRateType}</td>
+                            <td class="fw-bolder">{charges.rate}</td>
 
 
                             <td class="text-center">
@@ -147,8 +155,8 @@ const MakingCharges = (props) => {
                               {/* {userPermissions.has("delete_metal_groups") ? ( */}
                               <DeleteSpinner
                                 collection={charges}
-                                deleting={deleteMetalGroup}
-                                url={"/master/product-data/clarity/"}
+                                deleting={deleteMakingCharges}
+                                url={"/master/product-data//making-charges/"}
                               />
                               {/* ) : null
                               } */}
