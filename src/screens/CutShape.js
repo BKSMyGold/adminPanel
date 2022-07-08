@@ -8,6 +8,8 @@ import { deleteMetalGroup } from "../apis/MetalGroup";
 import DeleteSpinner from "../delete";
 import { BASE_URL } from "../Constants";
 import { CSVLink } from "react-csv";
+import {getCutShape,deleteCutShape} from "../APIs_Hai/Cut"
+
 //============================================================================
 const CutShape = (props) => {
   const cutShape = [
@@ -24,6 +26,12 @@ const CutShape = (props) => {
         cutName: "square",
       },
   ];
+
+  const[cut,setCut] = useState([])
+  
+useEffect(()=>{
+  getCutShape().then(res => {setCut(res.data.data.data)})
+},[])
   //============================================================================
   return (
     <div className="d-flex flex-column flex-root">
@@ -84,7 +92,7 @@ const CutShape = (props) => {
                       {/*end::Table head*/}
                       {/*begin::Table body*/}
                       <tbody>
-                        {cutShape.map((cut) => (
+                        {cut.map((cut) => (
                           <tr class="text-center">
                             {/* <td>
                               <div class="form-check form-check-sm form-check-custom form-check-solid">
@@ -96,7 +104,7 @@ const CutShape = (props) => {
                               </div>
                             </td> */}
                             <td class="fw-bolder">{cut.id}</td>
-                            <td class="fw-bolder">{cut.cutName}</td>
+                            <td class="fw-bolder">{cut.name}</td>
                           
                             <td class="text-center">
                               <Link
@@ -129,8 +137,8 @@ const CutShape = (props) => {
                               {/* {userPermissions.has("delete_metal_groups") ? ( */}
                               <DeleteSpinner
                                 collection={cut}
-                                deleting={deleteMetalGroup}
-                                url={"/master/product-data/metal-groups/"}
+                                deleting={deleteCutShape}
+                                url={"/master/product-data/cut-shape/"}
                               />
                               {/* ) : null
                               } */}

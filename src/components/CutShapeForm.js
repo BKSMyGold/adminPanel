@@ -4,8 +4,8 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidMetalGroup } from "../Validator";
-import { addMetalGroup, updateMetalGroup } from "../apis/MetalGroup";
 import AddUpdateSpinner from "../AddUpdateSpinner";
+import { addCutShape,updateCutShape} from "../APIs_Hai/Cut";
 //===================================================================================
 const CutShapeForm = (props) => {
   //===================================================================================
@@ -16,7 +16,7 @@ const CutShapeForm = (props) => {
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
   const [cutShape, setCutShape] = useState(
     location?.state ?? {
-      cutName: "",
+      name: "",
       
     }
   );
@@ -68,20 +68,20 @@ const CutShapeForm = (props) => {
                         </label>
                         <input
                           type="text"
-                          name="cutShapeName"
+                          name="name"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter Cut-Shape Name"
                           onChange={(e) =>
                             setCutShape({
                               ...cutShape,
-                              cutName: e.target.value,
+                              name: e.target.value,
                             })
                           }
-                            value={cutShape.cutName}                          
+                            value={cutShape.name}                          
                         />
                       </div>
                       
-
+{/* 
                       <div>
                         <br />
                         <button
@@ -95,14 +95,14 @@ const CutShapeForm = (props) => {
                         >
                           {isUpdate ? "Update Cut Shape" : "Add Cut Shape"}
                         </button>
-                      </div>
-                      {/* <AddUpdateSpinner
+                      </div> */}
+                      <AddUpdateSpinner
                         update={isUpdate ? true : false}
-                        collection={metalGroup}
-                        adding={addMetalGroup}
-                        updating={updateMetalGroup}
-                        url={"/master/product-data/metal-groups/"}
-                      /> */}
+                        collection={cutShape}
+                        adding={addCutShape}
+                        updating={updateCutShape}
+                        url={"/master/product-data/cut-shape/"}
+                      />
                     </form>
                   </div>
                   {/*end::Table container*/}
