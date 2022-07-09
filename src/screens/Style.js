@@ -8,30 +8,37 @@ import { deleteMetalGroup } from "../apis/MetalGroup";
 import DeleteSpinner from "../delete";
 import { BASE_URL } from "../Constants";
 import { CSVLink } from "react-csv";
+import { deleteStyle, getStyle } from "../APIs_Hai/Style";
 //============================================================================
 const Style = (props) => {
-  const style = [
-    {
-      id: 1,
-      styleName: "Dia",
-      metalGroup:"Diamond",
-      conversionFactor:.02
-    },
-    {
-      id: 2,
-      styleName: "Dia",
-      metalGroup:"Gold",
-      conversionFactor:.02
-    },
-    {
-      id: 3,
-      styleName: "Dia",
-      metalGroup:"SIlver",
-      conversionFactor:.02
-    },
+  // const style = [
+  //   {
+  //     id: 1,
+  //     styleName: "Dia",
+  //     metalGroup:"Diamond",
+  //     conversionFactor:.02
+  //   },
+  //   {
+  //     id: 2,
+  //     styleName: "Dia",
+  //     metalGroup:"Gold",
+  //     conversionFactor:.02
+  //   },
+  //   {
+  //     id: 3,
+  //     styleName: "Dia",
+  //     metalGroup:"SIlver",
+  //     conversionFactor:.02
+  //   },
    
    
-  ];
+  // ];
+  //============================================================================
+const[style, setStyle] = useState([]);
+useEffect(()=>{
+  getStyle().then(res => setStyle(res.data.data.data))
+},[])
+console.log(style)
   //============================================================================
   return (
     <div className="d-flex flex-column flex-root">
@@ -87,7 +94,7 @@ const Style = (props) => {
                           <th class="fw-bolder text-muted">Style Id</th>
                           <th class="fw-bolder text-muted">Style Name</th>
                           <th class="fw-bolder text-muted">Metal Group Name</th>
-                          <th class="fw-bolder text-muted">Conversion Factor</th>
+                          
                           <th class="fw-bolder text-muted">Action</th>
                         </tr>
                       </thead>
@@ -106,9 +113,9 @@ const Style = (props) => {
                               </div>
                             </td> */}
                             <td class="fw-bolder">{style.id}</td>
-                            <td class="fw-bolder">{style.styleName}</td>
-                            <td class="fw-bolder">{style.metalGroup}</td>
-                            <td class="fw-bolder">{style.conversionFactor}</td>
+                            <td class="fw-bolder">{style.name}</td>
+                            <td class="fw-bolder">{style.metalGroup?.name}</td>
+                            {/* <td class="fw-bolder">{style.conversionFactor}</td> */}
 
                           
                             <td class="text-center">
@@ -142,8 +149,8 @@ const Style = (props) => {
                               {/* {userPermissions.has("delete_metal_groups") ? ( */}
                               <DeleteSpinner
                                 collection={style}
-                                deleting={deleteMetalGroup}
-                                url={"/master/product-data/clarity/"}
+                                deleting={deleteStyle}
+                                url={"/master/product-data/style/"}
                               />
                               {/* ) : null
                               } */}
