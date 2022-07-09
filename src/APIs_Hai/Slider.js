@@ -4,18 +4,16 @@ import { ADMIN_API } from "../Constants";
 
 export const addSlider = async (slider) => {
     let formData = new FormData();
-    let { name, type, subType, image, } = slider;
+    let { name, type, typeId, image, } = slider;
     formData.append("name", name)
     formData.append("type", type)
-    formData.append("subType", subType)
+    formData.append("typeId", typeId)
 
-    if (image) {
+    if (image instanceof File) {
 
         formData.append("image", image);
 
-    } else {
-        formData.append("images", null);
-    }
+    } 
 
 
     await axios.post(`${ADMIN_API}/admin/slider/create/`, formData);
@@ -28,18 +26,16 @@ export const getSlider = async () => {
 
 export const updateSlider = async (slider) => {
     let formData = new FormData();
-    let { name, type, subType, image, } = slider;
+    let { name, type, typeId, image, } = slider;
     formData.append("name", name)
     formData.append("type", type)
-    formData.append("subType", subType)
+    formData.append("typeId", typeId)
 
-    if (image) {
+    if (image instanceof File) {
 
         formData.append("image", image);
 
-    } else {
-        formData.append("images", null);
-    }
+    } 
     return await axios.put(`${ADMIN_API}/admin/slider/update/${slider.id}`, formData); // PUT
 };
 

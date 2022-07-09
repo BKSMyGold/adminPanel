@@ -21,7 +21,7 @@ const SlidersForm = (props) => {
     location?.state ?? {
       name: "",
       type: "",
-      subType: "",
+      typeId: "",
       image: []
     }
   );
@@ -198,47 +198,47 @@ const SlidersForm = (props) => {
                           onChange={(e) =>
                             setSlider({
                               ...Slider,
-                              subType: e.target.value,
+                              typeId: e.target.value,
                             })
                           }
                         >
                           <option class="form-control">Select option</option>;
-                          {collectionName.map((x) => {
+                          {collection.map((x) => {
                             if(Slider.type === "collection"){
 
                               return (
-                                <option class="form-control" value={x.name}>
-                                  {x}
+                                <option class="form-control" value={x.id}>
+                                  {x.name}
                                 </option>
                               );
                             }
                           })}
-                            {categoryName.map((x) => {
+                            {category.map((x) => {
                             if(Slider.type === "category"){
 
                               return (
-                                <option class="form-control" value={x.name}>
-                                  {x}
+                                <option class="form-control" value={x.id}>
+                                  {x.name}
                                 </option>
                               );
                             }
                           })}
-                            {varietyName.map((x) => {
+                            {variety.map((x) => {
                             if(Slider.type === "variety"){
 
                               return (
-                                <option class="form-control" value={x.name}>
-                                  {x}
+                                <option class="form-control" value={x.id}>
+                                  {x.name}
                                 </option>
                               );
                             }
                           })}
-                            {itemName.map((x) => {
+                            {item.map((x) => {
                             if(Slider.type === "item"){
 
                               return (
-                                <option class="form-control" value={x.name}>
-                                  {x}
+                                <option class="form-control" value={x.id}>
+                                  {x.name}
                                 </option>
                               );
                             }
