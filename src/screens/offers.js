@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { deleteoffer } from "../apis/offer";
 import DeleteSpinner from "../delete";
 import { CSVLink } from "react-csv";
+import { getOffer,deleteOffer } from "../APIs_Hai/Offer";
 //=====================================================
 const Offers = (props) => {
   //=====================================================
@@ -14,15 +15,11 @@ const Offers = (props) => {
   const [userPermissions, setUserPermissions] = useState(new Set());
   //=====================================================
   useEffect(() => {
-    const fetchOffers = async () => {
-      const { data } = await axios.get("http://13.59.57.74:5000/api/offer");
-      console.log(data);
-      setOffers(data);
-      console.log(Offers);
-
-    };
-    fetchOffers();
+    getOffer().then((res) => {
+      setOffers(res.data.data.data);
+    });
   }, []);
+console.log(Offers)
   //=====================================================
   useEffect(() => {
     props.user.role.permissions.map((permission) => {
@@ -69,22 +66,13 @@ const Offers = (props) => {
                       {/*begin::Table head*/}
                       <thead>
                         <tr class="fw-bolder text-muted">
-                          <th class="w-25px">
-                            <div class="form-check form-check-sm form-check-custom form-check-solid">
-                              <input
-                                class="form-check-input"
-                                type="checkbox"
-                                value="1"
-                                data-kt-check="true"
-                                data-kt-check-target=".widget-13-check"
-                              />
-                            </div>
-                          </th>
                           <th class="min-w-150px">Offer Id</th>
-                          <th class="min-w-140px">Offer Name</th>
-                          <th class="min-w-140px">Offer Image</th>
-                          <th class="min-w-120px">Type</th>
-                          <th class="min-w-120px">ID</th>
+                          <th class="min-w-140px">Type </th>
+                          <th class="min-w-140px">Type ID</th>
+                          <th class="min-w-120px">Image</th>
+                          <th class="min-w-120px">Discount Name</th>
+                          <th class="min-w-120px">Discount Type</th>
+                          <th class="min-w-120px">Discount Value</th>
 
                           <th class="min-w-100px text-end">Actions</th>
                         </tr>
@@ -94,15 +82,6 @@ const Offers = (props) => {
                       <tbody>
                         {Offers.map((Offers) => (
                           <tr>
-                            <td>
-                              <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                <input
-                                  class="form-check-input widget-13-check"
-                                  type="checkbox"
-                                  value="1"
-                                />
-                              </div>
-                            </td>
                             <td>
                               <a
                                 href="#"
@@ -116,8 +95,11 @@ const Offers = (props) => {
                                 href="#"
                                 class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                               >
-                                {Offers.name}
+                                {Offers.type}
                               </a>
+                            </td>
+                            <td class="text-dark fw-bolder text-hover-primary fs-6">
+                              {Offers.typeId}
                             </td>
                             <td>
                               <img
@@ -128,10 +110,13 @@ const Offers = (props) => {
                               />
                             </td>
                             <td class="text-dark fw-bolder text-hover-primary fs-6">
-                              {Offers.type}
+                              {Offers.name}
                             </td>
                             <td class="text-dark fw-bolder text-hover-primary fs-6">
-                              {Offers.typeId}
+                              {Offers.valueType}
+                            </td>
+                            <td class="text-dark fw-bolder text-hover-primary fs-6">
+                              {Offers.value}
                             </td>
 
                             <td class="text-end">
@@ -171,11 +156,10 @@ const Offers = (props) => {
                               {userPermissions.has("delete_offer") ? (
                                 <DeleteSpinner
                                   collection={Offers}
-                                  deleting={deleteoffer}
+                                  deleting={deleteOffer}
                                   url={"/master/product-data/offers/"}
                                 />
-
-                              ) :(null)}
+                              ) : null}
                             </td>
                           </tr>
                         ))}
