@@ -4,10 +4,10 @@ import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Dashboard from "./dashboard";
 import axios from "axios";
-import { deleteMetalGroup } from "../apis/MetalGroup";
 import DeleteSpinner from "../delete";
 import { BASE_URL } from "../Constants";
 import { CSVLink } from "react-csv";
+import { getMetalGroup,deleteMetalGroup } from "../APIs_Hai/MetalGroup";
 //============================================================================
 const MetalGroups = (props) => {
   // console.log("==>", props.user)
@@ -33,42 +33,46 @@ const MetalGroups = (props) => {
   //   });
   // }, []);
   // // console.log("userPermissions ==>", userPermissions);
-  const metalGroup = [
-    {
-      id: 1,
-      itemGroupName: "18 KT Gold",
-      metalID: "18 KT",
-      itemMasterGroupName: "Gold",
-      purity: 98,
-      unitName: "gram",
-      roundingDigit: 3,
-      OrnamentType: "FINE METAL",
-      status: "Active",
-    },
-    {
-      id: 2,
-      itemGroupName: "24 KT Gold",
-      metalID: "24 KT",
-      itemMasterGroupName: "Gold",
-      purity: 98,
-      unitName: "gram",
-      roundingDigit: 3,
-      OrnamentType: "FINE METAL",
-      status: "Active",
-    },
-    {
-      id: 3,
-      itemGroupName: "GH-VS Baguette",
-      metalID: "GS VS",
-      itemMasterGroupName: "Diamond",
-      purity: 98,
-      unitName: "gram",
-      roundingDigit: 3,
-      OrnamentType: "FINE METAL",
-      status: "Active",
-    },
-  ];
-
+  // const metalGroup = [
+  //   {
+  //     id: 1,
+  //     itemGroupName: "18 KT Gold",
+  //     metalID: "18 KT",
+  //     itemMasterGroupName: "Gold",
+  //     purity: 98,
+  //     unitName: "gram",
+  //     roundingDigit: 3,
+  //     OrnamentType: "FINE METAL",
+  //     status: "Active",
+  //   },
+  //   {
+  //     id: 2,
+  //     itemGroupName: "24 KT Gold",
+  //     metalID: "24 KT",
+  //     itemMasterGroupName: "Gold",
+  //     purity: 98,
+  //     unitName: "gram",
+  //     roundingDigit: 3,
+  //     OrnamentType: "FINE METAL",
+  //     status: "Active",
+  //   },
+  //   {
+  //     id: 3,
+  //     itemGroupName: "GH-VS Baguette",
+  //     metalID: "GS VS",
+  //     itemMasterGroupName: "Diamond",
+  //     purity: 98,
+  //     unitName: "gram",
+  //     roundingDigit: 3,
+  //     OrnamentType: "FINE METAL",
+  //     status: "Active",
+  //   },
+  // ];
+  //============================================================================
+const[metalGroup,setMetalGroup ] = useState([])
+useEffect(()=>{
+  getMetalGroup().then(res => setMetalGroup(res.data.data.data))
+},[])
   //============================================================================
   return (
     <div className="d-flex flex-column flex-root">
@@ -112,8 +116,8 @@ const MetalGroups = (props) => {
                         <tr class="fw-bolder text-muted">
                           <th class="min-w-150px">Metal Group Id</th>
                           <th class="min-w-140px">Item Group Name</th>
-                          <th class="min-w-120px">Metal ID</th>
-                          <th class="min-w-120px">Item Master Group Name</th>
+                          {/* <th class="min-w-120px">Metal ID</th>
+                          <th class="min-w-120px">Item Master Group Name</th> */}
                           <th class="min-w-120px">Purity</th>
                           <th class="min-w-100px">Unit</th>
                           <th class="min-w-100px">Rounding Digit</th>
@@ -125,18 +129,18 @@ const MetalGroups = (props) => {
                       {/*end::Table head*/}
                       {/*begin::Table body*/}
                       <tbody>
-                        {metalGroup.map((metalgroup) => (
+                        {metalGroup?.map((metalgroup) => (
                           <tr class="text-center fw-bolder">
                             <td>{metalgroup.id}</td>
-                            <td>{metalgroup.itemGroupName}</td>
-                            <td>{metalgroup.metalID}</td>
+                            <td>{metalgroup.shortName + " "+ metalgroup.name}</td>
+                            {/* <td>{metalgroup.metalId}</td>
                             <td>
-                              {metalgroup.itemMasterGroupName}
-                            </td>
-                            <td>{metalgroup.purity}</td>
-                            <td>{metalgroup.unitName}</td>
-                            <td>{metalgroup.roundingDigit}</td>
-                            <td>{metalgroup.OrnamentType}</td>
+                              {metalgroup.masterName}
+                            </td> */}
+                            <td>{metalgroup.fineness}</td>
+                            <td>{metalgroup.unit?.name}</td>
+                            <td>{metalgroup.roundingDigits}</td>
+                            <td>{metalgroup.ornament}</td>
                             <td>{metalgroup.status}</td>
                             <td class="text-center">
                               <Link
@@ -170,7 +174,7 @@ const MetalGroups = (props) => {
                               <DeleteSpinner
                                 collection={metalgroup}
                                 deleting={deleteMetalGroup}
-                                url={"/master/product-data/metal-groups/"}
+                                url={"/master/product-data/metal_groups/"}
                               />
                               {/* ) : null} */}
                             </td>

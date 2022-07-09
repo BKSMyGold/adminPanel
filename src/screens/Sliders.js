@@ -102,7 +102,7 @@ const Sliders = () => {
                                 href='#'
                                 class='text-dark fw-bolder text-hover-primary d-block mb-1 fs-6'
                               >
-                                {slider.typeId}
+                                {slider.typeId?.name}
                               </a>
                             </td>
                             <td>
