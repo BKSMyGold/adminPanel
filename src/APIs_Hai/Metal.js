@@ -2,8 +2,18 @@ import axios from "axios";
 import { ADMIN_API } from "../Constants";
 //=====================================================
 
-export const addAllMetal = async (metal) => {                           // POST
-   await axios.post(`${ADMIN_API}/admin/metal/create`,{...metal});
+export const addAllMetal = async (metal) => {   
+  let formData = new FormData();
+  let {name, icon} = metal
+  formData.append("name", name)
+  if(icon  instanceof File){
+    formData.append("icon", icon)
+  } else {
+    formData.append("icon", null);
+}
+
+
+   await axios.post(`${ADMIN_API}/admin/metal/create`,formData);
 };
 
 export const getAllMetal = async () => {
@@ -12,7 +22,16 @@ export const getAllMetal = async () => {
 };
 
 export const updateMetal = async (metal) => {
-  return await axios.put(`${ADMIN_API}/admin/metal/update/${metal.id}`, metal); // PUT
+  let formData = new FormData();
+  let {name, icon} = metal
+  formData.append("name", name)
+  if(icon  instanceof File){
+    formData.append("icon", icon)
+  } else {
+    formData.append("icon", null);
+}
+
+  return await axios.put(`${ADMIN_API}/admin/metal/update/${metal.id}`, formData); // PUT
 };
 
 export const deleteMetal = async (id) => {

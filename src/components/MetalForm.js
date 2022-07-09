@@ -96,7 +96,7 @@ const MetalForm = (props) => {
                           ></i>
                         </label>
                         <input
-                          type="text"
+                          type="file"
                           name="icon"
                           multiple
                           className="form-control form-control-lg form-control-solid"
@@ -104,7 +104,7 @@ const MetalForm = (props) => {
                           onChange={(e) => {
                             setMetal({
                               ...metal,
-                              icon: e.target.value,
+                              icon: e.target.files[0],
                             });
                           }}
                         />
