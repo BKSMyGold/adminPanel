@@ -5,22 +5,20 @@ import Dashboard from './dashboard'
 import axios from 'axios'
 import { ROLE_PERMISSION_BASE_URL } from '../Constants'
 import { Link } from 'react-router-dom'
-import { deleteSlider } from '../apis/sliders'
 import { CSVLink } from "react-csv";
 import DeleteSpinner from "../delete";
-
+import { getSlider,deleteSlider } from '../APIs_Hai/Slider'
+//============================================================
 
 const Sliders = () => {
+  //============================================================
   const [sliders, setSliders] = useState([])
+  //============================================================
   useEffect(() => {
-    const fetchSliders = async () => {
-      const { data } = await axios.get(`${ROLE_PERMISSION_BASE_URL}/api/slider`)
-
-      setSliders(data)
-    }
-    fetchSliders()
+    getSlider().then(res => setSliders(res.data.data.data))
   }, [])
   console.log("Sliders:", sliders)
+  //============================================================
   return (
     <div className='d-flex flex-column flex-root'>
       <div className='page d-flex flex-row flex-column-fluid'>
@@ -48,168 +46,7 @@ const Sliders = () => {
                       Define Sliders
                     </span>
                   </h3>
-                  <div class="card-toolbar">
-                    {/*begin::Menu*/}
-                    <button
-                      type="button"
-                      class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
-                      data-kt-menu-trigger="click"
-                      data-kt-menu-placement="bottom-end"
-                    >
-                      {/*begin::Svg Icon | path: icons/duotune/general/gen024.svg*/}
-                      <span class="svg-icon svg-icon-2">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24px"
-                          height="24px"
-                          viewBox="0 0 24 24"
-                        >
-                          <g
-                            stroke="none"
-                            stroke-width="1"
-                            fill="none"
-                            fill-rule="evenodd"
-                          >
-                            <rect
-                              x="5"
-                              y="5"
-                              width="5"
-                              height="5"
-                              rx="1"
-                              fill="#000000"
-                            />
-                            <rect
-                              x="14"
-                              y="5"
-                              width="5"
-                              height="5"
-                              rx="1"
-                              fill="#000000"
-                              opacity="0.3"
-                            />
-                            <rect
-                              x="5"
-                              y="14"
-                              width="5"
-                              height="5"
-                              rx="1"
-                              fill="#000000"
-                              opacity="0.3"
-                            />
-                            <rect
-                              x="14"
-                              y="14"
-                              width="5"
-                              height="5"
-                              rx="1"
-                              fill="#000000"
-                              opacity="0.3"
-                            />
-                          </g>
-                        </svg>
-                      </span>
-                      {/*end::Svg Icon*/}
-                    </button>
-                    {/*begin::Menu 2*/}
-                    <CSVLink
-                      className="csv"
-                      data={sliders}
-                      filename="Reports.csv"
-                      target="_blank"
-                      //   headers ={headers}
-                    >
-                      Export
-                    </CSVLink>
-                    <div
-                      class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold w-200px"
-                      data-kt-menu="true"
-                    >
-                      {/*begin::Menu item*/}
-                      <div class="menu-item px-3">
-                        <div class="menu-content fs-6 text-dark fw-bolder px-3 py-4">
-                          Quick Actions
-                        </div>
-                      </div>
-                      {/*end::Menu item*/}
-                      {/*begin::Menu separator*/}
-                      <div class="separator mb-3 opacity-75"></div>
-                      {/*end::Menu separator*/}
-                      {/*begin::Menu item*/}
-                      <div class="menu-item px-3">
-                        <a href="#" class="menu-link px-3">
-                          New Ticket
-                        </a>
-                      </div>
-                      {/*end::Menu item*/}
-                      {/*begin::Menu item*/}
-                      <div class="menu-item px-3">
-                        <a href="#" class="menu-link px-3">
-                          New Customer
-                        </a>
-                      </div>
-                      {/*end::Menu item*/}
-                      {/*begin::Menu item*/}
-                      <div
-                        class="menu-item px-3"
-                        data-kt-menu-trigger="hover"
-                        data-kt-menu-placement="right-start"
-                      >
-                        {/*begin::Menu item*/}
-                        <a href="#" class="menu-link px-3">
-                          <span class="menu-title">New Group</span>
-                          <span class="menu-arrow"></span>
-                        </a>
-                        {/*end::Menu item*/}
-                        {/*begin::Menu sub*/}
-                        <div class="menu-sub menu-sub-dropdown w-175px py-4">
-                          {/*begin::Menu item*/}
-                          <div class="menu-item px-3">
-                            <a href="#" class="menu-link px-3">
-                              Admin Group
-                            </a>
-                          </div>
-                          {/*end::Menu item*/}
-                          {/*begin::Menu item*/}
-                          <div class="menu-item px-3">
-                            <a href="#" class="menu-link px-3">
-                              Staff Group
-                            </a>
-                          </div>
-                          {/*end::Menu item*/}
-                          {/*begin::Menu item*/}
-                          <div class="menu-item px-3">
-                            <a href="#" class="menu-link px-3">
-                              Member Group
-                            </a>
-                          </div>
-                          {/*end::Menu item*/}
-                        </div>
-                        {/*end::Menu sub*/}
-                      </div>
-                      {/*end::Menu item*/}
-                      {/*begin::Menu item*/}
-                      <div class="menu-item px-3">
-                        <a href="#" class="menu-link px-3">
-                          New Contact
-                        </a>
-                      </div>
-                      {/*end::Menu item*/}
-                      {/*begin::Menu separator*/}
-                      <div class="separator mt-3 opacity-75"></div>
-                      {/*end::Menu separator*/}
-                      {/*begin::Menu item*/}
-                      <div class="menu-item px-3">
-                        <div class="menu-content px-3 py-3">
-                          <a class="btn btn-primary btn-sm px-4" href="#">
-                            Generate Reports
-                          </a>
-                        </div>
-                      </div>
-                      {/*end::Menu item*/}
-                    </div>
-                    {/*end::Menu 2*/}
-                    {/*end::Menu*/}
-                  </div>
+             
                 </div>
                 {/*end::Header*/}
                 {/*begin::Body*/}
@@ -220,22 +57,13 @@ const Sliders = () => {
                     <table class='table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3'>
                       {/*begin::Table head*/}
                       <thead>
-                        <tr class='fw-bolder text-muted'>
-                          <th class='w-25px'>
-                            <div class='form-check form-check-sm form-check-custom form-check-solid'>
-                              <input
-                                class='form-check-input'
-                                type='checkbox'
-                                value='1'
-                                data-kt-check='true'
-                                data-kt-check-target='.widget-13-check'
-                              />
-                            </div>
-                          </th>
+                        <tr class='fw-bolder text-muted text-center'>
+                         
                           <th class='min-w-150px'>Slider Id</th>
                           <th class='min-w-140px'>Slider Name</th>
+                          <th class='min-w-140px'>Type</th>
+                          <th class='min-w-140px'>Sub Type</th>
                           <th class='min-w-120px'>Image</th>
-
                           <th class='min-w-100px text-end'>Actions</th>
                         </tr>
                       </thead>
@@ -243,22 +71,14 @@ const Sliders = () => {
                       {/*begin::Table body*/}
                       <tbody>
                         {sliders.map((slider) => (
-                          <tr>
-                            <td>
-                              <div class='form-check form-check-sm form-check-custom form-check-solid'>
-                                <input
-                                  class='form-check-input widget-13-check'
-                                  type='checkbox'
-                                  value='1'
-                                />
-                              </div>
-                            </td>
+                          <tr class='text-center'>
+                           
                             <td>
                               <a
                                 href='#'
                                 class='text-dark fw-bolder text-hover-primary fs-6'
                               >
-                                {slider._id}
+                                {slider.id}
                               </a>
                             </td>
                             <td>
@@ -270,15 +90,31 @@ const Sliders = () => {
                               </a>
                             </td>
                             <td>
+                              <a
+                                href='#'
+                                class='text-dark fw-bolder text-hover-primary d-block mb-1 fs-6'
+                              >
+                                {slider.type}
+                              </a>
+                            </td>
+                            <td>
+                              <a
+                                href='#'
+                                class='text-dark fw-bolder text-hover-primary d-block mb-1 fs-6'
+                              >
+                                {slider.subType}
+                              </a>
+                            </td>
+                            <td>
                               <img
                                 src={slider.image}
-                                class='text-dark fw-bolder text-hover-primary d-block mb-1 fs-6'
-                                width='250'
+                                class='text-dark fw-bolder text-hover-primary d-block mb-1 fs-6 h-150px w-150px'
+                               
                                 rel='noopener noreferrer'
                               />
                             </td>
 
-                            <td class='text-end'>
+                            <td>
                               {/* <a
                                 href='#'
                                 class='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'

@@ -4,34 +4,97 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidSlider } from "../Validator";
-import { addSlider, updateSlider } from "../apis/sliders";
-import { getAllOffers } from "../apis/offer";
 import AddUpdateSpinner from "../AddUpdateSpinner";
-
+import { getCollection } from "../APIs_Hai/Collection"
+import { getCategory } from "../APIs_Hai/Category"
+import { getVariety } from "../APIs_Hai/Variety"
+import { getItem } from "../APIs_Hai/Item"
+import { addSlider, updateSlider } from "../APIs_Hai/Slider";
+//======================================================================
 const SlidersForm = (props) => {
+  //======================================================================
   let location = useLocation();
-
   let navigate = useNavigate();
-
+  //======================================================================
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
-
   const [Slider, setSlider] = useState(
     location?.state ?? {
       name: "",
-      image: "",
-      offerId: "",
+      type: "",
+      subType: "",
+      image: []
     }
   );
-  const [offers, setOffers] = useState([]);
-
+  //======================================================================
+  const [collection, setCollection] = useState([])
   useEffect(() => {
-    const fetchOffers = async () => {
-      const { data: foundOffers } = await getAllOffers();
-      setOffers(foundOffers);
-    };
-    fetchOffers();
-  }, []);
+    getCollection().then(res => setCollection(res.data.data.data))
 
+  }, []);
+  let collectionName = []
+  collectionName = collection.map(x => {
+    return (x.name)
+  })
+  //======================================================================
+  const [category, setCategory] = useState([])
+  useEffect(() => {
+
+    getCategory().then(res => setCategory(res.data.data.data))
+
+  }, []);
+  let categoryName = []
+  categoryName = category.map(x => {
+    return (x.name)
+  })
+  //======================================================================
+  const [variety, setVariety] = useState([])
+  useEffect(() => {
+
+    getVariety().then(res => setVariety(res.data.data.data))
+
+  }, []);
+  let varietyName = []
+  varietyName = variety.map(x => {
+    return (x.name)
+  })
+  //======================================================================
+  const [item, setItem] = useState([])
+  useEffect(() => {
+    getItem().then(res => setItem(res.data.data.data))
+
+
+  }, []);
+  let itemName = []
+  itemName = item.map(x => {
+    return (x.name)
+  })
+  //======================================================================
+  console.log(collectionName)
+  console.log(categoryName)
+
+  console.log(varietyName)
+  console.log(itemName)
+  //======================================================================
+
+  let type = [
+    {
+      name: "collection",
+      value: collectionName
+    },
+    {
+      name: "category",
+      value: categoryName
+    },
+    {
+      name: "variety",
+      value: varietyName
+    },
+    {
+      name: "item",
+      value: itemName
+    },
+  ]
+  //======================================================================
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -91,6 +154,98 @@ const SlidersForm = (props) => {
                           value={Slider.name}
                         />
                       </div>
+
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Type</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify the Type"
+                          ></i>
+                        </label>
+                        <select
+                          class="form-control"
+                          onChange={(e) =>
+                            setSlider({
+                              ...Slider,
+                              type: e.target.value,
+                            })
+                          }
+                        >
+                          <option class="form-control">Select option</option>;
+                          {type.map((x) => {
+                            return (
+                              <option class="form-control" value={x.name}>
+                                {x.name}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Type ID</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify the Type"
+                          ></i>
+                        </label>
+                        <select
+                          class="form-control"
+                          onChange={(e) =>
+                            setSlider({
+                              ...Slider,
+                              subType: e.target.value,
+                            })
+                          }
+                        >
+                          <option class="form-control">Select option</option>;
+                          {collectionName.map((x) => {
+                            if(Slider.type === "collection"){
+
+                              return (
+                                <option class="form-control" value={x.name}>
+                                  {x}
+                                </option>
+                              );
+                            }
+                          })}
+                            {categoryName.map((x) => {
+                            if(Slider.type === "category"){
+
+                              return (
+                                <option class="form-control" value={x.name}>
+                                  {x}
+                                </option>
+                              );
+                            }
+                          })}
+                            {varietyName.map((x) => {
+                            if(Slider.type === "variety"){
+
+                              return (
+                                <option class="form-control" value={x.name}>
+                                  {x}
+                                </option>
+                              );
+                            }
+                          })}
+                            {itemName.map((x) => {
+                            if(Slider.type === "item"){
+
+                              return (
+                                <option class="form-control" value={x.name}>
+                                  {x}
+                                </option>
+                              );
+                            }
+                          })}
+                        </select>
+                      </div>
+
                       <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                           <span class="required">Slider Image</span>
@@ -113,53 +268,36 @@ const SlidersForm = (props) => {
                           }
                         />
                       </div>
-                      <div>
+
+                      {/* <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Select Offer</span>
+                          <span class="required">Slider Image</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
                             title="Specify your unique app name"
                           ></i>
                         </label>
-                        <select
-                          name="offerId"
+                        <input
+                          type="text"
+                          name="image"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Sleect Offer Applicable"
+                          placeholder="Choose File"
                           onChange={(e) =>
                             setSlider({
                               ...Slider,
-                              offerId: e.target.value,
+                              image: e.target.value,
                             })
                           }
-                        >
-                          <option value={""}>Select Offer</option>
-                          {offers.map((offer) => (
-                            <option value={offer.id}>{offer.name}</option>
-                          ))}
-                        </select>
-                      </div>
-                      {/* 
-                      <div>
-                        <br />
-                        <button
-                          className="btn btn-lg btn-primary"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            if (isValidSlider({ ...Slider })) {
-                              isUpdate
-                                ? updateSlider({ ...Slider }).then(() => {
-                                    navigate("/master/settings/sliders");
-                                  })
-                                : addSlider({ ...Slider }).then(() => {
-                                    navigate("/master/settings/sliders");
-                                  });
-                            }
-                          }}
-                        >
-                          {isUpdate ? "Update Sliders" : "Add Sliders"}
-                        </button>
+                        />
                       </div> */}
+
+                      {/* <button
+                      onClick={(e)=>{
+                        e.preventDefault();
+                        console.log(Slider)}}
+                      >Click me </button> */}
+
                       <AddUpdateSpinner
                         update={isUpdate ? true : false}
                         collection={Slider}
