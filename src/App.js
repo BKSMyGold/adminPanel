@@ -190,11 +190,13 @@ import ShapeForm from "./components/ShapeForm";
 import Clarity from "./screens/Clarity";
 import ClarityForm from "./components/ClarityForm";
 import Colour from "./screens/Colour";
-import ColourForm from "./components/ColourForm"
+import ColourForm from "./components/ColourForm";
 import MakingCharges from "./screens/MakingCharges";
-import MakingChargesForm from "./components/MakingChargesForm"
-import Cut from './screens/Cut'
-import CutForm from "./components/CutForm"
+import MakingChargesForm from "./components/MakingChargesForm";
+import Cut from "./screens/Cut";
+import CutForm from "./components/CutForm";
+import Badla from "./screens/Badla";
+import BadlaForm from "./components/BadlaForm";
 
 //====================================================================
 const App = () => {
@@ -254,14 +256,27 @@ const App = () => {
           />
 
           <Route path="/master/product-data/style" element={<Style />} />
-          <Route path="/master/product-data/style/add" element={<StyleForm />} />
-          <Route path="/master/product-data/style/edit" element={<StyleForm />} />
+          <Route
+            path="/master/product-data/style/add"
+            element={<StyleForm />}
+          />
+          <Route
+            path="/master/product-data/style/edit"
+            element={<StyleForm />}
+          />
 
-
-          <Route path="/master/product-data/making-charges" element={<MakingCharges />} />
-          <Route path="/master/product-data/making-charges/add" element={<MakingChargesForm />} />
-          <Route path="/master/product-data/making-charges/edit" element={<MakingChargesForm/>} />
-
+          <Route
+            path="/master/product-data/making-charges"
+            element={<MakingCharges />}
+          />
+          <Route
+            path="/master/product-data/making-charges/add"
+            element={<MakingChargesForm />}
+          />
+          <Route
+            path="/master/product-data/making-charges/edit"
+            element={<MakingChargesForm />}
+          />
 
           <Route
             path="/master/plans/plan-bonus/edit"
@@ -319,17 +334,34 @@ const App = () => {
           <Route path="/master/product-data/cut/edit" element={<CutForm />} />
 
           <Route path="/master/product-data/shape" element={<Shape />} />
-          <Route path="/master/product-data/shape/add" element={<ShapeForm />} />
-          <Route path="/master/product-data/shape/edit" element={<ShapeForm />} />
+          <Route
+            path="/master/product-data/shape/add"
+            element={<ShapeForm />}
+          />
+          <Route
+            path="/master/product-data/shape/edit"
+            element={<ShapeForm />}
+          />
 
           <Route path="/master/product-data/clarity" element={<Clarity />} />
-          <Route path="/master/product-data/clarity/add" element={<ClarityForm />} />
-          <Route path="/master/product-data/clarity/edit" element={<ClarityForm />} />
+          <Route
+            path="/master/product-data/clarity/add"
+            element={<ClarityForm />}
+          />
+          <Route
+            path="/master/product-data/clarity/edit"
+            element={<ClarityForm />}
+          />
 
           <Route path="/master/product-data/colour" element={<Colour />} />
-          <Route path="/master/product-data/colour/add" element={<ColourForm />} />
-          <Route path="/master/product-data/colour/edit" element={<ColourForm />} />
-
+          <Route
+            path="/master/product-data/colour/add"
+            element={<ColourForm />}
+          />
+          <Route
+            path="/master/product-data/colour/edit"
+            element={<ColourForm />}
+          />
 
           <Route path="/user_details" element={<UserDetails />} />
           <Route path="/filtered_users" element={<FilteredUsers />} />
@@ -824,6 +856,11 @@ const App = () => {
               )
             }
           />
+
+          <Route path="/master/badla" element={<Badla user={loggedInUser} />} />
+          <Route path="/master/badla/add" element={<BadlaForm />} />
+          <Route path="/master/badla/edit" element={<BadlaForm />} />
+
           {/*Duties Taxes =============================================*/}
           <Route
             path="/master/taxes"
