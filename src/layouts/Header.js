@@ -243,6 +243,17 @@ export default function Header() {
                           <div className="menu-item">
                             <a
                               className="menu-link py-3"
+                              href="/master/product-data/cut"
+                            >
+                              <span className="menu-bullet">
+                                <span className="bullet bullet-dot"></span>
+                              </span>
+                              <span className="menu-title">Cut</span>
+                            </a>
+                          </div>
+                          <div className="menu-item">
+                            <a
+                              className="menu-link py-3"
                               href="/master/product-data/clarity"
                             >
                               <span className="menu-bullet">

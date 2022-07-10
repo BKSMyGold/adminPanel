@@ -99,7 +99,7 @@ console.log(Offers)
                               </a>
                             </td>
                             <td class="text-dark fw-bolder text-hover-primary fs-6">
-                              {Offers.typeId}
+                              {Offers.typeId?.name}
                             </td>
                             <td>
                               <img

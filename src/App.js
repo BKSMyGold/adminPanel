@@ -193,6 +193,8 @@ import Colour from "./screens/Colour";
 import ColourForm from "./components/ColourForm"
 import MakingCharges from "./screens/MakingCharges";
 import MakingChargesForm from "./components/MakingChargesForm"
+import Cut from './screens/Cut'
+import CutForm from "./components/CutForm"
 
 //====================================================================
 const App = () => {
@@ -311,6 +313,10 @@ const App = () => {
             path="/master/product-data/ornament/edit"
             element={<OrnamentForm />}
           />
+
+          <Route path="/master/product-data/cut" element={<Cut />} />
+          <Route path="/master/product-data/cut/add" element={<CutForm />} />
+          <Route path="/master/product-data/cut/edit" element={<CutForm />} />
 
           <Route path="/master/product-data/shape" element={<Shape />} />
           <Route path="/master/product-data/shape/add" element={<ShapeForm />} />

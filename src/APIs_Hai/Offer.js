@@ -12,7 +12,7 @@ export const addOffer = async (offer) => {
     formData.append("name", name)
     formData.append("type", type)
     formData.append("typeId", typeId)
-    formData.append("value", Number(value))
+    formData.append("value", value)
     formData.append("valueType", valueType)
     if (image instanceof File) {
         formData.append("image", image);
