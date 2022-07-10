@@ -4,25 +4,20 @@ import Header from "../layouts/Header";
 import Dashboard from "./dashboard";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { deleteStandardPlan } from "../apis/StandardPlan";
+// import { deleteStandardPlan } from "../apis/StandardPlan";
 import { CSVLink } from "react-csv";
 import DeleteSpinner from "../delete";
+import { getPlan,deletePlan } from "../APIs_Hai/Plan";
 //==================================================================
 
 const StandardPlans = (props) => {
   //==================================================================
-  const [standardplans, setStandardPlans] = useState([]);
+  const [plan, setPlan] = useState([]);
   const [userPermissions, setUserPermissions] = useState(new Set());
 
   //==================================================================
   useEffect(() => {
-    const fetchstandardplans = async () => {
-      const { data } = await axios.get(
-        "http://13.59.57.74:5000/api/plan/type/standard"
-      );
-      setStandardPlans(data.data);
-    };
-    fetchstandardplans();
+    getPlan().then(res =>setPlan(res.data.data.data))
   }, []);
 //==================================================================
 useEffect(() => {
@@ -77,22 +72,13 @@ useEffect(() => {
                       {/*begin::Table head*/}
                       <thead>
                         <tr class="fw-bolder text-muted">
-                          <th class="w-25px">
-                            <div class="form-check form-check-sm form-check-custom form-check-solid">
-                              <input
-                                class="form-check-input"
-                                type="checkbox"
-                                value="1"
-                                data-kt-check="true"
-                                data-kt-check-target=".widget-13-check"
-                              />
-                            </div>
-                          </th>
+                          
                           <th class="min-w-150px"> Id</th>
                           <th class="min-w-140px"> Name</th>
                           <th class="min-w-140px"> Cycle Period</th>
                           <th class="min-w-140px"> Duration</th>
-
+                          <th class="min-w-140px"> Type</th>
+                          <th class="min-w-140px"> Minimum</th>
                           <th class="min-w-140px"> Mode</th>
                           <th class="min-w-100px text-end">Actions</th>
                         </tr>
@@ -100,17 +86,9 @@ useEffect(() => {
                       {/*end::Table head*/}
                       {/*begin::Table body*/}
                       <tbody>
-                        {standardplans.map((standardplans) => (
+                        {plan.map((standardplans) => (
                           <tr>
-                            <td>
-                              <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                <input
-                                  class="form-check-input widget-13-check"
-                                  type="checkbox"
-                                  value="1"
-                                />
-                              </div>
-                            </td>
+                           
                             <td>
                               <a
                                 href="#"
@@ -132,27 +110,31 @@ useEffect(() => {
                                 href="#"
                                 class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                               >
-                                {standardplans.cyclePeriod.name}
+                                {standardplans.cyclePeriod?.name}
                               </a>
                             </td>
                             <td>
-                              <a
-                                href="#"
-                                class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                              >
+                             
                                 {standardplans.duration}
-                                {standardplans.cyclePeriod.shortName}
-                              </a>
+                                
+                              
                             </td>
 
                             <td>
-                              <a
-                                href="#"
-                                class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                              >
-                                {standardplans.mode}
-                              </a>
+                              
+                                {standardplans.type}
+                             
                             </td>
+                            <td>
+                              
+                              {standardplans.min}
+                           
+                          </td>
+                          <td>
+                              
+                              {standardplans.mode}
+                           
+                          </td>
 
                             <td class="text-end">
                              
@@ -192,7 +174,7 @@ useEffect(() => {
                              {userPermissions.has("delete_plan")? (
                                <DeleteSpinner
                                 collection={standardplans}
-                                deleting={deleteStandardPlan}
+                                deleting={deletePlan}
                                 url={"/master/plans/standard-plans/"}
                               />
 

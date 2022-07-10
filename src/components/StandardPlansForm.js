@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
@@ -6,48 +6,36 @@ import Dashboard from "../screens/dashboard";
 import axios from "axios";
 import { BASE_URL } from "../Constants";
 import { isValidStandardPlan } from "../Validator";
-import { addStandardPlan, updateStandardPlan } from "../apis/StandardPlan";
 import AddUpdateSpinner from "../AddUpdateSpinner";
-
-
+import { addPlan, updatePlan } from "../APIs_Hai/Plan";
+import { getCyclePeriod } from "../APIs_Hai/CyclePeriod";
+//===========================================================================
 
 const StandardPlanForm = (props) => {
+  //===========================================================================
   let location = useLocation();
-
   let navigate = useNavigate();
-
+  //===========================================================================
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
-
-  const [StandardPlan, setStandardPlan] = useState(
+  const [plan, setPlan] = useState(
     location?.state ?? {
-        name: "",
-        cyclePeriod: "",
-        duration: "",
-        calcId: "",
-        mode: "",
+      name: "",
+      cyclePeriod: "",
+      duration: 0,
+      type: "standard",
+      mode: "",
+      min:0
     }
   );
-
+  //===========================================================================
   const [cycleperiods, setCyclePeriods] = useState([]);
   useEffect(() => {
-    const fetchcycleperiods = async () => {
-      const { data } = await axios.get(
-        `${BASE_URL}/api/cycle-period`
-      );
-
-      setCyclePeriods(data);
-    };
-    fetchcycleperiods();
+    getCyclePeriod().then((res) => setCyclePeriods(res.data.data.data));
   }, []);
-  const [taxes,setTaxesDuties] = useState([])
-  useEffect(()=>{
-       const fetchtaxes = async()=>{
-           const {data} = await axios.get('http://13.59.57.74:5000/api/calculation/')
-           
-           setTaxesDuties(data.data)
-       }
-       fetchtaxes()
-  },[])  
+  console.log(cycleperiods)
+  //===========================================================================
+
+  //===========================================================================
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -56,7 +44,7 @@ const StandardPlanForm = (props) => {
           id="kt_wrapper"
         >
           <Header />
-          <Dashboard />
+          {/* <Dashboard /> */}
           <div
             id="kt_content_container"
             class="d-flex flex-column-fluid align-items-start container-xxl"
@@ -71,13 +59,12 @@ const StandardPlanForm = (props) => {
                 <div class="card-header border-0 pt-5">
                   <h3 class="card-title align-items-start flex-column">
                     <span class="card-label fw-bolder fs-3 mb-1">
-                    {isUpdate ? "Update Standard Plan" : "Add Standard Plan"}
+                      {isUpdate ? "Update Standard Plan" : "Add Standard Plan"}
                     </span>
                     <span class="text-muted mt-1 fw-bold fs-7">
-                    {isUpdate ? "Update Standard Plan" : "Add Standard Plan"}
+                      {isUpdate ? "Update Standard Plan" : "Add Standard Plan"}
                     </span>
                   </h3>
-                  
                 </div>
                 {/*end::Header*/}
                 {/*begin::Body*/}
@@ -86,112 +73,133 @@ const StandardPlanForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                      <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-																		<span class="required">Name</span>
-																		<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify your unique app name"></i>
-																	</label>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Name</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify the name of the plan"
+                          ></i>
+                        </label>
                         <input
                           type="text"
                           name="name"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter Name of the Plan"
                           onChange={(e) =>
-                            setStandardPlan({
-                              ...StandardPlan,
+                            setPlan({
+                              ...plan,
                               name: e.target.value,
                             })
                           }
-                          value={StandardPlan.name}
+                          value={plan.name}
                         />
                       </div>
                       <div>
-                      <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-																		<span class="required">Cycle Period</span>
-																		<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify your unique app name"></i>
-																	</label>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Cycle Period</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify the cycle period"
+                          ></i>
+                        </label>
                         <select
-                         
                           name="cyclePeriod"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter Name of the Plan"
                           onChange={(e) =>
-                            setStandardPlan({
-                              ...StandardPlan,
+                            setPlan({
+                              ...plan,
                               cyclePeriod: e.target.value,
                             })
                           }
-                         
                         >
-                       {cycleperiods.map((cycleperiods) => (
-                            <option value={cycleperiods.id}>{cycleperiods.name}</option> ))}
+                          <option>_____</option>
+                          {cycleperiods.map((cycleperiods) => (
+                            <option value={cycleperiods.id}>
+                              {cycleperiods.name}
+                            </option>
+                          ))}
                         </select>
                       </div>
+
                       <div>
-                      <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-																		<span class="required">Duration</span>
-																		<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify your unique app name"></i>
-																	</label>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Duration</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify Duration"
+                          ></i>
+                        </label>
                         <input
                           type="number"
                           name="duration"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter Duration in Number"
                           onChange={(e) =>
-                            setStandardPlan({
-                              ...StandardPlan,
+                            setPlan({
+                              ...plan,
                               duration: Number(e.target.value),
                             })
                           }
-                          value={StandardPlan.duration}
+                          value={plan.duration}
                         />
                       </div>
+
+
                       <div>
-                      <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-																		<span class="required">Select Tax on Plan</span>
-																		<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify your unique app name"></i>
-																	</label>
-                        <select
-                         
-                          name="calcId"
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Minimum</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify Min Value"
+                          ></i>
+                        </label>
+                        <input
+                          type="number"
+                          name="min"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Name of the Plan"
+                          placeholder="Enter Duration in Number"
                           onChange={(e) =>
-                            setStandardPlan({
-                              ...StandardPlan,
-                              calcId: e.target.value,
+                            setPlan({
+                              ...plan,
+                              min: Number(e.target.value),
                             })
                           }
-                         
-                        >
-                         {taxes.map((taxes)=>(
-                            <option value={taxes.id}>{taxes.Type}</option> ))}
-                        </select>
+                          value={plan.min}
+                        />
                       </div>
+
                      
                       <div>
-                      <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-																		<span class="required">Select Mode</span>
-																		<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify your unique app name"></i>
-																	</label>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Select Mode</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify mode"
+                          ></i>
+                        </label>
                         <select
-                         
                           name="mode"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Name of the Plan"
+                          placeholder="Enter mode"
                           onChange={(e) =>
-                            setStandardPlan({
-                              ...StandardPlan,
+                            setPlan({
+                              ...plan,
                               mode: e.target.value,
                             })
                           }
-                         
                         >
-                        
-                            <option value="weight">By Weight</option> 
-                            <option value="value">By Value</option> 
+                          <option>_____</option>
+                          <option value="weight">By Weight</option>
+                          <option value="value">By Value</option>
                         </select>
                       </div>
-                     
+
                       {/* <div>
                         <br/>
                         <button className="btn btn-lg btn-primary"
@@ -217,13 +225,13 @@ const StandardPlanForm = (props) => {
                           {isUpdate ? "Update Standard Plan" : "Add Standard Plan"}
                         </button>
                       </div> */}
-                       <AddUpdateSpinner 
-                              update = {isUpdate ? true : false}
-                              collection = {StandardPlan}
-                              adding = { addStandardPlan}
-                              updating = {updateStandardPlan}
-                              url = {"/master/plans/standard-plans/"}
-                            />
+                      <AddUpdateSpinner
+                        update={isUpdate ? true : false}
+                        collection={plan}
+                        adding={addPlan}
+                        updating={updatePlan}
+                        url={"/master/plans/standard-plans/"}
+                      />
                     </form>
                   </div>
                   {/*end::Table container*/}
