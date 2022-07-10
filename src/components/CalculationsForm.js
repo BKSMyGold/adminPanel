@@ -4,24 +4,23 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidCalculations } from "../Validator";
-import { addcharge, updatecharge } from "../apis/taxes";
 import AddUpdateSpinner from "../AddUpdateSpinner";
-
-
+import { addCustomDuty,updateCustomDuty } from "../APIs_Hai/CustomDuty";
+//=======================================================================
 const CalculationsForm = (props) => {
+  //=======================================================================
   let location = useLocation();
-
   let navigate = useNavigate();
-
+//=======================================================================
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
-
-  const [Calculations, setCalculations] = useState(
+  const [dutiesTaxes, setDutiesTaxes] = useState(
     location?.state ?? {
-      Type: "",
-      Percentage: "",
+      name: "",
+      value: 0,
+      surcharge:0
     }
   );
-
+//=======================================================================
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -30,7 +29,7 @@ const CalculationsForm = (props) => {
           id="kt_wrapper"
         >
           <Header />
-          <Dashboard />
+          {/* <Dashboard /> */}
           <div
             id="kt_content_container"
             class="d-flex flex-column-fluid align-items-start container-xxl"
@@ -45,10 +44,10 @@ const CalculationsForm = (props) => {
                 <div class="card-header border-0 pt-5">
                   <h3 class="card-title align-items-start flex-column">
                     <span class="card-label fw-bolder fs-3 mb-1">
-                      {isUpdate ? "Update Calculations" : "Add Calculations"}
+                      {isUpdate ? "Update Custom Duties" : "Add Custom Duties"}
                     </span>
                     <span class="text-muted mt-1 fw-bold fs-7">
-                      {isUpdate ? "Update Calculations" : "Add Calculations"}
+                      {isUpdate ? "Update Custom Duties" : "Add Custom Duties"}
                     </span>
                   </h3>
                 </div>
@@ -64,44 +63,68 @@ const CalculationsForm = (props) => {
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
+                            title="Specify the Charge Name"
                           ></i>
                         </label>
                         <input
                           type="text"
-                          name="Type"
+                          name="name"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter Charge Name"
                           onChange={(e) =>
-                            setCalculations({
-                              ...Calculations,
-                              Type: e.target.value,
+                            setDutiesTaxes({
+                              ...dutiesTaxes,
+                              name: e.target.value,
                             })
                           }
-                          value={Calculations.Type}
+                          value={dutiesTaxes.name}
                         />
                       </div>
                       <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Percentage</span>
+                          <span class="required">Value</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
+                            title="Specify the Value"
                           ></i>
                         </label>
                         <input
-                          type="text"
-                          name="Percentage"
+                          type="number"
+                          name="value"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Percentage"
+                          placeholder="Enter charge value"
                           onChange={(e) =>
-                            setCalculations({
-                              ...Calculations,
-                              Percentage: Number(e.target.value),
+                            setDutiesTaxes({
+                              ...dutiesTaxes,
+                              value: Number(e.target.value),
                             })
                           }
-                          value={Calculations.Percentage}
+                          value={dutiesTaxes.value}
+                        />
+                      </div>
+
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Surcharge</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify the SurCharge"
+                          ></i>
+                        </label>
+                        <input
+                          type="number"
+                          name="surcharge"
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Enter surcharge"
+                          onChange={(e) =>
+                            setDutiesTaxes({
+                              ...dutiesTaxes,
+                              surcharge: Number(e.target.value),
+                            })
+                          }
+                          value={dutiesTaxes.surcharge}
                         />
                       </div>
 
@@ -129,9 +152,9 @@ const CalculationsForm = (props) => {
                       </div> */}
                        <AddUpdateSpinner 
                               update = {isUpdate ? true : false}
-                              collection = {Calculations}
-                              adding = {addcharge}
-                              updating = {updatecharge}
+                              collection = {dutiesTaxes}
+                              adding = {addCustomDuty}
+                              updating = {updateCustomDuty}
                               url = {"/master/taxes/"}
                             />
 
