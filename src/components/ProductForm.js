@@ -6,14 +6,25 @@ import Dashboard from "../screens/dashboard";
 import { isValidCyclePeriod } from "../Validator";
 import { addCyclePeriod, updateCyclePeriod } from "../apis/CyclePeriod";
 import AddUpdateSpinner from "../AddUpdateSpinner";
-import { getAllItems } from "../apis/items";
-import { getAllDiamonds } from "../apis/Diamonds";
+// import { getAllItems } from "../apis/items";
+// import { getAllDiamonds } from "../apis/Diamonds";
 import axios from "axios";
 import { BASE_URL } from "../Constants";
-import { additemdetails } from "../apis/itemdetails";
+// import { additemdetails } from "../apis/itemdetails";
 // import Select from "react-select";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import { getCollection } from "../APIs_Hai/Collection";
+import { getCategory } from "../APIs_Hai/Category";
+import { getVariety } from "../APIs_Hai/Variety";
+import { getItem } from "../APIs_Hai/Item";
+import { addProduct, updateProduct } from "../APIs_Hai/Product";
+import { getMetalGroup } from "../APIs_Hai/MetalGroup";
+import { getStyle } from "../APIs_Hai/Style";
+import {getClarity} from "../APIs_Hai/Clarity"
+import {getColour} from "../APIs_Hai/Colour"
+import {getCut} from "../APIs_Hai/Cut"
+import {getShape} from "../APIs_Hai/Shape"
 //================================================================================================================================
 const ItemDetailsForm = (props) => {
   let location = useLocation();
@@ -21,171 +32,175 @@ const ItemDetailsForm = (props) => {
   //================================================================================================================================
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
 
-  const [selectedValue, setSelectedValue] = useState([]);
+  // const [selectedValue, setSelectedValue] = useState([]);
 
-  const [itemDetails, setItemDetails] = useState(
-    location?.state ?? {
-      item: "",
-      composition: [
-        {
-          diamond: "",
-          metalGroup: "",
-          weight: "",
-        },
-      ],
-      collections: "",
-      category: "",
-      variety: "",
-      product: "",
-      grossweight: "",
-      description: "",
-      SKU: "",
-      units: "",
-      ringsize: "",
-      measurements: "",
-    //   charge: [],
-    }
-  );
+  // const [product, setProduct] = useState(
+  //   location?.state ?? {
+  //     collectionName: "",
+  //     category: [],
+  //     variety: [],
+  //     item: "",
+  //     video: "",
+  //     grossWeight: 0,
+  //     sku: "",
+  //     hli: "",
+  //     width: "",
+  //     height: "",
+  //     purityComposition,
+  //     styleComposition
+  //   }
+  // );
 
-  const [item, setItem] = useState([]);
-  const [diamond, setDiamond] = useState([]);
-  const [metalGroup, setMetalGroup] = useState([]);
-  const [collections, setCollections] = useState([]);
+  const [collection, setCollection] = useState([]);
+  useEffect(() => {
+    getCollection().then((res) => setCollection(res.data.data.data));
+  }, []);
+
+  //======================================================================
   const [category, setCategory] = useState([]);
-  const [variety, setVariety] = useState([]);
-  const [product, setProduct] = useState([]);
-  const [charges, setCharges] = useState([]);
-  
-  let  charge= []
+  useEffect(() => {
+    getCategory().then((res) => setCategory(res.data.data.data));
+  }, []);
 
-  const handleChange = (e) => {
-    setSelectedValue(Array.isArray(e) ? e.map((x) => x.value) : []);
+  //======================================================================
+  const [variety, setVariety] = useState([]);
+  useEffect(() => {
+    getVariety().then((res) => setVariety(res.data.data.data));
+  }, []);
+
+  //======================================================================
+  const [item, setItem] = useState([]);
+  useEffect(() => {
+    getItem().then((res) => setItem(res.data.data.data));
+  }, []);
+
+  //======================================================================
+  const [metalGroup, setMetalGroup] = useState([]);
+  useEffect(() => {
+    getMetalGroup().then((res) => setMetalGroup(res.data.data.data));
+  }, []);
+  //======================================================================
+  const [style, setStyle] = useState([]);
+  useEffect(() => {
+    getStyle().then((res) => setStyle(res.data.data.data));
+  }, []);
+  console.log("-------->",style)
+  //======================================================================
+  const [clarity, setClarity] = useState([]);
+  useEffect(() => {
+    getClarity().then((res) => setClarity(res.data.data.data));
+  }, []);
+  console.log("-------->",clarity)
+  //======================================================================
+  const [colour, setColour] = useState([]);
+  useEffect(() => {
+    getColour().then((res) => setColour(res.data.data.data));
+  }, []);
+  console.log("-------->",colour)
+  //======================================================================
+  const [cut, setCut] = useState([]);
+  useEffect(() => {
+    getCut().then((res) => setCut(res.data.data.data));
+  }, []);
+  console.log("-------->",cut)
+  //======================================================================
+  const [shape, setShape] = useState([]);
+  useEffect(() => {
+    getShape().then((res) => setShape(res.data.data.data));
+  }, []);
+  console.log("-------->",shape)
+  //======================================================================
+  const [purityComposition, setPurityComposition] = useState([
+    {
+      metalGroup: "",
+      weight: "",
+    },
+  ]);
+
+  const handleFormChange = (index, event) => {
+    console.log(event.target.name)
+    let data = product.purityComposition;
+    data[index][event.target.name] = event.target.value;
+    console.log(data[index])
+    setProduct({...product,purityComposition:data});
   };
 
-  //================================================================================================================================
-  useEffect(() => {
-    const fetchItem = () => {
-      getAllItems().then((res) => setItem(res.data));
-    };
-    fetchItem();
-  }, []);
-  //   console.log("Item====>", item);
-
-   useEffect(() => {
-    const fetchDiamond = () => {
-      getAllDiamonds().then((res) => setDiamond(res.data));
-    };
-    fetchDiamond();
-  }, []);
-  //   console.log("Diamond====>", diamond);
-
-  //================================================================================================================================
-  useEffect(() => {
-    const fetchMetalGroup = () => {
-      axios
-        .get(`${BASE_URL}/api/metal-group`)
-        .then((res) => setMetalGroup(res.data));
-    };
-    fetchMetalGroup();
-  }, []);
-  //   console.log("metalGroup ====>", metalGroup);
-
-  //================================================================================================================================
-  useEffect(() => {
-    const fetchCollection = () => {
-      axios
-        .get(`${BASE_URL}/api/collection`)
-        .then((res) => setCollections(res.data));
-    };
-    fetchCollection();
-  }, []);
-  //   console.log("collections====>", collections);
-
-  //================================================================================================================================
-  useEffect(() => {
-    const fetchCategory = () => {
-      axios
-        .get(`${BASE_URL}/api/category`)
-        .then((res) => setCategory(res.data));
-    };
-    fetchCategory();
-  }, []);
-  //   console.log("category====>", category);
-
-  //================================================================================================================================
-  useEffect(() => {
-    const fetchVariety = () => {
-      axios.get(`${BASE_URL}/api/variety`).then((res) => setVariety(res.data));
-    };
-    fetchVariety();
-  }, []);
-  //   console.log("variety====>", variety);
-
-  //================================================================================================================================
-  useEffect(() => {
-    const fetchProduct = () => {
-      axios.get(`${BASE_URL}/api/product`).then((res) => setProduct(res.data));
-    };
-    fetchProduct();
-  }, []);
-  //   console.log("product  ====>", product);
-
-  //================================================================================================================================
-  useEffect(() => {
-    const fetchCharges = () => {
-      axios
-        .get(`${BASE_URL}/api/calculation`)
-        .then((res) => setCharges(res.data.data));
-    };
-    fetchCharges();
-  }, []);
-//   console.log("Charges  ====>", charges);
-
-  //================================================================================================================================
-  function handleSubmit(e) {
+  const addFields = (e) => {
     e.preventDefault();
-    let {
-      item,
-      diamond,
-      metalGroup,
-      weight,
-      collections,
-      category,
-      variety,
-      product,
-      grossweight,
-      description,
-      SKU,
-      units,
-      ringsize,
-      measurements,
-    //   charge,
-    } = itemDetails;
-    let obj = {};
-    obj = {
-      item: item,
-      composition: [
-        {
-          diamond: diamond,
-          metalGroup: metalGroup,
-          weight: weight,
-        },
-      ],
-      collections: collections,
-      category: category,
-      variety: variety,
-      product: product,
-      grossweight: grossweight,
-      description: description,
-      SKU: SKU,
-      units: units,
-      ringsize: ringsize,
-      measurements: measurements,
-      charges: charge,
+    let newfield = { metalGroup: "", weight: "" };
+
+    setProduct({...product, purityComposition:product.purityComposition.concat([newfield])});
+  };
+
+  const removeFields = (e, index) => {
+    e.preventDefault();
+    let data = product.purityComposition;
+    data.splice(index, 1);
+    setProduct({...product, purityComposition:data});
+  };
+
+  //======================================================================
+  //======================================================================
+  const [styleComposition, setStyleComposition] = useState([
+    {
+      style: "",
+      weight: 0,
+      clarity: "",
+      colour: "",
+      cut: "",
+      shape: "",
+    },
+  ]);
+
+  const handleFormChange1 = (index, event) => {
+        console.log(event.target.name)
+        let data = product.styleComposition;
+    data[index][event.target.name] = event.target.value;
+    console.log(data[index])
+    setProduct({...product,styleComposition:data});
+    // setStyleComposition(data);
+  };
+
+  const addFields1 = (e) => {
+    e.preventDefault();
+    let newfield = {
+      style: "",
+      weight: 0,
+      clarity: "",
+      colour: "",
+      cut: "",
+      shape: "",
     };
-    //   axios.post(`${BASE_URL}/api/itemdetails`,obj).then(navigate("/transaction/products/ItemDetails/"))
-    console.log("payload would be  ==>", obj);
-  }
+    setProduct({...product, styleComposition:product.styleComposition.concat([newfield])});
+
+    // setStyleComposition([...styleComposition, newfield]);
+  };
+
+  const removeFields1 = (e, index) => {
+    e.preventDefault();
+    let data = product.styleComposition;
+    data.splice(index, 1);
+    setProduct({...product, styleComposition:data});
+  };
+  //======================================================================
+  const [product, setProduct] = useState(
+    location?.state ?? {
+      metalGroup:"",
+      collectionName: "",
+      category: [],
+      variety: [],
+      item: "",
+      video: "",
+      grossWeight: 0,
+      sku: "",
+      hli: "",
+      width: "",
+      height: "",
+      purityComposition : [],
+      styleComposition : []
+    }
+  );
+  //======================================================================
 
   return (
     <div className="d-flex flex-column flex-root">
@@ -210,10 +225,14 @@ const ItemDetailsForm = (props) => {
                 <div class="card-header border-0 pt-5">
                   <h3 class="card-title align-items-start flex-column">
                     <span class="card-label fw-bolder fs-3 mb-1">
-                      {isUpdate ? "Update Items Details" : "Add Item Details"}
+                      {isUpdate
+                        ? "Update Product Details"
+                        : "Add Product Details"}
                     </span>
                     <span class="text-muted mt-1 fw-bold fs-7">
-                      {isUpdate ? "Update Items Details" : "Add Items Details"}
+                      {isUpdate
+                        ? "Update Product Details"
+                        : "Add Product Details"}
                     </span>
                   </h3>
                 </div>
@@ -223,13 +242,439 @@ const ItemDetailsForm = (props) => {
                   {/*begin::Table container*/}
                   <div class="table-responsive">
                     <form>
+
+                   
+                    <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Metal Group</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify the Type"
+                          ></i>
+                        </label>
+                        <select
+                          class="form-control"
+                          onChange={(e) =>
+                            setProduct({
+                              ...product,
+                              metalGroup: e.target.value,
+                            })
+                          }
+                        >
+                          <option class="form-control">Select option</option>;
+                          {metalGroup.map((x) => {
+                            return (
+                              <option class="form-control" value={x.id}>
+                                {x.name}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+
+
+{/* --------------------------------------- Purity Composition ----------------------------------------------  */}
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Purity Composition</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify The Metal Group"
+                          ></i>
+                        </label>
+                        {product.purityComposition.map((x, index) => {
+                          return (
+                            <>
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                <span class="required">Metal Group</span>
+                                <i
+                                  class="fas fa-exclamation-circle ms-2 fs-7"
+                                  data-bs-toggle="tooltip"
+                                  title="Specify The Metal Group"
+                                ></i>
+                              </label>
+                              <select
+                                class="form-control"
+                                // value={x.metalGroup}
+                                name="metalGroup"
+                                onChange={(event) =>
+                                  handleFormChange(index, event)}
+                              >
+                                <option class="form-control">
+                                  Select option
+                                </option>
+                                ;
+                                {metalGroup.map((x) => {
+                                  return (
+                                    <option class="form-control" value={x.id}>
+                                      {x.name}
+                                    </option>
+                                  );
+                                })}
+                              </select>
+                              {/* <input
+                                type="text"
+                                name="metalGroup"
+                                className="form-control form-control-lg form-control-solid"
+                                placeholder="Enter MetalGroup"
+                                value={x.metalGroup}
+                                onChange={(event) =>
+                                  handleFormChange(index, event)
+                                }
+                              /> */}
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                <span class="required">Weight</span>
+                                <i
+                                  class="fas fa-exclamation-circle ms-2 fs-7"
+                                  data-bs-toggle="tooltip"
+                                  title="Specify The SKU"
+                                ></i>
+                              </label>
+                              <input
+                                type="number"
+                                name="weight"
+                                value={purityComposition.weight}
+                                className="form-control form-control-lg form-control-solid"
+                                placeholder="Enter weight"
+                                // value={x.weight}
+                                onChange={(event) =>
+                                  handleFormChange(index, event)
+                                }
+                              />
+                              <button class ="btn btn-warning" onClick={removeFields}>Remove</button>
+                            </>
+                          );
+                        })}
+                        <button class="btn btn-success" onClick={addFields}>Add More..</button>
+                      </div>
+{/* --------------------------------------- Style Composition ----------------------------------------------  */}
+
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Style Composition</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify The Style composition"
+                          ></i>
+                        </label>
+                        {product.styleComposition.map((x, index) => {
+                          return (
+                            <>
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                <span class="required">Style</span>
+                                <i
+                                  class="fas fa-exclamation-circle ms-2 fs-7"
+                                  data-bs-toggle="tooltip"
+                                  title="Specify The style"
+                                ></i>
+                              </label>
+                              <select
+                                class="form-control"
+                                name="style"
+                                onChange={(event) =>
+                                  handleFormChange1(index, event)}
+                              >
+                                <option class="form-control">
+                                  Select option
+                                </option>
+                                ;
+                                {style.map((x) => {
+                                  return (
+                                    <option class="form-control" value={x.id}>
+                                      {x.name}
+                                    </option>
+                                  );
+                                })}
+                              </select>
+                              {/* <input
+                                type="text"
+                                name="metalGroup"
+                                className="form-control form-control-lg form-control-solid"
+                                placeholder="Enter Style"
+                                value={x.style}
+                                onChange={(event) =>
+                                  handleFormChange1(index, event)
+                                }
+                              /> */}
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                <span class="required">Weight</span>
+                                <i
+                                  class="fas fa-exclamation-circle ms-2 fs-7"
+                                  data-bs-toggle="tooltip"
+                                  title="Specify The Weight"
+                                ></i>
+                              </label>
+                              <input
+                                type="number"
+                                name="weight"
+                                value={styleComposition.weight}
+                                className="form-control form-control-lg form-control-solid"
+                                placeholder="Enter weight"
+                                onChange={(event) =>
+                                  handleFormChange1(index, event)
+                                }
+                              />
+
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                <span class="required">clarity</span>
+                                <i
+                                  class="fas fa-exclamation-circle ms-2 fs-7"
+                                  data-bs-toggle="tooltip"
+                                  title="Specify The clarity"
+                                ></i>
+                              </label>
+                              <select
+                                class="form-control"
+                                name="clarity"
+                                onChange={(event) =>
+                                  handleFormChange1(index, event)}
+                              >
+                                <option class="form-control">
+                                  Select option
+                                </option>
+                                ;
+                                {clarity.map((x) => {
+                                  return (
+                                    <option class="form-control" value={x.id}>
+                                      {x.name}
+                                    </option>
+                                  );
+                                })}
+                              </select>
+                              {/* <input
+                                type="text"
+                                name="clarity"
+                                value={x.clarity}
+                                className="form-control form-control-lg form-control-solid"
+                                placeholder="Enter clarity"
+                                onChange={(event) =>
+                                  handleFormChange1(index, event)
+                                }
+                              /> */}
+
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                <span class="required">colour</span>
+                                <i
+                                  class="fas fa-exclamation-circle ms-2 fs-7"
+                                  data-bs-toggle="tooltip"
+                                  title="Specify The colour"
+                                ></i>
+                              </label>
+                              <select
+                                class="form-control"
+                                name="colour"
+
+                                onChange={(event) =>
+                                  handleFormChange1(index, event)}
+                              >
+                                <option class="form-control">
+                                  Select option
+                                </option>
+                                ;
+                                {colour.map((x) => {
+                                  return (
+                                    <option class="form-control" value={x.id}>
+                                      {x.name}
+                                    </option>
+                                  );
+                                })}
+                              </select>
+                              {/* <input
+                                type="text"
+                                name="colour"
+                                value={x.colour}
+                                className="form-control form-control-lg form-control-solid"
+                                placeholder="Enter colour"
+                                onChange={(event) =>
+                                  handleFormChange1(index, event)
+                                }
+                              /> */}
+
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                <span class="required">cut</span>
+                                <i
+                                  class="fas fa-exclamation-circle ms-2 fs-7"
+                                  data-bs-toggle="tooltip"
+                                  title="Specify The cut"
+                                ></i>
+                              </label>
+                              <select
+                                class="form-control"
+                                name = "cut"
+                                onChange={(event) =>
+                                  handleFormChange1(index, event)}
+                              >
+                                <option class="form-control">
+                                  Select option
+                                </option>
+                                ;
+                                {cut.map((x) => {
+                                  return (
+                                    <option class="form-control" value={x.id}>
+                                      {x.name}
+                                    </option>
+                                  );
+                                })}
+                              </select>
+                              {/* <input
+                                type="text"
+                                name="cut"
+                                value={x.cut}
+                                className="form-control form-control-lg form-control-solid"
+                                placeholder="Enter cut"
+                                onChange={(event) =>
+                                  handleFormChange1(index, event)
+                                }
+                              /> */}
+
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                <span class="required">shape</span>
+                                <i
+                                  class="fas fa-exclamation-circle ms-2 fs-7"
+                                  data-bs-toggle="tooltip"
+                                  title="Specify The shape"
+                                ></i>
+                              </label>
+                              <select
+                                class="form-control"
+                                name="shape"
+                                onChange={(event) =>
+                                  handleFormChange1(index, event)}
+                              >
+                                <option class="form-control">
+                                  Select option
+                                </option>
+                                ;
+                                {shape.map((x) => {
+                                  return (
+                                    <option class="form-control" value={x.id}>
+                                      {x.name}
+                                    </option>
+                                  );
+                                })}
+                              </select>
+                              {/* <input
+                                type="text"
+                                name="shape"
+                                value={x.shape}
+                                className="form-control form-control-lg form-control-solid"
+                                placeholder="Enter shape"
+                                onChange={(event) =>
+                                  handleFormChange1(index, event)
+                                }
+                              /> */}
+                              <button class ="btn btn-warning" onClick={removeFields1}>Remove</button>
+                            </>
+                          );
+                        })}
+                        <button class="btn btn-success" onClick={addFields1}>Add More..</button>
+                      </div>
+{/* -------------------------------------------=================================================================================== */}
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Collection Name</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify collectionName"
+                          ></i>
+                        </label>
+                        <select
+                          type="select"
+                          name="collectionName"
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Select Item"
+                          onChange={(e) => {
+                            setProduct({
+                              ...product,
+                              collectionName: e.target.value,
+                            });
+                          }}
+                        >
+                          <option className="form-control">____</option>
+                          {collection &&
+                            collection.map((da) => (
+                              <option value={da.name} className="form-control">
+                                {da.name}
+                              </option>
+                            ))}
+                        </select>
+                      </div>
+
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Category</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify your unique app name"
+                          ></i>
+                        </label>
+                        <select
+                          type="select"
+                          multiple
+                          name="category"
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Select Category"
+                          onChange={(e) =>
+                            setProduct({
+                              ...product,
+                              category: [e.target.value],
+                            })
+                          }
+                        >
+                          <option className="form-control">____</option>
+                          {category &&
+                            category.map((da) => (
+                              <option value={da.name} className="form-control">
+                                {da.name}
+                              </option>
+                            ))}
+                        </select>
+                      </div>
+
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Variety</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify variety"
+                          ></i>
+                        </label>
+                        <select
+                          type="select"
+                          name="variety"
+                          multiple
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Select Variety"
+                          onChange={(e) =>
+                            setProduct({
+                              ...product,
+                              variety: [e.target.value],
+                            })
+                          }
+                        >
+                          <option className="form-control">____</option>
+                          {variety &&
+                            variety.map((da) => (
+                              <option value={da.name} className="form-control">
+                                {da.name}
+                              </option>
+                            ))}
+                        </select>
+                      </div>
+
                       <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                           <span class="required">Item</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
+                            title="Specify the Item"
                           ></i>
                         </label>
                         <select
@@ -237,203 +682,17 @@ const ItemDetailsForm = (props) => {
                           name="name"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Select Item"
-                          onChange={(e) => {
-                            setItemDetails({
-                              ...itemDetails,
+                          onChange={(e) =>
+                            setProduct({
+                              ...product,
                               item: e.target.value,
-                            });
-                          }}
+                            })
+                          }
                         >
                           <option className="form-control">____</option>
                           {item &&
                             item.map((da) => (
-                              <option value={da.id} className="form-control">
-                                {da.name}
-                              </option>
-                            ))}
-                        </select>
-                      </div>
-
-                      <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">diamond</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-                        <select
-                          type="select"
-                          name="name"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Select Diamond"
-                          onChange={(e) =>
-                            setItemDetails({
-                              ...itemDetails,
-                              diamond: e.target.value,
-                            })
-                          }
-                        >
-                          <option className="form-control">____</option>
-                          {diamond &&
-                            diamond.map((da) => (
-                              <option value={da.id} className="form-control">
-                                {da.shape}
-                              </option>
-                            ))}
-                        </select>
-                      </div>
-
-                      <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">metalGroup</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-                        <select
-                          type="select"
-                          name="name"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Select Metal Group"
-                          onChange={(e) =>
-                            setItemDetails({
-                              ...itemDetails,
-                              metalGroup: e.target.value,
-                            })
-                          }
-                        >
-                          <option className="form-control">____</option>
-                          {metalGroup &&
-                            metalGroup.map((da) => (
-                              <option value={da.id} className="form-control">
-                                {da.shortName}
-                              </option>
-                            ))}
-                        </select>
-                      </div>
-
-                      <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">collections</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-                        <select
-                          type="select"
-                          name="name"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Select Collection"
-                          onChange={(e) =>
-                            setItemDetails({
-                              ...itemDetails,
-                              collections: e.target.value,
-                            })
-                          }
-                        >
-                          <option className="form-control">____</option>
-                          {collections &&
-                            collections.map((da) => (
-                              <option value={da.id} className="form-control">
-                                {da.name}
-                              </option>
-                            ))}
-                        </select>
-                      </div>
-
-                      <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">category</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-                        <select
-                          type="select"
-                          name="name"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Select Category"
-                          onChange={(e) =>
-                            setItemDetails({
-                              ...itemDetails,
-                              category: e.target.value,
-                            })
-                          }
-                        >
-                          <option className="form-control">____</option>
-                          {category &&
-                            category.map((da) => (
-                              <option value={da.id} className="form-control">
-                                {da.category_name}
-                              </option>
-                            ))}
-                        </select>
-                      </div>
-
-                      <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">variety</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-                        <select
-                          type="select"
-                          name="name"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Select Variety"
-                          onChange={(e) =>
-                            setItemDetails({
-                              ...itemDetails,
-                              variety: e.target.value,
-                            })
-                          }
-                        >
-                          <option className="form-control">____</option>
-                          {variety &&
-                            variety.map((da) => (
-                              <option value={da.id} className="form-control">
-                                {da.name}
-                              </option>
-                            ))}
-                        </select>
-                      </div>
-
-                      <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">product</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-                        <select
-                          type="select"
-                          name="name"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Select Product"
-                          onChange={(e) =>
-                            setItemDetails({
-                              ...itemDetails,
-                              product: e.target.value,
-                            })
-                          }
-                        >
-                          <option className="form-control">____</option>
-                          {product &&
-                            product.map((da) => (
-                              <option value={da.id} className="form-control">
+                              <option value={da.name} className="form-control">
                                 {da.name}
                               </option>
                             ))}
@@ -450,40 +709,17 @@ const ItemDetailsForm = (props) => {
                           ></i>
                         </label>
                         <input
-                          type="text"
-                          name="name"
+                          type="number"
+                          name="grossWeight"
+                          value ={product.grossWeight}
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter gross weight"
                           onChange={(e) =>
-                            setItemDetails({
-                              ...itemDetails,
-                              grossweight: Number(e.target.value),
+                            setProduct({
+                              ...product,
+                              grossWeight: Number(e.target.value),
                             })
                           }
-                          value={itemDetails.grossweight}
-                        />
-                      </div>
-                      <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Item Description</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-                        <input
-                          type="text"
-                          name="graceperiod"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Description of some kind"
-                          onChange={(e) =>
-                            setItemDetails({
-                              ...itemDetails,
-                              description: e.target.value,
-                            })
-                          }
-                          value={itemDetails.description}
                         />
                       </div>
                       <div>
@@ -492,49 +728,49 @@ const ItemDetailsForm = (props) => {
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
+                            title="Specify The SKU"
                           ></i>
                         </label>
                         <input
-                          type="number"
-                          name="minValue"
+                          type="text"
+                          name="sku"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter SKU"
+                          value={product.sku}
                           onChange={(e) =>
-                            setItemDetails({
-                              ...itemDetails,
-                              SKU: e.target.value,
+                            setProduct({
+                              ...product,
+                              sku: e.target.value,
                             })
                           }
-                          value={itemDetails.SKU}
                         />
                       </div>
                       <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Units</span>
+                          <span class="required">HLI</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
+                            title="Specify the HLI"
                           ></i>
                         </label>
                         <input
-                          type="number"
-                          name="minWeight"
+                          type="text"
+                          name="hli"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Units"
+                          placeholder="Enter HLI"
                           onChange={(e) =>
-                            setItemDetails({
-                              ...itemDetails,
-                              units: Number(e.target.value),
+                            setProduct({
+                              ...product,
+                              hli: e.target.value,
                             })
                           }
-                          value={itemDetails.units}
+                          value={product.hli}
                         />
                       </div>
                       <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Ring Size</span>
+                          <span class="required">Width</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
@@ -543,43 +779,66 @@ const ItemDetailsForm = (props) => {
                         </label>
                         <input
                           type="text"
-                          name="shortName"
+                          name="width"
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Enter width"
+                          onChange={(e) =>
+                            setProduct({
+                              ...product,
+                              width: e.target.value,
+                            })
+                          }
+                          value={product.width}
+                        />
+                      </div>
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Height</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify the Height"
+                          ></i>
+                        </label>
+                        <input
+                          type="number"
+                          name="height"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter Ring Size"
                           onChange={(e) =>
-                            setItemDetails({
-                              ...itemDetails,
-                              ringsize: e.target.value,
+                            setProduct({
+                              ...product,
+                              height: e.target.value,
                             })
                           }
-                          value={itemDetails.ringsize}
+                          value={product.height}
                         />
                       </div>
 
                       <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Weight</span>
+                          <span class="required">Video</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
+                            title="Specify the video"
                           ></i>
                         </label>
                         <input
-                          type="text"
-                          name="shortName"
+                          type="file"
+                          name="video"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Weight"
+                          placeholder="Choose Video"
                           onChange={(e) =>
-                            setItemDetails({
-                              ...itemDetails,
-                              weight: e.target.value,
+                            setProduct({
+                              ...product,
+                              video: e.target.files,
                             })
                           }
-                          value={itemDetails.weight}
                         />
                       </div>
-                      <div>
+
+                      {/* <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                           <span class="required">Measurements</span>
                           <i
@@ -601,120 +860,32 @@ const ItemDetailsForm = (props) => {
                           }
                           value={itemDetails.measurements}
                         />
-                      </div>
+                      </div> */}
 
-                      <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Charges</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-
-                        <select
-                          multiple
-                          size={4}
-                        
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Select Charges"
-                          onChange={(e) =>{
-
-                            
-                                  
-                                   charge.push(e.target.value)
-                       
-                        // console.log(e.target.value)
-                        }
-                           
-                            } 
-                        // onChange={(e)=>{
-
-                        //     setCharge([
-                        //         ...charge,
-                        //              e.target.value
-                        //      ] )
-                        //     }
-                                    
-                                    // setCharge(charge:e.target.value)
-                                    // console.log(e.target.value)
-                                
-                                
-                                
-                        
-                          
-                        >
-                          {charges &&
-                            charges.map((da) => (
-                              <option name ='mult' value={da.id} className="form-control">
-                                {da.Type}
-                              </option>
-                            ))}
-                        </select>
-
-                        {/* <Autocomplete
-                          multiple
-                          options={charges.map((da) => da.Type)}
-                          value = {chargeValue}
-                          defaultValue={charges.find(v => v.label[0])} 
-                          style={{ width: 500 }}
-                          // defaultValue={[myOptions[3]]}
-                          getOptionLabel={(option) => option}
-                          onChange={(e) =>
-                            setItemDetails({
-                              ...itemDetails,
-                              charge: e.target.value,
-                            })
-                          }
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              label="Choose Multiple values"
-                              variant="standard"
-                              placeholder="Your Favourites"
-                            />
-                          )}
-                        /> */}
-                      </div>
-
-                      <div>
+                      {/* <div>
                         <br />
                         <button
                           className="btn btn-lg btn-primary"
-                          onClick={
-                            // e.preventDefault();
-                            // if (isValidCyclePeriod({ ...CyclePeriod })) {
-                            //   isUpdate
-                            //     ? updateCyclePeriod({ ...CyclePeriod }).then(
-                            //         () => {
-                            //           navigate(
-                            //             "/master/plans/cycle-periods"
-                            //           );
-                            //         }
-                            //       )
-                            //     : addCyclePeriod({ ...CyclePeriod }).then(() => {
-                            //         navigate(
-                            //           "/master/plans/cycle-periods"
-                            //         );
-                            //       });
-                            // }
-                            handleSubmit
+                          onClick={(e)=>{
+                            e.preventDefault()
+                            console.log(product)
+
+                          }
                           }
                         >
                           {isUpdate
                             ? "Update Item Details"
                             : "Add Item Details"}
                         </button>
-                      </div>
-                      {/* 
+                      </div> */}
+
                       <AddUpdateSpinner
                         update={isUpdate ? true : false}
-                        collection={itemDetails}
-                        adding={addCyclePeriod}
-                        updating={updateCyclePeriod}
-                        url={"/master/plans/cycle-periods"}
-                      /> */}
+                        collection={product}
+                        adding={addProduct}
+                        updating={updateProduct}
+                        url={"/master/product-data/products"}
+                      />
                     </form>
                   </div>
                   {/*end::Table container*/}

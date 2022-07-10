@@ -3,63 +3,52 @@ import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Dashboard from "./dashboard";
 import axios from "axios";
+import { getProduct,deleteProduct } from "../APIs_Hai/Product";
+import {Link} from "react-router-dom"
+import DeleteSpinner from "../delete";
+
 //===========================================================================================================
 const ItemDetails = (props) => {
   //===========================================================================================================
-  const [itemDetails, setItemDetails] = useState([]);
+  const [product, setProduct] = useState([]);
   const [userPermissions, setUserPermissions] = useState(new Set());
 
   //===========================================================================================================
   useEffect(() => {
-    const fetchItemDetails = async () => {
-      const { data } = await axios.get(
-        "http://13.59.57.74:5000/api/itemdetails/"
-      );
-
-      setItemDetails(data.data);
-    };
-    fetchItemDetails();
+    getProduct().then((res) => setProduct(res.data.data.data));
   }, []);
+  console.log(product);
   //===========================================================================================================
-  console.log("yeh hai ==>", itemDetails);
   //===========================================================================================================
-  let item = {};
-  item = itemDetails.map((comp) => comp.item);
 
-  console.log("yeh hai item==>", item);
   //===========================================================================================================
   useEffect(() => {
     props.user.role.permissions.map((permission) => {
       return userPermissions.add(permission.permission_name);
     });
   }, []);
-
-  const product = [
+  //===========================================================================================================
+  const products = [
     {
-      id :1,
-      collection:"temple",
-      category:"Bridal",
-      variety:"party",
-      item:"coins",
-      grossWight:"10",
-      SKU:"BKS4561YU",
-      HLI:"AAAAAABC",
-      width:"13cm",
-      height:"14cm",
-      styleCompostion:"",
-      purityComposition:"",
-      makingCharges:15010,
-      images:[],
-      videos:"",
-      cutName:"",
-      clarityName:"AA",
-      colourName:"red",
-
-
-
-
-
-    }
+      id: 1,
+      collection: "temple",
+      category: "Bridal",
+      variety: "party",
+      item: "coins",
+      grossWight: "10",
+      SKU: "BKS4561YU",
+      HLI: "AAAAAABC",
+      width: "13cm",
+      height: "14cm",
+      styleCompostion: "",
+      purityComposition: "",
+      makingCharges: 15010,
+      images: [],
+      videos: "",
+      cutName: "",
+      clarityName: "AA",
+      colourName: "red",
+    },
   ];
   //====================================================================
   return (
@@ -70,7 +59,7 @@ const ItemDetails = (props) => {
           id="kt_wrapper"
         >
           <Header />
-          <Dashboard createLink="/master/product-data/items_details/add" />
+          <Dashboard createLink="/master/product-data/products/add" />
           <div
             id="kt_content_container"
             class="d-flex flex-column-fluid align-items-start container-xxl"
@@ -100,7 +89,6 @@ const ItemDetails = (props) => {
                       {/*begin::Table head*/}
                       <thead>
                         <tr class="fw-bolder text-muted text-center">
-                          
                           <th class="min-w-150px">Product ID</th>
                           <th class="min-w-120px">Collection</th>
                           <th class="min-w-120px">Category</th>
@@ -113,154 +101,76 @@ const ItemDetails = (props) => {
                           <th class="min-w-120px">Height</th>
                           <th class="min-w-120px">Style Composition</th>
                           <th class="min-w-120px">Purity Composition</th>
-                          <th class="min-w-120px">Making Charges</th>
-                          <th class="min-w-120px">Images</th>
+                          {/* <th class="min-w-120px">Images</th> */}
                           <th class="min-w-120px">Video</th>
-                          <th class="min-w-120px">Cut</th>
-                          <th class="min-w-120px">Clarity</th>
-                          <th class="min-w-120px">Colour</th>
-
-
-
-
-                          <th class="min-w-100px text-end">Actions</th>
+                          <th class="min-w-100px text-center">Actions</th>
                         </tr>
                       </thead>
-                      {/*end::Table head*/}
-                      {/*begin::Table body*/}
+
                       <tbody>
-                        {product.map((itemDetail) => (
+                        {product?.map((itemDetail) => (
                           <tr class="fw-bolder text-center">
+                            <td>{itemDetail.id}</td>
+                            <td>{itemDetail.collectionName}</td>
+                            <td>
+                              {itemDetail.category.map((x) => {
+                                return <td>{x}</td>;
+                              })}
+                            </td>
+                            <td>
+                              {itemDetail.variety.map((x) => {
+                                return <td>{x}</td>;
+                              })}
+                            </td>
+                            <td>{itemDetail.item}</td>
+                            <td>{itemDetail.grossWeight}</td>
+                            <td>{itemDetail.sku}</td>
+                            <td>{itemDetail.hli}</td>
+                            <td>{itemDetail.width}</td>
+                            <td>{itemDetail.height}</td>
+                            <td>
+                            {itemDetail.styleComposition.map((x) => {
+                              return (
+                                <>
+                                  <td>{x.clarity}</td>
+                                  <td>{x.colour}</td>
+                                  <td>{x.cut}</td>
+                                  <td>{x.id}</td>
+                                  <td>{x.shape}</td>
+                                  <td>{x.style}</td>
+                                  <td>{x.weight}</td>
+                                </>
+                              );
+                            })}
+                            </td>
+                            <td>
+                            {itemDetail.purityComposition.map((x) => {
+                              return (
+                                <>
+                                  <td>{x.metalGroup}</td>
+                                  <td>{x.weight}gm</td>
+                                </>
+                              );
+                            })}
+                            </td>
                             {/* <td>
-                              <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                <input
-                                  class="form-check-input widget-13-check"
-                                  type="checkbox"
-                                  value="1"
-                                />
-                              </div>
+                              {itemDetail.images.map((x) => {
+                                return <img src={x} />;
+                              })}
                             </td> */}
                             <td>
-                              <a
-                                href="#"
-                                class="text-dark fw-bolder text-hover-primary fs-6"
-                              >
-                                {itemDetail.id}
-                              </a>
+                              <a href={itemDetail.video}>video</a>
                             </td>
-                            <td>
-                                {itemDetail.collection}
-                            </td>
-                            <td>
-                                {itemDetail.category}
-                            </td>
-                            <td>
-                                {itemDetail.variety}
-                            </td>
-                            <td>
-                                {itemDetail.item}
-                            </td>
-                             <td>
-                                {itemDetail.grossWight}
-                            </td>
-                            <td>
-                                {itemDetail.SKU}
-                            </td>
-                            <td>
-                                {itemDetail.HLI}
-                            </td>
-                            <td>
-                                {itemDetail.width}
-                            </td>
-                            <td>
-                                {itemDetail.height}
-                            </td>
-                             <td>
-                                {itemDetail.styleCompostion}
-                            </td>
-                            <td>
-                                {itemDetail.purityComposition}
-                            </td>
-                             <td>
-                                {itemDetail.makingCharges}
-                            </td>
-                            <td>
-                                {itemDetail.images}
-                            </td>
-                            <td>
-                                {itemDetail.videos}
-                            </td>
-                            <td>
-                                {itemDetail.cutName}
-                            </td>
-                            <td>
-                                {itemDetail.clarityName}
-                            </td>
-                            <td>
-                                {itemDetail.colourName}
-                            </td>
-                           
-                           
-                            
-                            {/* <td>
-                              <a
-                                href='#'
-                                class='text-dark fw-bolder text-hover-primary d-block mb-1 fs-6'
-                              >
-                                {itemDetail.category_name}
-                              </a>
-                            </td> */}
-                            {/* <td>
-                              <a
-                                href='#'
-                                class='text-dark fw-bolder text-hover-primary d-block mb-1 fs-6'
-                              >
-                                {categories.images[0]}
-                              </a>
-                            </td>
-                            <td class='text-dark fw-bolder text-hover-primary fs-6'>
-                              {categories.images[1]}
-                            </td>
-                            <td>
-                              <span class='badge badge-light-success'>
-                                {categories.images[2]}
-                              </span>
-                            </td>
-                            <td>
-                              <span class='badge badge-light-success'>
-                                {categories.images[3]}
-                              </span>
-                            </td> */}
 
                             <td>
-                              {/* <a
-                                href='#'
-                                class='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
-                              >
-                                <span class='svg-icon svg-icon-3'>
-                                  <svg
-                                    xmlns='http://www.w3.org/2000/svg'
-                                    width='24'
-                                    height='24'
-                                    viewBox='0 0 24 24'
-                                    fill='none'
-                                  >
-                                    <path
-                                      d='M17.5 11H6.5C4 11 2 9 2 6.5C2 4 4 2 6.5 2H17.5C20 2 22 4 22 6.5C22 9 20 11 17.5 11ZM15 6.5C15 7.9 16.1 9 17.5 9C18.9 9 20 7.9 20 6.5C20 5.1 18.9 4 17.5 4C16.1 4 15 5.1 15 6.5Z'
-                                      fill='black'
-                                    />
-                                    <path
-                                      opacity='0.3'
-                                      d='M17.5 22H6.5C4 22 2 20 2 17.5C2 15 4 13 6.5 13H17.5C20 13 22 15 22 17.5C22 20 20 22 17.5 22ZM4 17.5C4 18.9 5.1 20 6.5 20C7.9 20 9 18.9 9 17.5C9 16.1 7.9 15 6.5 15C5.1 15 4 16.1 4 17.5Z'
-                                      fill='black'
-                                    />
-                                  </svg>
-                                </span>
-                              </a> */}
                               <a
                                 href="#"
                                 class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                               >
+                                 <Link
+                                  to={"/master/product-data/products/edit"}
+                                  state={itemDetail}
+                                >
                                 <span class="svg-icon svg-icon-3">
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -281,38 +191,15 @@ const ItemDetails = (props) => {
                                   </svg>
                                 </span>
                                 {/*end::Svg Icon*/}
+                                </Link>
                               </a>
-                              {/* <a
-                                href="#"
-                                class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-                              >
-                               
-                                <span class="svg-icon svg-icon-3">
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                  >
-                                    <path
-                                      d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
-                                      fill="black"
-                                    />
-                                    <path
-                                      opacity="0.5"
-                                      d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
-                                      fill="black"
-                                    />
-                                    <path
-                                      opacity="0.5"
-                                      d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
-                                      fill="black"
-                                    />
-                                  </svg>
-                                </span>
-                               
-                              </a> */}
+                              {userPermissions.has("delete_offer") ? (
+                                <DeleteSpinner
+                                  collection={itemDetail}
+                                  deleting={deleteProduct}
+                                  url={"/master/product-data/products/"}
+                                />
+                              ) : null}
                             </td>
                           </tr>
                         ))}
