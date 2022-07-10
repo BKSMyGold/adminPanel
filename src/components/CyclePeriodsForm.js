@@ -4,27 +4,23 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidCyclePeriod } from "../Validator";
-import { addCyclePeriod, updateCyclePeriod } from "../apis/CyclePeriod";
 import AddUpdateSpinner from "../AddUpdateSpinner";
-
+import { addCyclePeriod,updateCyclePeriod } from "../APIs_Hai/CyclePeriod";
+//======================================================================
 const CyclePeriodsForm = (props) => {
+  //======================================================================
   let location = useLocation();
-
   let navigate = useNavigate();
-
+//======================================================================
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
-
   const [CyclePeriod, setCyclePeriod] = useState(
     location?.state ?? {
       name: "",
-      graceperiod: "",
-      minValue: "",
-      minWeight: "",
-      shortName: "",
-      cycle: "",
+      gracePeriod: 0,
+      cycle: 0,
     }
   );
-
+//======================================================================
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -33,7 +29,7 @@ const CyclePeriodsForm = (props) => {
           id="kt_wrapper"
         >
           <Header />
-          <Dashboard />
+          {/* <Dashboard /> */}
           <div
             id="kt_content_container"
             class="d-flex flex-column-fluid align-items-start container-xxl"
@@ -63,11 +59,11 @@ const CyclePeriodsForm = (props) => {
                     <form>
                       <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Name</span>
+                          <span class="required">Cycle Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
+                            title="Specify  Cycle Name"
                           ></i>
                         </label>
                         <input
@@ -90,7 +86,7 @@ const CyclePeriodsForm = (props) => {
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
+                            title="Specify graceperiod"
                           ></i>
                         </label>
                         <input
@@ -101,95 +97,27 @@ const CyclePeriodsForm = (props) => {
                           onChange={(e) =>
                             setCyclePeriod({
                               ...CyclePeriod,
-                              graceperiod: Number(e.target.value),
+                              gracePeriod: Number(e.target.value),
                             })
                           }
-                          value={CyclePeriod.graceperiod}
+                          value={CyclePeriod.gracePeriod}
                         />
                       </div>
+                     
                       <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Minimum Value</span>
+                          <span class="required">Value</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
+                            title="Specify the Value of the Cycle"
                           ></i>
                         </label>
                         <input
                           type="number"
-                          name="minValue"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Minimum Value in INR"
-                          onChange={(e) =>
-                            setCyclePeriod({
-                              ...CyclePeriod,
-                              minValue: Number(e.target.value),
-                            })
-                          }
-                          value={CyclePeriod.minValue}
-                        />
-                      </div>
-                      <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Minimum Weight</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-                        <input
-                          type="number"
-                          name="minWeight"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Minimum Weight in GRAM"
-                          onChange={(e) =>
-                            setCyclePeriod({
-                              ...CyclePeriod,
-                              minWeight: Number(e.target.value),
-                            })
-                          }
-                          value={CyclePeriod.minWeight}
-                        />
-                      </div>
-                      <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Short Name</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-                        <input
-                          type="text"
-                          name="shortName"
+                          name="value"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter Short Name"
-                          onChange={(e) =>
-                            setCyclePeriod({
-                              ...CyclePeriod,
-                              shortName: e.target.value,
-                            })
-                          }
-                          value={CyclePeriod.shortName}
-                        />
-                      </div>
-                      <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Minimum Cycle</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-                        <input
-                          type="number"
-                          name="cycle"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter the minimum Recurring Cycle"
                           onChange={(e) =>
                             setCyclePeriod({
                               ...CyclePeriod,
@@ -199,6 +127,7 @@ const CyclePeriodsForm = (props) => {
                           value={CyclePeriod.cycle}
                         />
                       </div>
+                    
 
                       {/* <div>
                         <br/>

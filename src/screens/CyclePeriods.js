@@ -5,9 +5,8 @@ import Dashboard from "./dashboard";
 import axios from "axios";
 import { BASE_URL } from "../Constants";
 import { Link } from "react-router-dom";
-import { deleteCyclePeriod } from "../apis/CyclePeriod";
-import { CSVLink } from "react-csv";
 import DeleteSpinner from "../delete";
+import {getCyclePeriod,deleteCyclePeriod} from "../APIs_Hai/CyclePeriod"
 //=============================================================
 
 const CyclePeriods = (props) => {
@@ -17,12 +16,7 @@ const CyclePeriods = (props) => {
 
   //=============================================================
   useEffect(() => {
-    const fetchcycleperiods = async () => {
-      const { data } = await axios.get(`${BASE_URL}/api/cycle-period`);
-      console.log(data);
-      setCyclePeriods(data);
-    };
-    fetchcycleperiods();
+   getCyclePeriod().then(res => setCyclePeriods(res.data.data.data))
   }, []);
   //=============================================================
   useEffect(() => {
@@ -73,26 +67,11 @@ const CyclePeriods = (props) => {
                       {/*begin::Table head*/}
                       <thead>
                         <tr class="fw-bolder text-muted">
-                          <th class="w-25px">
-                            <div class="form-check form-check-sm form-check-custom form-check-solid">
-                              <input
-                                class="form-check-input"
-                                type="checkbox"
-                                value="1"
-                                data-kt-check="true"
-                                data-kt-check-target=".widget-13-check"
-                              />
-                            </div>
-                          </th>
+                          
                           <th class="min-w-150px">Id</th>
                           <th class="min-w-140px">Cycle Period Name</th>
-                          <th class="min-w-140px">Minimum Cycle</th>
                           <th class="min-w-140px">Grace Period in Hours</th>
-                          <th class="min-w-120px">Short Name</th>
-                          <th class="min-w-120px">Min Weight in Grams</th>
-                          <th class="min-w-120px">Min Value in INR</th>
-                          <th class="min-w-120px">Status</th>
-
+                          <th class="min-w-120px">Cycle</th>
                           <th class="min-w-100px text-end">Actions</th>
                         </tr>
                       </thead>
@@ -101,15 +80,7 @@ const CyclePeriods = (props) => {
                       <tbody>
                         {cycleperiods.map((cycleperiods) => (
                           <tr>
-                            <td>
-                              <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                <input
-                                  class="form-check-input widget-13-check"
-                                  type="checkbox"
-                                  value="1"
-                                />
-                              </div>
-                            </td>
+                           
                             <td>
                               <a
                                 href="#"
@@ -131,28 +102,15 @@ const CyclePeriods = (props) => {
                                 href="#"
                                 class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                               >
-                                {cycleperiods.cycle}
+                                {cycleperiods.gracePeriod}
                               </a>
                             </td>
                             <td class="text-dark fw-bolder text-hover-primary fs-6">
-                              {cycleperiods.graceperiod}
+                              {cycleperiods.cycle}
                             </td>
-                            <td class="text-dark fw-bolder text-hover-primary fs-6">
-                              {cycleperiods.shortName}
-                            </td>
-                            <td class="text-dark fw-bolder text-hover-primary fs-6">
-                              {cycleperiods.minValue}
-                            </td>
-                            <td class="text-dark fw-bolder text-hover-primary fs-6">
-                              {cycleperiods.minWeight}
-                            </td>
-                            <td>
-                              <span class="badge badge-light-success">
-                                {cycleperiods.status}
-                              </span>
-                            </td>
+                           
 
-                            <td class="text-end">
+                            <td class="text-center">
                               <a
                                 href="#"
                                 class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
