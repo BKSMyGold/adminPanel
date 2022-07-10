@@ -185,8 +185,8 @@ import MetalForm from "./components/MetalForm";
 import UnitsForm from "./components/UnitsForm";
 import Ornament from "./screens/Ornament";
 import OrnamentForm from "./components/OrnamentForm";
-import CutShape from "./screens/CutShape";
-import CutShapeForm from "./components/CutShapeForm";
+import Shape from "./screens/Shape";
+import ShapeForm from "./components/ShapeForm";
 import Clarity from "./screens/Clarity";
 import ClarityForm from "./components/ClarityForm";
 import Colour from "./screens/Colour";
@@ -312,9 +312,9 @@ const App = () => {
             element={<OrnamentForm />}
           />
 
-          <Route path="/master/product-data/cut-shape" element={<CutShape />} />
-          <Route path="/master/product-data/cut-shape/add" element={<CutShapeForm />} />
-          <Route path="/master/product-data/cut-shape/edit" element={<CutShapeForm />} />
+          <Route path="/master/product-data/shape" element={<Shape />} />
+          <Route path="/master/product-data/shape/add" element={<ShapeForm />} />
+          <Route path="/master/product-data/shape/edit" element={<ShapeForm />} />
 
           <Route path="/master/product-data/clarity" element={<Clarity />} />
           <Route path="/master/product-data/clarity/add" element={<ClarityForm />} />
