@@ -7,7 +7,7 @@ import { isValidCalculations } from "../Validator";
 import AddUpdateSpinner from "../AddUpdateSpinner";
 import { addCustomDuty,updateCustomDuty } from "../APIs_Hai/CustomDuty";
 //=======================================================================
-const CalculationsForm = (props) => {
+const CustomDutiesForm = (props) => {
   //=======================================================================
   let location = useLocation();
   let navigate = useNavigate();
@@ -175,4 +175,4 @@ const CalculationsForm = (props) => {
   );
 };
 
-export default CalculationsForm;
+export default CustomDutiesForm;

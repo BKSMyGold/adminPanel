@@ -9,7 +9,7 @@ import { CSVLink } from "react-csv";
 import DeleteSpinner from "../delete";
 import { getCustomDuty, deleteCustomDuty} from "../APIs_Hai/CustomDuty";
 //===============================================================
-const TaxesDuties = () => {
+const CustomDuties = () => {
   const [taxes, setTaxesDuties] = useState([]);
   //=================================================
   useEffect(() => {
@@ -226,4 +226,4 @@ const TaxesDuties = () => {
   );
 };
 //===============================================================
-export default TaxesDuties;
+export default CustomDuties;

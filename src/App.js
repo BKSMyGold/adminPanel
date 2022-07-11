@@ -36,7 +36,7 @@ import Shipping from "./screens/Shipping";
 import Sliders from "./screens/Sliders";
 import StandardPlans from "./screens/StandardPlans";
 import SubmissionOfGoldEntry from "./screens/SubmissionOfGoldEntry";
-import TaxesDuties from "./screens/TaxesDuties";
+import CustomDuties from "./screens/CustomDuties";
 import Testimonials from "./screens/Testimonials";
 import Tracking from "./screens/Tracking";
 import UpdateAppointments from "./screens/UpdateAppoinments";
@@ -142,7 +142,7 @@ import LoginScreen from "./screens/LoginScreen";
 import MetalGroupForm from "./components/MetalGroupForm";
 import CurrentRateForm from "./components/CurrentRateForm";
 import StandardPlanForm from "./components/StandardPlansForm";
-import CalculationsForm from "./components/CalculationsForm";
+import CustomDutiesForm from "./components/CustomDutiesForm";
 import CyclePeriodsForm from "./components/CyclePeriodsForm";
 import SlidersForm from "./components/SlidersForm";
 import Offers from "./screens/offers";
@@ -450,7 +450,7 @@ const App = () => {
             path="/master/taxes/add"
             element={
               permissions.has("add_tax") ? (
-                <CalculationsForm />
+                <CustomDutiesForm />
               ) : (
                 <NoAccessComponent user={loggedInUser} />
               )
@@ -460,7 +460,7 @@ const App = () => {
             path="/master/taxes/edit"
             element={
               permissions.has("edit_tax") ? (
-                <CalculationsForm />
+                <CustomDutiesForm />
               ) : (
                 <NoAccessComponent user={loggedInUser} />
               )
@@ -866,7 +866,7 @@ const App = () => {
             path="/master/taxes"
             element={
               permissions.has("view_tax") ? (
-                <TaxesDuties />
+                <CustomDuties />
               ) : (
                 <NoAccessComponent user={loggedInUser} />
               )
