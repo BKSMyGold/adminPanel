@@ -197,6 +197,8 @@ import Cut from "./screens/Cut";
 import CutForm from "./components/CutForm";
 import Badla from "./screens/Badla";
 import BadlaForm from "./components/BadlaForm";
+import Calculation from "./screens/Calculation";
+import CalculationForm from "./components/CalculationForm";
 
 //====================================================================
 const App = () => {
@@ -332,6 +334,13 @@ const App = () => {
           <Route path="/master/product-data/cut" element={<Cut />} />
           <Route path="/master/product-data/cut/add" element={<CutForm />} />
           <Route path="/master/product-data/cut/edit" element={<CutForm />} />
+
+
+          <Route path="/master/calculation" element={<Calculation />} />
+          <Route path="/master/calculation/add" element={<CalculationForm />} />
+          <Route path="/master/calculation/edit" element={<CalculationForm />} />
+
+
 
           <Route path="/master/product-data/shape" element={<Shape />} />
           <Route
