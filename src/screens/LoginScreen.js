@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../layouts/Footer";
-import { loginUser } from "../apis/Auth";
+// import { loginUser } from "../apis/Auth";
 import { useNavigate } from "react-router-dom";
 import mon from "../public/images/mon.jpg";
+import {loginUser} from "../APIs_Hai/Login"
 //================================================================================
 export default function LoginScreen() {
   let navigate = useNavigate();
   //================================================================================
-  const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const [credentials, setCredentials] = useState({ username: "", password: "" });
   //================================================================================
   const onCredentialsModify = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -16,14 +17,15 @@ export default function LoginScreen() {
   //================================================================================
   const handleSubmit = (e) => {
 
-      console.log(e.target.value)
+      // console.log(credentials)
    
 
       e.preventDefault();
       loginUser({ ...credentials }).then(({ data: loggedInUser }) => {
         localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
+        console.log(loggedInUser)
         navigate("/");
-        window.location.reload(false);
+        // window.location.reload(false);
     })
     
   };
@@ -40,7 +42,7 @@ export default function LoginScreen() {
             <label class="fw-bolder">Email address</label>
             <input
               placeholder="Enter Email"
-              name={"email"}
+              name="username"
               class="form-control"
               onChange={onCredentialsModify}
             ></input>
