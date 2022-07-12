@@ -5,7 +5,12 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import axios from "axios";
 import { ROLE_PERMISSION_BASE_URL } from "../Constants";
+import { addRole } from "../APIs_Hai/Role";
+import { Navigate } from "react-router-dom";
+import { Audio } from "react-loader-spinner";
+import { useLocation } from "react-router-dom";
 
+//===============================================================
 const nodes = [
   {
     label: "Master",
@@ -16,8 +21,30 @@ const nodes = [
         value: "products",
         children: [
           {
-            label: "Metal Group",
+            label: "Metal",
             value: "Metal",
+            children: [
+              {
+                label: "Create",
+                value: "add_metal",
+              },
+              {
+                label: "Read",
+                value: "view_metal",
+              },
+              {
+                label: "Update",
+                value: "edit_metal",
+              },
+              {
+                label: "Delete",
+                value: "delete_metal",
+              },
+            ],
+          },
+          {
+            label: "Metal Group",
+            value: "Metal Group",
             children: [
               {
                 label: "Create",
@@ -38,13 +65,190 @@ const nodes = [
             ],
           },
           {
+            label: "Units",
+            value: "Units",
+            children: [
+              {
+                label: "Create",
+                value: "add_units",
+              },
+              {
+                label: "Read",
+                value: "view_units",
+              },
+              {
+                label: "Update",
+                value: "edit_units",
+              },
+              {
+                label: "Delete",
+                value: "delete_units",
+              },
+            ],
+          },
+          {
+            label: "Ornament",
+            value: "Ornament",
+            children: [
+              {
+                label: "Create",
+                value: "add_ornament",
+              },
+              {
+                label: "Read",
+                value: "view_ornament",
+              },
+              {
+                label: "Update",
+                value: "edit_ornament",
+              },
+              {
+                label: "Delete",
+                value: "delete_ornament",
+              },
+            ],
+          },
+          {
+            label: "Shape",
+            value: "Shape",
+            children: [
+              {
+                label: "Create",
+                value: "add_shape",
+              },
+              {
+                label: "Read",
+                value: "view_shape",
+              },
+              {
+                label: "Update",
+                value: "edit_shape",
+              },
+              {
+                label: "Delete",
+                value: "delete_shape",
+              },
+            ],
+          },
+          {
+            label: "Cut",
+            value: "Cut",
+            children: [
+              {
+                label: "Create",
+                value: "add_cut",
+              },
+              {
+                label: "Read",
+                value: "view_cut",
+              },
+              {
+                label: "Update",
+                value: "edit_cut",
+              },
+              {
+                label: "Delete",
+                value: "delete_cut",
+              },
+            ],
+          },
+          {
+            label: "Clarity",
+            value: "Clarity",
+            children: [
+              {
+                label: "Create",
+                value: "add_clarity",
+              },
+              {
+                label: "Read",
+                value: "view_clarity",
+              },
+              {
+                label: "Update",
+                value: "edit_clarity",
+              },
+              {
+                label: "Delete",
+                value: "delete_clarity",
+              },
+            ],
+          },
+          {
+            label: "Colour",
+            value: "Colour",
+            children: [
+              {
+                label: "Create",
+                value: "add_colour",
+              },
+              {
+                label: "Read",
+                value: "view_colour",
+              },
+              {
+                label: "Update",
+                value: "edit_colour",
+              },
+              {
+                label: "Delete",
+                value: "delete_colour",
+              },
+            ],
+          },
+          {
+            label: "Style",
+            value: "Style",
+            children: [
+              {
+                label: "Create",
+                value: "add_style",
+              },
+              {
+                label: "Read",
+                value: "view_style",
+              },
+              {
+                label: "Update",
+                value: "edit_style",
+              },
+              {
+                label: "Delete",
+                value: "delete_style",
+              },
+            ],
+          },
+          {
+            label: "Making Charges",
+            value: "Making Charges",
+            children: [
+              {
+                label: "Create",
+                value: "add_making_charges",
+              },
+              {
+                label: "Read",
+                value: "view_making_charges",
+              },
+              {
+                label: "Update",
+                value: "edit_making_charges",
+              },
+              {
+                label: "Delete",
+                value: "delete_making_charges",
+              },
+            ],
+          },
+
+          {
             label: "Collections",
             value: "Collection",
             children: [
-                {
-                  label: "Create",
-                  value: "add_collections",
-                },
+              {
+                label: "Create",
+                value: "add_collections",
+              },
               {
                 label: "Read",
                 value: "view_collections",
@@ -59,36 +263,15 @@ const nodes = [
               },
             ],
           },
-          {
-            label: "Diamond & Gems",
-            value: "Diamond",
-            children: [
-                {
-                  label: "Create",
-                  value: "add_diamond_gems",
-                },
-              {
-                label: "Read",
-                value: "view_diamond_gems",
-              },
-              {
-                label: "Update",
-                value: "edit_diamond_gems",
-              },
-              {
-                label: "Delete",
-                value: "delete_diamond_gems",
-              },
-            ],
-          },
+
           {
             label: "Categories",
             value: "Categories",
             children: [
-                {
-                  label: "Create",
-                  value: "add_categories",
-                },
+              {
+                label: "Create",
+                value: "add_categories",
+              },
               {
                 label: "Read",
                 value: "view_categories",
@@ -107,10 +290,10 @@ const nodes = [
             label: "Varieties",
             value: "Varieties",
             children: [
-                {
-                    label: "Create",
-                    value: "add_varities",
-                  },
+              {
+                label: "Create",
+                value: "add_varities",
+              },
               {
                 label: "Read",
                 value: "view_varities",
@@ -123,17 +306,16 @@ const nodes = [
                 label: "Delete",
                 value: "delete_varities",
               },
-             
             ],
           },
           {
             label: "Products",
             value: "Products",
             children: [
-                {
-                  label: "Create",
-                  value: "add_product",
-                },
+              {
+                label: "Create",
+                value: "add_product",
+              },
               {
                 label: "Read",
                 value: "view_products",
@@ -152,10 +334,10 @@ const nodes = [
             label: "Item",
             value: "Item",
             children: [
-                {
-                  label: "Create",
-                  value: "add_items",
-                },
+              {
+                label: "Create",
+                value: "add_items",
+              },
               {
                 label: "Read",
                 value: "view_items",
@@ -170,36 +352,15 @@ const nodes = [
               },
             ],
           },
-          {
-            label: "Item Details",
-            value: "Item_Details",
-            children: [
-                {
-                  label: "Create",
-                  value: "add_item_details",
-                },
-              {
-                label: "Read",
-                value: "view_item_details",
-              },
-              {
-                label: "Update",
-                value: "edit_item_details",
-              },
-              {
-                label: "Delete",
-                value: "delete_item_details",
-              },
-            ],
-          },
+
           {
             label: "Offers",
             value: "Offers",
             children: [
-                {
-                  label: "Create",
-                  value: "add_offer",
-                },
+              {
+                label: "Create",
+                value: "add_offer",
+              },
               {
                 label: "Read",
                 value: "view_offer",
@@ -224,10 +385,10 @@ const nodes = [
             label: "Permissions",
             value: "View_permissions",
             children: [
-                {
-                  label: "Create",
-                  value: "add_permissions",
-                },
+              {
+                label: "Create",
+                value: "add_permissions",
+              },
               {
                 label: "Read",
                 value: "view_permissions",
@@ -246,10 +407,10 @@ const nodes = [
             label: "Role Right",
             value: "role_right",
             children: [
-                {
-                  label: "Create",
-                  value: "add_roles",
-                },
+              {
+                label: "Create",
+                value: "add_roles",
+              },
               {
                 label: "Read",
                 value: "view_roles",
@@ -268,10 +429,10 @@ const nodes = [
             label: "Master User and Rights",
             value: "view_master_user_right",
             children: [
-                {
-                  label: "Create",
-                  value: "create_master_user_right",
-                },
+              {
+                label: "Create",
+                value: "create_master_user_right",
+              },
               {
                 label: "Read",
                 value: "read_master_user_right",
@@ -290,10 +451,10 @@ const nodes = [
             label: "User and password linking to master user",
             value: "View_laural",
             children: [
-                {
-                  label: "Create",
-                  value: "create_user_and_password",
-                },
+              {
+                label: "Create",
+                value: "create_user_and_password",
+              },
               {
                 label: "Read",
                 value: "read_user_and_password",
@@ -322,10 +483,10 @@ const nodes = [
                 label: "Sliders",
                 value: "sliders",
                 children: [
-                    {
-                      label: "Create",
-                      value: "add_slider",
-                    },
+                  {
+                    label: "Create",
+                    value: "add_slider",
+                  },
                   {
                     label: "Read",
                     value: "view_sliders",
@@ -344,10 +505,10 @@ const nodes = [
                 label: "Videos",
                 value: "Videos",
                 children: [
-                    {
-                      label: "Create",
-                      value: "add_video",
-                    },
+                  {
+                    label: "Create",
+                    value: "add_video",
+                  },
                   {
                     label: "Read",
                     value: "view_videos",
@@ -370,10 +531,10 @@ const nodes = [
         label: "Current Rate",
         value: "current_rate",
         children: [
-            {
-                label: "Create",
-                value: "create_current_rate",
-              },
+          {
+            label: "Create",
+            value: "create_current_rate",
+          },
           {
             label: "Read",
             value: "read_current_rate",
@@ -386,7 +547,6 @@ const nodes = [
             label: "Delete",
             value: "delete_current_rate",
           },
-         
         ],
       },
       {
@@ -397,10 +557,10 @@ const nodes = [
             label: "Plan Bonus",
             value: "plan_bonus",
             children: [
-                {
-                    label: "Create",
-                    value: "create_plan_bonus",
-                  },
+              {
+                label: "Create",
+                value: "create_plan_bonus",
+              },
               {
                 label: "Read",
                 value: "read_plan_bonus",
@@ -413,17 +573,16 @@ const nodes = [
                 label: "Delete",
                 value: "delete_plan_bonus",
               },
-             
             ],
           },
           {
             label: "Cycle Period",
             value: "cycle_period",
             children: [
-                {
-                    label: "Create",
-                    value: "add_cycle_periods",
-                },
+              {
+                label: "Create",
+                value: "add_cycle_periods",
+              },
               {
                 label: "Read",
                 value: "view_cycle_periods",
@@ -436,17 +595,16 @@ const nodes = [
                 label: "Delete",
                 value: "delete_cycle_periods",
               },
-             
             ],
           },
           {
             label: "Standard Plan",
             value: "standard_plan",
             children: [
-                {
-                  label: "Create",
-                  value: "add_plan",
-                },
+              {
+                label: "Create",
+                value: "add_plan",
+              },
               {
                 label: "Read",
                 value: "view_plans",
@@ -467,10 +625,10 @@ const nodes = [
         label: "Duties & Taxes",
         value: "calculation",
         children: [
-            {
-              label: "Create",
-              value: "create_taxes",
-            },
+          {
+            label: "Create",
+            value: "create_taxes",
+          },
           {
             label: "Read",
             value: "read_taxes",
@@ -482,6 +640,50 @@ const nodes = [
           {
             label: "Delete",
             value: "delete_taxes",
+          },
+        ],
+      },
+      {
+        label: "Badla",
+        value: "Badla",
+        children: [
+          {
+            label: "Create",
+            value: "create_badla",
+          },
+          {
+            label: "Read",
+            value: "read_badla",
+          },
+          {
+            label: "Update",
+            value: "update_badla",
+          },
+          {
+            label: "Delete",
+            value: "delete_badla",
+          },
+        ],
+      },
+      {
+        label: "Calculation",
+        value: "Calculation",
+        children: [
+          {
+            label: "Create",
+            value: "create_calculation",
+          },
+          {
+            label: "Read",
+            value: "read_calculation",
+          },
+          {
+            label: "Update",
+            value: "update_calculation",
+          },
+          {
+            label: "Delete",
+            value: "delete_calculation",
           },
         ],
       },
@@ -498,24 +700,28 @@ const nodes = [
     ],
   },
 ];
+//===============================================================
 
 class RoleRight extends React.Component {
   constructor(props) {
+    
     super(props);
-
     this.state = {
-      checked: [],
+      permissions: [],
       expanded: [],
-      role: "",
+      name: "",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleSubmit() {
-      let set = new Set(this.state.checked)
-    console.log("=->", this.state.role, set);
-  }
+    
+    addRole(this.state).then(() => (
+      <Audio height="100" width="100" color="grey" ariaLabel="loading" />
+      ));
+    }
+    //===============================================================
+    render() {
 
-  render() {
     return (
       <>
         <Header />
@@ -523,17 +729,18 @@ class RoleRight extends React.Component {
           <h1>Define Role Rights</h1>
           <h3>Role</h3>
           <input
+            type="text"
             class="form-control my-5"
             placeholder="Enter new Role"
             onChange={(e) => {
-              this.setState({ role: e.target.value });
+              this.setState({ name: e.target.value });
             }}
           />
           <CheckboxTree
             nodes={nodes}
-            checked={this.state.checked}
+            checked={this.state.permissions}
             expanded={this.state.expanded}
-            onCheck={(checked) => this.setState({ checked })}
+            onCheck={(permissions) => this.setState({ permissions })}
             onExpand={(expanded) => this.setState({ expanded })}
           />
         </div>
