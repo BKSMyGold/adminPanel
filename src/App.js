@@ -199,6 +199,8 @@ import Badla from "./screens/Badla";
 import BadlaForm from "./components/BadlaForm";
 import Calculation from "./screens/Calculation";
 import CalculationForm from "./components/CalculationForm";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
 
 //====================================================================
 const App = () => {
@@ -233,7 +235,7 @@ const App = () => {
       <div className="App">
         <Routes>
           {/*Master =============================================*/}
-          {/*Products Data =============================================*/}
+          {/*Products Data ======================*/}
 
           <Route path="/change_name" element={<UserNameChangeForm />} />
 
@@ -247,25 +249,68 @@ const App = () => {
           <Route path="/registered_User" element={<RegisteredUser />} />
 
           <Route path="/master/plans/plan-bonus" element={<PlanBonus />} />
-          <Route path="/master/product-data/units" element={<Units />} />
+          {/*================================ Units =================================================*/}
+
+          <Route
+            path="/master/product-data/units"
+            element={
+              permissions.has("view_metal_groups") ? (
+                <Units user={loggedInUser} />
+              ) : (
+                <NoAccessComponent user={loggedInUser} />
+              )
+            }
+          />
           <Route
             path="/master/product-data/units/add"
-            element={<UnitsForm />}
+            element={
+              permissions.has("") ? (
+                <UnitsForm />
+              ) : (
+                <NoAccessComponent user={loggedInUser} />
+              )
+            }
           />
           <Route
             path="/master/product-data/units/edit"
-            element={<UnitsForm />}
+            element={
+              permissions.has("") ? (
+                <UnitsForm user={loggedInUser} />
+              ) : (
+                <NoAccessComponent user={loggedInUser} />
+              )
+            }
           />
+          {/*================================ Style =================================================*/}
 
-          <Route path="/master/product-data/style" element={<Style />} />
+          <Route
+            path="/master/product-data/style"
+            element={
+              permissions.has("view_style") ? (
+                <Style user={loggedInUser} />
+              ) : (
+                <NoAccessComponent user={loggedInUser} />
+              )
+            }
+          />
           <Route
             path="/master/product-data/style/add"
-            element={<StyleForm />}
+            element={
+              permissions.has("add_style") ? (
+                <StyleForm />
+              ) : (
+                <NoAccessComponent user={loggedInUser} />
+              )
+            }
           />
           <Route
             path="/master/product-data/style/edit"
-            element={<StyleForm />}
+            element={
+            permissions.has("edit_style")?(<StyleForm />):(<NoAccessComponent user={loggedInUser} />
+            )
+            }
           />
+          {/*================================ Making_Charges =================================================*/}
 
           <Route
             path="/master/product-data/making-charges"
@@ -335,12 +380,12 @@ const App = () => {
           <Route path="/master/product-data/cut/add" element={<CutForm />} />
           <Route path="/master/product-data/cut/edit" element={<CutForm />} />
 
-
           <Route path="/master/calculation" element={<Calculation />} />
           <Route path="/master/calculation/add" element={<CalculationForm />} />
-          <Route path="/master/calculation/edit" element={<CalculationForm />} />
-
-
+          <Route
+            path="/master/calculation/edit"
+            element={<CalculationForm />}
+          />
 
           <Route path="/master/product-data/shape" element={<Shape />} />
           <Route
@@ -600,7 +645,7 @@ const App = () => {
             }
           />
 
-          <Route
+          {/* <Route
             path="/master/security/role_right"
             element={
               permissions.has("edit_diamond_gems") ? (
@@ -609,7 +654,7 @@ const App = () => {
                 <NoAccessComponent user={loggedInUser} />
               )
             }
-          />
+          /> */}
           <Route
             path="master/product-data/collections"
             element={
@@ -742,7 +787,7 @@ const App = () => {
             }
           />
           <Route
-            path="/master/security/masterUserRights/add"
+            path="/master/security/role_right/edit"
             element={
               permissions.has("manage_roles") ? (
                 <RoleForm permissions={permissions} />

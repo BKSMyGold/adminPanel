@@ -6,19 +6,15 @@ import { getAllRoles } from "../apis/Role";
 import { dateFormatter } from "../Constants";
 import { Link } from "react-router-dom";
 import { deleteoffer } from "../apis/offer";
-
+import { getRole,deleteRole } from "../APIs_Hai/Role";
+import DeleteSpinner from "../delete";
+//================================================================================
 const MasterUserRights = () => {
   //================================================================================
   const [rolesState, setRoleState] = useState({ roles: [], error: "" });
 //================================================================================
   useEffect(() => {
-    getAllRoles().then(({ data }) => {
-      if (data.msg === "success" && data.roles.length) {
-        setRoleState({ roles: data.roles, error: "" });
-      } else {
-        setRoleState({ roles: [], error: "No roles found" });
-      }
-    });
+    getRole().then(res =>setRoleState(res.data.data.data))
   }, []);
   console.log("==>roles", rolesState);
 //================================================================================
@@ -66,7 +62,7 @@ const MasterUserRights = () => {
                   {/*begin::Table container*/}
                   <div class="table-responsive">
                     {/*begin::Table*/}
-                    {rolesState.roles.length ? (
+                    {rolesState.length>0? (
                       <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                         <thead>
                           <tr class="fw-bolder text-muted text-center">
@@ -84,7 +80,6 @@ const MasterUserRights = () => {
                             <th class="min-w-150px">Role ID</th>
                             <th class="min-w-140px">Role Name</th>
                             <th class="min-w-120px">Created Date</th>
-                            <th class="min-w-120px">Active</th>
                             <th class="min-w-120px">Permissions</th>
                             <th class="min-w-120px">Actions</th>
 
@@ -92,7 +87,7 @@ const MasterUserRights = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {rolesState.roles.map((role) => (
+                          {rolesState?.map((role) => (
                             <tr class="text-center">
                               <td>
                                 <div class="form-check form-check-sm form-check-custom form-check-solid">
@@ -108,7 +103,7 @@ const MasterUserRights = () => {
                                   href="#"
                                   class="text-dark fw-bolder text-hover-primary fs-6"
                                 >
-                                  {role._id}
+                                  {role.id}
                                 </a>
                               </td>
                               <td>
@@ -116,7 +111,7 @@ const MasterUserRights = () => {
                                   href="#"
                                   class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                                 >
-                                  {role.role_name}
+                                  {role.name}
                                 </a>
                               </td>
                               <td>
@@ -127,32 +122,23 @@ const MasterUserRights = () => {
                                   {dateFormatter(Date.parse(role.createdAt))}
                                 </a>
                               </td>
-                              <td>
-                                <a
-                                  href="#"
-                                  class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                                >
-                                  {role.status === "active"
-                                    ? "Active"
-                                    : "Inactive"}
-                                </a>
-                              </td>
+                             
                                   <td>
                                     {role.permissions.map((x) => (
                                       <a
                                         href="#"
                                         class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                                       >
-                                        {x.permission_name}
+                                        {x}
                                       </a>
                                     ))}
                                   </td>
                               <td class="text-end">
                                
-                                <a
-                                  href="#"
-                                  class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                                >
+                               {/* <Link
+                               state={role}
+                               to="/master/security/role_right/edit"
+                               >
                                   <span class="svg-icon svg-icon-3">
                                     <svg
                                       xmlns="http://www.w3.org/2000/svg"
@@ -172,8 +158,13 @@ const MasterUserRights = () => {
                                       />
                                     </svg>
                                   </span>
-                                </a>
-                                <a
+                                  </Link> */}
+                                  <DeleteSpinner
+                                   collection={role}
+                                   deleting={deleteRole}
+                                   url={"master/security/all_roles"}
+                                  />
+                                {/* <a
                                   href="#"
                                   class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
                                 >
@@ -201,7 +192,7 @@ const MasterUserRights = () => {
                                       />
                                     </svg>
                                   </span>
-                                </a>
+                                </a> */}
                               </td>
                             </tr>
                           ))}

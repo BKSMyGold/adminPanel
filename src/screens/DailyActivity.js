@@ -5,17 +5,16 @@ import Dashboard from './dashboard'
 import axios from 'axios'
 import { BASE_URL } from '../Constants'
 import { convert, todaysDate } from '../apis/allFunctions'
+import {getReport} from "../APIs_Hai/Reports"
+//=====================================================================
 const DailyActivity = () => {
+  //=====================================================================
   const [usersData, setUserData] = useState([])
+  //=====================================================================
   useEffect(() => {
-    const fetchUsers = async () => {
-      const { data } = await axios.get(`${BASE_URL}/api/user/`)
-
-      setUserData(data)
-    }
-    fetchUsers()
+    getReport().then(res =>setUserData(res.data.data.data))
   }, [])
-
+//=====================================================================
   return (
     <div className='d-flex flex-column flex-root'>
       <div className='page d-flex flex-row flex-column-fluid'>
