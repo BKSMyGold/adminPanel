@@ -1,77 +1,45 @@
 import React from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import { addSystemUser } from "../apis/SystemUser";
+// import { addSystemUser } from "../apis/SystemUser";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
+import {getRole} from "../APIs_Hai/Role"
+import {registerUser} from "../APIs_Hai/Register"
+  //=====================================================
 
 export default function UserSignUp() {
   const navigate = useNavigate();
   //=====================================================
   const [roles, setRoles] = React.useState([]);
   const [userSigning, setUserSigning] = React.useState({
-    name: "",
+    fullName: "",
     email: "",
+    username:"",
     password: "",
-    phoneNumber: "",
-    panNumber: "",
-    aadharNumber: "",
-    address: "",
+    mobile: "",
+    // pan: "",
+    // address: "",
     role: "",
-    upperRole: "",
+    userType:2
+    // upperRole: "",
+    
   });
   //=====================================================
   React.useEffect(() => {
-    axios.get("http://13.59.57.74:5000/api/role").then((res) => {
-      setRoles(res.data.roles);
-      console.log(res.data.roles);
-    });
+    getRole().then(res => setRoles(res.data.data.data))
   }, []);
   //=====================================================
-  const Roles = [
-    "Super Admin",
-    "Admin",
-    "Accountant",
-    "Sales",
-    "IT",
-    "Marketing",
-    "CRM",
-  ];
-
   const handleSubmit = async () => {
     console.log("--->", userSigning);
 
-    {
-      roles.map((role) => {
-        if (userSigning.role === role.role_name) {
-          userSigning.role = role._id;
-        }
-      });
-    }
-
-    let {
-      name,
-      email,
-      password,
-      phoneNumber,
-      panNumber,
-      aadharNumber,
-      address,
-      role,
-      upperRole,
-    } = userSigning;
-
-    let data = {
-      name,
-      email,
-      password,
-      phoneNumber,
-      panNumber,
-      aadharNumber,
-      address,
-      role,
-      upperRole,
-    };
+    // {
+    //   roles.map((role) => {
+    //     if (userSigning.role === role.role_name) {
+    //       userSigning.role = role._id;
+    //     }
+    //   });
+    // }
 
     // await axios
     //   .post("https://goldv2.herokuapp.com/api/system-user", data)
@@ -79,6 +47,8 @@ export default function UserSignUp() {
     //     navigate("/registered_User");
     //     console.log("user generated: ==>", data);
     //   });
+
+    registerUser(userSigning);
   };
 
   //=====================================================
@@ -97,13 +67,13 @@ export default function UserSignUp() {
           </label>
           <input
             type="text"
-            name="name"
+            name="fullName"
             className="form-control form-control-lg form-control-solid "
             placeholder="Name"
             onChange={(e) => {
               setUserSigning({
                 ...userSigning,
-                name: e.target.value,
+                fullName: e.target.value,
               });
             }}
           />
@@ -142,7 +112,7 @@ export default function UserSignUp() {
           <input
             type="password"
             name="password"
-            multiple
+            
             className="form-control form-control-lg form-control-solid"
             placeholder="Password"
             onChange={(e) => {
@@ -153,6 +123,31 @@ export default function UserSignUp() {
             }}
           />
         </div>
+
+        <div>
+          <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+            <span class="required">UserName</span>
+            <i
+              class="fas fa-exclamation-circle ms-2 fs-7"
+              data-bs-toggle="tooltip"
+              title="Specify your unique app name"
+            ></i>
+          </label>
+          <input
+            type="text"
+            name="username"
+            
+            className="form-control form-control-lg form-control-solid"
+            placeholder="Password"
+            onChange={(e) => {
+              setUserSigning({
+                ...userSigning,
+                username: e.target.value,
+              });
+            }}
+          />
+        </div>
+
         <div>
           <label class="d-flex align-items-center fs-5 fw-bold mb-2">
             <span class="required">Phone Number</span>
@@ -171,57 +166,13 @@ export default function UserSignUp() {
             onChange={(e) => {
               setUserSigning({
                 ...userSigning,
-                phoneNumber: e.target.value,
+                mobile: e.target.value,
               });
             }}
           />
         </div>
-        <div>
-          <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-            <span class="required">PAN Number</span>
-            <i
-              class="fas fa-exclamation-circle ms-2 fs-7"
-              data-bs-toggle="tooltip"
-              title="Specify your unique app name"
-            ></i>
-          </label>
-          <input
-            type="text"
-            name="panNumber"
-            multiple
-            className="form-control form-control-lg form-control-solid"
-            placeholder="type panNumber"
-            onChange={(e) => {
-              setUserSigning({
-                ...userSigning,
-                panNumber: e.target.value,
-              });
-            }}
-          />
-        </div>
-        <div>
-          <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-            <span class="required">Aadhar Number</span>
-            <i
-              class="fas fa-exclamation-circle ms-2 fs-7"
-              data-bs-toggle="tooltip"
-              title="Specify your unique app name"
-            ></i>
-          </label>
-          <input
-            type="text"
-            name="aadharNumber"
-            multiple
-            className="form-control form-control-lg form-control-solid"
-            placeholder="Aaddhar Number"
-            onChange={(e) => {
-              setUserSigning({
-                ...userSigning,
-                aadharNumber: e.target.value,
-              });
-            }}
-          />
-        </div>
+        
+{/*         
         <div>
           <label class="d-flex align-items-center fs-5 fw-bold mb-2">
             <span class="required">Address</span>
@@ -244,7 +195,7 @@ export default function UserSignUp() {
               });
             }}
           />
-        </div>
+        </div> */}
         <div>
           <label class="d-flex align-items-center fs-5 fw-bold mb-2">
             <span class="required">Role</span>
@@ -260,34 +211,35 @@ export default function UserSignUp() {
             }}
             className="form-control form-control-lg form-control-solid"
           >
+            <option className="form-control ">__________</option>
             {roles.map((role) => (
-              <option className="form-control ">{role.role_name}</option>
+              <option className="form-control" value={role.id}>{role.name}</option>
             ))}
           </select>
         </div>
-        <div>
+
+        {/* <div>
           <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-            <span class="required">Under Role</span>
+            <span class="required">Upper Role</span>
             <i
               class="fas fa-exclamation-circle ms-2 fs-7"
               data-bs-toggle="tooltip"
-              title="Specify your unique app name"
+              title="Specify under which role you will be assigned "
             ></i>
           </label>
-
           <select
             onChange={(e) => {
               setUserSigning({ ...userSigning, upperRole: e.target.value });
             }}
             className="form-control form-control-lg form-control-solid"
           >
-            {Roles.map((role) => (
-              <option className="form-control ">{role}</option>
+            <option className="form-control ">__________</option>
+            {roles.map((role) => (
+              <option className="form-control ">{role.name}</option>
             ))}
           </select>
-        </div>
-
-        <div>
+        </div> */}
+        {/* <div>
           <label class="d-flex align-items-center fs-5 fw-bold mb-2">
             <span class="required">Parent Role</span>
             <i
@@ -296,16 +248,19 @@ export default function UserSignUp() {
               title="Specify your unique app name"
             ></i>
           </label>
-          <input
-          
-            name="name"
+          <select
+            onChange={(e) => {
+              setUserSigning({ ...userSigning, upperRole: e.target.value });
+            }}
             className="form-control form-control-lg form-control-solid"
-            
-            
-          />
-        </div>
+          >
+            {roles.map((role) => (
+              <option className="form-control ">{role.name}</option>
+            ))}
+          </select>
+        </div> */}
 
-        <div>
+        {/* <div>
           <label class="d-flex align-items-center fs-5 fw-bold mb-2">
             <span class="required">Allowed Login</span>
             <i
@@ -321,7 +276,7 @@ export default function UserSignUp() {
             placeholder="Number of times allowed to login"
             defaultValue={0}
           />
-        </div>
+        </div> */}
         {/* <Link to="/registered_User"> */}
         <button
           class="btn btn-danger my-5"
