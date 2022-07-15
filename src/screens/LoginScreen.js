@@ -5,6 +5,7 @@ import Footer from "../layouts/Footer";
 import { useNavigate } from "react-router-dom";
 import mon from "../public/images/mon.jpg";
 import {loginUser} from "../APIs_Hai/Login"
+import axios from "axios";
 //================================================================================
 export default function LoginScreen() {
   let navigate = useNavigate();
@@ -22,12 +23,14 @@ export default function LoginScreen() {
 
       e.preventDefault();
       loginUser({ ...credentials }).then(({ data: loggedInUser }) => {
-        localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
+        localStorage.setItem("user", JSON.stringify(loggedInUser.data))
+        localStorage.setItem("token",loggedInUser.data.token)
+        axios.defaults.headers.common= {Authorization: `Bearer ${loggedInUser.data.token}`}
         console.log(loggedInUser)
         navigate("/");
-        // window.location.reload(false);
+        window.location.reload(false);
     })
-    
+  
   };
   //================================================================================
   return (
