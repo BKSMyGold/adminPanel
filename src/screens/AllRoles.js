@@ -134,8 +134,8 @@ const MasterUserRights = () => {
                                     ))}
                                   </td>
                               <td class="text-end">
-                               
-                               {/* <Link
+                                      
+                               <Link
                                state={role}
                                to="/master/security/role_right/edit"
                                >
@@ -158,7 +158,7 @@ const MasterUserRights = () => {
                                       />
                                     </svg>
                                   </span>
-                                  </Link> */}
+                                  </Link>
                                   <DeleteSpinner
                                    collection={role}
                                    deleting={deleteRole}

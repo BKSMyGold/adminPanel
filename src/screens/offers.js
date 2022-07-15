@@ -10,6 +10,7 @@ import { CSVLink } from "react-csv";
 import { getOffer,deleteOffer } from "../APIs_Hai/Offer";
 //=====================================================
 const Offers = (props) => {
+  console.log("==========--------------=====>",props.user)
   //=====================================================
   const [Offers, setOffers] = useState([]);
   const [userPermissions, setUserPermissions] = useState(new Set());
@@ -21,11 +22,11 @@ const Offers = (props) => {
   }, []);
 console.log(Offers)
   //=====================================================
-  useEffect(() => {
-    props.user.role.permissions.map((permission) => {
-      return userPermissions.add(permission.permission_name);
-    });
-  }, []);
+  // useEffect(() => {
+  //   props.user.role.permissions.map((permission) => {
+  //     return userPermissions.add(permission.permission_name);
+  //   });
+  // }, []);
   //=====================================================
 
   return (

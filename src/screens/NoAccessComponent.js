@@ -63,13 +63,13 @@ export default function NoAccessComponent({ user }) {
         </div>
       </div>
       <div class="message">
-        <h1 class="text">You Shall Not Pass Mr. {user.name}</h1>
+        <h1 class="text">You Shall Not Pass Mr. {user.fullName? user.fullName : "Name"}</h1>
 
         <p class="text para">
-          Uh oh, Gandalf has denied you permission as a{" "}
-          {Object.keys(user).map((role) => {
+          Uh oh, Gandalf has denied you permission 
+          {/* {Object.keys(user).map((role) => {
             return user[role].role_name;
-          })}
+          })} */}
           <br />
         </p>
       </div>

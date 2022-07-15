@@ -928,14 +928,20 @@ const nodes = [
 
 export default function RoleForm() {
   const location = useLocation();
-
-  const [name, setName] = useState([]);
-  const [permissions, setPermissions] = useState([]);
-  const [expanded, setExpanded] = useState([]);
+  const [roleForm, setRoleForm] = useState([
+    {
+      name: "",
+      permissions: [],
+      expanded: [],
+    },
+  ]);
+  // const [name, setName] = useState([]);
+  // const [permissions, setPermissions] = useState([]);
+  // const [expanded, setExpanded] = useState([]);
 
   const handleSubmit = () => {
-    let data = name, permissions,expanded
-    addRole(data)
+    // let data = name, permissions,expanded
+    addRole(roleForm);
   };
   //===============================================================
 
@@ -951,17 +957,19 @@ export default function RoleForm() {
           class="form-control my-5"
           placeholder="Enter new Role"
           onChange={(e) => {
-            setName({
-              name: e.target.value,
-            });
+            setRoleForm({ ...roleForm, name: e.target.value });
           }}
         />
         <CheckboxTree
           nodes={nodes}
-          checked={setPermissions(permissions)}
-          expanded={setExpanded(expanded)}
-          onCheck={(permissions) => setPermissions(permissions)}
-          onExpand={(expanded) => setExpanded(expanded)}
+          checked={setRoleForm({ ...roleForm.permissions })}
+          expanded={setRoleForm({ ...roleForm.expanded })}
+          onCheck={(permissions) =>
+            setRoleForm({ ...roleForm, permissions: permissions })
+          }
+          onExpand={(expanded) =>
+            setRoleForm({ ...roleForm, expanded: expanded })
+          }
         />
       </div>
       <button class="btn btn-danger m-5" onClick={handleSubmit}>

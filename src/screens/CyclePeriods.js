@@ -19,11 +19,11 @@ const CyclePeriods = (props) => {
    getCyclePeriod().then(res => setCyclePeriods(res.data.data.data))
   }, []);
   //=============================================================
-  useEffect(() => {
-    props.user.role.permissions.map((permission) => {
-      return userPermissions.add(permission.permission_name);
-    });
-  }, []);
+  // useEffect(() => {
+  //   props.user.role.permissions.map((permission) => {
+  //     return userPermissions.add(permission.permission_name);
+  //   });
+  // }, []);
   // console.log("userPermissions ==>", userPermissions);
 
   //====================================================================

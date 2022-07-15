@@ -202,453 +202,496 @@ import CalculationForm from "./components/CalculationForm";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import FAQ from "./screens/FAQ";
 import FAQForm from "./components/FAQForm";
+import { ADMIN_API } from "./Constants";
+import axios from "axios";
+import Policy from "./screens/Policy";
+import PolicyForm from "./components/PolicyForm"
 //====================================================================
 const App = () => {
   const [loggedInUser, setLoggedInUser] = useState({});
   const [permissions, setPermissions] = useState(new Set());
+  const [loading, setLoading] = useState(true);
   //====================================================================
   let navigate = useNavigate();
   //====================================================================
 
-  // useEffect(() => {
-  //   if (localStorage.getItem("loggedInUser")) {
-  //     let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
-  //     let permissionSet = new Set();
-  //     for (let permissions of localStorageUser.role.permissions) {
-  //       permissionSet.add(permissions.permission_name);
-  //     }
-  //     setPermissions(permissionSet);
-  //     setLoggedInUser(localStorageUser);
-  //   } else {
-  //     navigate("/login");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      let localStorageUser = JSON.parse(localStorage.getItem("user"));
+      let permissionSet = new Set();
+      for (let perma of localStorageUser.role.permissions) {
+        permissionSet.add(perma);
+      }
+      setPermissions(permissionSet);
+      setLoggedInUser(localStorageUser);
+    } else {
+      navigate("/login");
+    }
+  }, []);
   //====================================================================
   const handleLogout = () => {
     setLoggedInUser({});
     localStorage.clear();
     window.location.reload(false);
   };
+
+  // const loadUser = async () => {
+  //   const token = localStorage.getItem("token");
+  //   console.log(token);
+  //   if (!token) {
+  //     setLoading(false);
+  //     setLoggedInUser(false);
+  //     return;
+  //   }
+  //   const response = await axios.get(`${ADMIN_API}/admin/user/me`, {
+  //     headers: { Authorization: `Bearer ${token}` },
+  //   });
+  //   // console.log("--->",response.data)
+  //   localStorage.setItem("user", JSON.stringify(response.data.data));
+  //   setLoggedInUser(response.data.data);
+
+  //   let permissionSet = new Set();
+  //   for (let perma of response.data.data.role.permissions) {
+  //     console.log(perma);
+  //     permissionSet.add(perma);
+  //   }
+  //   setPermissions(permissionSet);
+  //   // let newSet = new Set(response.data.data.role.permissions)
+  //   // setPermissions(newSet)
+  //   setLoading(false);
+  // };
+  // console.log("====> yeh hai permissions", permissions);
+  // console.log("====> yeh hai user", loggedInUser);
+
+  // // useEffect(()=>{
+  // // if(loading) return
+  // // if(!loggedInUser)
+  // // navigate("/login")
+
+  // // },[loggedInUser,loading])
+
+  // useEffect(() => {
+  //   loadUser();
+  // }, []);
+
+  // if (loading) {
+  //   return null;
+  // }
+  // // if(! loggedInUser){
+  // //   // navigate("/login")
+  // //   return null
+  // // }
+
   //====================================================================
   return (
-    <>
-      <div className="App">
-        <Routes>
-          {/*Master =============================================*/}
-          {/*Products Data ======================*/}
+    // <>
+    <div className="App">
+      <Routes>
+        {/* {!loggedInUser ?( */}
+        {/* <> */}
+        <Route path="/login" element={<LoginScreen />} />
+        <Route path="/forgot_password" element={<ForgotPassword />} />
+        <Route path="/register" element={<UserSignUp />} exact />
+        {/* </> */}
+        {/* ):( */}
+        {/* <> */}
+        {/* <Route path="/registered_User" element={<RegisteredUser />} /> */}
+        {/*Master =============================================*/}
+        {/*Products Data ======================*/}
 
-          <Route path="/change_name" element={<UserNameChangeForm />} />
+        <Route path="/change_name" element={<UserNameChangeForm />} />
 
-          <Route path="*" element={<PageNotFound />} />
-          <Route path="/change_role" element={<RoleChangeForm />} />
-          <Route path="/forgot_password" element={<ForgotPassword />} />
+        <Route path="*" element={<PageNotFound />} />
+        <Route path="/change_role" element={<RoleChangeForm />} />
 
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<LoginScreen />} />
-          <Route path="/register" element={<UserSignUp />} exact />
-          <Route path="/registered_User" element={<RegisteredUser />} />
+        <Route path="/" element={<Home />} />
 
-          <Route path="/master/plans/plan-bonus" element={<PlanBonus />} />
-          {/*================================ Units =================================================*/}
+        <Route path="/master/plans/plan-bonus" element={<PlanBonus />} />
+        {/*================================ Units =================================================*/}
 
-          <Route
-            path="/master/product-data/units"
-            element={
-              permissions.has("view_metal_groups") ? (
-                <Units user={loggedInUser} />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/product-data/units/add"
-            element={
-              permissions.has("") ? (
-                <UnitsForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/product-data/units/edit"
-            element={
-              permissions.has("") ? (
-                <UnitsForm user={loggedInUser} />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          {/*================================ Style =================================================*/}
+        <Route
+          path="/master/product-data/units"
+          element={
+            // permissions.has("view_metal_groups") ? (
+            <Units user={loggedInUser} />
+            // ) : (
+            // <NoAccessComponent user={loggedInUser} />
+            // )
+          }
+        />
+        <Route
+          path="/master/product-data/units/add"
+          element={
+            // permissions.has("") ? (
+            <UnitsForm />
+            // ) : (
+            // <NoAccessComponent user={loggedInUser} />
+            // )
+          }
+        />
+        <Route
+          path="/master/product-data/units/edit"
+          element={
+            permissions.has("") ? (
+              <UnitsForm user={loggedInUser} />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        {/*================================ Style =================================================*/}
 
-          <Route
-            path="/master/product-data/style"
-            element={
-              permissions.has("view_style") ? (
-                <Style user={loggedInUser} />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/product-data/style/add"
-            element={
-              permissions.has("add_style") ? (
-                <StyleForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/product-data/style/edit"
-            element={
-              permissions.has("edit_style") ? (
-                <StyleForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          {/*================================ Making_Charges =================================================*/}
+        <Route
+          path="/master/product-data/style"
+          element={
+            permissions.has("view_style") ? (
+              <Style user={loggedInUser} />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/product-data/style/add"
+          element={
+            permissions.has("add_style") ? (
+              <StyleForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/product-data/style/edit"
+          element={
+            permissions.has("edit_style") ? (
+              <StyleForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        {/*================================ Making_Charges =================================================*/}
 
-          <Route
-            path="/master/product-data/making-charges"
-            element={<MakingCharges />}
-          />
-          <Route
-            path="/master/product-data/making-charges/add"
-            element={<MakingChargesForm />}
-          />
-          <Route
-            path="/master/product-data/making-charges/edit"
-            element={<MakingChargesForm />}
-          />
+        <Route
+          path="/master/product-data/making-charges"
+          element={<MakingCharges />}
+        />
+        <Route
+          path="/master/product-data/making-charges/add"
+          element={<MakingChargesForm />}
+        />
+        <Route
+          path="/master/product-data/making-charges/edit"
+          element={<MakingChargesForm />}
+        />
 
-          <Route
-            path="/master/plans/plan-bonus/edit"
-            element={<PlanBonusForm />}
-          />
-          <Route
-            path="/master/plans/plan-bonus/add"
-            element={<PlanBonusForm />}
-          />
-          <Route path="/system_user_detail" element={<SystemUserDetail />} />
-          <Route path="/view_item_details" element={<EachItemsDetails />} />
-          <Route
-            path="/master/product-data/metal"
-            // element={
-            //   permissions.has("view_metal_groups") ? (
-            //     <Metal user={loggedInUser} />
-            //   ) : (
-            //     <NoAccessComponent user={loggedInUser} />
-            //   )
-            // }
-            element={<Metal />}
-          />
-          <Route
-            path="/master/product-data/metal/edit"
-            element={<MetalForm />}
-          />
-          <Route
-            path="/master/product-data/metal/add"
-            element={<MetalForm />}
-          />
+        <Route
+          path="/master/plans/plan-bonus/edit"
+          element={<PlanBonusForm />}
+        />
+        <Route
+          path="/master/plans/plan-bonus/add"
+          element={<PlanBonusForm />}
+        />
+        <Route path="/system_user_detail" element={<SystemUserDetail />} />
+        <Route path="/view_item_details" element={<EachItemsDetails />} />
+        <Route
+          path="/master/product-data/metal"
+          // element={
+          //   permissions.has("view_metal_groups") ? (
+          //     <Metal user={loggedInUser} />
+          //   ) : (
+          //     <NoAccessComponent user={loggedInUser} />
+          //   )
+          // }
+          element={<Metal />}
+        />
+        <Route path="/master/product-data/metal/edit" element={<MetalForm />} />
+        <Route path="/master/product-data/metal/add" element={<MetalForm />} />
 
-          <Route
-            path="/master/product-data/metal_groups"
-            element={
-              permissions.has("view_metal_groups") ? (
-                <MetalGroups user={loggedInUser} />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
+        <Route
+          path="/master/product-data/metal_groups"
+          element={
+            permissions.has("view_metal_groups") ? (
+              <MetalGroups user={loggedInUser} />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
 
-          <Route path="/master/product-data/ornament" element={<Ornament />} />
-          <Route
-            path="/master/product-data/ornament/add"
-            element={<OrnamentForm />}
-          />
-          <Route
-            path="/master/product-data/ornament/edit"
-            element={<OrnamentForm />}
-          />
+        <Route path="/master/product-data/ornament" element={<Ornament />} />
+        <Route
+          path="/master/product-data/ornament/add"
+          element={<OrnamentForm />}
+        />
+        <Route
+          path="/master/product-data/ornament/edit"
+          element={<OrnamentForm />}
+        />
 
-          <Route path="/master/product-data/cut" element={<Cut />} />
-          <Route path="/master/product-data/cut/add" element={<CutForm />} />
-          <Route path="/master/product-data/cut/edit" element={<CutForm />} />
+        <Route path="/master/product-data/cut" element={<Cut />} />
+        <Route path="/master/product-data/cut/add" element={<CutForm />} />
+        <Route path="/master/product-data/cut/edit" element={<CutForm />} />
 
-          <Route path="/master/calculation" element={<Calculation />} />
-          <Route path="/master/calculation/add" element={<CalculationForm />} />
-          <Route
-            path="/master/calculation/edit"
-            element={<CalculationForm />}
-          />
+        <Route path="/master/calculation" element={<Calculation />} />
+        <Route path="/master/calculation/add" element={<CalculationForm />} />
+        <Route path="/master/calculation/edit" element={<CalculationForm />} />
 
-          <Route path="/master/product-data/shape" element={<Shape />} />
-          <Route
-            path="/master/product-data/shape/add"
-            element={<ShapeForm />}
-          />
-          <Route
-            path="/master/product-data/shape/edit"
-            element={<ShapeForm />}
-          />
+        <Route path="/master/product-data/shape" element={<Shape />} />
+        <Route path="/master/product-data/shape/add" element={<ShapeForm />} />
+        <Route path="/master/product-data/shape/edit" element={<ShapeForm />} />
 
-          <Route path="/master/product-data/clarity" element={<Clarity />} />
-          <Route
-            path="/master/product-data/clarity/add"
-            element={<ClarityForm />}
-          />
-          <Route
-            path="/master/product-data/clarity/edit"
-            element={<ClarityForm />}
-          />
+        <Route path="/master/product-data/clarity" element={<Clarity />} />
+        <Route
+          path="/master/product-data/clarity/add"
+          element={<ClarityForm />}
+        />
+        <Route
+          path="/master/product-data/clarity/edit"
+          element={<ClarityForm />}
+        />
 
-          <Route path="/master/product-data/colour" element={<Colour />} />
-          <Route
-            path="/master/product-data/colour/add"
-            element={<ColourForm />}
-          />
-          <Route
-            path="/master/product-data/colour/edit"
-            element={<ColourForm />}
-          />
+        <Route path="/master/product-data/colour" element={<Colour />} />
+        <Route
+          path="/master/product-data/colour/add"
+          element={<ColourForm />}
+        />
+        <Route
+          path="/master/product-data/colour/edit"
+          element={<ColourForm />}
+        />
 
-          <Route path="/user_details" element={<UserDetails />} />
-          <Route path="/filtered_users" element={<FilteredUsers />} />
-          <Route
-            path="/master/product-data/metal_groups/add"
-            element={
-              permissions.has("add_metal_groups") ? (
-                <MetalGroupForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/product-data/metal_groups/edit"
-            element={
-              permissions.has("edit_metal_groups") ? (
-                <MetalGroupForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
+        <Route path="/user_details" element={<UserDetails />} />
+        <Route path="/filtered_users" element={<FilteredUsers />} />
+        <Route
+          path="/master/product-data/metal_groups/add"
+          element={
+            permissions.has("add_metal_groups") ? (
+              <MetalGroupForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/product-data/metal_groups/edit"
+          element={
+            permissions.has("edit_metal_groups") ? (
+              <MetalGroupForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
 
-          <Route
-            path="/master/product-data/offers/add"
-            element={
-              permissions.has("add_offer") ? (
-                <OffersForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/product-data/offers/edit"
-            element={
-              permissions.has("edit_offer") ? (
-                <OffersForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/buysell/add"
-            element={
-              permissions.has("add_buy_price") ? (
-                <CurrentRateForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/buysell/edit"
-            element={
-              permissions.has("edit_buy_price") ? (
-                <CurrentRateForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/plans/standard-plans/add"
-            element={
-              permissions.has("add_plan") ? (
-                <StandardPlanForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/plans/standard-plans/edit"
-            element={
-              permissions.has("update_plan") ? (
-                <StandardPlanForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/taxes/add"
-            element={
-              permissions.has("add_tax") ? (
-                <CustomDutiesForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/taxes/edit"
-            element={
-              permissions.has("edit_tax") ? (
-                <CustomDutiesForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/plans/cycle-periods/add"
-            element={
-              permissions.has("add_cycle_periods") ? (
-                <CyclePeriodsForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/plans/cycle-periods/edit"
-            element={
-              permissions.has("edit_cycle_periods") ? (
-                <CyclePeriodsForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/settings/sliders/add"
-            element={
-              permissions.has("add_slider") ? (
-                <SlidersForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/settings/sliders/edit"
-            element={
-              permissions.has("update_slider") ? (
-                <SlidersForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
+        <Route
+          path="/master/product-data/offers/add"
+          element={
+            permissions.has("add_offer") ? (
+              <OffersForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/product-data/offers/edit"
+          element={
+            permissions.has("edit_offer") ? (
+              <OffersForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/buysell/add"
+          element={
+            permissions.has("add_buy_price") ? (
+              <CurrentRateForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/buysell/edit"
+          element={
+            permissions.has("edit_buy_price") ? (
+              <CurrentRateForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/plans/standard-plans/add"
+          element={
+            permissions.has("add_plan") ? (
+              <StandardPlanForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/plans/standard-plans/edit"
+          element={
+            permissions.has("update_plan") ? (
+              <StandardPlanForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/taxes/add"
+          element={
+            permissions.has("add_tax") ? (
+              <CustomDutiesForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/taxes/edit"
+          element={
+            permissions.has("edit_tax") ? (
+              <CustomDutiesForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/plans/cycle-periods/add"
+          element={
+            permissions.has("add_cycle_periods") ? (
+              <CyclePeriodsForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/plans/cycle-periods/edit"
+          element={
+            permissions.has("edit_cycle_periods") ? (
+              <CyclePeriodsForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/settings/sliders/add"
+          element={
+            permissions.has("add_slider") ? (
+              <SlidersForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/settings/sliders/edit"
+          element={
+            permissions.has("update_slider") ? (
+              <SlidersForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
 
-          <Route
-            path="/master/product-data/diamonds"
-            element={
-              permissions.has("view_diamond_gems") ? (
-                <Diamonds user={loggedInUser} />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/product-data/categories"
-            element={
-              permissions.has("view_categories") ? (
-                <Categories user={loggedInUser} />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/product-data/products"
-            element={
-              permissions.has("view_products") ? (
-                <Products user={loggedInUser} />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/product-data/varieties"
-            element={
-              permissions.has("view_varities") ? (
-                <Varieties user={loggedInUser} />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/product-data/items"
-            element={
-              permissions.has("view_items") ? (
-                <Items user={loggedInUser} />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/product-data/offers"
-            element={
-              permissions.has("view_offer") ? (
-                <Offers user={loggedInUser} />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          {/*Security =============================================*/}
-          <Route
-            path="/master/security/role_right"
-            element={
-              permissions.has("add_diamond_gems") ? (
-                <RoleRight />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route path="/master/security/all_roles" element={<AllRoles />} />
+        <Route
+          path="/master/product-data/diamonds"
+          element={
+            permissions.has("view_diamond_gems") ? (
+              <Diamonds user={loggedInUser} />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/product-data/categories"
+          element={
+            permissions.has("view_categories") ? (
+              <Categories user={loggedInUser} />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/product-data/products"
+          element={
+            permissions.has("view_products") ? (
+              <Products user={loggedInUser} />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/product-data/varieties"
+          element={
+            permissions.has("view_varities") ? (
+              <Varieties user={loggedInUser} />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/product-data/items"
+          element={
+            permissions.has("view_items") ? (
+              <Items user={loggedInUser} />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/product-data/offers"
+          element={
+            // permissions.has("view_offer") ? (
+              <Offers user={loggedInUser} />
+            // ) : (
+              // <NoAccessComponent user={loggedInUser} />
+            // )
+          }
+        />
+        {/*Security =============================================*/}
+        <Route
+          path="/master/security/role_right"
+          element={
+            // permissions.has("add_diamond_gems") ? (
+            <RoleRight />
+            // ) : (
+            // <NoAccessComponent user={loggedInUser} />
+            // )
+          }
+        />
+        <Route path="/master/security/all_roles" element={<AllRoles />} />
 
-          <Route
-            path="master/product-data/diamonds/add"
-            element={
-              permissions.has("add_diamond_gems") ? (
-                <DiamondsForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
+        <Route
+          path="master/product-data/diamonds/add"
+          element={
+            permissions.has("add_diamond_gems") ? (
+              <DiamondsForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
 
-          {/* <Route
+        {/* <Route
             path="/master/security/role_right"
             element={
               permissions.has("edit_diamond_gems") ? (
@@ -658,838 +701,815 @@ const App = () => {
               )
             }
           /> */}
-          <Route
-            path="master/product-data/collections"
-            element={
-              permissions.has("view_collections") ? (
-                <Collections user={loggedInUser} />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-            exact
-          />
-          <Route
-            path="master/product-data/products/add"
-            element={
-              permissions.has("add_product") ? (
-                <ProductForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="master/product-data/products/edit"
-            element={
-              permissions.has("edit_product") ? (
-                <ProductForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="master/product-data/items/add"
-            element={
-              permissions.has("add_items") ? (
-                <ItemForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="master/product-data/items/edit"
-            element={
-              permissions.has("edit_item") ? (
-                <ItemForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="master/product-data/collections/add"
-            element={
-              permissions.has("add_collections") ? (
-                <CollectionForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="master/product-data/collections/edit"
-            element={
-              permissions.has("edit_collections") ? (
-                <CollectionForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="master/product-data/categories/edit"
-            element={
-              permissions.has("edit_categories") ? (
-                <CategoryForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/security/masterUserRights"
-            element={
-              permissions.has("view_roles") ? (
-                <MasterUserRights />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/product-data/categories/add"
-            element={
-              permissions.has("add_categories") ? (
-                <CategoryForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/product-data/varieties/add"
-            element={
-              permissions.has("add_varities") ? (
-                <VarietyForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/product-data/varieties/edit"
-            element={
-              permissions.has("edit_varities") ? (
-                <VarietyForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/security/permissions"
-            element={
-              permissions.has("view_permissions") ? (
-                <Permissions user={loggedInUser} />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/security/role_right/edit"
-            element={
-              permissions.has("manage_roles") ? (
-                <RoleForm permissions={permissions} />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/security/masterUserRights/edit"
-            element={
-              permissions.has("update_roles") ? (
-                <RoleForm permissions={permissions} />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/security/userpasswords"
-            element={<RegisteredUser />}
-          />
-          {/*Settings =============================================*/}
-          <Route
-            path="/master/settings/sliders"
-            element={
-              permissions.has("view_sliders") ? (
-                <Sliders />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/settings/how-to-videos"
-            element={
-              permissions.has("view_videos") ? (
-                <HowTo />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/settings/how-to-videos/add"
-            element={
-              permissions.has("add_video") ? (
-                <HowTo />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/settings/how-to-videos/edit"
-            lement={
-              permissions.has("edit_video") ? (
-                <HowTo />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/settings/testimonials"
-            element={<Testimonials />}
-          />
+        <Route
+          path="master/product-data/collections"
+          element={
+            permissions.has("view_collections") ? (
+              <Collections user={loggedInUser} />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+          exact
+        />
+        <Route
+          path="master/product-data/products/add"
+          element={
+            permissions.has("add_product") ? (
+              <ProductForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="master/product-data/products/edit"
+          element={
+            permissions.has("edit_product") ? (
+              <ProductForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="master/product-data/items/add"
+          element={
+            permissions.has("add_items") ? (
+              <ItemForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="master/product-data/items/edit"
+          element={
+            permissions.has("edit_item") ? (
+              <ItemForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="master/product-data/collections/add"
+          element={
+            permissions.has("add_collections") ? (
+              <CollectionForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="master/product-data/collections/edit"
+          element={
+            permissions.has("edit_collections") ? (
+              <CollectionForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="master/product-data/categories/edit"
+          element={
+            permissions.has("edit_categories") ? (
+              <CategoryForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/security/masterUserRights"
+          element={
+            permissions.has("view_roles") ? (
+              <MasterUserRights />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/product-data/categories/add"
+          element={
+            permissions.has("add_categories") ? (
+              <CategoryForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/product-data/varieties/add"
+          element={
+            permissions.has("add_varities") ? (
+              <VarietyForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/product-data/varieties/edit"
+          element={
+            permissions.has("edit_varities") ? (
+              <VarietyForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/security/permissions"
+          element={
+            permissions.has("view_permissions") ? (
+              <Permissions user={loggedInUser} />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/security/role_right/edit"
+          element={
+            // permissions.has("manage_roles") ? (
+            <RoleForm />
+            // ) : (
+            // <NoAccessComponent user={loggedInUser} />
+            // )
+          }
+        />
+        <Route
+          path="/master/security/masterUserRights/edit"
+          element={
+            permissions.has("update_roles") ? (
+              <RoleForm permissions={permissions} />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/security/userpasswords"
+          element={<RegisteredUser />}
+        />
+        {/*Settings =============================================*/}
+        <Route
+          path="/master/settings/sliders"
+          element={
+            permissions.has("view_sliders") ? (
+              <Sliders />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/settings/how-to-videos"
+          element={
+            permissions.has("view_videos") ? (
+              <HowTo />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/settings/how-to-videos/add"
+          element={
+            permissions.has("add_video") ? (
+              <HowTo />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/settings/how-to-videos/edit"
+          lement={
+            permissions.has("edit_video") ? (
+              <HowTo />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/settings/testimonials"
+          element={<Testimonials />}
+        />
 
-          <Route
-            path="/master/faq"
-            element={<FAQ />}
-          />
-            <Route
-            path="/master/faq/add"
-            element={<FAQForm />}
-          />
-               <Route
-            path="/master/faq/edit"
-            element={<FAQForm />}
-          />
+        <Route path="/master/faq" element={<FAQ />} />
+        <Route path="/master/faq/add" element={<FAQForm />} />
+        <Route path="/master/faq/edit" element={<FAQForm />} />
 
-          {/*Buy Sell =============================================*/}
-          <Route
-            path="/master/buysell"
-            element={
-              permissions.has("view_buy_price") ? (
-                <BuySell />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          {/*Reference Data =============================================*/}
-          <Route path="/master/reference/reference" element={<Reference />} />
-          <Route path="/master/reference/gbplevels" element={<GBPLevels />} />
-          {/*Plans =============================================*/}
-          <Route
-            path="/master/plans/cycle-periods/"
-            element={
-              permissions.has("view_cycle_periods") ? (
-                <CyclePeriods user={loggedInUser} />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/plans/standard-plans/"
-            element={
-              permissions.has("view_plans") ? (
-                <StandardPlans user={loggedInUser} />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/security/permissions/add"
-            element={
-              permissions.has("add_permissions") ? (
-                <PermissionsForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/master/security/permissions/edit"
-            element={
-              permissions.has("edit_permission") ? (
-                <PermissionsForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
+        {/*Buy Sell =============================================*/}
+        <Route
+          path="/master/buysell"
+          element={
+            permissions.has("view_buy_price") ? (
+              <BuySell />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        {/*Reference Data =============================================*/}
+        <Route path="/master/reference/reference" element={<Reference />} />
+        <Route path="/master/reference/gbplevels" element={<GBPLevels />} />
+        {/*Plans =============================================*/}
+        <Route
+          path="/master/plans/cycle-periods/"
+          element={
+            // permissions.has("view_cycle_periods") ? (
+              <CyclePeriods user={loggedInUser} />
+            // ) : (
+              // <NoAccessComponent user={loggedInUser} />
+            // )
+          }
+        />
+        <Route
+          path="/master/plans/standard-plans/"
+          element={
+            permissions.has("view_plans") ? (
+              <StandardPlans user={loggedInUser} />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/security/permissions/add"
+          element={
+            permissions.has("add_permissions") ? (
+              <PermissionsForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/security/permissions/edit"
+          element={
+            permissions.has("edit_permission") ? (
+              <PermissionsForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
 
-          <Route path="/master/badla" element={<Badla user={loggedInUser} />} />
-          <Route path="/master/badla/add" element={<BadlaForm />} />
-          <Route path="/master/badla/edit" element={<BadlaForm />} />
+        <Route path="/master/badla" element={<Badla user={loggedInUser} />} />
+        <Route path="/master/badla/add" element={<BadlaForm />} />
+        <Route path="/master/badla/edit" element={<BadlaForm />} />
 
-          {/*Duties Taxes =============================================*/}
-          <Route
-            path="/master/taxes"
-            element={
-              permissions.has("view_tax") ? (
-                <CustomDuties />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          {/*Sales Returns Reasons =============================================*/}
-          <Route path="/master/sellReasons" element={<SellReasons />} />
-          {/*Trasanctions =============================================*/}
-          {/*Financials =============================================*/}
-          <Route
-            path="/transaction/financials/InStoreReturns"
-            element={<InStoreReturns />}
-          />
-          <Route
-            path="/transaction/financials/ZohoBooks"
-            element={<ZohoBooks />}
-          />
-          <Route
-            path="/transaction/financials/ZohoBooks/add"
-            element={<ZohoBooksForm />}
-          />
-          <Route
-            path="/transaction/financials/InStoreReturns/add"
-            element={<InStoreReturnForm />}
-          />
-          <Route
-            path="/transaction/financials/InStoreRedeem"
-            element={<InStoreRedeem />}
-          />
-          <Route
-            path="/transaction/financials/InStoreCashCollection"
-            element={<InStoreCashCollection />}
-          />
-          <Route
-            path="/transaction/financials/InStoreTokenRefund"
-            element={<InStoreTokenRefund />}
-          />
-          <Route
-            path="/transaction/financials/SubmissionOfGoldEntry"
-            element={<SubmissionOfGoldEntry />}
-          />
-          <Route
-            path="/transaction/financials/BankPaymentEntries"
-            element={<BankPaymentEntries />}
-          />
-          <Route
-            path="/transaction/financials/GoldAdjustments"
-            element={<GoldAdjustments />}
-          />
-          {/*Orders =============================================*/}
-          <Route path="/transaction/order/Shipping" element={<Shipping />} />
-          <Route path="/transaction/order/Tracking" element={<Tracking />} />
-          {/* Data Entry =============================================*/}
-          <Route
-            path="/transaction/data-entry/reference-data"
-            element={<ReferenceData />}
-          />
-          <Route
-            path="/transaction/data-entry/gbp-entry"
-            element={<GBPEntry />}
-            exact={true}
-          />
-          {/* <Route
+
+
+        <Route path="/master/policy" element={<Policy user={loggedInUser} />} />
+        <Route path="/master/policy/add" element={<PolicyForm />} />
+        <Route path="/master/policy/edit" element={<PolicyForm />} />
+
+
+
+      {/*Duties Taxes =============================================*/}
+        <Route
+          path="/master/taxes"
+          element={
+            // permissions.has("view_tax") ? (
+              <CustomDuties />
+            // ) : (
+              // <NoAccessComponent user={loggedInUser} />
+            // )
+          }
+        />
+        {/*Sales Returns Reasons =============================================*/}
+        <Route path="/master/sellReasons" element={<SellReasons />} />
+        {/*Trasanctions =============================================*/}
+        {/*Financials =============================================*/}
+        <Route
+          path="/transaction/financials/InStoreReturns"
+          element={<InStoreReturns />}
+        />
+        <Route
+          path="/transaction/financials/ZohoBooks"
+          element={<ZohoBooks />}
+        />
+        <Route
+          path="/transaction/financials/ZohoBooks/add"
+          element={<ZohoBooksForm />}
+        />
+        <Route
+          path="/transaction/financials/InStoreReturns/add"
+          element={<InStoreReturnForm />}
+        />
+        <Route
+          path="/transaction/financials/InStoreRedeem"
+          element={<InStoreRedeem />}
+        />
+        <Route
+          path="/transaction/financials/InStoreCashCollection"
+          element={<InStoreCashCollection />}
+        />
+        <Route
+          path="/transaction/financials/InStoreTokenRefund"
+          element={<InStoreTokenRefund />}
+        />
+        <Route
+          path="/transaction/financials/SubmissionOfGoldEntry"
+          element={<SubmissionOfGoldEntry />}
+        />
+        <Route
+          path="/transaction/financials/BankPaymentEntries"
+          element={<BankPaymentEntries />}
+        />
+        <Route
+          path="/transaction/financials/GoldAdjustments"
+          element={<GoldAdjustments />}
+        />
+        {/*Orders =============================================*/}
+        <Route path="/transaction/order/Shipping" element={<Shipping />} />
+        <Route path="/transaction/order/Tracking" element={<Tracking />} />
+        {/* Data Entry =============================================*/}
+        <Route
+          path="/transaction/data-entry/reference-data"
+          element={<ReferenceData />}
+        />
+        <Route
+          path="/transaction/data-entry/gbp-entry"
+          element={<GBPEntry />}
+          exact={true}
+        />
+        {/* <Route
             path="/transaction/data-entry/gbp-entry/add"
             element={('manage_roles') ?<GbpEntryForm />  }
           /> */}
-          <Route
-            path="/transaction/data-entry/enter-master-details"
-            element={<EnterMasterDetails />}
-            exact={true}
-          />
-          <Route
-            path="/transaction/data-entry/enter-master-details/add"
-            element={<AddMasterDetails />}
-          />
-          {/* Status Updates============================================= */}
-          <Route
-            path="/transaction/status-updates/collector"
-            element={<Collector />}
-          />
-          <Route
-            path="/transaction/status-updates/delivery"
-            element={<Delivery />}
-          />
-          <Route
-            path="/transaction/status-updates/security"
-            element={<Security />}
-          />
-          <Route
-            path="/transaction/status-updates/appointmenttime"
-            element={<AppointmentTime />}
-          />
-          <Route
-            path="/transaction/status-updates/updateappoinments"
-            element={<UpdateAppointments />}
-          />
-          {/*Products =============================================*/}
-          <Route
-            path="master/product-data/items_details"
-            element={
-              permissions.has("view_item_details") ? (
-                <ItemDetails user={loggedInUser} />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="master/product-data/items_details/add"
-            element={
-              permissions.has("add_item_details") ? (
-                <ItemDetailsForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="master/product-data/items_details/edit"
-            element={
-              permissions.has("edit_item_details") ? (
-                <ItemDetailsForm />
-              ) : (
-                <NoAccessComponent user={loggedInUser} />
-              )
-            }
-          />
-          <Route
-            path="/transaction/products/OfferDetails"
-            element={<OfferDetails />}
-          />
-          {/*Reports=============================================*/}
-          {/*Daily =============================================*/}
-          <Route
-            path="/reports/daily-reports/DailyActivity"
-            element={<DailyActivity />}
-          />
-          <Route
-            path="/reports/daily-reports/DailyStatement"
-            element={<DailyStatement />}
-          />
-          <Route
-            path="/reports/daily-reports/NewuserData"
-            element={<NewuserData />}
-          />
-          <Route
-            path="/reports/daily-reports/CompletedPayment"
-            element={<CompletedPayment />}
-          />
-          <Route
-            path="/reports/daily-reports/PendingPayment"
-            element={<PendingPayment />}
-          />
-          {/*Accounts =============================================*/}
-          <Route
-            path="/reports/accounts-reports/Metal-Currency-Userbased"
-            element={<MetalCurrencyUserbased />}
-          />
-          <Route
-            path="/reports/accounts-reports/Metal-Currency-Systembase"
-            element={<MetalCurrencySystembase />}
-          />
-          <Route
-            path="/reports/accounts-reports/Metal-Currency-Summary"
-            element={<MetalCurrencySummary />}
-          />
-          <Route path="/reports/accounts-reports/Ledger" element={<Ledger />} />
-          {/*Buy and Save =============================================*/}
-          {/* All User Data Report ( filter to one or selected users) =============================================*/}
-          <Route
-            path="/reports/buy-save/userdata/plan"
-            element={<UserDataPlan />}
-          />
-          <Route
-            path="/reports/buy-save/userdata/cycle"
-            element={<UserDataCycle />}
-          />
-          <Route
-            path="/reports/buy-save/userdata/full"
-            element={<UserDataFull />}
-          />
-          {/*Fixed Value plan Report  =============================================*/}
-          <Route
-            path="/reports/buy-save/fixedPlanValue/cycle"
-            element={<FixedPlanValueCycle />}
-          />
-          <Route
-            path="/reports/buy-save/fixedPlanValue/maturity"
-            element={<FixedPlanValueMaturity />}
-          />
-          <Route
-            path="/reports/buy-save/fixedPlanValue/full"
-            element={<FixedPlanValueFull />}
-          />
-          {/*Fixed Weight plan Report =============================================*/}
-          <Route
-            path="/reports/buy-save/fixedPlanWeight/cycle"
-            element={<FixedPlanWeightCycle />}
-          />
-          <Route
-            path="/reports/buy-save/fixedPlanWeight/maturity"
-            element={<FixedPlanWeightMaturity />}
-          />
-          <Route
-            path="/reports/buy-save/fixedPlanWeight/full"
-            element={<FixedPlanWeightFull />}
-          />
-          {/*Standard Plan Report =============================================*/}
-          <Route
-            path="/reports/buy-save/StandardPlan/cycle"
-            element={<StandardPlanCycle />}
-          />
-          <Route
-            path="/reports/buy-save/StandardPlan/maturity"
-            element={<StandardPlanMaturity />}
-          />
-          <Route
-            path="/reports/buy-save/StandardPlan/full"
-            element={<StandardPlanFull />}
-          />
-          {/*Plans Converted to Normal Investment Report =============================================*/}
-          <Route
-            path="/reports/buy-save/converted-normal/user"
-            element={<ConvertedNormalUser />}
-          />
-          <Route
-            path="/reports/buy-save/converted-normal/plan"
-            element={<ConvertedNormalPlan />}
-          />
-          <Route
-            path="/reports/buy-save/converted-normal/full"
-            element={<ConvertedNormalFull />}
-          />
-          {/*Skip Now Report ============================================= */}
-          <Route
-            path="/reports/buy-save/skipnow/user"
-            element={<SkipNowUser />}
-          />
-          <Route
-            path="/reports/buy-save/skipnow/plan"
-            element={<SkipNowPlan />}
-          />
-          <Route
-            path="/reports/buy-save/skipnow/full"
-            element={<SkipNowFull />}
-          />
-          {/*Redeem Report =============================================*/}
-          <Route
-            path="/reports/buy-save/redeem/user"
-            element={<RedeemUser />}
-          />
-          <Route
-            path="/reports/buy-save/redeem/completed"
-            element={<RedeemCompleted />}
-          />
-          <Route
-            path="/reports/buy-save/redeem/pending"
-            element={<RedeemPending />}
-          />
-          {/*Sell Report =============================================*/}
-          <Route path="/reports/buy-save/sell/user" element={<SellUser />} />
-          <Route
-            path="/reports/buy-save/sell/completed"
-            element={<SellCompleted />}
-          />
-          <Route
-            path="/reports/buy-save/sell/pending"
-            element={<SellPending />}
-          />
-          {/*Plan Bonus Report =============================================*/}
-          <Route
-            path="/reports/buy-save/planBonus/Accrued"
-            element={<PlanBonusAccrued />}
-          />
-          <Route
-            path="/reports/buy-save/planBonus/Due"
-            element={<PlanBonusDue />}
-          />
-          <Route
-            path="/reports/buy-save/planBonus/Forfieted"
-            element={<PlanBonusForfieted />}
-          />
-          {/*User Bonus summary =============================================*/}
-          <Route
-            path="/reports/buy-save/userBonus/fromReferals"
-            element={<UserBonusFromReferals />}
-          />
-          <Route
-            path="/reports/buy-save/userBonus/fromInvestments"
-            element={<UserBonusFromInvestments />}
-          />
-          {/*Referral Bonus Report =============================================*/}
-          <Route
-            path="/reports/buy-save/ReferalBonus/Accrued"
-            element={<ReferalBonusAccrued />}
-          />
-          <Route
-            path="/reports/buy-save/ReferalBonus/Due"
-            element={<ReferalBonusDue />}
-          />
-          <Route
-            path="/reports/buy-save/ReferalBonus/Forfieted"
-            element={<ReferalBonusForfieted />}
-          />
-          {/*Referred/ joining Bonus Report =============================================*/}
-          <Route
-            path="/reports/buy-save/ReferedBonus/Accrued"
-            element={<ReferedBonusAccrued />}
-          />
-          <Route
-            path="/reports/buy-save/ReferedBonus/Due"
-            element={<ReferedBonusDue />}
-          />
-          <Route
-            path="/reports/buy-save/ReferedBonus/Forfieted"
-            element={<ReferedBonusForfieted />}
-          />
-          {/*Referral  & Referred Data Summary  Report =============================================*/}
-          <Route
-            path="/reports/buy-save/Referal-Refered-Summary/category"
-            element={<ReferSummaryCategory />}
-          />
-          <Route
-            path="/reports/buy-save/Referal-Refered-Summary/user"
-            element={<ReferSummaryUser />}
-          />
-          {/*Sell your old gold =============================================* /}
+        <Route
+          path="/transaction/data-entry/enter-master-details"
+          element={<EnterMasterDetails />}
+          exact={true}
+        />
+        <Route
+          path="/transaction/data-entry/enter-master-details/add"
+          element={<AddMasterDetails />}
+        />
+        {/* Status Updates============================================= */}
+        <Route
+          path="/transaction/status-updates/collector"
+          element={<Collector />}
+        />
+        <Route
+          path="/transaction/status-updates/delivery"
+          element={<Delivery />}
+        />
+        <Route
+          path="/transaction/status-updates/security"
+          element={<Security />}
+        />
+        <Route
+          path="/transaction/status-updates/appointmenttime"
+          element={<AppointmentTime />}
+        />
+        <Route
+          path="/transaction/status-updates/updateappoinments"
+          element={<UpdateAppointments />}
+        />
+        {/*Products =============================================*/}
+        <Route
+          path="master/product-data/items_details"
+          element={
+            permissions.has("view_item_details") ? (
+              <ItemDetails user={loggedInUser} />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="master/product-data/items_details/add"
+          element={
+            permissions.has("add_item_details") ? (
+              <ItemDetailsForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="master/product-data/items_details/edit"
+          element={
+            permissions.has("edit_item_details") ? (
+              <ItemDetailsForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/transaction/products/OfferDetails"
+          element={<OfferDetails />}
+        />
+        {/*Reports=============================================*/}
+        {/*Daily =============================================*/}
+        <Route
+          path="/reports/daily-reports/DailyActivity"
+          element={<DailyActivity />}
+        />
+        <Route
+          path="/reports/daily-reports/DailyStatement"
+          element={<DailyStatement />}
+        />
+        <Route
+          path="/reports/daily-reports/NewuserData"
+          element={<NewuserData />}
+        />
+        <Route
+          path="/reports/daily-reports/CompletedPayment"
+          element={<CompletedPayment />}
+        />
+        <Route
+          path="/reports/daily-reports/PendingPayment"
+          element={<PendingPayment />}
+        />
+        {/*Accounts =============================================*/}
+        <Route
+          path="/reports/accounts-reports/Metal-Currency-Userbased"
+          element={<MetalCurrencyUserbased />}
+        />
+        <Route
+          path="/reports/accounts-reports/Metal-Currency-Systembase"
+          element={<MetalCurrencySystembase />}
+        />
+        <Route
+          path="/reports/accounts-reports/Metal-Currency-Summary"
+          element={<MetalCurrencySummary />}
+        />
+        <Route path="/reports/accounts-reports/Ledger" element={<Ledger />} />
+        {/*Buy and Save =============================================*/}
+        {/* All User Data Report ( filter to one or selected users) =============================================*/}
+        <Route
+          path="/reports/buy-save/userdata/plan"
+          element={<UserDataPlan />}
+        />
+        <Route
+          path="/reports/buy-save/userdata/cycle"
+          element={<UserDataCycle />}
+        />
+        <Route
+          path="/reports/buy-save/userdata/full"
+          element={<UserDataFull />}
+        />
+        {/*Fixed Value plan Report  =============================================*/}
+        <Route
+          path="/reports/buy-save/fixedPlanValue/cycle"
+          element={<FixedPlanValueCycle />}
+        />
+        <Route
+          path="/reports/buy-save/fixedPlanValue/maturity"
+          element={<FixedPlanValueMaturity />}
+        />
+        <Route
+          path="/reports/buy-save/fixedPlanValue/full"
+          element={<FixedPlanValueFull />}
+        />
+        {/*Fixed Weight plan Report =============================================*/}
+        <Route
+          path="/reports/buy-save/fixedPlanWeight/cycle"
+          element={<FixedPlanWeightCycle />}
+        />
+        <Route
+          path="/reports/buy-save/fixedPlanWeight/maturity"
+          element={<FixedPlanWeightMaturity />}
+        />
+        <Route
+          path="/reports/buy-save/fixedPlanWeight/full"
+          element={<FixedPlanWeightFull />}
+        />
+        {/*Standard Plan Report =============================================*/}
+        <Route
+          path="/reports/buy-save/StandardPlan/cycle"
+          element={<StandardPlanCycle />}
+        />
+        <Route
+          path="/reports/buy-save/StandardPlan/maturity"
+          element={<StandardPlanMaturity />}
+        />
+        <Route
+          path="/reports/buy-save/StandardPlan/full"
+          element={<StandardPlanFull />}
+        />
+        {/*Plans Converted to Normal Investment Report =============================================*/}
+        <Route
+          path="/reports/buy-save/converted-normal/user"
+          element={<ConvertedNormalUser />}
+        />
+        <Route
+          path="/reports/buy-save/converted-normal/plan"
+          element={<ConvertedNormalPlan />}
+        />
+        <Route
+          path="/reports/buy-save/converted-normal/full"
+          element={<ConvertedNormalFull />}
+        />
+        {/*Skip Now Report ============================================= */}
+        <Route
+          path="/reports/buy-save/skipnow/user"
+          element={<SkipNowUser />}
+        />
+        <Route
+          path="/reports/buy-save/skipnow/plan"
+          element={<SkipNowPlan />}
+        />
+        <Route
+          path="/reports/buy-save/skipnow/full"
+          element={<SkipNowFull />}
+        />
+        {/*Redeem Report =============================================*/}
+        <Route path="/reports/buy-save/redeem/user" element={<RedeemUser />} />
+        <Route
+          path="/reports/buy-save/redeem/completed"
+          element={<RedeemCompleted />}
+        />
+        <Route
+          path="/reports/buy-save/redeem/pending"
+          element={<RedeemPending />}
+        />
+        {/*Sell Report =============================================*/}
+        <Route path="/reports/buy-save/sell/user" element={<SellUser />} />
+        <Route
+          path="/reports/buy-save/sell/completed"
+          element={<SellCompleted />}
+        />
+        <Route
+          path="/reports/buy-save/sell/pending"
+          element={<SellPending />}
+        />
+        {/*Plan Bonus Report =============================================*/}
+        <Route
+          path="/reports/buy-save/planBonus/Accrued"
+          element={<PlanBonusAccrued />}
+        />
+        <Route
+          path="/reports/buy-save/planBonus/Due"
+          element={<PlanBonusDue />}
+        />
+        <Route
+          path="/reports/buy-save/planBonus/Forfieted"
+          element={<PlanBonusForfieted />}
+        />
+        {/*User Bonus summary =============================================*/}
+        <Route
+          path="/reports/buy-save/userBonus/fromReferals"
+          element={<UserBonusFromReferals />}
+        />
+        <Route
+          path="/reports/buy-save/userBonus/fromInvestments"
+          element={<UserBonusFromInvestments />}
+        />
+        {/*Referral Bonus Report =============================================*/}
+        <Route
+          path="/reports/buy-save/ReferalBonus/Accrued"
+          element={<ReferalBonusAccrued />}
+        />
+        <Route
+          path="/reports/buy-save/ReferalBonus/Due"
+          element={<ReferalBonusDue />}
+        />
+        <Route
+          path="/reports/buy-save/ReferalBonus/Forfieted"
+          element={<ReferalBonusForfieted />}
+        />
+        {/*Referred/ joining Bonus Report =============================================*/}
+        <Route
+          path="/reports/buy-save/ReferedBonus/Accrued"
+          element={<ReferedBonusAccrued />}
+        />
+        <Route
+          path="/reports/buy-save/ReferedBonus/Due"
+          element={<ReferedBonusDue />}
+        />
+        <Route
+          path="/reports/buy-save/ReferedBonus/Forfieted"
+          element={<ReferedBonusForfieted />}
+        />
+        {/*Referral  & Referred Data Summary  Report =============================================*/}
+        <Route
+          path="/reports/buy-save/Referal-Refered-Summary/category"
+          element={<ReferSummaryCategory />}
+        />
+        <Route
+          path="/reports/buy-save/Referal-Refered-Summary/user"
+          element={<ReferSummaryUser />}
+        />
+        {/*Sell your old gold =============================================* /}
 
           {/*User Data Report =============================================*/}
-          <Route
-            path="/reports/sell-old-gold/userdata/customerquery"
-            element={<SellCustomerQuery />}
-          />
-          <Route
-            path="/reports/sell-old-gold/userdata/detailed"
-            element={<SellDetailed />}
-          />
-          {/*Appointment Report =============================================*/}
-          {/*In -Store Appointments Report =============================================*/}
-          <Route
-            path="/reports/sell-old-gold/appointment/in-store/due"
-            element={<SellInStoreDue />}
-          />
-          <Route
-            path="/reports/sell-old-gold/appointment/in-store/fixed"
-            element={<SellInStoreFixed />}
-          />
-          <Route
-            path="/reports/sell-old-gold/appointment/in-store/canceled"
-            element={<SellInStoreCanceled />}
-          />
-          {/*Home Visit Appointments Report =============================================*/}
-          <Route
-            path="/reports/sell-old-gold/appointment/home-visit/due"
-            element={<SellHomeVisitDue />}
-          />
-          <Route
-            path="/reports/sell-old-gold/appointment/home-visit/fixed"
-            element={<SellHomeVisitFixed />}
-          />
-          <Route
-            path="/reports/sell-old-gold/appointment/home-visit/canceled"
-            element={<SellHomeVisitCanceled />}
-          />
-          {/*Verifier Reports =============================================*/}
-          {/*Customer Related Report =============================================*/}
-          <Route
-            path="/reports/sell-old-gold/verfier/CustomerRelated/CustomerAllotment"
-            element={<SellVerifierCustomerAllotment />}
-          />
-          <Route
-            path="/reports/sell-old-gold/verfier/CustomerRelated/OnSiteCustomer"
-            element={<SellVerifierOnSite />}
-          />
-          <Route
-            path="/reports/sell-old-gold/verfier/CustomerRelated/CustomerValuation"
-            element={<SellVerifierCustomerValuation />}
-          />
-          {/*Payments Report =============================================*/}
-          <Route
-            path="/reports/sell-old-gold/verfier/CustomerRelated/PaymentReportWithMetals"
-            element={<SellPaymentReports />}
-          />
-          <Route
-            path="/reports/sell-old-gold/verfier/CustomerRelated/Completed"
-            element={<SellPaymentCompleted />}
-          />
-          {/*Metal Report =============================================*/}
-          <Route
-            path="/reports/sell-old-gold/verfier/CustomerRelated/CustmerWise"
-            element={<SellCustomerwise />}
-          />
-          <Route
-            path="/reports/sell-old-gold/verfier/CustomerRelated/VerifierWise"
-            element={<SellVerfierWise />}
-          />
-          <Route
-            path="/reports/sell-old-gold/verfier/TamperProof"
-            element={<SellTamperProof />}
-          />
-          <Route
-            path="/reports/sell-old-gold/verfier/SecuirtyGuard"
-            element={<SellSecurityGuard />}
-          />
-          {/*E Shop =============================================*/}
-          <Route
-            path="/reports/eshop/orderSummary"
-            element={<OrderSummary />}
-          />
-          <Route
-            path="/reports/eshop/orderPending"
-            element={<OrderPernding />}
-          />
-          <Route
-            path="/reports/eshop/orderShippingEntry"
-            element={<OrderShippingEntry />}
-          />
-          <Route
-            path="/reports/eshop/orderInTransit"
-            element={<OrderInTransit />}
-          />
-          <Route
-            path="/reports/eshop/orderTrackingEntry"
-            element={<CustomeOrderTracking />}
-          />
-          <Route
-            path="/reports/eshop/orderCompleted"
-            element={<OrderCompleted />}
-          />
-          <Route
-            path="/reports/eshop/CustomeOrderTracking"
-            element={<CustomOrderTracking />}
-          />
-          {/*Stock =============================================*/}
-          <Route
-            path="/reports/stock/Summary"
-            element={<AccumalatedGoldSummary />}
-          />
-          {/* Accumalated Gold Summary =============================================*/}
-          <Route
-            path="/reports/stock/AccumalatedGoldSummary/Due"
-            element={<AccumalatedGoldSummaryDue />}
-          />
-          <Route
-            path="/reports/stock/AccumalatedGoldSummary/InPlan"
-            element={<AccumalatedGoldSummaryInPlan />}
-          />
-          <Route
-            path="/reports/stock/AccumalatedGoldSummary/Summary"
-            element={<AccumalatedGoldSummary />}
-          />
-          {/* Accumalated Bonus Summary ============================================= */}
-          {/* Accumalated Bonus From Plans ============================================= */}
-          <Route
-            path="/reports/stock/AccumalatedBonusSummary/FromPlans/Accrued"
-            element={<AccumalatedBonusSummaryPlansAccured />}
-          />
-          <Route
-            path="/reports/stock/AccumalatedBonusSummary/FromPlans/Due"
-            element={<AccumalatedBonusSummaryPlansDue />}
-          />
-          <Route
-            path="/reports/stock/AccumalatedBonusSummary/FromPlans/Forfieted"
-            element={<AccumalatedBonusSummaryPlansForfieted />}
-          />
-          {/* Accumalated Bonus From Referreals ============================================= */}
-          <Route
-            path="/reports/stock/AccumalatedBonusSummary/FromReferals/Accrued"
-            element={<AccumalatedBonusSummaryReferalsAccrued />}
-          />
-          <Route
-            path="/reports/stock/AccumalatedBonusSummary/FromReferals/Due"
-            element={<AccumalatedBonusSummaryReferalsDue />}
-          />
-          <Route
-            path="/reports/stock/AccumalatedBonusSummary/FromReferals/Forfieted"
-            element={<AccumalatedBonusSummaryReferalsForfieted />}
-          />
-          {/*Delivery ============================================= */}
-          <Route
-            path="/reports/delivery/summary"
-            element={<DeliverySummary />}
-          />
-          <Route
-            path="/reports/delivery/userwise"
-            element={<DeliveryUserwise />}
-          />
-          {/*Collector  =============================================*/}
-          <Route
-            path="/reports/collector/summary"
-            element={<CollectorSummary />}
-          />
-          <Route
-            path="/reports/collector/userwise"
-            element={<CollectorUserWise />}
-          />
-          {/*Customer Relations  =============================================*/}
-          {/*SMS  =============================================*/}
-          <Route
-            path="/customer-relations/sms/create"
-            element={<SMSCreate />}
-          />
-          <Route path="/customer-relations/sms/send" element={<SMSsend />} />
-          <Route
-            path="/customer-relations/sms/report"
-            element={<SMSreport />}
-          />
-          {/*Whatsapp  =============================================*/}
-          <Route
-            path="/customer-relations/whatsapp/create"
-            element={<WhatsappCreate />}
-          />
-          <Route
-            path="/customer-relations/whatsapp/send"
-            element={<WhatsappSend />}
-          />
-          <Route
-            path="/customer-relations/whatsapp/report"
-            element={<WhatsappReport />}
-          />
-          {/*Email  ============================================= */}
-          <Route
-            path="/customer-relations/email/create"
-            element={<EmailCreate />}
-          />
-          <Route
-            path="/customer-relations/email/send"
-            element={<EmailSend />}
-          />
-          <Route
-            path="/customer-relations/email/report"
-            element={<EmailReport />}
-          />
-          {/*Push =============================================*/}
-          <Route
-            path="/customer-relations/push/create"
-            element={<PushCreate />}
-          />
-          <Route path="/customer-relations/push/send" element={<PushSend />} />
-          <Route
-            path="/customer-relations/push/report"
-            element={<PushReport />}
-          />
-          {/*FAQs =======================================================*/}
-          <Route
-            path="/customer-relations/faq/create"
-            element={<CreateFAQ />}
-          />
-          <Route path="/customer-relations/faq/all" element={<ViewFAQs />} />
-        </Routes>
-      </div>
-    </>
+        <Route
+          path="/reports/sell-old-gold/userdata/customerquery"
+          element={<SellCustomerQuery />}
+        />
+        <Route
+          path="/reports/sell-old-gold/userdata/detailed"
+          element={<SellDetailed />}
+        />
+        {/*Appointment Report =============================================*/}
+        {/*In -Store Appointments Report =============================================*/}
+        <Route
+          path="/reports/sell-old-gold/appointment/in-store/due"
+          element={<SellInStoreDue />}
+        />
+        <Route
+          path="/reports/sell-old-gold/appointment/in-store/fixed"
+          element={<SellInStoreFixed />}
+        />
+        <Route
+          path="/reports/sell-old-gold/appointment/in-store/canceled"
+          element={<SellInStoreCanceled />}
+        />
+        {/*Home Visit Appointments Report =============================================*/}
+        <Route
+          path="/reports/sell-old-gold/appointment/home-visit/due"
+          element={<SellHomeVisitDue />}
+        />
+        <Route
+          path="/reports/sell-old-gold/appointment/home-visit/fixed"
+          element={<SellHomeVisitFixed />}
+        />
+        <Route
+          path="/reports/sell-old-gold/appointment/home-visit/canceled"
+          element={<SellHomeVisitCanceled />}
+        />
+        {/*Verifier Reports =============================================*/}
+        {/*Customer Related Report =============================================*/}
+        <Route
+          path="/reports/sell-old-gold/verfier/CustomerRelated/CustomerAllotment"
+          element={<SellVerifierCustomerAllotment />}
+        />
+        <Route
+          path="/reports/sell-old-gold/verfier/CustomerRelated/OnSiteCustomer"
+          element={<SellVerifierOnSite />}
+        />
+        <Route
+          path="/reports/sell-old-gold/verfier/CustomerRelated/CustomerValuation"
+          element={<SellVerifierCustomerValuation />}
+        />
+        {/*Payments Report =============================================*/}
+        <Route
+          path="/reports/sell-old-gold/verfier/CustomerRelated/PaymentReportWithMetals"
+          element={<SellPaymentReports />}
+        />
+        <Route
+          path="/reports/sell-old-gold/verfier/CustomerRelated/Completed"
+          element={<SellPaymentCompleted />}
+        />
+        {/*Metal Report =============================================*/}
+        <Route
+          path="/reports/sell-old-gold/verfier/CustomerRelated/CustmerWise"
+          element={<SellCustomerwise />}
+        />
+        <Route
+          path="/reports/sell-old-gold/verfier/CustomerRelated/VerifierWise"
+          element={<SellVerfierWise />}
+        />
+        <Route
+          path="/reports/sell-old-gold/verfier/TamperProof"
+          element={<SellTamperProof />}
+        />
+        <Route
+          path="/reports/sell-old-gold/verfier/SecuirtyGuard"
+          element={<SellSecurityGuard />}
+        />
+        {/*E Shop =============================================*/}
+        <Route path="/reports/eshop/orderSummary" element={<OrderSummary />} />
+        <Route path="/reports/eshop/orderPending" element={<OrderPernding />} />
+        <Route
+          path="/reports/eshop/orderShippingEntry"
+          element={<OrderShippingEntry />}
+        />
+        <Route
+          path="/reports/eshop/orderInTransit"
+          element={<OrderInTransit />}
+        />
+        <Route
+          path="/reports/eshop/orderTrackingEntry"
+          element={<CustomeOrderTracking />}
+        />
+        <Route
+          path="/reports/eshop/orderCompleted"
+          element={<OrderCompleted />}
+        />
+        <Route
+          path="/reports/eshop/CustomeOrderTracking"
+          element={<CustomOrderTracking />}
+        />
+        {/*Stock =============================================*/}
+        <Route
+          path="/reports/stock/Summary"
+          element={<AccumalatedGoldSummary />}
+        />
+        {/* Accumalated Gold Summary =============================================*/}
+        <Route
+          path="/reports/stock/AccumalatedGoldSummary/Due"
+          element={<AccumalatedGoldSummaryDue />}
+        />
+        <Route
+          path="/reports/stock/AccumalatedGoldSummary/InPlan"
+          element={<AccumalatedGoldSummaryInPlan />}
+        />
+        <Route
+          path="/reports/stock/AccumalatedGoldSummary/Summary"
+          element={<AccumalatedGoldSummary />}
+        />
+        {/* Accumalated Bonus Summary ============================================= */}
+        {/* Accumalated Bonus From Plans ============================================= */}
+        <Route
+          path="/reports/stock/AccumalatedBonusSummary/FromPlans/Accrued"
+          element={<AccumalatedBonusSummaryPlansAccured />}
+        />
+        <Route
+          path="/reports/stock/AccumalatedBonusSummary/FromPlans/Due"
+          element={<AccumalatedBonusSummaryPlansDue />}
+        />
+        <Route
+          path="/reports/stock/AccumalatedBonusSummary/FromPlans/Forfieted"
+          element={<AccumalatedBonusSummaryPlansForfieted />}
+        />
+        {/* Accumalated Bonus From Referreals ============================================= */}
+        <Route
+          path="/reports/stock/AccumalatedBonusSummary/FromReferals/Accrued"
+          element={<AccumalatedBonusSummaryReferalsAccrued />}
+        />
+        <Route
+          path="/reports/stock/AccumalatedBonusSummary/FromReferals/Due"
+          element={<AccumalatedBonusSummaryReferalsDue />}
+        />
+        <Route
+          path="/reports/stock/AccumalatedBonusSummary/FromReferals/Forfieted"
+          element={<AccumalatedBonusSummaryReferalsForfieted />}
+        />
+        {/*Delivery ============================================= */}
+        <Route path="/reports/delivery/summary" element={<DeliverySummary />} />
+        <Route
+          path="/reports/delivery/userwise"
+          element={<DeliveryUserwise />}
+        />
+        {/*Collector  =============================================*/}
+        <Route
+          path="/reports/collector/summary"
+          element={<CollectorSummary />}
+        />
+        <Route
+          path="/reports/collector/userwise"
+          element={<CollectorUserWise />}
+        />
+        {/*Customer Relations  =============================================*/}
+        {/*SMS  =============================================*/}
+        <Route path="/customer-relations/sms/create" element={<SMSCreate />} />
+        <Route path="/customer-relations/sms/send" element={<SMSsend />} />
+        <Route path="/customer-relations/sms/report" element={<SMSreport />} />
+        {/*Whatsapp  =============================================*/}
+        <Route
+          path="/customer-relations/whatsapp/create"
+          element={<WhatsappCreate />}
+        />
+        <Route
+          path="/customer-relations/whatsapp/send"
+          element={<WhatsappSend />}
+        />
+        <Route
+          path="/customer-relations/whatsapp/report"
+          element={<WhatsappReport />}
+        />
+        {/*Email  ============================================= */}
+        <Route
+          path="/customer-relations/email/create"
+          element={<EmailCreate />}
+        />
+        <Route path="/customer-relations/email/send" element={<EmailSend />} />
+        <Route
+          path="/customer-relations/email/report"
+          element={<EmailReport />}
+        />
+        {/*Push =============================================*/}
+        <Route
+          path="/customer-relations/push/create"
+          element={<PushCreate />}
+        />
+        <Route path="/customer-relations/push/send" element={<PushSend />} />
+        <Route
+          path="/customer-relations/push/report"
+          element={<PushReport />}
+        />
+        {/*FAQs =======================================================*/}
+        <Route path="/customer-relations/faq/create" element={<CreateFAQ />} />
+        <Route path="/customer-relations/faq/all" element={<ViewFAQs />} />
+        {/* </> */}
+        {/* )} */}
+      </Routes>
+    </div>
+    // {/* </> */}
   );
 };
 

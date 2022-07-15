@@ -774,3 +774,8 @@ table.shoping-cart-table tr td:last-child {
 
 }
 
+.policy{
+  display: flex;
+  justify-content: space-between;
+}
+

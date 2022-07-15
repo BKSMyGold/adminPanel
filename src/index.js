@@ -7,9 +7,10 @@ import reportWebVitals from './reportWebVitals';
 import axios from 'axios'
 
 axios.defaults.headers.common = {
-  // Authorization : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYzY4ZDhlYzAzYTJlZWUzMGE3NzEyYiIsImVtYWlsIjoibmFvbWlfcmVpbGx5QHlhaG9vLmNvbSIsImlhdCI6MTY1NzE5MDk0OCwiZXhwIjoxNjU3NzkwOTQ4fQ._jTbApkQEz0gAIjZTun_Znv4l0JhFEOfZ3WEdv1XZ_s"
-}
+  Authorization : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZDEyM2Y1N2UzYjA5MzMwNjg5MGQwMyIsImVtYWlsIjoiZ3VwdGEubmlzY2hhbDAxNEBnbWFpbC5jb20iLCJpYXQiOjE2NTc4ODM2OTYsImV4cCI6MTY1ODQ4MzY5Nn0.V0rk_8B5saMB2VPtHrWl2gFBLrvwuhnTGh5LytWPKI4"
 
+
+}
 
 ReactDOM.render(
 
