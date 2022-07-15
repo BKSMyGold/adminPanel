@@ -200,8 +200,8 @@ import BadlaForm from "./components/BadlaForm";
 import Calculation from "./screens/Calculation";
 import CalculationForm from "./components/CalculationForm";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-
-
+import FAQ from "./screens/FAQ";
+import FAQForm from "./components/FAQForm";
 //====================================================================
 const App = () => {
   const [loggedInUser, setLoggedInUser] = useState({});
@@ -210,19 +210,19 @@ const App = () => {
   let navigate = useNavigate();
   //====================================================================
 
-  useEffect(() => {
-    if (localStorage.getItem("loggedInUser")) {
-      let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
-      let permissionSet = new Set();
-      for (let permissions of localStorageUser.role.permissions) {
-        permissionSet.add(permissions.permission_name);
-      }
-      setPermissions(permissionSet);
-      setLoggedInUser(localStorageUser);
-    } else {
-      navigate("/login");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem("loggedInUser")) {
+  //     let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
+  //     let permissionSet = new Set();
+  //     for (let permissions of localStorageUser.role.permissions) {
+  //       permissionSet.add(permissions.permission_name);
+  //     }
+  //     setPermissions(permissionSet);
+  //     setLoggedInUser(localStorageUser);
+  //   } else {
+  //     navigate("/login");
+  //   }
+  // }, []);
   //====================================================================
   const handleLogout = () => {
     setLoggedInUser({});
@@ -306,8 +306,11 @@ const App = () => {
           <Route
             path="/master/product-data/style/edit"
             element={
-            permissions.has("edit_style")?(<StyleForm />):(<NoAccessComponent user={loggedInUser} />
-            )
+              permissions.has("edit_style") ? (
+                <StyleForm />
+              ) : (
+                <NoAccessComponent user={loggedInUser} />
+              )
             }
           />
           {/*================================ Making_Charges =================================================*/}
@@ -855,6 +858,20 @@ const App = () => {
             path="/master/settings/testimonials"
             element={<Testimonials />}
           />
+
+          <Route
+            path="/master/faq"
+            element={<FAQ />}
+          />
+            <Route
+            path="/master/faq/add"
+            element={<FAQForm />}
+          />
+               <Route
+            path="/master/faq/edit"
+            element={<FAQForm />}
+          />
+
           {/*Buy Sell =============================================*/}
           <Route
             path="/master/buysell"
