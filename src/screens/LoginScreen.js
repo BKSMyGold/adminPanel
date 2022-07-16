@@ -6,11 +6,15 @@ import { useNavigate } from "react-router-dom";
 import mon from "../public/images/mon.jpg";
 import {loginUser} from "../APIs_Hai/Login"
 import axios from "axios";
+import { Audio } from "react-loader-spinner";
+import Loader from "../screens/Loader";
+
 //================================================================================
 export default function LoginScreen() {
   let navigate = useNavigate();
   //================================================================================
   const [credentials, setCredentials] = useState({ username: "", password: "" });
+  const [spinner, setSpinner] = useState("Loading...")
   //================================================================================
   const onCredentialsModify = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -22,8 +26,10 @@ export default function LoginScreen() {
    
 
       e.preventDefault();
+
+      <Loader/>
       loginUser({ ...credentials }).then(({ data: loggedInUser }) => {
-        localStorage.setItem("user", JSON.stringify(loggedInUser.data))
+        localStorage.setItem("user", JSON.stringify(loggedInUser.data));
         localStorage.setItem("token",loggedInUser.data.token)
         axios.defaults.headers.common= {Authorization: `Bearer ${loggedInUser.data.token}`}
         console.log(loggedInUser)

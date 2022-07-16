@@ -206,6 +206,17 @@ import { ADMIN_API } from "./Constants";
 import axios from "axios";
 import Policy from "./screens/Policy";
 import PolicyForm from "./components/PolicyForm"
+import SkipCount from "./screens/SkipCount"
+import SkipCountForm from "./components/SkipCountForm";
+import UnpaidSkipCount from "./screens/UnpaidSkipCount";
+import UnpaidSkipCountForm from "./components/UnpaidSkipCountForm";
+import Loader from "./screens/Loader";
+import LoanInterestRates from "./screens/LoanInterestRates";
+import LoanInterestRatesForm from "./components/LoanInterestRatesForm";
+import SellRequest from "./screens/SellRequest"
+import SellRequestDetails from "./screens/SellRequestDetails"
+import ReturnReason from "./screens/ReturnReason";
+import ReturnReasonForm from "./components/ReturnReasonForm";
 //====================================================================
 const App = () => {
   const [loggedInUser, setLoggedInUser] = useState({});
@@ -216,6 +227,11 @@ const App = () => {
   //====================================================================
 
   useEffect(() => {
+    const token = localStorage.getItem("token")
+    if(token){
+      axios.defaults.headers.common= {Authorization: `Bearer ${token}`}
+
+    }
     if (localStorage.getItem("user")) {
       let localStorageUser = JSON.parse(localStorage.getItem("user"));
       let permissionSet = new Set();
@@ -300,6 +316,8 @@ const App = () => {
         {/*Products Data ======================*/}
 
         <Route path="/change_name" element={<UserNameChangeForm />} />
+        <Route path="/loader" element={<Loader />} />
+
 
         <Route path="*" element={<PageNotFound />} />
         <Route path="/change_role" element={<RoleChangeForm />} />
@@ -935,7 +953,7 @@ const App = () => {
           path="/master/plans/standard-plans/"
           element={
             permissions.has("view_plans") ? (
-              <StandardPlans user={loggedInUser} />
+            <StandardPlans user={loggedInUser} />
             ) : (
               <NoAccessComponent user={loggedInUser} />
             )
@@ -966,14 +984,33 @@ const App = () => {
         <Route path="/master/badla/add" element={<BadlaForm />} />
         <Route path="/master/badla/edit" element={<BadlaForm />} />
 
+        <Route path="/master/loan_intrest_rates" element={<LoanInterestRates />} />
+        <Route path="/master/loan_intrest_rates/add" element={<LoanInterestRatesForm />} />
+        <Route path="/master/loan_intrest_rates/edit" element={<LoanInterestRatesForm />} />
 
 
-        <Route path="/master/policy" element={<Policy user={loggedInUser} />} />
+        <Route path="/master/policy" element={<Policy/>} />
         <Route path="/master/policy/add" element={<PolicyForm />} />
         <Route path="/master/policy/edit" element={<PolicyForm />} />
 
 
 
+
+        <Route path="/master/sell_request" element={<SellRequest/>} />
+        <Route path="/master/sell_request/details" element={<SellRequestDetails/>} />
+
+
+        <Route path="/master/skip_count" element={<SkipCount/>} />
+        <Route path="/master/skip_count/add" element={<SkipCountForm />} />
+        <Route path="/master/skip_count/edit" element={<SkipCountForm />} />
+
+        <Route path="/master/unpaid_skip_count" element={<UnpaidSkipCount/>} />
+        <Route path="/master/unpaid_skip_count/add" element={<UnpaidSkipCountForm />} />
+        <Route path="/master/unpaid_skip_count/edit" element={<UnpaidSkipCountForm />} />
+
+        <Route path="/master/return_reason" element={<ReturnReason/>} />
+        <Route path="/master/return_reason/add" element={<ReturnReasonForm />} />
+        <Route path="/master/return_reason/edit" element={<ReturnReasonForm />} />
       {/*Duties Taxes =============================================*/}
         <Route
           path="/master/taxes"

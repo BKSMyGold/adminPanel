@@ -7,7 +7,9 @@ export const addPlan = async (plan) => {                           // POST
 };
 
 export const getPlan = async () => {
-  return await axios.post(`${ADMIN_API}/admin/plan/list`);   // GET
+  return await axios.post(`${ADMIN_API}/admin/plan/list`,{query:{
+    type:"standard"
+  }});   // GET
   
 };
 

@@ -6,11 +6,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import axios from 'axios'
 
-axios.defaults.headers.common = {
-  Authorization : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZDEyM2Y1N2UzYjA5MzMwNjg5MGQwMyIsImVtYWlsIjoiZ3VwdGEubmlzY2hhbDAxNEBnbWFpbC5jb20iLCJpYXQiOjE2NTc4ODM2OTYsImV4cCI6MTY1ODQ4MzY5Nn0.V0rk_8B5saMB2VPtHrWl2gFBLrvwuhnTGh5LytWPKI4"
-
-
-}
+// axios.defaults.headers.common = {
+//   Authorization : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZDEyM2Y1N2UzYjA5MzMwNjg5MGQwMyIsImVtYWlsIjoiZ3VwdGEubmlzY2hhbDAxNEBnbWFpbC5jb20iLCJpYXQiOjE2NTc5NTUxNzEsImV4cCI6MTY1ODU1NTE3MX0.jCj-kwPE-hBs3PX_4xzQUcxln97sa8P1qR35t2HEGf8"
+// }
+axios.interceptors.request.use(request => {
+  const token = localStorage.getItem("token")
+  if(!token)return request
+request.headers["Authorization"]= `Bearer ${token}`
+return request
+})
 
 ReactDOM.render(
 
