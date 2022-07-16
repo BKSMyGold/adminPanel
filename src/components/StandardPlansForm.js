@@ -24,7 +24,11 @@ const StandardPlanForm = (props) => {
       duration: 0,
       type: "standard",
       mode: "",
-      min:0
+      min: 0,
+      lockinPeriod: 0,
+      maxSkipCount: 0,
+      maxUnpaidSkipCount: 0,
+      maxUnpaidInvestment: 0,
     }
   );
   //===========================================================================
@@ -32,7 +36,7 @@ const StandardPlanForm = (props) => {
   useEffect(() => {
     getCyclePeriod().then((res) => setCyclePeriods(res.data.data.data));
   }, []);
-  console.log(cycleperiods)
+  console.log(cycleperiods);
   //===========================================================================
 
   //===========================================================================
@@ -151,6 +155,108 @@ const StandardPlanForm = (props) => {
 
                       <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Locking Period</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Set the Locking Period"
+                          ></i>
+                        </label>
+                        <input
+                          type="number"
+                          name="lockinPeriod"
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Enter the LockingPeriod"
+                          onChange={(e) =>
+                            setPlan({
+                              ...plan,
+                              lockinPeriod: Number(e.target.value),
+                            })
+                          }
+                          value={plan.lockinPeriod}
+                        />
+                      </div>
+
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Max Skip Count</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify max Skip Count"
+                          ></i>
+                        </label>
+                        <input
+                          type="number"
+                          name="maxSkipCount"
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Enter Max Skip Count"
+                          onChange={(e) =>
+                            setPlan({
+                              ...plan,
+                              maxSkipCount: Number(e.target.value),
+                            })
+                          }
+                          value={plan.maxSkipCount}
+                        />
+                      </div>
+
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Max Unpaid Skip Count</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify max Unpaid Skip Count"
+                          ></i>
+                        </label>
+                        <input
+                          type="number"
+                          name="maxUnpaidSkipCount"
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Enter Max Unpaid Skip Count"
+                          onChange={(e) =>
+                            setPlan({
+                              ...plan,
+                              maxUnpaidSkipCount: Number(e.target.value),
+                            })
+                          }
+                          value={plan.maxUnpaidSkipCount}
+                        />
+                      </div>
+
+
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Max UnpaidI nvestment</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify Max Unpaid Investment"
+                          ></i>
+                        </label>
+                        <input
+                          type="number"
+                          name="maxUnpaidInvestment"
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Enter Max Unpaid Investment"
+                          onChange={(e) =>
+                            setPlan({
+                              ...plan,
+                              maxUnpaidInvestment: Number(e.target.value),
+                            })
+                          }
+                          value={plan.maxUnpaidInvestment}
+                        />
+                      </div>
+
+
+
+
+
+
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                           <span class="required">Minimum</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -173,7 +279,6 @@ const StandardPlanForm = (props) => {
                         />
                       </div>
 
-                     
                       <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                           <span class="required">Select Mode</span>

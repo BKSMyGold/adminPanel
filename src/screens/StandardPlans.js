@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 // import { deleteStandardPlan } from "../apis/StandardPlan";
 import { CSVLink } from "react-csv";
 import DeleteSpinner from "../delete";
-import { getPlan,deletePlan } from "../APIs_Hai/Plan";
+import { getPlan, deletePlan } from "../APIs_Hai/Plan";
 //==================================================================
 
 const StandardPlans = (props) => {
@@ -17,19 +17,18 @@ const StandardPlans = (props) => {
 
   //==================================================================
   useEffect(() => {
-    getPlan().then(res =>setPlan(res.data.data.data))
+    getPlan().then((res) => setPlan(res.data.data.data));
   }, []);
-//==================================================================
-useEffect(() => {
-  props.user.role.permissions.map((permission) => {
-    return userPermissions.add(permission.permission_name);
-  });
-}, []);
-// console.log("userPermissions ==>", userPermissions);
+  console.log(plan);
+  //==================================================================
+  useEffect(() => {
+    props.user.role.permissions.map((permission) => {
+      return userPermissions.add(permission.permission_name);
+    });
+  }, []);
+  // console.log("userPermissions ==>", userPermissions);
 
-
-//====================================================================
-  
+  //====================================================================
 
   return (
     <div className="d-flex flex-column flex-root">
@@ -60,7 +59,6 @@ useEffect(() => {
                       Define Standard Plans
                     </span>
                   </h3>
-
                 </div>
                 {/*end::Header*/}
                 {/*begin::Body*/}
@@ -71,12 +69,15 @@ useEffect(() => {
                     <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                       {/*begin::Table head*/}
                       <thead>
-                        <tr class="fw-bolder text-muted">
-                          
+                        <tr class="fw-bolder text-muted fs-100">
                           <th class="min-w-150px"> Id</th>
                           <th class="min-w-140px"> Name</th>
                           <th class="min-w-140px"> Cycle Period</th>
                           <th class="min-w-140px"> Duration</th>
+                          <th class="min-w-140px">Locking Period</th>
+                          <th class="min-w-140px">Max Skip Count</th>
+                          <th class="min-w-140px">Max Unpaid Skip Count</th>
+                          <th class="min-w-140px">Max Unpaid Investment</th>
                           <th class="min-w-140px"> Type</th>
                           <th class="min-w-140px"> Minimum</th>
                           <th class="min-w-140px"> Mode</th>
@@ -87,8 +88,7 @@ useEffect(() => {
                       {/*begin::Table body*/}
                       <tbody>
                         {plan.map((standardplans) => (
-                          <tr>
-                           
+                          <tr class="fw-bolder">
                             <td>
                               <a
                                 href="#"
@@ -113,31 +113,16 @@ useEffect(() => {
                                 {standardplans.cyclePeriod?.name}
                               </a>
                             </td>
-                            <td>
-                             
-                                {standardplans.duration}
-                                
-                              
-                            </td>
-
-                            <td>
-                              
-                                {standardplans.type}
-                             
-                            </td>
-                            <td>
-                              
-                              {standardplans.min}
-                           
-                          </td>
-                          <td>
-                              
-                              {standardplans.mode}
-                           
-                          </td>
+                            <td>{standardplans.duration}</td>
+                            <td>{standardplans.lockinPeriod}</td>
+                            <td>{standardplans.maxSkipCount}</td>
+                            <td>{standardplans.maxUnpaidSkipCount}</td>
+                            <td>{standardplans.maxUnpaidInvestment}</td>
+                            <td>{standardplans.type}</td>
+                            <td>{standardplans.min}</td>
+                            <td>{standardplans.mode}</td>
 
                             <td class="text-end">
-                             
                               <a
                                 href="#"
                                 class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
@@ -171,14 +156,13 @@ useEffect(() => {
                                   </button>
                                 </Link>
                               </a>
-                             {userPermissions.has("delete_plan")? (
-                               <DeleteSpinner
-                                collection={standardplans}
-                                deleting={deletePlan}
-                                url={"/master/plans/standard-plans/"}
-                              />
-
-                             ) :(null)}
+                              {userPermissions.has("delete_plan") ? (
+                                <DeleteSpinner
+                                  collection={standardplans}
+                                  deleting={deletePlan}
+                                  url={"/master/plans/standard-plans/"}
+                                />
+                              ) : null}
                             </td>
                           </tr>
                         ))}
