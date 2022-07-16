@@ -4,25 +4,18 @@ import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Dashboard from "./dashboard";
 import axios from "axios";
-import { deleteMetalGroup } from "../apis/MetalGroup";
 import DeleteSpinner from "../delete";
-import { Admin_API } from "../Constants";
-import { CSVLink } from "react-csv";
-import {getAllMetal} from "../APIs_Hai/Metal"
-import {deleteMetal} from "../APIs_Hai/Metal"
+import {getLoanInterestRates,deleteLoanInterestRates} from "../APIs_Hai/LoanInterestRates"
 //============================================================================
 const LoanInterestRates = (props) => {
 
- const loan = [
-    {
-        id:"60erfdjbfjd4548d",
-        minMonth : 4,
-        maxMonth:5,
-        interest:13.3
-    }
- ]
-   //============================================================================
-
+ const [loanInterest,setLoanInterest] = useState([])
+   //===========================================================================
+useEffect(()=>{
+  getLoanInterestRates().then((res)=>{
+    setLoanInterest(res.data.data.data)
+  })
+},[])
 
 
 
@@ -89,7 +82,7 @@ const LoanInterestRates = (props) => {
                       {/*end::Table head*/}
                       {/*begin::Table body*/}
                       <tbody>
-                        {loan?.map((metal) => (
+                        {loanInterest?.map((loanInterest) => (
                           <tr class="text-center">
                             {/* <td>
                               <div class="form-check form-check-sm form-check-custom form-check-solid">
@@ -100,15 +93,15 @@ const LoanInterestRates = (props) => {
                                 />
                               </div>
                             </td> */}
-                            <td class="fw-bolder">{metal.id}</td>
-                            <td class="fw-bolder">{metal.minMonth}</td>
-                            <td class="fw-bolder">{metal.maxMonth}</td>
-                            <td class="fw-bolder">{metal.interest}</td>
+                            <td class="fw-bolder">{loanInterest.id}</td>
+                            <td class="fw-bolder">{loanInterest.minMonth} months</td>
+                            <td class="fw-bolder">{loanInterest.maxMonth} months</td>
+                            <td class="fw-bolder">{loanInterest.interest} %</td>
 
                             <td class="text-center">
                               <Link
                                 to={"/master/loan_intrest_rates/edit"}
-                                state={metal}
+                                state={loanInterest}
                               >
                                 <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                   {/*begin::Svg Icon | path: icons/duotune/art/art005.svg*/}
@@ -135,9 +128,9 @@ const LoanInterestRates = (props) => {
                               </Link>
                               {/* {userPermissions.has("delete_metal_groups") ? ( */}
                               <DeleteSpinner
-                                collection={metal}
-                                deleting={deleteMetal}
-                                url={"/master/product-data/metal/"}
+                                collection={loanInterest}
+                                deleting={deleteLoanInterestRates}
+                                url={"/master/loan_intrest_rates/"}
                               />
                               {/* ) : null
                               } */}

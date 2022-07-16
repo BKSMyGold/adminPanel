@@ -5,9 +5,7 @@ import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidMetalGroup } from "../Validator";
 import AddUpdateSpinner from "../AddUpdateSpinner";
-import { ADMIN_API } from "../Constants";
-import { updateMetal, addAllMetal } from "../APIs_Hai/Metal";
-import LoanInterestRates from "../screens/LoanInterestRates";
+import { addLoanInterestRates,updateLoanInterestRates } from "../APIs_Hai/LoanInterestRates";
 //===================================================================================
 const LoanInterestRatesForm = (props) => {
   //===================================================================================
@@ -140,7 +138,7 @@ const LoanInterestRatesForm = (props) => {
                       </div>
 
                      
-                      <div>
+                      {/* <div>
                         <br />
                         <button
                           className="btn btn-lg btn-primary"
@@ -153,14 +151,14 @@ const LoanInterestRatesForm = (props) => {
                         >
                           {isUpdate ? "Update loanInterestRates" : "Add loanInterestRates"}
                         </button>
-                      </div>
-                      {/* <AddUpdateSpinner
+                      </div> */}
+                      <AddUpdateSpinner
                         update={isUpdate ? true : false}
-                        collection={metal}
-                        adding={addAllMetal}
-                        updating={updateMetal}
-                        url={"/master/product-data/metal/"}
-                      /> */}
+                        collection={loanInterestRates}
+                        adding={addLoanInterestRates}
+                        updating={updateLoanInterestRates}
+                        url={"/master/loan_intrest_rates"}
+                      />
                     </form>
                   </div>
                   {/*end::Table container*/}
