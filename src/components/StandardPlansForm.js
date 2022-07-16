@@ -25,10 +25,10 @@ const StandardPlanForm = (props) => {
       type: "standard",
       mode: "",
       min: 0,
-      lockinPeriod: 0,
-      maxSkipCount: 0,
-      maxUnpaidSkipCount: 0,
-      maxUnpaidInvestment: 0,
+      // lockinPeriod: 0,
+      // maxSkipCount: 0,
+      // maxUnpaidSkipCount: 0,
+      // maxUnpaidInvestment: 0,
     }
   );
   //===========================================================================
@@ -153,7 +153,7 @@ const StandardPlanForm = (props) => {
                       </div>
 
 
-                      <div>
+                      {/* <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                           <span class="required">Locking Period</span>
                           <i
@@ -248,7 +248,7 @@ const StandardPlanForm = (props) => {
                           }
                           value={plan.maxUnpaidInvestment}
                         />
-                      </div>
+                      </div> */}
 
 
 

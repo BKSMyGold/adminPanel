@@ -74,10 +74,10 @@ const StandardPlans = (props) => {
                           <th class="min-w-140px"> Name</th>
                           <th class="min-w-140px"> Cycle Period</th>
                           <th class="min-w-140px"> Duration</th>
-                          <th class="min-w-140px">Locking Period</th>
+                          {/* <th class="min-w-140px">Locking Period</th>
                           <th class="min-w-140px">Max Skip Count</th>
                           <th class="min-w-140px">Max Unpaid Skip Count</th>
-                          <th class="min-w-140px">Max Unpaid Investment</th>
+                          <th class="min-w-140px">Max Unpaid Investment</th> */}
                           <th class="min-w-140px"> Type</th>
                           <th class="min-w-140px"> Minimum</th>
                           <th class="min-w-140px"> Mode</th>
@@ -114,10 +114,10 @@ const StandardPlans = (props) => {
                               </a>
                             </td>
                             <td>{standardplans.duration}</td>
-                            <td>{standardplans.lockinPeriod}</td>
+                            {/* <td>{standardplans.lockinPeriod}</td>
                             <td>{standardplans.maxSkipCount}</td>
                             <td>{standardplans.maxUnpaidSkipCount}</td>
-                            <td>{standardplans.maxUnpaidInvestment}</td>
+                            <td>{standardplans.maxUnpaidInvestment}</td> */}
                             <td>{standardplans.type}</td>
                             <td>{standardplans.min}</td>
                             <td>{standardplans.mode}</td>
@@ -156,13 +156,13 @@ const StandardPlans = (props) => {
                                   </button>
                                 </Link>
                               </a>
-                              {userPermissions.has("delete_plan") ? (
+                              {/* {userPermissions.has("delete_plan") ? ( */}
                                 <DeleteSpinner
                                   collection={standardplans}
                                   deleting={deletePlan}
                                   url={"/master/plans/standard-plans/"}
                                 />
-                              ) : null}
+                              {/* ) : null} */}
                             </td>
                           </tr>
                         ))}
