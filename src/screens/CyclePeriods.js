@@ -6,7 +6,7 @@ import axios from "axios";
 import { BASE_URL } from "../Constants";
 import { Link } from "react-router-dom";
 import DeleteSpinner from "../delete";
-import {getCyclePeriod,deleteCyclePeriod} from "../APIs_Hai/CyclePeriod"
+import { getCyclePeriod, deleteCyclePeriod } from "../APIs_Hai/CyclePeriod";
 //=============================================================
 
 const CyclePeriods = (props) => {
@@ -16,8 +16,9 @@ const CyclePeriods = (props) => {
 
   //=============================================================
   useEffect(() => {
-   getCyclePeriod().then(res => setCyclePeriods(res.data.data.data))
+    getCyclePeriod().then((res) => setCyclePeriods(res.data.data.data));
   }, []);
+  console.log(":)", cycleperiods)
   //=============================================================
   // useEffect(() => {
   //   props.user.role.permissions.map((permission) => {
@@ -67,11 +68,14 @@ const CyclePeriods = (props) => {
                       {/*begin::Table head*/}
                       <thead>
                         <tr class="fw-bolder text-muted">
-                          
                           <th class="min-w-150px">Id</th>
                           <th class="min-w-140px">Cycle Period Name</th>
                           <th class="min-w-140px">Grace Period in Hours</th>
                           <th class="min-w-120px">Cycle</th>
+                          <th class="min-w-140px">Locking Period</th>
+                          <th class="min-w-140px">Max Skip Count</th>
+                          <th class="min-w-140px">Max Unpaid Skip Count</th>
+                          <th class="min-w-140px">Max Unpaid Investment</th>
                           <th class="min-w-100px text-end">Actions</th>
                         </tr>
                       </thead>
@@ -80,7 +84,6 @@ const CyclePeriods = (props) => {
                       <tbody>
                         {cycleperiods.map((cycleperiods) => (
                           <tr>
-                           
                             <td>
                               <a
                                 href="#"
@@ -108,7 +111,11 @@ const CyclePeriods = (props) => {
                             <td class="text-dark fw-bolder text-hover-primary fs-6">
                               {cycleperiods.cycle}
                             </td>
-                           
+
+                             <td>{cycleperiods.lockinPeriod}</td>
+                            <td>{cycleperiods.maxSkip}</td>
+                            <td>{cycleperiods.maxUnpaidSkip}</td>
+                            <td>{cycleperiods.maxUnpaidInvestment}</td> 
 
                             <td class="text-center">
                               <a
@@ -144,13 +151,13 @@ const CyclePeriods = (props) => {
                                   </button>
                                 </Link>
                               </a>
-                              {userPermissions.has("delete_cycle_periods") ? (
-                                <DeleteSpinner
-                                  collection={cycleperiods}
-                                  deleting={deleteCyclePeriod}
-                                  url={"/master/plans/cycle-periods"}
-                                />
-                              ) : null}
+                              {/* {userPermissions.has("delete_cycle_periods") ? ( */}
+                              <DeleteSpinner
+                                collection={cycleperiods}
+                                deleting={deleteCyclePeriod}
+                                url={"/master/plans/cycle-periods"}
+                              />
+                              {/* ) : null} */}
                             </td>
                           </tr>
                         ))}

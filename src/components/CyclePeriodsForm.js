@@ -5,22 +5,26 @@ import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidCyclePeriod } from "../Validator";
 import AddUpdateSpinner from "../AddUpdateSpinner";
-import { addCyclePeriod,updateCyclePeriod } from "../APIs_Hai/CyclePeriod";
+import { addCyclePeriod, updateCyclePeriod } from "../APIs_Hai/CyclePeriod";
 //======================================================================
 const CyclePeriodsForm = (props) => {
   //======================================================================
   let location = useLocation();
   let navigate = useNavigate();
-//======================================================================
+  //======================================================================
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
   const [CyclePeriod, setCyclePeriod] = useState(
     location?.state ?? {
       name: "",
       gracePeriod: 0,
       cycle: 0,
+      lockinPeriod: 0,
+      maxSkipCount: 0,
+      maxUnpaidSkipCount: 0,
+      maxUnpaidInvestment: 0,
     }
   );
-//======================================================================
+  //======================================================================
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -103,7 +107,7 @@ const CyclePeriodsForm = (props) => {
                           value={CyclePeriod.gracePeriod}
                         />
                       </div>
-                     
+
                       <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                           <span class="required">Value</span>
@@ -127,7 +131,104 @@ const CyclePeriodsForm = (props) => {
                           value={CyclePeriod.cycle}
                         />
                       </div>
-                    
+
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Locking Period</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify the Locking Period"
+                          ></i>
+                        </label>
+                        <input
+                          type="number"
+                          name="lockinPeriod"
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Enter Locking Period"
+                          onChange={(e) =>
+                            setCyclePeriod({
+                              ...CyclePeriod,
+                              lockinPeriod: Number(e.target.value),
+                            })
+                          }
+                          value={CyclePeriod.lockinPeriod}
+                        />
+                      </div>
+
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Max Skip Count</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify the max Skip Count"
+                          ></i>
+                        </label>
+                        <input
+                          type="number"
+                          name="maxSkipCount"
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Enter max Skip Count"
+                          onChange={(e) =>
+                            setCyclePeriod({
+                              ...CyclePeriod,
+                              maxSkip: Number(e.target.value),
+                            })
+                          }
+                          value={CyclePeriod.maxSkip}
+                        />
+                      </div>
+
+
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Max Unpaid Skip Count</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify Max Unpaid Skip Count"
+                          ></i>
+                        </label>
+                        <input
+                          type="number"
+                          name="value"
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Enter max Unpaid Skip Count"
+                          onChange={(e) =>
+                            setCyclePeriod({
+                              ...CyclePeriod,
+                              maxUnpaidSkip: Number(e.target.value),
+                            })
+                          }
+                          value={CyclePeriod.maxUnpaidSkip}
+                        />
+                      </div>
+
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Max Unpaid Investment</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify the max Unpaid Investment"
+                          ></i>
+                        </label>
+                        <input
+                          type="number"
+                          name="maxUnpaidInvestment"
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Enter max Unpaid Investment"
+                          onChange={(e) =>
+                            setCyclePeriod({
+                              ...CyclePeriod,
+                              maxUnpaidInvestment: Number(e.target.value),
+                            })
+                          }
+                          value={CyclePeriod.maxUnpaidInvestment}
+                        />
+                      </div>
+
 
                       {/* <div>
                         <br/>
