@@ -666,6 +666,28 @@ const nodes = [
         ],
       },
       {
+        label: "Loan Interest",
+        value: "Loan_Interest",
+        children: [
+          {
+            label: "Create",
+            value: "create_loan_interest",
+          },
+          {
+            label: "Read",
+            value: "read_loan_interest",
+          },
+          {
+            label: "Update",
+            value: "update_loan_interest",
+          },
+          {
+            label: "Delete",
+            value: "delete_loan_interest",
+          },
+        ],
+      },
+      {
         label: "Calculation",
         value: "Calculation",
         children: [
@@ -687,6 +709,96 @@ const nodes = [
           },
         ],
       },
+      {
+        label: "FAQ",
+        value: "FAQ",
+        children: [
+          {
+            label: "Create",
+            value: "create_FAQ",
+          },
+          {
+            label: "Read",
+            value: "read_FAQ",
+          },
+          {
+            label: "Update",
+            value: "update_FAQ",
+          },
+          {
+            label: "Delete",
+            value: "delete_FAQ",
+          },
+        ],
+      },
+      {
+        label: "Policy",
+        value: "Policy",
+        children: [
+          {
+            label: "Create",
+            value: "create_policy",
+          },
+          {
+            label: "Read",
+            value: "read_policy",
+          },
+          {
+            label: "Update",
+            value: "update_policy",
+          },
+          {
+            label: "Delete",
+            value: "delete_policy",
+          },
+        ],
+      },
+      {
+        label: "Sell Request",
+        value: "Sell_Request",
+        children: [
+          {
+            label: "Create",
+            value: "create_sell_request",
+          },
+          {
+            label: "Read",
+            value: "read_sell_request",
+          },
+          {
+            label: "Update",
+            value: "update_sell_request",
+          },
+          {
+            label: "Delete",
+            value: "delete_sell_request",
+          },
+        ],
+      },
+      {
+        label: "Return Reason",
+        value: "Return_Reason",
+        children: [
+          {
+            label: "Create",
+            value: "create_return_reason",
+          },
+          {
+            label: "Read",
+            value: "read_return_reason",
+          },
+          {
+            label: "Update",
+            value: "update_return_reason",
+          },
+          {
+            label: "Delete",
+            value: "delete_return_reason",
+          },
+        ],
+      },
+      
+      
     ],
   },
   {

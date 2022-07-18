@@ -1,9 +1,11 @@
 import { Audio } from "react-loader-spinner";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
-export default function Loader(){
-
-    return(
-        <Audio heigth="100" width="100" color="grey" ariaLabel="loading" />
-    )
-
+export default function Loader() {
+  return (
+    <Box sx={{ display: "flex" }}>
+      <CircularProgress />
+    </Box>
+  );
 }

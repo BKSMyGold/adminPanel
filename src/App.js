@@ -217,6 +217,7 @@ import SellRequest from "./screens/SellRequest"
 import SellRequestDetails from "./screens/SellRequestDetails"
 import ReturnReason from "./screens/ReturnReason";
 import ReturnReasonForm from "./components/ReturnReasonForm";
+import MainReports from "./screens/MainReports";
 //====================================================================
 const App = () => {
   const [loggedInUser, setLoggedInUser] = useState({});
@@ -1149,6 +1150,13 @@ const App = () => {
           element={<OfferDetails />}
         />
         {/*Reports=============================================*/}
+
+        <Route
+          path="/report/reports"
+          element={<MainReports />}
+        />
+
+
         {/*Daily =============================================*/}
         <Route
           path="/reports/daily-reports/DailyActivity"
