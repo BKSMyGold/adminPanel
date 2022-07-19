@@ -29,6 +29,7 @@ export default function MainReports() {
   const [status, setStatus] = React.useState("");
   const [from, setFrom] = React.useState("");
   const [to, setTo] = React.useState("");
+  const [pageSize, setPageSize] = React.useState(5);
 
   //================================================================
   const [reportData, setReportData] = React.useState([]);
@@ -118,7 +119,7 @@ export default function MainReports() {
     {
       amount: 9800,
       buyRate: 4960,
-      createdAt: 1657964878196,
+      createdAt: "2022-06-24T15:33:15.724Z",
       docType: "TransactionV1",
       effectOn: "VG",
       gold: 2,
@@ -155,7 +156,7 @@ export default function MainReports() {
     {
       amount: 4900,
       buyRate: 4960,
-      createdAt: 1657967442893,
+      createdAt: "2022-06-24T15:33:15.724Z",
       docType: "TransactionV1",
       effectOn: "VG",
       gold: 1,
@@ -244,8 +245,21 @@ export default function MainReports() {
     },
     {
       field: "user.fullName",
-      headerName: "Buy Rate",
+      headerName: "user Name",
       width: 150,
+      valueGetter: (params) => {
+        // console.log({ params });
+        let result = [];
+        if (params.row.user) {
+          if (params.row.user.fullName) {
+            result.push(params.row.user.fullName)
+          }
+          
+        } else {
+          result = ["Unknown"];
+        }
+        return result.join(", ");
+      }
     },
     {
       field: "sellRate",
@@ -266,9 +280,14 @@ export default function MainReports() {
       field: "createdAt",
       headerName: "Date",
       width: 150,
+      valueFormatter: params => 
+      // console.log("----->",params),
+      params.value.substring(0,10),
     },
   ];
   //================================================================
+
+//================================================================
   return (
     <>
       <Header />
@@ -337,6 +356,10 @@ export default function MainReports() {
           rows={sample}
           columns={column}
           components={{ Toolbar: GridToolbar }}
+          pageSize={pageSize}
+          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+          rowsPerPageOptions={[1,2,3]}
+          pagination
         />
       </div>
 
