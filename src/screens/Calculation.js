@@ -6,19 +6,22 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import DeleteSpinner from "../delete";
 import { getCalculation, deleteCalculation } from "../APIs_Hai/Calculation";
-
+import LinearProgress from "@mui/material/LinearProgress";
+import Box from "@mui/material/Box"
 //====================================================================
 const Calculation = (props) => {
   console.log(props.user);
   //====================================================================
   const [calculation, setCalculation] = useState([]);
   const [userPermissions, setUserPermissions] = useState(new Set());
+  const [loader, setLoader] = useState(false);
 
   //====================================================================
   useEffect(() => {
+    setLoader(true);
     getCalculation().then((res) => {
-      setCalculation(res.data.data.data);
-    });
+      return setCalculation(res.data.data.data), setLoader(false);
+    }); 
   }, []);
   //====================================================================
   //   useEffect(() => {
@@ -79,7 +82,13 @@ const Calculation = (props) => {
                       {/*end::Table head*/}
                       {/*begin::Table body*/}
                       <tbody>
-                        {calculation.map((calculation) => (
+                        {loader ? (
+                          <Box  sx={{ width: '100vw'}}>
+                           <LinearProgress />
+                         </Box>
+                        ):(
+
+                        calculation.map((calculation) => (
                           // console.log(category);
                           <tr class="fw-bolder">
                             <td>{calculation.id}</td>
@@ -158,6 +167,7 @@ const Calculation = (props) => {
                               } */}
                             </td>
                           </tr>
+                        )
                         ))}
                       </tbody>
                       {/*end::Table body*/}
