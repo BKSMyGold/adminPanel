@@ -1801,7 +1801,7 @@ export default function Header() {
                             <span className="menu-arrow"></span>
                           </span>
                           <div className="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg py-lg-4 w-lg-225px">
-                            <div className="menu-item">
+                            {/* <div className="menu-item">
                               <a
                                 className="menu-link py-3"
                                 href="/reports/buy-save/userdata/plan"
@@ -1813,8 +1813,8 @@ export default function Header() {
                                   Plan wise Report
                                 </span>
                               </a>
-                            </div>
-                            <div className="menu-item">
+                            </div> */}
+                            {/* <div className="menu-item">
                               <a
                                 className="menu-link py-3"
                                 href="/reports/buy-save/userdata/cycle"
@@ -1826,7 +1826,7 @@ export default function Header() {
                                   Cyclewise Report
                                 </span>
                               </a>
-                            </div>
+                            </div> */}
                             <div className="menu-item">
                               <a
                                 className="menu-link py-3"
@@ -1836,7 +1836,7 @@ export default function Header() {
                                   <span className="bullet bullet-dot"></span>
                                 </span>
                                 <span className="menu-title">
-                                  Full User Report
+                                  Buy and Save Report
                                 </span>
                               </a>
                             </div>

@@ -31,9 +31,9 @@ export default function ForgotPassword() {
             <button
               onClick={() => {
                 console.log(email);
-                forgotPassword(email).then(()=>{
-                  navigate("/login")
-                })
+                // forgotPassword(email).then((e)=>{
+                  navigate("/reset_password")
+                // })
               }}
               class="btn btn-success mt-5"
             >

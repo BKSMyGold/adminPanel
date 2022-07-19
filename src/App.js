@@ -218,6 +218,7 @@ import SellRequestDetails from "./screens/SellRequestDetails"
 import ReturnReason from "./screens/ReturnReason";
 import ReturnReasonForm from "./components/ReturnReasonForm";
 import MainReports from "./screens/MainReports";
+import ResetPasswordForm from "./components/ResetPasswordForm";
 //====================================================================
 const App = () => {
   const [loggedInUser, setLoggedInUser] = useState({});
@@ -307,6 +308,8 @@ const App = () => {
         {/* {!loggedInUser ?( */}
         {/* <> */}
         <Route path="/login" element={<LoginScreen />} />
+        <Route path="/reset_password" element={<ResetPasswordForm />} />
+
         <Route path="/forgot_password" element={<ForgotPassword />} />
         <Route path="/register" element={<UserSignUp />} exact />
         {/* </> */}
