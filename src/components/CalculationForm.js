@@ -90,7 +90,7 @@ const CalculationForm = (props) => {
                             title="Specify the Calculation Type"
                           ></i>
                         </label>
-                        <input
+                        <select
                           type="text"
                           name="value"
                           className="form-control form-control-lg form-control-solid"
@@ -102,7 +102,12 @@ const CalculationForm = (props) => {
                             })
                           }
                           value={calculation.type}
-                        />
+                        >
+                          <option>___ Choose Type ___</option>
+                          <option value ="percentage">Percentage</option>
+                          <option value ="value">Value</option>
+
+                        </select>
                       </div>
 
                       <div>
