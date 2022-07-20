@@ -16,6 +16,7 @@ const CyclePeriodsForm = (props) => {
   const [CyclePeriod, setCyclePeriod] = useState(
     location?.state ?? {
       name: "",
+      shortName:"", 
       gracePeriod: 0,
       cycle: 0,
       lockinPeriod: 0,
@@ -82,6 +83,29 @@ const CyclePeriodsForm = (props) => {
                             })
                           }
                           value={CyclePeriod.name}
+                        />
+                      </div>
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Cycle Short Name</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify Cycle Period Short Name"
+                          ></i>
+                        </label>
+                        <input
+                          type="text"
+                          name="shortName"
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Enter Cycle Period Short Name"
+                          onChange={(e) =>
+                            setCyclePeriod({
+                              ...CyclePeriod,
+                              shortName: e.target.value,
+                            })
+                          }
+                          value={CyclePeriod.shortName}
                         />
                       </div>
                       <div>

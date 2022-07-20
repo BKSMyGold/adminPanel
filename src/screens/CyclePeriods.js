@@ -73,16 +73,17 @@ const CyclePeriods = (props) => {
                     <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                       {/*begin::Table head*/}
                       <thead>
-                        <tr class="fw-bolder text-muted">
+                        <tr class="fw-bolder text-muted text-center">
                           <th class="min-w-150px">Id</th>
                           <th class="min-w-140px">Cycle Period Name</th>
+                          <th class="min-w-140px">Short Name</th>
                           <th class="min-w-140px">Grace Period in Hours</th>
                           <th class="min-w-120px">Cycle</th>
                           <th class="min-w-140px">Locking Period</th>
                           <th class="min-w-140px">Max Skip Count</th>
                           <th class="min-w-140px">Max Unpaid Skip Count</th>
                           <th class="min-w-140px">Max Unpaid Investment</th>
-                          <th class="min-w-100px text-end">Actions</th>
+                          <th class="min-w-100px">Actions</th>
                         </tr>
                       </thead>
                       {/*end::Table head*/}
@@ -94,7 +95,7 @@ const CyclePeriods = (props) => {
                           </Box>
                         ) : (
                           cycleperiods.map((cycleperiods) => (
-                            <tr>
+                            <tr class="text-center">
                               <td>
                                 <a
                                   href="#"
@@ -109,6 +110,14 @@ const CyclePeriods = (props) => {
                                   class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                                 >
                                   {cycleperiods.name}
+                                </a>
+                              </td>
+                              <td>
+                                <a
+                                  href="#"
+                                  class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
+                                >
+                                  {cycleperiods.shortName}
                                 </a>
                               </td>
                               <td>
