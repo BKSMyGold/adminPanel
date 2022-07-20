@@ -105,7 +105,7 @@ const CyclePeriodsForm = (props) => {
                               shortName: e.target.value,
                             })
                           }
-                          value={CyclePeriod.shortName}
+                          value={CyclePeriod.shortName  }
                         />
                       </div>
                       <div>

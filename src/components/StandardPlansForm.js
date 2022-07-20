@@ -112,6 +112,7 @@ const StandardPlanForm = (props) => {
                           name="cyclePeriod"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter Name of the Plan"
+                          value={plan.cyclePeriod}
                           onChange={(e) =>
                             setPlan({
                               ...plan,
@@ -292,6 +293,8 @@ const StandardPlanForm = (props) => {
                           name="mode"
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter mode"
+                          value={plan.mode}
+
                           onChange={(e) =>
                             setPlan({
                               ...plan,
