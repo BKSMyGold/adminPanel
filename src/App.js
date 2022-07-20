@@ -131,7 +131,7 @@ import StandardPlanMaturity from "./screens/StandardPlanMaturity";
 import UserBonusFromInvestments from "./screens/UserBonusFromInvestments";
 import UserBonusFromReferals from "./screens/UserBonusFromReferals";
 import UserDataCycle from "./screens/UserDataCycle";
-import UserDataFull from "./screens/UserDataFull";
+import BuyAndSaveReport from "./screens/BuyAndSaveReport";
 import UserDataPlan from "./screens/UserDataPlan";
 import ViewFAQs from "./screens/ViewFAQs";
 import WhatsappCreate from "./screens/WhatsappCreate";
@@ -216,9 +216,13 @@ import LoanInterestRatesForm from "./components/LoanInterestRatesForm";
 import SellRequest from "./screens/SellRequest"
 import SellRequestDetails from "./screens/SellRequestDetails"
 import ReturnReason from "./screens/ReturnReason";
+
 import ReturnReasonForm from "./components/ReturnReasonForm";
 import MainReports from "./screens/MainReports";
 import ResetPasswordForm from "./components/ResetPasswordForm";
+import EcommerceReport from "./screens/EcommerceReport";
+import InstantGoldReport from "./screens/InstantGoldReport";
+import SellAndReserveReport from "./screens/SellAndReserveReport";
 //====================================================================
 const App = () => {
   const [loggedInUser, setLoggedInUser] = useState({});
@@ -1029,6 +1033,7 @@ const App = () => {
         {/*Sales Returns Reasons =============================================*/}
         <Route path="/master/sellReasons" element={<SellReasons />} />
         {/*Trasanctions =============================================*/}
+
         {/*Financials =============================================*/}
         <Route
           path="/transaction/financials/InStoreReturns"
@@ -1206,8 +1211,20 @@ const App = () => {
           element={<UserDataCycle />}
         />
         <Route
-          path="/reports/buy-save/userdata/full"
-          element={<UserDataFull />}
+          path="/reports/buy_and_save"
+          element={<BuyAndSaveReport />}
+        />
+        <Route
+          path="/reports/ecommerce_report"
+          element={<EcommerceReport />}
+        />
+         <Route
+          path="/reports/instant_gold_report"
+          element={<InstantGoldReport />}
+        />
+         <Route
+          path="/reports/sell_and_reserve_report"
+          element={<SellAndReserveReport />}
         />
         {/*Fixed Value plan Report  =============================================*/}
         <Route

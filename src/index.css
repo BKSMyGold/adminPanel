@@ -790,5 +790,18 @@ table.shoping-cart-table tr td:last-child {
 
 }
 
-
+.report_box{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap:wrap;
+  padding:30px;
+  background-color: #04a9f5;
+}
+.report_box > select, input{
+  margin:5px;
+  border-radius: 5px;
+  border:none;
+  padding:2px
+}
 
