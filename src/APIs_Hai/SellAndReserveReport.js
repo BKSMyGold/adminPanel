@@ -1,15 +1,18 @@
 import axios from "axios";
 import { ADMIN_API } from "../Constants";
+import { omitBy, isNil } from "lodash";
 //=====================================================
-
-
-export const getSellAndReserveReport = async (filter,page,pageSize,sort) => {
-  return await axios.post(`${ADMIN_API}/admin/sell_and_reserve_report/list`,{
-    filter,
-    page,
-    pageSize,
-    sort
-  });   // GET  
-  
+export const getSellAndReserveReport = async (filter, page, pageSize, sort) => {
+  return await axios.post(
+    `${ADMIN_API}/admin/reports/sell-reserve`,
+    omitBy(
+      {
+        filter,
+        page,
+        pageSize,
+        sort,
+      },
+      isNil
+    )
+  ); // GET
 };
-

@@ -858,16 +858,12 @@ const App = () => {
             )
           }
         />
-        <Route
+        {/* <Route
           path="/master/security/role_right/edit"
           element={
-            // permissions.has("manage_roles") ? (
             <RoleForm />
-            // ) : (
-            // <NoAccessComponent user={loggedInUser} />
-            // )
           }
-        />
+        /> */}
         <Route
           path="/master/security/masterUserRights/edit"
           element={

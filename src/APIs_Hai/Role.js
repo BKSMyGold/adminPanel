@@ -6,7 +6,6 @@ import { Audio } from "react-loader-spinner";
 
 export const addRole = async (role) => {
   await axios.post(`${ADMIN_API}/admin/role/create/`, { ...role });
-  <Audio height="100" width="100" color="grey" ariaLabel="loading" />;
   window.location.reload(false);
 };
 //=====================================================

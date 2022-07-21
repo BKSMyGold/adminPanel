@@ -21,10 +21,10 @@ import { getInstantGoldReport } from "../APIs_Hai/InstantGoldReport";
 
 //================================================================
 export default function InstantGoldReport() {
-  const [type, setType] = React.useState("");
+  const [type, setType] = React.useState();
 
-  const [from, setFrom] = React.useState("");
-  const [to, setTo] = React.useState("");
+  const [from, setFrom] = React.useState();
+  const [to, setTo] = React.useState();
   const [pageSize, setPageSize] = React.useState(5);
 
   //================================================================
@@ -80,156 +80,7 @@ export default function InstantGoldReport() {
         mpin: "$2b$10$d30FLMSmFWr0TAA51t4QXOtPwuRzGAhq2lNSrORRqtsWbz7gWkoKW",
       },
     },
-    {
-      amount: 30793.28,
-      buyRate: 13048,
-      createdAt: "2022-07-16T07:28:54.223Z",
-      docType: "TransactionV1",
-      effectOn: "VG",
-      gold: 2,
-      id: "62d268b6f090193db979fa7a",
-      module: "instant",
-      orderId: "order_Jtw2erzoiwVtsx",
-      paymentId: "pay_Jtw48zbnl0MksN",
-      sellRate: 13037,
-      status: "completed",
-      type: "credit",
-      updatedAt: "2022-07-16T07:28:54.223Z",
-      userId: "62b5d93bd7431b9844878077",
-      user: {
-        _id: "62b5d93bd7431b9844878077",
-        mobile: "8277314517",
-        gold: 0,
-        referralCode: "BKSREF_DH2W85",
-        isWhatsapp: true,
-        isInvested: false,
-        addresses: [],
-        createdAt: "2022-06-24T15:33:15.724Z",
-        updatedAt: "2022-07-11T13:42:35.522Z",
-        __v: 0,
-        dob: "4-12-2002",
-        email: "yuvaraj@bksgold.com",
-        pan: "xxxx",
-        image: "user/pJd99-D~_gold.jpg",
-        fullName: "Yuva",
-        userType: 1,
-        isDeleted: false,
-        loginRetryLimit: 0,
-        mpin: "$2b$10$d30FLMSmFWr0TAA51t4QXOtPwuRzGAhq2lNSrORRqtsWbz7gWkoKW",
-      },
-    },
-    {
-      amount: 9800,
-      buyRate: 4960,
-      createdAt: "2022-06-24T15:33:15.724Z",
-      docType: "TransactionV1",
-      effectOn: "VG",
-      gold: 2,
-      id: "62d2894eb20c07ae9d743c21",
-      module: "instant",
-      requestId: "62d2894eb20c07ae9d743c22",
-      sellRate: 4900,
-      status: "processing",
-      type: "debit",
-      updatedAt: 1657964878196,
-      userId: "62b5d93bd7431b9844878077",
-      user: {
-        _id: "62b5d93bd7431b9844878077",
-        mobile: "8277314517",
-        gold: 0,
-        referralCode: "BKSREF_DH2W85",
-        isWhatsapp: true,
-        isInvested: false,
-        addresses: [],
-        createdAt: "2022-06-24T15:33:15.724Z",
-        updatedAt: "2022-07-11T13:42:35.522Z",
-        __v: 0,
-        dob: "4-12-2002",
-        email: "yuvaraj@bksgold.com",
-        pan: "xxxx",
-        image: "user/pJd99-D~_gold.jpg",
-        fullName: "Yuva",
-        userType: 1,
-        isDeleted: false,
-        loginRetryLimit: 0,
-        mpin: "$2b$10$d30FLMSmFWr0TAA51t4QXOtPwuRzGAhq2lNSrORRqtsWbz7gWkoKW",
-      },
-    },
-    {
-      amount: 4900,
-      buyRate: 4960,
-      createdAt: "2022-06-24T15:33:15.724Z",
-      docType: "TransactionV1",
-      effectOn: "VG",
-      gold: 1,
-      id: "62d29352baaa3e3b2ce261cf",
-      module: "instant",
-      requestId: "62d29352baaa3e3b2ce261d0",
-      sellRate: 4900,
-      status: "processing",
-      type: "debit",
-      updatedAt: 1657967442893,
-      userId: "62b5d93bd7431b9844878077",
-      user: {
-        _id: "62b5d93bd7431b9844878077",
-        mobile: "8277314517",
-        gold: 0,
-        referralCode: "BKSREF_DH2W85",
-        isWhatsapp: true,
-        isInvested: false,
-        addresses: [],
-        createdAt: "2022-06-24T15:33:15.724Z",
-        updatedAt: "2022-07-11T13:42:35.522Z",
-        __v: 0,
-        dob: "4-12-2002",
-        email: "yuvaraj@bksgold.com",
-        pan: "xxxx",
-        image: "user/pJd99-D~_gold.jpg",
-        fullName: "Yuva",
-        userType: 1,
-        isDeleted: false,
-        loginRetryLimit: 0,
-        mpin: "$2b$10$d30FLMSmFWr0TAA51t4QXOtPwuRzGAhq2lNSrORRqtsWbz7gWkoKW",
-      },
-    },
-    {
-      amount: 6742.52,
-      buyRate: 5714,
-      createdAt: "2022-07-17T08:54:20.717Z",
-      docType: "TransactionV1",
-      effectOn: "VG",
-      gold: 1,
-      id: "62d3ce36887a98ba87be66ad",
-      module: "buy_save",
-      orderId: "order_JuNABDKJWbVowe",
-      paymentId: "pay_JuNBWING3hPJsD",
-      sellRate: 5706,
-      status: "completed",
-      type: "credit",
-      updatedAt: "2022-07-17T08:54:20.717Z",
-      userId: "62b5d93bd7431b9844878077",
-      user: {
-        _id: "62b5d93bd7431b9844878077",
-        mobile: "8277314517",
-        gold: 0,
-        referralCode: "BKSREF_DH2W85",
-        isWhatsapp: true,
-        isInvested: false,
-        addresses: [],
-        createdAt: "2022-06-24T15:33:15.724Z",
-        updatedAt: "2022-07-11T13:42:35.522Z",
-        __v: 0,
-        dob: "4-12-2002",
-        email: "yuvaraj@bksgold.com",
-        pan: "xxxx",
-        image: "user/pJd99-D~_gold.jpg",
-        fullName: "Yuva",
-        userType: 1,
-        isDeleted: false,
-        loginRetryLimit: 0,
-        mpin: "$2b$10$d30FLMSmFWr0TAA51t4QXOtPwuRzGAhq2lNSrORRqtsWbz7gWkoKW",
-      },
-    },
+ 
   ];
   //================================================================
   const column = [
@@ -263,8 +114,139 @@ export default function InstantGoldReport() {
       }
     },
     {
+      field: "user.mobile",
+      headerName: "user Name",
+      width: 150,
+      valueGetter: (params) => {
+        // console.log({ params });
+        let result = [];
+        if (params.row.user) {
+          if (params.row.user.mobile) {
+            result.push(params.row.user.mobile);
+          }
+        } else {
+          result = ["Unknown"];
+        }
+        return result.join(", ");
+      },
+    },
+    {
+      field: "user.dob",
+      headerName: "DOB",
+      width: 150,
+      valueGetter: (params) => {
+        // console.log({ params });
+        let result = [];
+        if (params.row.user) {
+          if (params.row.user.dob) {
+            result.push(params.row.user.dob);
+          }
+        } else {
+          result = ["Unknown"];
+        }
+        return result.join(", ");
+      },
+    },
+    {
+      field: "user.referralCode",
+      headerName: "user Referral Code",
+      width: 150,
+      valueGetter: (params) => {
+        // console.log({ params });
+        let result = [];
+        if (params.row.user) {
+          if (params.row.user.referralCode) {
+            result.push(params.row.user.referralCode);
+          }
+        } else {
+          result = ["Unknown"];
+        }
+        return result.join(", ");
+      },
+    },
+    {
+      field: "user.addresses",
+      headerName: "User Address",
+      width: 150,
+      renderCell: (params) => (
+        // console.log(params),
+        <ul className="flex">
+          {params.row.user.addresses.map((add, index) => (
+            <li key={index}>{add}</li>
+          ))}
+        </ul>
+      ),
+    },
+    {
+      field: "user.referralCode",
+      headerName: "user Referral Code",
+      width: 150,
+      valueGetter: (params) => {
+        // console.log({ params });
+        let result = [];
+        if (params.row.user) {
+          if (params.row.user.referralCode) {
+            result.push(params.row.user.referralCode);
+          }
+        } else {
+          result = ["Unknown"];
+        }
+        return result.join(", ");
+      },
+    },
+    {
+      field: "user.email",
+      headerName: "Email",
+      width: 150,
+      valueGetter: (params) => {
+        // console.log({ params });
+        let result = [];
+        if (params.row.user) {
+          if (params.row.user.email) {
+            result.push(params.row.user.email);
+          }
+        } else {
+          result = ["Unknown"];
+        }
+        return result.join(", ");
+      },
+    },
+    {
+      field: "user.pan",
+      headerName: "PAN",
+      width: 150,
+      valueGetter: (params) => {
+        // console.log({ params });
+        let result = [];
+        if (params.row.user) {
+          if (params.row.user.pan) {
+            result.push(params.row.user.pan);
+          }
+        } else {
+          result = ["Unknown"];
+        }
+        return result.join(", ");
+      },
+    },
+   
+    {
       field: "sellRate",
       headerName: "Sell Rate",
+      width: 150,
+    },
+    {
+      field: "buyRate",
+      headerName: "Buy Rate",
+      width: 150,
+    },
+    {
+      field: "effectOn",
+      headerName: "Effect On",
+      width: 150,
+    },
+    {
+      field: "gold",
+      headerName: "Gold",
       width: 150,
     },
     {
@@ -283,6 +265,11 @@ export default function InstantGoldReport() {
       width: 150,
       valueFormatter: params => 
       params.value.substring(0,10),
+    },
+    {
+      field: "buyRate",
+      headerName: "Buy Rate",
+      width: 150,
     },
   ];
 

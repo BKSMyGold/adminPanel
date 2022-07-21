@@ -16,28 +16,27 @@ import { ADMIN_API } from "../Constants";
 import { getReport } from "../APIs_Hai/Reports";
 import { getBuyAndSaveReport } from "../APIs_Hai/BuyAndSaveReport";
 import { getCyclePeriod } from "../APIs_Hai/CyclePeriod";
-// import { getPlan } from "../APIs_Hai/Plan";
 //================================================================
-let reportEndpoint = {
-  instant: `${ADMIN_API}/reports/transactions`,
-  buy_save: `${ADMIN_API}/reports/transactions`,
-  buy_reserve: `${ADMIN_API}/reports/transactions`,
-  sell_reserve: `${ADMIN_API}/reports/transactions`,
-  ecom: `${ADMIN_API}/reports/transactions`,
-};
+// let reportEndpoint = {
+//   instant: `${ADMIN_API}/reports/transactions`,
+//   buy_save: `${ADMIN_API}/reports/transactions`,
+//   buy_reserve: `${ADMIN_API}/reports/transactions`,
+//   sell_reserve: `${ADMIN_API}/reports/transactions`,
+//   ecom: `${ADMIN_API}/reports/transactions`,
+// };
 //================================================================
 export default function BuyAndSaveReport() {
   //================================================================
-  const [cycle, setCycle] = React.useState("");
-  const [plan, setPlan] = React.useState("");
-  const [status, setStatus] = React.useState("");
-  const [skipCount, setSkipCount] = React.useState(0);
-  const [unpaidSkips, setUnpaidSkips] = React.useState(0);
-  const [unpaidInvestment, setUnpaidInvestment] = React.useState(0);
-  const [duration, setDuration] = React.useState(0);
+  const [cycle, setCycle] = React.useState();
+  const [plan, setPlan] = React.useState();
+  const [status, setStatus] = React.useState();
+  const [skipCount, setSkipCount] = React.useState();
+  const [unpaidSkips, setUnpaidSkips] = React.useState();
+  const [unpaidInvestment, setUnpaidInvestment] = React.useState();
+  const [duration, setDuration] = React.useState();
 
-  const [from, setFrom] = React.useState("");
-  const [to, setTo] = React.useState("");
+  const [from, setFrom] = React.useState();
+  const [to, setTo] = React.useState();
   const [pageSize, setPageSize] = React.useState(5);
 
   //================================================================
@@ -48,14 +47,14 @@ export default function BuyAndSaveReport() {
       cyclePeriod: cycle,
       type: plan,
       status,
-      skipCount,
-      unpaidSkipCount: unpaidSkips,
-      unpaidInvestments: unpaidInvestment,
-      duration,
+      skipCount:Number(skipCount),
+      unpaidSkipCount: Number(unpaidSkips),
+      unpaidInvestments: Number(unpaidInvestment),
+      duration:Number(duration),
       from,
       to,
     }).then((res) => {
-      setBuyAndSaveReport(res.data.data.data);
+      setBuyAndSaveReport(res.data.data);
     });
   }, [
     cycle,
@@ -68,7 +67,7 @@ export default function BuyAndSaveReport() {
     from,
     to,
   ]);
-  console.log(buyAndSaveReport);
+  console.log("=====> :)", buyAndSaveReport);
   //================================================================
   const [cycleperiod, setCycleperiod] = React.useState([]);
   React.useEffect(() => {
@@ -87,9 +86,25 @@ export default function BuyAndSaveReport() {
   //================================================================
   const column = [
     {
-      field: "id",
+      field: "_id",
       headerName: "ID",
       width: 150,
+    },
+    {
+      field: "cyclePeriod.name",
+      headerName: "Cycle Name",
+      width: 150,
+      valueGetter: (params) => {
+        let result = [];
+        if (params.row.cyclePeriod) {
+          if (params.row.cyclePeriod.name) {
+            result.push(params.row.cyclePeriod.name);
+          }
+        } else {
+          result = ["0"];
+        }
+        return result.join(", ");
+      },
     },
     {
       field: "cycle",
@@ -119,6 +134,39 @@ export default function BuyAndSaveReport() {
       width: 150,
     },
     {
+      field: "cyclePeriod.lockinPeriod",
+      headerName: "Locking Period",
+      width: 150,
+      valueGetter: (params) => {
+        let result = [];
+        if (params.row.cyclePeriod) {
+          if (params.row.cyclePeriod.lockinPeriod) {
+            result.push(params.row.cyclePeriod.lockinPeriod);
+          }
+        } else {
+          result = ["0"];
+        }
+        return result.join(", ");
+      },
+    },
+    {
+      field: "cyclePeriod.maxUnpaidInvestment",
+      headerName: "Max Unpaid Investment",
+      width: 150,
+      valueGetter: (params) => {
+        let result = [];
+        if (params.row.cyclePeriod) {
+          if (params.row.cyclePeriod.maxUnpaidInvestment) {
+            result.push(params.row.cyclePeriod.maxUnpaidInvestment);
+          }
+        } else {
+          result = ["0"];
+        }
+        return result.join(", ");
+      },
+    },
+   
+    {
       field: "lastPaidAt",
       headerName: "Last Paid on",
       width: 150,
@@ -140,12 +188,8 @@ export default function BuyAndSaveReport() {
       headerName: "Minimum",
       width: 150,
     },
-    {
-      field: "mode",
-      headerName: "Mode",
-      width: 150,
-    },
-    
+   
+
     {
       field: "skipCount",
       headerName: "Skip Count",
@@ -158,7 +202,28 @@ export default function BuyAndSaveReport() {
     },
     {
       field: "type",
-      headerName: "Plan",
+      headerName: "Plan Type",
+      width: 150,
+    },
+    {
+      field: "plan.name",
+      headerName: "Plan Name",
+      width: 150,
+      valueGetter: (params) => {
+        let result = [];
+        if (params.row.plan) {
+          if (params.row.plan.name) {
+            result.push(params.row.plan.name);
+          }
+        } else {
+          result = ["0"];
+        }
+        return result.join(", ");
+      },
+    },
+    {
+      field: "mode",
+      headerName: "Mode",
       width: 150,
     },
     {
@@ -197,7 +262,7 @@ export default function BuyAndSaveReport() {
         // console.log(params),
         <ul className="flex">
           {params.row.installments.map((installments, index) => (
-            <li key={index}>{installments.amount.toLocaleString('en-IN')} ₹</li>
+            <li key={index}>{installments.amount.toLocaleString("en-IN")} ₹</li>
           ))}
         </ul>
       ),
@@ -356,20 +421,28 @@ export default function BuyAndSaveReport() {
         <input
           type="number"
           placeholder="Duration"
+          defaultValue= {undefined}
           onChange={(e) => {
             setDuration(e.target.value);
           }}
         />
         {/* ---------------------------- Date ----------------------------------------------------------- */}
-        <label>Select From Date :</label>
-        <input type="date" onChange={(e) => setFrom(e.target.value)} />
-        <label for="to">Select To Date :</label>
-        <input type="date" onChange={(e) => setTo(e.target.value)} />
+      </div>
+      <div class="block report_box">
+        <div>
+          <label>Select From Date :</label>
+          <input type="date" onChange={(e) => setFrom(e.target.value)} />
+        </div>
+        <div>
+          <label for="to">Select To Date :</label>
+          <input type="date" onChange={(e) => setTo(e.target.value)} />
+        </div>
       </div>
       {/* ---------------------------- Data Grid ----------------------------------------------------------- */}
 
       <div class="table_hai">
         <DataGrid
+          getRowId={(row) => row._id}
           getRowHeight={() => "auto"}
           rows={buyAndSaveReport}
           columns={column}

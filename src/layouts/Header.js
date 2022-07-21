@@ -21,12 +21,12 @@ import { ROLE_PERMISSION_BASE_URL } from "../Constants";
 export default function Header() {
   let navigate = useNavigate;
   const [name, setName] = React.useState("");
+  let localStorageUser = JSON.parse(localStorage.getItem("user"));
   React.useEffect(() => {
-    let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
-    setName(localStorageUser ? localStorageUser.name : "Name");
+    let localStorageUser = JSON.parse(localStorage.getItem("user"));
+    setName(localStorageUser ? localStorageUser.fullName : "Name");
   }, []);
-
-  let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
+  // console.log(localStorageUser)
   // console.log('logged user ==>', localStorageUser)
 
   // const [users, setUsers] = React.useState([{}]);
@@ -3786,7 +3786,7 @@ export default function Header() {
                           href="#"
                           className="fw-bold text-muted text-hover-primary fs-7"
                         >
-                          {name}@myBksGold.com
+                          {localStorageUser ? localStorageUser.email : 'email' }
                         </a>
                       </div>
                       {/*end::Username*/}

@@ -20,10 +20,10 @@ import { getEcommerceReport } from "../APIs_Hai/EcommerceReport";
 
 //================================================================
 export default function EcommerceReport() {
-  const [status, setStatus] = React.useState(0);
-  const [goldApllied, setGoldApllied] = React.useState(0);
-  const [from, setFrom] = React.useState("");
-  const [to, setTo] = React.useState("");
+  const [status, setStatus] = React.useState();
+  const [goldApllied, setGoldApllied] = React.useState();
+  const [from, setFrom] = React.useState();
+  const [to, setTo] = React.useState();
   const [pageSize, setPageSize] = React.useState(5);
 
   //================================================================
@@ -36,10 +36,10 @@ export default function EcommerceReport() {
       from,
       to,
     }).then((res) => {
-      setEcommReport(res.data.data.data);
+      setEcommReport(res.data.data);
     });
   }, [status, goldApllied, from, to]);
-  console.log(ecommReport);
+  console.log("----> :)",ecommReport);
   //================================================================
   const column = [
     {
