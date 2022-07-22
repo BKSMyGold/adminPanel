@@ -31,18 +31,18 @@ export default function SystemUserDetail() {
           />
 
           <div class="card-body">
-            <h5 class="card-title">{localStorageUser.name ?localStorageUser.name : "Name" }</h5>
+            <h5 class="card-title">{localStorageUser.fullName ?localStorageUser.fullName : "Name" }</h5>
             <p class="badge text-dark bg-light">Email :</p>
             <span> {localStorageUser.email}</span>
             <br />
             <p class="badge text-dark bg-light">Phone : </p>
-            <span> {localStorageUser.phoneNumber}</span>
+            <span> {localStorageUser.mobile}</span>
             <br />
             <p class="badge text-dark bg-light">PAN </p>
-            <span> {localStorageUser.panNumber}</span>
+            <span> {localStorageUser.pan}</span>
             <br />
             <p class="badge text-dark bg-light">Addhaar </p>
-            <span> {localStorageUser.aadharNumber}</span>
+            <span> {localStorageUser.aadhar}</span>
             <br />
             <p class="badge text-dark bg-light">Address </p>
             <span> {localStorageUser.address}</span>

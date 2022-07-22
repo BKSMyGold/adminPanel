@@ -11,7 +11,7 @@ import DeleteSpinner from "../delete";
 import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
 //=================================================================================
-const HowTo = () => {
+const ReferralType = () => {
   const [HowTo, setHowTo] = useState([]);
   const [loader, setLoader] = useState(false);
 
@@ -200,4 +200,4 @@ const HowTo = () => {
   );
 };
 
-export default HowTo;
+export default ReferralType;

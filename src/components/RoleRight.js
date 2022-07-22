@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CheckboxTree from "react-checkbox-tree";
 import "react-checkbox-tree/lib/react-checkbox-tree.css";
 import Header from "../layouts/Header";
@@ -9,6 +9,7 @@ import { addRole } from "../APIs_Hai/Role";
 import { Navigate } from "react-router-dom";
 import { Audio } from "react-loader-spinner";
 import { useLocation } from "react-router-dom";
+import { withRouter } from "react-router";
 
 //===============================================================
 const nodes = [
@@ -797,71 +798,176 @@ const nodes = [
           },
         ],
       },
-      
-      
+      {
+        label: "Referral Type",
+        value: "Referral Type",
+        children: [
+          {
+            label: "Create",
+            value: "create_referral_type",
+          },
+          {
+            label: "Read",
+            value: "read_referral_type",
+          },
+          {
+            label: "Update",
+            value: "update_referral_type",
+          },
+          {
+            label: "Delete",
+            value: "delete_referral_type",
+          },
+        ],
+      },
     ],
   },
   {
-    label: "Transactions",
-    value: "tran",
+    label: "Reports",
+    value: "Reports",
     children: [
       {
-        label: "Transactions",
-        value: "trans",
+        label: "Buy & Save Report",
+        value: "buy and save Report",
+        children: [
+          {
+            label: "Create",
+            value: "create_buy_and_save_report",
+          },
+          {
+            label: "Read",
+            value: "read_buy_and_save_report",
+          },
+          {
+            label: "Update",
+            value: "update_buy_and_save_report",
+          },
+          {
+            label: "Delete",
+            value: "delete_buy_and_save_report",
+          },
+        ],
+      },
+      {
+        label: "E-Commerce Report",
+        value: "E-Commerce Report",
+        children: [
+          {
+            label: "Create",
+            value: "create_ecomm_report",
+          },
+          {
+            label: "Read",
+            value: "read_ecomm_report",
+          },
+          {
+            label: "Update",
+            value: "update_ecomm_report",
+          },
+          {
+            label: "Delete",
+            value: "delete_ecomm_report",
+          },
+        ],
+      },
+      {
+        label: "Instant Gold Report",
+        value: "Instant Gold Report",
+        children: [
+          {
+            label: "Create",
+            value: "create_instant_gold_report",
+          },
+          {
+            label: "Read",
+            value: "read_instant_gold_report",
+          },
+          {
+            label: "Update",
+            value: "update_instant_gold_report",
+          },
+          {
+            label: "Delete",
+            value: "delete_instant_gold_report",
+          },
+        ],
+      },
+      {
+        label: "Sell & Reserve Report",
+        value: "Sell & Reserve Report",
+        children: [
+          {
+            label: "Create",
+            value: "create_sell_and_reserve_report",
+          },
+          {
+            label: "Read",
+            value: "read_sell_and_reserve_report",
+          },
+          {
+            label: "Update",
+            value: "update_sell_and_reserve_report",
+          },
+          {
+            label: "Delete",
+            value: "delete_sell_and_reserve_report",
+          },
+        ],
       },
     ],
   },
 ];
 //===============================================================
+function RoleRight(props) {
+  const location = useLocation();
+  console.log(location.state);
+  // console.log(props)
+  const [state, setState] = React.useState({
+    permissions: [],
+    expanded: [],
+    name: "",
+  });
+  //========================================
+  useEffect(()=>{
+    setState({
+      name:location.state.name,
+      permissions:location.state.permissions
+    })
+  },[])
 
-class RoleRight extends React.Component {
-  constructor(props) {
-    
-    super(props);
-    this.state = {
-      permissions: [],
-      expanded: [],
-      name: "",
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-  handleSubmit() {
-    
-    addRole(this.state).then(() => (
-        alert("Role has been added")
-      ));
-    }
-    //===============================================================
-    render() {
+  const handleSubmit = () => {
+    addRole(state).then(() => alert("Role has been added"));
+  };
 
-    return (
-      <>
-        <Header />
-        <div class="role_right">
-          <h1>Define Role Rights</h1>
-          <h3>Role</h3>
-          <input
-            type="text"
-            class="form-control my-5"
-            placeholder="Enter new Role"
-            onChange={(e) => {
-              this.setState({ name: e.target.value });
-            }}
-          />
-          <CheckboxTree
-            nodes={nodes}
-            checked={this.state.permissions}
-            expanded={this.state.expanded}
-            onCheck={(permissions) => this.setState({ permissions })}
-            onExpand={(expanded) => this.setState({ expanded })}
-          />
-        </div>
-        <button class="btn btn-danger m-5" onClick={this.handleSubmit}>
-          Add Role Rights
-        </button>
-        <Footer />
-      </>
-    );
-  }
+  return (
+    <>
+      <Header />
+      <div class="role_right">
+        <h1>Define Role Rights</h1>
+        <h3>Role</h3>
+        <input
+          type="text"
+          class="form-control my-5"
+          placeholder="Enter new Role"
+          value={state.name}
+          onChange={(e) => {
+            setState({ ...state, name: e.target.value });
+          }}
+        />
+        <CheckboxTree
+          nodes={nodes}
+          checked={state.permissions}
+          expanded={state.expanded}
+          onCheck={(permissions) => setState({ ...state, permissions })}
+          onExpand={(expanded) => setState({ ...state, expanded })}
+        />
+      </div>
+      <button class="btn btn-danger m-5" onClick={handleSubmit}>
+        Add Role Rights
+      </button>
+      <Footer />
+    </>
+  );
 }
+
 export default RoleRight;

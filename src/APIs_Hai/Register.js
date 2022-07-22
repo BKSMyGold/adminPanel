@@ -4,5 +4,5 @@ import { useNavigate } from "react-router-dom";
 //=====================================================
 
 export const registerUser = async (systemUser) => {
-    await axios.post(`${ADMIN_API}/admin/auth/register`, { ...systemUser })
+    return await axios.post(`${ADMIN_API}/admin/auth/register`, { ...systemUser })
 };

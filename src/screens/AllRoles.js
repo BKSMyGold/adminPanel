@@ -159,9 +159,10 @@ const MasterUserRights = () => {
                                 </Popup>
 
                                 <td class="text-end">
-                                  {/* <Link
+                                  <Link
+                                  
                                     state={role}
-                                    to="/master/security/role_right/edit"
+                                    to= {`/master/security/role_right/edit/${role.id}`}
                                   >
                                     <span class="svg-icon svg-icon-3">
                                       <svg
@@ -182,7 +183,7 @@ const MasterUserRights = () => {
                                         />
                                       </svg>
                                     </span>
-                                  </Link> */}
+                                  </Link>
                                   <DeleteSpinner
                                     collection={role}
                                     deleting={deleteRole}

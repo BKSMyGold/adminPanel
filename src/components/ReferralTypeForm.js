@@ -8,7 +8,7 @@ import axios from "axios";
 import { addVideo,updateVideo } from "../APIs_Hai/Video";
 import AddUpdateSpinner from "../AddUpdateSpinner";
 //=====================================================================
-const HowToForm = (props) => {
+const ReferralTypeForm = (props) => {
   //=====================================================================
   let location = useLocation();
   let navigate = useNavigate();
@@ -215,4 +215,4 @@ const HowToForm = (props) => {
   );
 };
 
-export default HowToForm;
+export default ReferralTypeForm;

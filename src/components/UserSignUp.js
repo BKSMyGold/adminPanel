@@ -4,9 +4,9 @@ import { useNavigate, Link } from "react-router-dom";
 // import { addSystemUser } from "../apis/SystemUser";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
-import {getRole} from "../APIs_Hai/Role"
-import {registerUser} from "../APIs_Hai/Register"
-  //=====================================================
+import { getRole } from "../APIs_Hai/Role";
+import { registerUser } from "../APIs_Hai/Register";
+//=====================================================
 
 export default function UserSignUp() {
   const navigate = useNavigate();
@@ -15,42 +15,31 @@ export default function UserSignUp() {
   const [userSigning, setUserSigning] = React.useState({
     fullName: "",
     email: "",
-    username:"",
+    username: "",
     password: "",
+    confirmPassowrd: "",
     mobile: "",
     // pan: "",
     // address: "",
     role: "",
-    userType:2
+    userType: 2,
     // upperRole: "",
-    
   });
   //=====================================================
   React.useEffect(() => {
-    getRole().then(res => setRoles(res.data.data.data))
+    getRole().then((res) => setRoles(res.data.data.data));
   }, []);
   //=====================================================
   const handleSubmit = async () => {
-    console.log("--->", userSigning);
-
-    // {
-    //   roles.map((role) => {
-    //     if (userSigning.role === role.role_name) {
-    //       userSigning.role = role._id;
-    //     }
-    //   });
-    // }
-
-    // await axios
-    //   .post("https://goldv2.herokuapp.com/api/system-user", data)
-    //   .then(() => {
-    //     navigate("/registered_User");
-    //     console.log("user generated: ==>", data);
-    //   });
-
-    registerUser(userSigning);
+    if (userSigning.password !== userSigning.confirmPassowrd) {
+      alert("Password Didn't Matched");
+    } else {
+      registerUser(userSigning).then(() => {
+        alert("New User Created !");
+        navigate("/");
+      });
+    }
   };
-
   //=====================================================
   return (
     <>
@@ -112,13 +101,35 @@ export default function UserSignUp() {
           <input
             type="password"
             name="password"
-            
             className="form-control form-control-lg form-control-solid"
             placeholder="Password"
             onChange={(e) => {
               setUserSigning({
                 ...userSigning,
                 password: e.target.value,
+              });
+            }}
+          />
+        </div>
+
+        <div>
+          <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+            <span class="required">Confirm Password</span>
+            <i
+              class="fas fa-exclamation-circle ms-2 fs-7"
+              data-bs-toggle="tooltip"
+              title="Specify your unique app name"
+            ></i>
+          </label>
+          <input
+            type="password"
+            name="confirmPassowrd"
+            className="form-control form-control-lg form-control-solid"
+            placeholder="Confirm Password"
+            onChange={(e) => {
+              setUserSigning({
+                ...userSigning,
+                confirmPassowrd: e.target.value,
               });
             }}
           />
@@ -136,7 +147,6 @@ export default function UserSignUp() {
           <input
             type="text"
             name="username"
-            
             className="form-control form-control-lg form-control-solid"
             placeholder="Password"
             onChange={(e) => {
@@ -171,8 +181,8 @@ export default function UserSignUp() {
             }}
           />
         </div>
-        
-{/*         
+
+        {/*         
         <div>
           <label class="d-flex align-items-center fs-5 fw-bold mb-2">
             <span class="required">Address</span>
@@ -213,7 +223,9 @@ export default function UserSignUp() {
           >
             <option className="form-control ">__________</option>
             {roles.map((role) => (
-              <option className="form-control" value={role.id}>{role.name}</option>
+              <option className="form-control" value={role.id}>
+                {role.name}
+              </option>
             ))}
           </select>
         </div>

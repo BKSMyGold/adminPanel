@@ -223,6 +223,8 @@ import ResetPasswordForm from "./components/ResetPasswordForm";
 import EcommerceReport from "./screens/EcommerceReport";
 import InstantGoldReport from "./screens/InstantGoldReport";
 import SellAndReserveReport from "./screens/SellAndReserveReport";
+import ReferralType from "./screens/ReferralType";
+import ReferralTypeForm from "./components/ReferralTypeForm";
 //====================================================================
 const App = () => {
   const [loggedInUser, setLoggedInUser] = useState({});
@@ -858,12 +860,12 @@ const App = () => {
             )
           }
         />
-        {/* <Route
-          path="/master/security/role_right/edit"
+        <Route
+          path="/master/security/role_right/edit/:id"
           element={
-            <RoleForm />
+            <RoleRight/> 
           }
-        /> */}
+        />
         <Route
           path="/master/security/masterUserRights/edit"
           element={
@@ -903,7 +905,7 @@ const App = () => {
           path="/master/settings/how-to-videos/add"
           element={
             permissions.has("add_video") ? (
-              <HowTo />
+              <HowToForm />
             ) : (
               <NoAccessComponent user={loggedInUser} />
             )
@@ -911,12 +913,9 @@ const App = () => {
         />
         <Route
           path="/master/settings/how-to-videos/edit"
-          lement={
-            permissions.has("edit_video") ? (
-              <HowTo />
-            ) : (
-              <NoAccessComponent user={loggedInUser} />
-            )
+          element={
+              <HowToForm />
+            
           }
         />
         <Route
@@ -1015,6 +1014,10 @@ const App = () => {
         <Route path="/master/return_reason" element={<ReturnReason/>} />
         <Route path="/master/return_reason/add" element={<ReturnReasonForm />} />
         <Route path="/master/return_reason/edit" element={<ReturnReasonForm />} />
+
+        <Route path="/master/referral_type" element={<ReferralType/>} />
+        <Route path="/master/referral_type/add" element={<ReferralTypeForm />} />
+        <Route path="/master/referral_type/edit" element={<ReferralTypeForm />} />
       {/*Duties Taxes =============================================*/}
         <Route
           path="/master/taxes"
