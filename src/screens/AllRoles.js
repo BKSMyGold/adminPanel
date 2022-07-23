@@ -162,7 +162,7 @@ const MasterUserRights = () => {
                                   <Link
                                   
                                     state={role}
-                                    to= {`/master/security/role_right/edit/${role.id}`}
+                                    to= {"/master/security/all_roles/edit/"}
                                   >
                                     <span class="svg-icon svg-icon-3">
                                       <svg

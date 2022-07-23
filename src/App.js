@@ -225,6 +225,7 @@ import InstantGoldReport from "./screens/InstantGoldReport";
 import SellAndReserveReport from "./screens/SellAndReserveReport";
 import ReferralType from "./screens/ReferralType";
 import ReferralTypeForm from "./components/ReferralTypeForm";
+import RolesUpdate from "./components/RolesUpdate"
 //====================================================================
 const App = () => {
   const [loggedInUser, setLoggedInUser] = useState({});
@@ -707,6 +708,8 @@ const App = () => {
           }
         />
         <Route path="/master/security/all_roles" element={<AllRoles />} />
+        <Route path="/master/security/all_roles/edit" element={<RolesUpdate />} />
+
 
         <Route
           path="master/product-data/diamonds/add"
@@ -861,7 +864,7 @@ const App = () => {
           }
         />
         <Route
-          path="/master/security/role_right/edit/:id"
+          path="/master/security/role_right/edit/"
           element={
             <RoleRight/> 
           }

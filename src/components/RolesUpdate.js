@@ -5,8 +5,8 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import axios from "axios";
 import { ROLE_PERMISSION_BASE_URL } from "../Constants";
-import { addRole, updateRole } from "../APIs_Hai/Role";
-import { Navigate } from "react-router-dom";
+import { updateRole } from "../APIs_Hai/Role";
+import { useNavigate } from "react-router-dom";
 import { Audio } from "react-loader-spinner";
 import { useLocation } from "react-router-dom";
 import { withRouter } from "react-router";
@@ -918,7 +918,9 @@ const nodes = [
   },
 ];
 //===============================================================
-function RoleRight(props) {
+
+function RolesUpdate(props) {
+  let navigate = useNavigate();
   const location = useLocation();
   console.log(location.state);
 
@@ -931,9 +933,18 @@ function RoleRight(props) {
     name: "",
   });
   //========================================
+  useEffect(() => {
+    setState({
+      name: location.state.name,
+      permissions: location.state.permissions,
+      id: location.state.id,
+    });
+  }, []);
 
   const handleSubmit = () => {
-    addRole(state).then(() => swal("Added", "Role has been Added", "success"));
+    updateRole(state)
+      .then(() => swal("Updated", "Role has been Updated", "success"))
+      .then(() => navigate("/master/security/all_roles"));
   };
 
   return (
@@ -960,11 +971,11 @@ function RoleRight(props) {
         />
       </div>
       <button class="btn btn-danger m-5" onClick={handleSubmit}>
-        Add Role Rights{" "}
+        Update Role Rights{" "}
       </button>
       <Footer />
     </>
   );
 }
 
-export default RoleRight;
+export default RolesUpdate;
