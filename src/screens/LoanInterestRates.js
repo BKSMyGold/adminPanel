@@ -10,11 +10,12 @@ import {
   deleteLoanInterestRates,
 } from "../APIs_Hai/LoanInterestRates";
 import LinearProgress from "@mui/material/LinearProgress";
-import Box from "@mui/material/Box"
+import Box from "@mui/material/Box";
 //============================================================================
 const LoanInterestRates = (props) => {
   const [loanInterest, setLoanInterest] = useState([]);
   const [loader, setLoader] = useState(false);
+  let perma = new Set(props.user.role.permissions.map((x) => x));
 
   //===========================================================================
   useEffect(() => {
@@ -142,14 +143,15 @@ const LoanInterestRates = (props) => {
                                     </span>
                                   </button>
                                 </Link>
-                                {/* {userPermissions.has("delete_metal_groups") ? ( */}
-                                <DeleteSpinner
+                             
+
+                                {perma.has("delete_loan_interest") ? (
+                                  <DeleteSpinner
                                   collection={loanInterest}
                                   deleting={deleteLoanInterestRates}
                                   url={"/master/loan_intrest_rates/"}
-                                />
-                                {/* ) : null
-                                } */}
+                                  />
+                                ) : null}
                               </td>
                             </tr>
                           ))

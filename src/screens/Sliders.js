@@ -12,10 +12,11 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
 //============================================================
 
-const Sliders = () => {
+const Sliders = (props) => {
   //============================================================
   const [sliders, setSliders] = useState([]);
   const [loader, setLoader] = useState(false);
+  let perma = new Set(props.user.role.permissions.map((x) => x));
 
   //============================================================
   useEffect(() => {
@@ -209,11 +210,14 @@ const Sliders = () => {
                                     </svg>
                                   </span>
                                 </button> */}
-                                <DeleteSpinner
+                                 {perma.has("delete_slider") ? (
+                                  <DeleteSpinner
                                   collection={slider}
                                   deleting={deleteSlider}
                                   url={"/master/settings/sliders/"}
-                                />
+                                  />
+                                ) : null}
+                                
                               </td>
                             </tr>
                           ))

@@ -13,7 +13,7 @@ const Badla = (props) => {
   console.log(props.user);
   //====================================================================
   const [badla, setBadla] = useState([]);
-  const [userPermissions, setUserPermissions] = useState(new Set());
+  let perma = new Set(props.user.role.permissions.map((x) => x));
   const [loader, setLoader] = useState(false);
 
   //====================================================================
@@ -24,14 +24,7 @@ const Badla = (props) => {
     });
   }, []);
   //====================================================================
-  //   useEffect(() => {
-  //     props.user.role.permissions.map((permission) => {
-  //       return userPermissions.add(permission.permission_name);
-  //     });
-  //   }, []);
-  // console.log("userPermissions ==>", userPermissions);
 
-  //====================================================================
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -180,15 +173,14 @@ const Badla = (props) => {
                                     </button>
                                   </Link>
                                 </a>
-                                {/* {userPermissions.has("delete_categories") ?( */}
-                                <DeleteSpinner
-                                  collection={badla}
-                                  deleting={deleteBadla}
-                                  url={"/master/badla/"}
-                                />
 
-                                {/* ):(null)
-                                } */}
+                                {perma.has("delete_badla") ? (
+                                  <DeleteSpinner
+                                    collection={badla}
+                                    deleting={deleteBadla}
+                                    url={"/master/badla/"}
+                                  />
+                                ) : null}
                               </td>
                             </tr>
                           ))

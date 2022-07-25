@@ -17,7 +17,7 @@ import Box from "@mui/material/Box";
 const Metal = (props) => {
   const [metal, setMetal] = useState([{}]);
   const [loader, setLoader] = useState(false);
-
+  let perma = new Set(props.user.role.permissions.map((x) => x));
   //============================================================================
   useEffect(() => {
     setLoader(true);
@@ -65,7 +65,7 @@ const Metal = (props) => {
                     </span>
                   </h3>
                 </div>
-                
+
                 {/*end::Header*/}
                 {/*begin::Body*/}
                 <div class="card-body py-3">
@@ -97,7 +97,7 @@ const Metal = (props) => {
                       {/*begin::Table body*/}
                       <tbody>
                         {loader ? (
-                          <Box  sx={{ width: '250%'}}>
+                          <Box sx={{ width: "250%" }}>
                             <LinearProgress />
                           </Box>
                         ) : (
@@ -146,11 +146,13 @@ const Metal = (props) => {
                                   </button>
                                 </Link>
                                 {/* {userPermissions.has("delete_metal_groups") ? ( */}
-                                <DeleteSpinner
-                                  collection={metal}
-                                  deleting={deleteMetal}
-                                  url={"/master/product-data/metal/"}
-                                />
+                                {perma.has("delete_metal") ? (
+                                  <DeleteSpinner
+                                    collection={metal}
+                                    deleting={deleteMetal}
+                                    url={"/master/product-data/metal/"}
+                                  />
+                                ) : null}
                               </td>
                             </tr>
                           ))

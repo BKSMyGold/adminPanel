@@ -17,6 +17,7 @@ const Offers = (props) => {
   const [Offers, setOffers] = useState([]);
   const [userPermissions, setUserPermissions] = useState(new Set());
   const [loader, setLoader] = useState(false);
+  let perma = new Set(props.user.role.permissions.map((x) => x));
 
   //=====================================================
   useEffect(() => {
@@ -164,7 +165,7 @@ const Offers = (props) => {
                                     </button>
                                   </Link>
                                 </a>
-                                {userPermissions.has("delete_offer") ? (
+                                {perma.has("delete_offer") ? (
                                   <DeleteSpinner
                                     collection={Offers}
                                     deleting={deleteOffer}

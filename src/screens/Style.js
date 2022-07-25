@@ -13,30 +13,10 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
 //============================================================================
 const Style = (props) => {
-  // const style = [
-  //   {
-  //     id: 1,
-  //     styleName: "Dia",
-  //     metalGroup:"Diamond",
-  //     conversionFactor:.02
-  //   },
-  //   {
-  //     id: 2,
-  //     styleName: "Dia",
-  //     metalGroup:"Gold",
-  //     conversionFactor:.02
-  //   },
-  //   {
-  //     id: 3,
-  //     styleName: "Dia",
-  //     metalGroup:"SIlver",
-  //     conversionFactor:.02
-  //   },
-
-  // ];
   //============================================================================
   const [style, setStyle] = useState([]);
   const [loader, setLoader] = useState(false);
+  let perma = new Set(props.user.role.permissions.map((x) => x));
 
   useEffect(() => {
     setLoader(true);
@@ -156,14 +136,13 @@ const Style = (props) => {
                                     </span>
                                   </button>
                                 </Link>
-                                {/* {userPermissions.has("delete_metal_groups") ? ( */}
-                                <DeleteSpinner
-                                  collection={style}
-                                  deleting={deleteStyle}
-                                  url={"/master/product-data/style/"}
-                                />
-                                {/* ) : null
-                                } */}
+                                {perma.has("delete_style") ? (
+                                  <DeleteSpinner
+                                    collection={style}
+                                    deleting={deleteStyle}
+                                    url={"/master/product-data/style/"}
+                                  />
+                                ) : null}
                               </td>
                             </tr>
                           ))

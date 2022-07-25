@@ -11,9 +11,10 @@ import DeleteSpinner from "../delete";
 import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
 //=================================================================================
-const HowTo = () => {
+const HowTo = (props) => {
   const [HowTo, setHowTo] = useState([]);
   const [loader, setLoader] = useState(false);
+  let perma = new Set(props.user.role.permissions.map((x) => x));
 
   //=================================================================================
   useEffect(() => {
@@ -171,11 +172,14 @@ const HowTo = () => {
                                     {/*end::Svg Icon*/}
                                   </a>
                                 </Link>
-                                <DeleteSpinner
-                                  collection={HowTo}
-                                  deleting={deleteVideo}
-                                  url={"/master/settings/how-to-videos"}
-                                />
+                                {perma.has("delete_video") ? (
+                                    <DeleteSpinner
+                                    collection={HowTo}
+                                    deleting={deleteVideo}
+                                    url={"/master/settings/how-to-videos"}
+                                    />
+                                  ) : null}
+                                
                               </td>
                             </tr>
                           ))

@@ -15,7 +15,7 @@ import Box from "@mui/material/Box";
 const StandardPlans = (props) => {
   //==================================================================
   const [plan, setPlan] = useState([]);
-  const [userPermissions, setUserPermissions] = useState(new Set());
+  let perma = new Set(props.user.role.permissions.map((x) => x));
   const [loader, setLoader] = useState(false);
 
   //==================================================================
@@ -27,14 +27,7 @@ const StandardPlans = (props) => {
   }, []);
   console.log(plan);
   //==================================================================
-  useEffect(() => {
-    props.user.role.permissions.map((permission) => {
-      return userPermissions.add(permission.permission_name);
-    });
-  }, []);
-  // console.log("userPermissions ==>", userPermissions);
 
-  //====================================================================
 
   return (
     <div className="d-flex flex-column flex-root">
@@ -167,13 +160,13 @@ const StandardPlans = (props) => {
                                     </button>
                                   </Link>
                                 </a>
-                                {/* {userPermissions.has("delete_plan") ? ( */}
+                                {perma.has("delete_plan") ? (
                                 <DeleteSpinner
                                   collection={standardplans}
                                   deleting={deletePlan}
                                   url={"/master/plans/standard-plans/"}
                                 />
-                                {/* ) : null} */}
+                                 ) : null} 
                               </td>
                             </tr>
                           ))

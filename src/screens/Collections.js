@@ -17,6 +17,7 @@ const Collections = (props) => {
   const [collections, setCollections] = useState([]);
   const [userPermissions, setUserPermissions] = useState(new Set());
   const [loader, setLoader] = useState(false);
+  let perma = new Set(props.user.role.permissions.map((x) => x));
 
   //=====================================================
   useEffect(() => {
@@ -25,14 +26,7 @@ const Collections = (props) => {
       return setCollections(res.data.data.data), setLoader(false);
     });
   }, []);
-  //=====================================================
-  useEffect(() => {
-    props.user.role.permissions.map((permission) => {
-      return userPermissions.add(permission.permission_name);
-    });
-  }, []);
-  // console.log("userPermissions ==>", userPermissions);
-
+  
   //============================================================================
 
   return (
@@ -179,7 +173,7 @@ const Collections = (props) => {
                                     </button>
                                   </Link>
                                 </a>
-                                {userPermissions.has("delete_collections") ? (
+                                {perma.has("delete_collections") ? (
                                   <DeleteSpinner
                                     collection={collection}
                                     deleting={deleteCollection}

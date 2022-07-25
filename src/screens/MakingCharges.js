@@ -18,6 +18,8 @@ import Box from "@mui/material/Box";
 const MakingCharges = (props) => {
   const [makingCharges, setMakingCharges] = useState([]);
   const [loader, setLoader] = useState(false);
+  let perma = new Set(props.user.role.permissions.map((x) => x));
+
 
   useEffect(() => {
     setLoader(true);
@@ -26,30 +28,6 @@ const MakingCharges = (props) => {
     });
   }, []);
 
-  // const makingCharges = [
-  //   {
-  //     id: 1,
-  //     supplierName: "Pawan",
-  //     variety: "ring",
-  //     item: "rings",
-  //     metalID: "18KT",
-  //     fromWeight: 0,
-  //     toWeight: 0,
-  //     rateType: "Gross Wt",
-  //     valueOfRateType: 10,
-  //   },
-  //   {
-  //     id: 2,
-  //     supplierName: "Suurya",
-  //     variety: "ring",
-  //     item: "rings",
-  //     metalID: "22KT",
-  //     fromWeight: 0,
-  //     toWeight: 0,
-  //     rateType: "Net Wt",
-  //     valueOfRateType: 5,
-  //   },
-  // ];
   //============================================================================
   return (
     <div className="d-flex flex-column flex-root">
@@ -166,14 +144,13 @@ const MakingCharges = (props) => {
                                     </span>
                                   </button>
                                 </Link>
-                                {/* {userPermissions.has("delete_metal_groups") ? ( */}
+                                {perma.has("delete_making_charges") ? (
                                 <DeleteSpinner
                                   collection={charges}
                                   deleting={deleteMakingCharges}
                                   url={"/master/product-data//making-charges/"}
                                 />
-                                {/* ) : null
-                                } */}
+                                ) : null}
                               </td>
                             </tr>
                           ))

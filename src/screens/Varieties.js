@@ -12,8 +12,8 @@ import Box from "@mui/material/Box"
 const Varieties = (props) => {
 
   const [varieties, setVarieties] = useState([]);
-  const [userPermissions, setUserPermissions] = useState(new Set());
   const [loader, setLoader] = useState(false);
+  let perma = new Set(props.user.role.permissions.map((x) => x));
 
 //=============================================================================
 
@@ -23,13 +23,7 @@ const Varieties = (props) => {
       return setVarieties(res.data.data.data), setLoader(false);
     });  }, [])
 //=============================================================================
-  useEffect(() => {
-    props.user.role.permissions.map((permission) => {
-      return userPermissions.add(permission.permission_name);
-    });
-  }, []);
-  // console.log("userPermissions ==>", userPermissions);
-//=============================================================================
+
   return (
     <div className='d-flex flex-column flex-root'>
       <div className='page d-flex flex-row flex-column-fluid'>
@@ -184,7 +178,7 @@ const Varieties = (props) => {
                                     </button>
                                   </Link>
                                 </a>
-                                {userPermissions.has("delete_varities")? (
+                                {perma.has("delete_varities")? (
                                   <DeleteSpinner
                                     collection={variety}
                                     deleting={deleteVariety}

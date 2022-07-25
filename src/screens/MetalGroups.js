@@ -7,79 +7,23 @@ import axios from "axios";
 import DeleteSpinner from "../delete";
 import { BASE_URL } from "../Constants";
 import { CSVLink } from "react-csv";
-import { getMetalGroup,deleteMetalGroup } from "../APIs_Hai/MetalGroup";
+import { getMetalGroup, deleteMetalGroup } from "../APIs_Hai/MetalGroup";
 import LinearProgress from "@mui/material/LinearProgress";
-import Box from "@mui/material/Box"
+import Box from "@mui/material/Box";
 //============================================================================
 const MetalGroups = (props) => {
-  // console.log("==>", props.user)
   //============================================================================
-  // const [metalgroups, setMetalGroups] = useState([]);
-  // const [userPermissions, setUserPermissions] = useState(new Set());
-
-  // //============================================================================
-  // useEffect(() => {
-  //   const fetchmetalgroups = async () => {
-  //     const { data } = await axios.get(`${BASE_URL}/api/metal-group`);
-  //     setMetalGroups(data);
-  //   };
-  //   fetchmetalgroups();
-  // }, []);
-  // //============================================================================
-  // useEffect(() => {
-  //   props.user.role.permissions.map((permission) => {
-
-  //       return( userPermissions.add(permission.permission_name))
-
-  //     setUserPermissions(userPermissions);
-  //   });
-  // }, []);
-  // // console.log("userPermissions ==>", userPermissions);
-  // const metalGroup = [
-  //   {
-  //     id: 1,
-  //     itemGroupName: "18 KT Gold",
-  //     metalID: "18 KT",
-  //     itemMasterGroupName: "Gold",
-  //     purity: 98,
-  //     unitName: "gram",
-  //     roundingDigit: 3,
-  //     OrnamentType: "FINE METAL",
-  //     status: "Active",
-  //   },
-  //   {
-  //     id: 2,
-  //     itemGroupName: "24 KT Gold",
-  //     metalID: "24 KT",
-  //     itemMasterGroupName: "Gold",
-  //     purity: 98,
-  //     unitName: "gram",
-  //     roundingDigit: 3,
-  //     OrnamentType: "FINE METAL",
-  //     status: "Active",
-  //   },
-  //   {
-  //     id: 3,
-  //     itemGroupName: "GH-VS Baguette",
-  //     metalID: "GS VS",
-  //     itemMasterGroupName: "Diamond",
-  //     purity: 98,
-  //     unitName: "gram",
-  //     roundingDigit: 3,
-  //     OrnamentType: "FINE METAL",
-  //     status: "Active",
-  //   },
-  // ];
-  //============================================================================
-const[metalGroup,setMetalGroup ] = useState([])
+  const [metalGroup, setMetalGroup] = useState([]);
   const [loader, setLoader] = useState(false);
+  let perma = new Set(props.user.role.permissions.map((x) => x));
+  console.log("user's permissions", perma);
 
-useEffect(()=>{
-  setLoader(true);
+  useEffect(() => {
+    setLoader(true);
     getMetalGroup().then((res) => {
       return setMetalGroup(res.data.data.data), setLoader(false);
     });
-  }, [])
+  }, []);
   //============================================================================
   return (
     <div className="d-flex flex-column flex-root">
@@ -136,15 +80,17 @@ useEffect(()=>{
                       {/*end::Table head*/}
                       {/*begin::Table body*/}
                       <tbody>
-                      {loader ? (
-                          <Box  sx={{ width: '100vw'}}>
+                        {loader ? (
+                          <Box sx={{ width: "100vw" }}>
                             <LinearProgress />
                           </Box>
                         ) : (
                           metalGroup?.map((metalgroup) => (
                             <tr class="text-center fw-bolder">
                               <td>{metalgroup.id}</td>
-                              <td>{metalgroup.shortName + " "+ metalgroup.name}</td>
+                              <td>
+                                {metalgroup.shortName + " " + metalgroup.name}
+                              </td>
                               {/* <td>{metalgroup.metalId}</td>
                               <td>
                                 {metalgroup.masterName}
@@ -182,17 +128,19 @@ useEffect(()=>{
                                     </span>
                                   </button>
                                 </Link>
-                                {/* {userPermissions.has("delete_metal_groups") ? ( */}
-                                <DeleteSpinner
-                                  collection={metalgroup}
-                                  deleting={deleteMetalGroup}
-                                  url={"/master/product-data/metal_groups/"}
-                                />
-                                {/* ) : null} */}
+                                <div>
+                                  {perma.has("delete_metal_groups") ? (
+                                    <DeleteSpinner
+                                      collection={metalgroup}
+                                      deleting={deleteMetalGroup}
+                                      url={"/master/product-data/metal_groups/"}
+                                    />
+                                  ) : null}
+                                </div>
                               </td>
                             </tr>
-                          )
-                        ))}
+                          ))
+                        )}
                       </tbody>
                       {/*end::Table body*/}
                     </table>

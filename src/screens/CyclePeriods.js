@@ -14,7 +14,7 @@ import Box from "@mui/material/Box";
 const CyclePeriods = (props) => {
   //=============================================================
   const [cycleperiods, setCyclePeriods] = useState([]);
-  const [userPermissions, setUserPermissions] = useState(new Set());
+  let perma = new Set(props.user.role.permissions.map((x) => x));
   const [loader, setLoader] = useState(false);
 
   //=============================================================
@@ -26,14 +26,7 @@ const CyclePeriods = (props) => {
   }, []);
   console.log(":)", cycleperiods);
   //=============================================================
-  // useEffect(() => {
-  //   props.user.role.permissions.map((permission) => {
-  //     return userPermissions.add(permission.permission_name);
-  //   });
-  // }, []);
-  // console.log("userPermissions ==>", userPermissions);
 
-  //====================================================================
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -171,13 +164,14 @@ const CyclePeriods = (props) => {
                                     </button>
                                   </Link>
                                 </a>
-                                {/* {userPermissions.has("delete_cycle_periods") ? ( */}
-                                <DeleteSpinner
-                                  collection={cycleperiods}
-                                  deleting={deleteCyclePeriod}
-                                  url={"/master/plans/cycle-periods"}
-                                />
-                                {/* ) : null} */}
+
+                                {perma.has("delete_cycle_periods") ? (
+                                  <DeleteSpinner
+                                    collection={cycleperiods}
+                                    deleting={deleteCyclePeriod}
+                                    url={"/master/plans/cycle-periods"}
+                                  />
+                                ) : null}
                               </td>
                             </tr>
                           ))

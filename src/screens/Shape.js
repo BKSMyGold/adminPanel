@@ -13,23 +13,11 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box"
 //============================================================================
 const CutShape = (props) => {
-  const cutShape = [
-    {
-      id: 1,
-      cutName: "oval",
-    },
-    {
-        id: 2,
-        cutName: "round",
-      },
-      {
-        id: 3,
-        cutName: "square",
-      },
-  ];
+
 
   const[shape,setShape] = useState([])
   const [loader, setLoader] = useState(false);
+  let perma = new Set(props.user.role.permissions.map((x) => x));
 
   
 useEffect(()=>{
@@ -144,14 +132,15 @@ useEffect(()=>{
                                     </span>
                                   </button>
                                 </Link>
-                                {/* {userPermissions.has("delete_metal_groups") ? ( */}
+                                {perma.has("delete_shape") ? (
                                 <DeleteSpinner
                                   collection={shape}
                                   deleting={deleteShape}
                                   url={"/master/product-data/shape/"}
                                 />
-                                {/* ) : null
-                                } */}
+                                ) : (
+                                  null
+                                )}
                               </td>
                             </tr>
                         )

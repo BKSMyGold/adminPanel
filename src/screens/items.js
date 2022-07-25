@@ -6,32 +6,25 @@ import Dashboard from "./dashboard";
 import { Link } from "react-router-dom";
 import DeleteSpinner from "../delete";
 import { CSVLink } from "react-csv";
-import {getItem, deleteItem} from '../APIs_Hai/Item'
+import { getItem, deleteItem } from "../APIs_Hai/Item";
 import LinearProgress from "@mui/material/LinearProgress";
-import Box from "@mui/material/Box"
+import Box from "@mui/material/Box";
 //==============================================================
 const Items = (props) => {
   //==============================================================
   const [items, setItems] = useState([]);
-  const [userPermissions, setUserPermissions] = useState(new Set());
   const [loader, setLoader] = useState(false);
+  let perma = new Set(props.user.role.permissions.map((x) => x));
 
-//==============================================================
+  //==============================================================
   useEffect(() => {
     setLoader(true);
     getItem().then((res) => {
       return setItems(res.data.data.data), setLoader(false);
-    });  }, []);
-//==============================================================
-useEffect(() => {
-  props.user.role.permissions.map((permission) => {
-    return userPermissions.add(permission.permission_name);
-  });
-}, []);
-// console.log("userPermissions ==>", userPermissions);
+    });
+  }, []);
+  //==============================================================
 
-
-//====================================================================
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -70,7 +63,6 @@ useEffect(() => {
                       {/*begin::Table head*/}
                       <thead>
                         <tr class="fw-bolder text-muted">
-                         
                           <th class="min-w-150px">Item Id</th>
                           <th class="min-w-140px">Item Name</th>
                           {/* <th class="min-w-140px">Item Image</th>
@@ -82,10 +74,10 @@ useEffect(() => {
                       {/*begin::Table body*/}
                       <tbody>
                         {loader ? (
-                          <Box  sx={{ width: '100vw'}}>
-                           <LinearProgress />
-                         </Box>
-                        ):(
+                          <Box sx={{ width: "100vw" }}>
+                            <LinearProgress />
+                          </Box>
+                        ) : (
                           items?.map((item) => (
                             <tr>
                               {/* <td>
@@ -97,11 +89,7 @@ useEffect(() => {
                                   />
                                 </div>
                               </td> */}
-                              <td>
-                               
-                                  {item.id}
-                                
-                              </td>
+                              <td>{item.id}</td>
                               <td>
                                 <a
                                   href="#"
@@ -169,19 +157,17 @@ useEffect(() => {
                                     </button>
                                   </Link>
                                 </a>
-                                {userPermissions.has("delete_items")?(
+                                {perma.has("delete_items") ? (
                                   <DeleteSpinner
                                     collection={item}
                                     deleting={deleteItem}
                                     url={"/master/product-data/items/"}
                                   />
-  
-                                ):(null)}
+                                ) : null}
                               </td>
                             </tr>
-                        )
-                       
-                        ))}
+                          ))
+                        )}
                       </tbody>
                       {/*end::Table body*/}
                     </table>

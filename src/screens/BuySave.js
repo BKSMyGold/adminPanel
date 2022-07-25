@@ -6,8 +6,10 @@ import axios from 'axios'
 import { BASE_URL } from '../Constants'
 import { CSVLink } from "react-csv";
 
-const BuySell = () => {
+const BuySell = (props) => {
   const [buysell, setBuySell] = useState([])
+  let perma = new Set(props.user.role.permissions.map((x) => x));
+
   useEffect(() => {
     const fetchbuysell = async () => {
       const { data } = await axios.get(`${BASE_URL}/api/buy-sell-price`)

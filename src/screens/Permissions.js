@@ -12,7 +12,7 @@ import DeleteSpinner from "../delete";
 const Permissions = (props) => {
   //=======================================
   const [Permissions, setPermissions] = useState([]);
-  const [userPermissions, setUserPermissions] = useState(new Set());
+  let perma = new Set(props.user.role.permissions.map((x) => x));
 
   //=======================================
 
@@ -27,16 +27,7 @@ const Permissions = (props) => {
     };
     fetchPermissions();
   }, []);
-//=======================================
-useEffect(() => {
-  props.user.role.permissions.map((permission) => {
-    return userPermissions.add(permission.permission_name);
-  });
-}, []);
-// console.log("userPermissions ==>", userPermissions);
-
-
-//====================================================================
+  //=======================================
 
   return (
     <div className="d-flex flex-column flex-root">
@@ -174,14 +165,13 @@ useEffect(() => {
                                   {/*end::Svg Icon*/}
                                 </button>
                               </Link>
-                              {userPermissions.has("delete_permission") ? (
+                              {perma.has("delete_permission") ? (
                                 <DeleteSpinner
                                   collection={Permissions}
                                   deleting={deletePermission}
                                   url={"/master/security/permissions/"}
                                 />
-
-                              ) : (null)}
+                              ) : null}
                             </td>
                           </tr>
                         ))}
@@ -203,4 +193,4 @@ useEffect(() => {
   );
 };
 
-export default Permissions;     
+export default Permissions;

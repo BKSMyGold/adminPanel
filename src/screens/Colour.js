@@ -8,36 +8,22 @@ import { deleteMetalGroup } from "../apis/MetalGroup";
 import DeleteSpinner from "../delete";
 import { BASE_URL } from "../Constants";
 import { CSVLink } from "react-csv";
-import { getColour,deleteColour } from "../APIs_Hai/Colour";
+import { getColour, deleteColour } from "../APIs_Hai/Colour";
 import LinearProgress from "@mui/material/LinearProgress";
-import Box from "@mui/material/Box"
+import Box from "@mui/material/Box";
 //============================================================================
 const Colour = (props) => {
-  // const colour = [
-  //   {
-  //     id: 1,
-  //     colourName: "Transparent",
-  //   },
-  //   {
-  //       id: 2,
-  //       colourName: "Red",
-  //     },
-  //     {
-  //       id: 3,
-  //       colourName: "Green",
-  //     },
-   
-  // ];
-  const[colour,setColour] = useState([])
+  const [colour, setColour] = useState([]);
   const [loader, setLoader] = useState(false);
+  let perma = new Set(props.user.role.permissions.map((x) => x));
 
-
-  useEffect(()=>{
+  useEffect(() => {
     setLoader(true);
     getColour().then((res) => {
       return setColour(res.data.data.data), setLoader(false);
-    });  },[])
-  console.log(colour)
+    });
+  }, []);
+  console.log(colour);
   //============================================================================
   return (
     <div className="d-flex flex-column flex-root">
@@ -62,10 +48,10 @@ const Colour = (props) => {
                 <div class="card-header border-0 pt-5">
                   <h3 class="card-title align-items-start flex-column">
                     <span class="card-label fw-bolder fs-3 mb-1">
-                    Colour Name
+                      Colour Name
                     </span>
                     <span class="text-muted mt-1 fw-bold fs-7">
-                    Colour Name
+                      Colour Name
                     </span>
                   </h3>
                 </div>
@@ -98,11 +84,11 @@ const Colour = (props) => {
                       {/*end::Table head*/}
                       {/*begin::Table body*/}
                       <tbody>
-                        {loader ?(
-                          <Box  sx={{ width: '100vw'}}>
-                          <LinearProgress />
-                        </Box>
-                        ):(
+                        {loader ? (
+                          <Box sx={{ width: "100vw" }}>
+                            <LinearProgress />
+                          </Box>
+                        ) : (
                           colour?.map((colour) => (
                             <tr class="text-center">
                               {/* <td>
@@ -116,7 +102,7 @@ const Colour = (props) => {
                               </td> */}
                               <td class="fw-bolder">{colour.id}</td>
                               <td class="fw-bolder">{colour.name}</td>
-                            
+
                               <td class="text-center">
                                 <Link
                                   to={"/master/product-data/colour/edit"}
@@ -145,19 +131,17 @@ const Colour = (props) => {
                                     </span>
                                   </button>
                                 </Link>
-                                {/* {userPermissions.has("delete_metal_groups") ? ( */}
-                                <DeleteSpinner
-                                  collection={colour}
-                                  deleting={deleteColour}
-                                  url={"/master/product-data/colour/"}
-                                />
-                                {/* ) : null
-                                } */}
+                                {perma.has("delete_colour") ? (
+                                  <DeleteSpinner
+                                    collection={colour}
+                                    deleting={deleteColour}
+                                    url={"/master/product-data/colour/"}
+                                  />
+                                ) : null}
                               </td>
                             </tr>
-                        )
-                        
-                        ))}
+                          ))
+                        )}
                       </tbody>
                       {/*end::Table body*/}
                     </table>

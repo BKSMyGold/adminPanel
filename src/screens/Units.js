@@ -11,23 +11,23 @@ import DeleteSpinner from "../delete";
 import { getSelectUnstyledUtilityClass } from "@mui/base";
 import { deleteUnit } from "../APIs_Hai/Unit";
 import LinearProgress from "@mui/material/LinearProgress";
-import Box from "@mui/material/Box"
+import Box from "@mui/material/Box";
 import { getAllUnit } from "../APIs_Hai/Unit";
 //=====================================================
 const Units = (props) => {
   //=====================================================
-const[unit,setUnit] = useState([])
-const [loader, setLoader] = useState(false);
-
+  const [unit, setUnit] = useState([]);
+  const [loader, setLoader] = useState(false);
+  let perma = new Set(props.user.role.permissions.map((x) => x));
 
   //============================================================================
-useEffect(()=>{
-  setLoader(true);
-  getAllUnit().then((res) => {
-    return setUnit(res.data.data.data), setLoader(false);
-  });
-}, [])
-console.log("-------->", unit)
+  useEffect(() => {
+    setLoader(true);
+    getAllUnit().then((res) => {
+      return setUnit(res.data.data.data), setLoader(false);
+    });
+  }, []);
+  console.log("-------->", unit);
   //=================================================
   return (
     <div className="d-flex flex-column flex-root">
@@ -79,12 +79,11 @@ console.log("-------->", unit)
                       </thead>
 
                       <tbody>
-                        {
-                        loader ?  (
-                          <Box  sx={{ width: '100vw'}}>
-                          <LinearProgress />
-                        </Box>
-                        ) :(
+                        {loader ? (
+                          <Box sx={{ width: "100vw" }}>
+                            <LinearProgress />
+                          </Box>
+                        ) : (
                           unit.map((units) => {
                             return (
                               <tr class="text-center fw-bolder">
@@ -112,7 +111,7 @@ console.log("-------->", unit)
                                     {units.conversionFactor}
                                   </a>
                                 </td>
-  
+
                                 <td class="text-center">
                                   <a
                                     href="#"
@@ -148,18 +147,18 @@ console.log("-------->", unit)
                                     </Link>
                                   </a>
                                   {/* {userPermissions.has("delete_collections") ? ( */}
-                                  <DeleteSpinner
-                                    collection={units}
-                                    deleting={deleteUnit}
-                                    url={"/master/product-data/units/"}
-                                  />
+                                  {perma.has("delete_units") ? (
+                                    <DeleteSpinner
+                                      collection={units}
+                                      deleting={deleteUnit}
+                                      url={"/master/product-data/units/"}
+                                    />
+                                  ) : null}
                                 </td>
                               </tr>
-                            )}
-                        )
-                       
-                          )}
-                        
+                            );
+                          })
+                        )}
                       </tbody>
                       {/*end::Table body*/}
                     </table>

@@ -12,8 +12,8 @@ import Box from "@mui/material/Box";
 const ItemDetails = (props) => {
   //===========================================================================================================
   const [product, setProduct] = useState([]);
-  const [userPermissions, setUserPermissions] = useState(new Set());
   const [loader, setLoader] = useState(false);
+  let perma = new Set(props.user.role.permissions.map((x) => x));
 
   //===========================================================================================================
   useEffect(() => {
@@ -23,38 +23,9 @@ const ItemDetails = (props) => {
     });
   }, []);
   console.log(product);
-  //===========================================================================================================
-  //===========================================================================================================
+  
 
-  //===========================================================================================================
-  useEffect(() => {
-    props.user.role.permissions.map((permission) => {
-      return userPermissions.add(permission.permission_name);
-    });
-  }, []);
-  //===========================================================================================================
-  const products = [
-    {
-      id: 1,
-      collection: "temple",
-      category: "Bridal",
-      variety: "party",
-      item: "coins",
-      grossWight: "10",
-      SKU: "BKS4561YU",
-      HLI: "AAAAAABC",
-      width: "13cm",
-      height: "14cm",
-      styleCompostion: "",
-      purityComposition: "",
-      makingCharges: 15010,
-      images: [],
-      videos: "",
-      cutName: "",
-      clarityName: "AA",
-      colourName: "red",
-    },
-  ];
+
   //====================================================================
   return (
     <div className="d-flex flex-column flex-root">
@@ -232,13 +203,13 @@ const ItemDetails = (props) => {
                                     {/*end::Svg Icon*/}
                                   </Link>
                                 </a>
-                                {/* {userPermissions.has("delete_offer") ? ( */}
+                                {perma.has("delete_product") ? (
                                 <DeleteSpinner
                                   collection={itemDetail}
                                   deleting={deleteProduct}
                                   url={"/master/product-data/products/"}
                                 />
-                                {/* ) : null} */}
+                                 ) : null} 
                               </td>
                             </tr>
                           ))

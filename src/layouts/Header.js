@@ -559,10 +559,9 @@ export default function Header() {
                         </div>
                       </div>
                     </div>
-                    <div className="menu-item">
+                    {/* <div className="menu-item">
                       <a className="menu-link py-3" href="/master/buysell">
                         <span className="menu-icon">
-                          {/*begin::Svg Icon | path: /icons/duotune/general/gen002.svg*/}
                           <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -582,11 +581,11 @@ export default function Header() {
                               />
                             </svg>
                           </span>
-                          {/*end::Svg Icon*/}
+                          
                         </span>
                         <span className="menu-title">Current Rate</span>
                       </a>
-                    </div>
+                    </div> */}
                     <div
                       data-kt-menu-trigger="{default:'click', lg: 'hover'}"
                       data-kt-menu-placement="right-start"
@@ -677,7 +676,7 @@ export default function Header() {
                         <span className="menu-arrow"></span>
                       </span>
                       <div className="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg py-lg-4 w-lg-225px">
-                        <div className="menu-item">
+                        {/* <div className="menu-item">
                           <a
                             className="menu-link py-3"
                             href="/master/plans/plan-bonus"
@@ -687,7 +686,7 @@ export default function Header() {
                             </span>
                             <span className="menu-title">Plan Bonus</span>
                           </a>
-                        </div>
+                        </div> */}
                         <div className="menu-item">
                           <a
                             className="menu-link py-3"
@@ -1019,7 +1018,7 @@ export default function Header() {
                     </div>
                   </div>
                 </div>
-                <div
+                {/* <div
                   data-kt-menu-trigger="click"
                   data-kt-menu-placement="bottom-start"
                   className="menu-item menu-lg-down-accordion me-lg-1"
@@ -1036,7 +1035,6 @@ export default function Header() {
                     >
                       <span className="menu-link py-3">
                         <span className="menu-icon">
-                          {/*begin::Svg Icon | path: icons/duotune/general/gen051.svg*/}
                           <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -1056,7 +1054,6 @@ export default function Header() {
                               />
                             </svg>
                           </span>
-                          {/*end::Svg Icon*/}
                         </span>
                         <span className="menu-title">Financial</span>
                         <span className="menu-arrow"></span>
@@ -1171,7 +1168,6 @@ export default function Header() {
                     >
                       <span className="menu-link py-3">
                         <span className="menu-icon">
-                          {/*begin::Svg Icon | path: icons/duotune/finance/fin002.svg*/}
                           <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -1188,7 +1184,6 @@ export default function Header() {
                               />
                             </svg>
                           </span>
-                          {/*end::Svg Icon*/}
                         </span>
                         <span className="menu-title">Order</span>
                         <span className="menu-arrow"></span>
@@ -1229,7 +1224,6 @@ export default function Header() {
                     >
                       <span className="menu-link py-3">
                         <span className="menu-icon">
-                          {/*begin::Svg Icon | path: icons/duotune/graphs/gra006.svg*/}
                           <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -1249,7 +1243,6 @@ export default function Header() {
                               />
                             </svg>
                           </span>
-                          {/*end::Svg Icon*/}
                         </span>
                         <span className="menu-title">Data Entry</span>
                         <span className="menu-arrow"></span>
@@ -1303,7 +1296,6 @@ export default function Header() {
                     >
                       <span className="menu-link py-3">
                         <span className="menu-icon">
-                          {/*begin::Svg Icon | path: icons/duotune/finance/fin006.svg*/}
                           <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -1323,7 +1315,6 @@ export default function Header() {
                               />
                             </svg>
                           </span>
-                          {/*end::Svg Icon*/}
                         </span>
                         <span className="menu-title">Status Updates</span>
                         <span className="menu-arrow"></span>
@@ -1403,7 +1394,6 @@ export default function Header() {
                     >
                       <span className="menu-link py-3">
                         <span className="menu-icon">
-                          {/*begin::Svg Icon | path: icons/duotune/ecommerce/ecm002.svg*/}
                           <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -1428,7 +1418,6 @@ export default function Header() {
                               />
                             </svg>
                           </span>
-                          {/*end::Svg Icon*/}
                         </span>
                         <span className="menu-title">Products</span>
                         <span className="menu-arrow"></span>
@@ -1463,7 +1452,7 @@ export default function Header() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
 
                 <div
                   data-kt-menu-trigger="click"
@@ -1480,10 +1469,9 @@ export default function Header() {
                       data-kt-menu-placement="right-start"
                       className="menu-item menu-lg-down-accordion"
                     >
-                      <span className="menu-link py-3">
+                      {/* <span className="menu-link py-3">
                         <span className="menu-icon">
-                          {/*begin::Svg Icon | path: icons/duotune/general/gen051.svg*/}
-                          <span className="svg-icon svg-icon-2">
+                            <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="24"
@@ -1502,9 +1490,8 @@ export default function Header() {
                               />
                             </svg>
                           </span>
-                          {/*end::Svg Icon*/}
-                        </span>
-                        <span className="menu-title">Daily Report</span>
+                        </span> */}
+                        {/* <span className="menu-title">Daily Report</span>
                         <span className="menu-arrow"></span>
                       </span>
 
@@ -1583,8 +1570,8 @@ export default function Header() {
                               </a>
                             </div>
                           </div>
-                        </div>
-                      </div>
+                        </div> */}
+                      {/* </div> */}
                     </div>
                     {/* //--------------------------------------------- All Reports ---------------------------------------------------------------------- */}
                     <div
@@ -1679,10 +1666,9 @@ export default function Header() {
                     </div>
                     {/* //------------------------------------------------------------------------------------------------------------------- */}
 
-                    <div className="menu-item">
+                    {/* <div className="menu-item">
                       <a className="menu-link py-3" href="/report/reports">
                         <span className="menu-icon">
-                          {/*begin::Svg Icon | path: /icons/duotune/general/gen002.svg*/}
                           <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -1702,20 +1688,18 @@ export default function Header() {
                               />
                             </svg>
                           </span>
-                          {/*end::Svg Icon*/}
                         </span>
                         <span className="menu-title">Report Hai</span>
                       </a>
-                    </div>
+                    </div> */}
 
-                    <div
+                    {/* <div
                       data-kt-menu-trigger="{default:'click', lg: 'hover'}"
                       data-kt-menu-placement="right-start"
                       className="menu-item menu-lg-down-accordion"
                     >
                       <span className="menu-link py-3">
                         <span className="menu-icon">
-                          {/*begin::Svg Icon | path: icons/duotune/finance/fin002.svg*/}
                           <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -1732,7 +1716,6 @@ export default function Header() {
                               />
                             </svg>
                           </span>
-                          {/*end::Svg Icon*/}
                         </span>
                         <span className="menu-title">Accounts Reports</span>
                         <span className="menu-arrow"></span>
@@ -1792,15 +1775,16 @@ export default function Header() {
                           </a>
                         </div>
                       </div>
-                    </div>
-                    <div
+                    </div> */}
+
+
+                    {/* <div
                       data-kt-menu-trigger="{default:'click', lg: 'hover'}"
                       data-kt-menu-placement="right-start"
                       className="menu-item menu-lg-down-accordion"
                     >
                       <span className="menu-link py-3">
                         <span className="menu-icon">
-                          {/*begin::Svg Icon | path: icons/duotune/graphs/gra006.svg*/}
                           <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -1820,7 +1804,6 @@ export default function Header() {
                               />
                             </svg>
                           </span>
-                          {/*end::Svg Icon*/}
                         </span>
                         <span className="menu-title">Buy and Save Reports</span>
                         <span className="menu-arrow"></span>
@@ -2514,7 +2497,6 @@ export default function Header() {
                     >
                       <span className="menu-link py-3">
                         <span className="menu-icon">
-                          {/*begin::Svg Icon | path: icons/duotune/finance/fin006.svg*/}
                           <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -2534,7 +2516,6 @@ export default function Header() {
                               />
                             </svg>
                           </span>
-                          {/*end::Svg Icon*/}
                         </span>
                         <span className="menu-title">Sell Ur Gold Report</span>
                         <span className="menu-arrow"></span>
@@ -2906,7 +2887,6 @@ export default function Header() {
                     >
                       <span className="menu-link py-3">
                         <span className="menu-icon">
-                          {/*begin::Svg Icon | path: icons/duotune/ecommerce/ecm002.svg*/}
                           <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -2931,7 +2911,6 @@ export default function Header() {
                               />
                             </svg>
                           </span>
-                          {/*end::Svg Icon*/}
                         </span>
                         <span className="menu-title">E-Shop Reports</span>
                         <span className="menu-arrow"></span>
@@ -3038,7 +3017,6 @@ export default function Header() {
                     >
                       <span className="menu-link py-3">
                         <span className="menu-icon">
-                          {/*begin::Svg Icon | path: icons/duotune/finance/fin006.svg*/}
                           <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -3058,7 +3036,6 @@ export default function Header() {
                               />
                             </svg>
                           </span>
-                          {/*end::Svg Icon*/}
                         </span>
                         <span className="menu-title">Stock Report</span>
                         <span className="menu-arrow"></span>
@@ -3264,7 +3241,6 @@ export default function Header() {
                     >
                       <span className="menu-link py-3">
                         <span className="menu-icon">
-                          {/*begin::Svg Icon | path: icons/duotune/ecommerce/ecm002.svg*/}
                           <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -3289,7 +3265,6 @@ export default function Header() {
                               />
                             </svg>
                           </span>
-                          {/*end::Svg Icon*/}
                         </span>
                         <span className="menu-title">Delivery Boy Report</span>
                         <span className="menu-arrow"></span>
@@ -3330,7 +3305,6 @@ export default function Header() {
                     >
                       <span className="menu-link py-3">
                         <span className="menu-icon">
-                          {/*begin::Svg Icon | path: icons/duotune/ecommerce/ecm002.svg*/}
                           <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -3355,7 +3329,6 @@ export default function Header() {
                               />
                             </svg>
                           </span>
-                          {/*end::Svg Icon*/}
                         </span>
                         <span className="menu-title">Collection Report</span>
                         <span className="menu-arrow"></span>
@@ -3389,9 +3362,13 @@ export default function Header() {
                         </div>
                       </div>
                     </div>
+                  */}
                   </div>
                 </div>
-                <div
+
+
+
+                {/* <div
                   data-kt-menu-trigger="click"
                   data-kt-menu-placement="bottom-start"
                   className="menu-item menu-lg-down-accordion me-lg-1"
@@ -3408,7 +3385,6 @@ export default function Header() {
                     >
                       <span className="menu-link py-3">
                         <span className="menu-icon">
-                          {/*begin::Svg Icon | path: icons/duotune/ecommerce/ecm002.svg*/}
                           <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -3433,7 +3409,6 @@ export default function Header() {
                               />
                             </svg>
                           </span>
-                          {/*end::Svg Icon*/}
                         </span>
                         <span className="menu-title">SMS</span>
                         <span className="menu-arrow"></span>
@@ -3460,7 +3435,6 @@ export default function Header() {
                     >
                       <span className="menu-link py-3">
                         <span className="menu-icon">
-                          {/*begin::Svg Icon | path: icons/duotune/ecommerce/ecm002.svg*/}
                           <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -3485,7 +3459,6 @@ export default function Header() {
                               />
                             </svg>
                           </span>
-                          {/*end::Svg Icon*/}
                         </span>
                         <span className="menu-title">Whatsapp</span>
                         <span className="menu-arrow"></span>
@@ -3512,7 +3485,6 @@ export default function Header() {
                     >
                       <span className="menu-link py-3">
                         <span className="menu-icon">
-                          {/*begin::Svg Icon | path: icons/duotune/ecommerce/ecm002.svg*/}
                           <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -3537,7 +3509,6 @@ export default function Header() {
                               />
                             </svg>
                           </span>
-                          {/*end::Svg Icon*/}
                         </span>
                         <span className="menu-title">Email</span>
                         <span className="menu-arrow"></span>
@@ -3564,7 +3535,6 @@ export default function Header() {
                     >
                       <span className="menu-link py-3">
                         <span className="menu-icon">
-                          {/*begin::Svg Icon | path: icons/duotune/ecommerce/ecm002.svg*/}
                           <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -3589,7 +3559,6 @@ export default function Header() {
                               />
                             </svg>
                           </span>
-                          {/*end::Svg Icon*/}
                         </span>
                         <span className="menu-title">Push</span>
                         <span className="menu-arrow"></span>
@@ -3615,7 +3584,6 @@ export default function Header() {
                     >
                       <span className="menu-link py-3">
                         <span className="menu-icon">
-                          {/*begin::Svg Icon | path: icons/duotune/ecommerce/ecm002.svg*/}
                           <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -3640,7 +3608,6 @@ export default function Header() {
                               />
                             </svg>
                           </span>
-                          {/*end::Svg Icon*/}
                         </span>
                         <span className="menu-title">FAQs</span>
                         <span className="menu-arrow"></span>
@@ -3671,7 +3638,7 @@ export default function Header() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <Link to="/register">
                   <span className="menu-link  register">
                     <div

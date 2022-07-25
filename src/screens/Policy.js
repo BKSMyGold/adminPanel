@@ -18,6 +18,7 @@ const Policy = (props) => {
   //============================================================================
   const [policy, setPolicy] = useState([]);
   const [loader, setLoader] = useState(false);
+  let perma = new Set(props.user.role.permissions.map((x) => x));
 
   //============================================================================
   useEffect(() => {
@@ -172,13 +173,14 @@ const Policy = (props) => {
                                       </button>
                                     </Link>
                                   </a>
-                                  {/* {userPermissions.has("delete_collections") ? ( */}
-                                  <DeleteSpinner
-                                    collection={policy}
-                                    deleting={deletePolicy}
-                                    url={"/master/policy"}
-                                  />
-                                  {/* ) : null} */}
+
+                                  {perma.has("delete_policy") ? (
+                                    <DeleteSpinner
+                                      collection={policy}
+                                      deleting={deletePolicy}
+                                      url={"/master/policy"}
+                                    />
+                                  ) : null}
                                 </td>
                               </tr>
                             );

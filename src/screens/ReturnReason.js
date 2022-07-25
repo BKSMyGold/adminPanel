@@ -19,6 +19,7 @@ const ReturnReason = (props) => {
   //============================================================================
   const [reason, setReason] = useState([]);
   const [loader, setLoader] = useState(false);
+  let perma = new Set(props.user.role.permissions.map((x) => x));
 
   //============================================================================
   useEffect(() => {
@@ -137,13 +138,15 @@ const ReturnReason = (props) => {
                                       </button>
                                     </Link>
                                   </a>
-                                  {/* {userPermissions.has("delete_collections") ? ( */}
-                                  <DeleteSpinner
+                           
+
+                                  {perma.has("delete_return_reason") ? (
+                                    <DeleteSpinner
                                     collection={reason}
                                     deleting={deleteReturnReason}
                                     url={"/master/return_reason"}
-                                  />
-                                  {/* ) : null} */}
+                                    />
+                                  ) : null}
                                 </td>
                               </tr>
                             );

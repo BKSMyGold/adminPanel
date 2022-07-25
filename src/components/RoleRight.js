@@ -239,7 +239,7 @@ const nodes = [
                 label: "Delete",
                 value: "delete_making_charges",
               },
-            ],
+            ], 
           },
 
           {
@@ -401,6 +401,28 @@ const nodes = [
               {
                 label: "Delete",
                 value: "delete_permission",
+              },
+            ],
+          },
+          {
+            label: "All Roles",
+            value: "all_roles",
+            children: [
+              {
+                label: "Create",
+                value: "add_roles",
+              },
+              {
+                label: "Read",
+                value: "view_roles",
+              },
+              {
+                label: "Update",
+                value: "update_roles",
+              },
+              {
+                label: "Delete",
+                value: "delete_roles",
               },
             ],
           },

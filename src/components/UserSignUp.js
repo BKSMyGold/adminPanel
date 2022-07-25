@@ -6,6 +6,7 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import { getRole } from "../APIs_Hai/Role";
 import { registerUser } from "../APIs_Hai/Register";
+import swal from "sweetalert";
 //=====================================================
 
 export default function UserSignUp() {
@@ -32,10 +33,10 @@ export default function UserSignUp() {
   //=====================================================
   const handleSubmit = async () => {
     if (userSigning.password !== userSigning.confirmPassowrd) {
-      alert("Password Didn't Matched");
+      swal("Oops","Password Didn't Matched","error");
     } else {
       registerUser(userSigning).then(() => {
-        alert("New User Created !");
+        swal("Hurrah !","New User Created !","success");
         navigate("/");
       });
     }

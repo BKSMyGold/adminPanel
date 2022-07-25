@@ -9,19 +9,20 @@ import { CSVLink } from "react-csv";
 import DeleteSpinner from "../delete";
 import { getCustomDuty, deleteCustomDuty } from "../APIs_Hai/CustomDuty";
 import LinearProgress from "@mui/material/LinearProgress";
-import Box from "@mui/material/Box"
+import Box from "@mui/material/Box";
 //===============================================================
-const CustomDuties = () => {
+const CustomDuties = (props) => {
   const [taxes, setTaxesDuties] = useState([]);
-
   const [loader, setLoader] = useState(false);
+  let perma = new Set(props.user.role.permissions.map((x) => x));
 
   //=================================================
   useEffect(() => {
     setLoader(true);
     getCustomDuty().then((res) => {
       return setTaxesDuties(res.data.data.data), setLoader(false);
-    });   }, []);
+    });
+  }, []);
   console.log(taxes);
   //===============================================================
   return (
@@ -209,11 +210,13 @@ const CustomDuties = () => {
                                     </svg>
                                   </span>
                                 </button> */}
-                                <DeleteSpinner
-                                  collection={taxes}
-                                  deleting={deleteCustomDuty}
-                                  url={"/master/taxes/"}
-                                />
+                                {perma.has("delete_taxes") ? (
+                                  <DeleteSpinner
+                                    collection={taxes}
+                                    deleting={deleteCustomDuty}
+                                    url={"/master/taxes/"}
+                                  />
+                                ) : null}
                               </td>
                             </tr>
                           ))

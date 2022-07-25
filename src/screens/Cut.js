@@ -10,20 +10,20 @@ import { BASE_URL } from "../Constants";
 import { CSVLink } from "react-csv";
 import { getCut, deleteCut } from "../APIs_Hai/Cut";
 import LinearProgress from "@mui/material/LinearProgress";
-import Box from "@mui/material/Box"
+import Box from "@mui/material/Box";
 //============================================================================
-const Clarity = (props) => {
+const Cut = (props) => {
+  const [cut, setCut] = useState([]);
+  const [loader, setLoader] = useState(false);
+  let perma = new Set(props.user.role.permissions.map((x) => x));
 
-
-const[cut, setCut] = useState([])
-const [loader, setLoader] = useState(false);
-
-  useEffect(()=>{
+  useEffect(() => {
     setLoader(true);
     getCut().then((res) => {
       return setCut(res.data.data.data), setLoader(false);
-    });  },[])
-  console.log("====>",cut)
+    });
+  }, []);
+  console.log("====>", cut);
   //============================================================================
   return (
     <div className="d-flex flex-column flex-root">
@@ -51,7 +51,7 @@ const [loader, setLoader] = useState(false);
                       Clarity Name
                     </span>
                     <span class="text-muted mt-1 fw-bold fs-7">
-                    Clarity Name
+                      Clarity Name
                     </span>
                   </h3>
                 </div>
@@ -84,10 +84,10 @@ const [loader, setLoader] = useState(false);
                       {/*end::Table head*/}
                       {/*begin::Table body*/}
                       <tbody>
-                        {loader ?(
-                           <Box  sx={{ width: '100vw'}}>
-                           <LinearProgress />
-                         </Box>
+                        {loader ? (
+                          <Box sx={{ width: "100vw" }}>
+                            <LinearProgress />
+                          </Box>
                         ) : (
                           cut.map((cut) => (
                             <tr class="text-center">
@@ -102,7 +102,7 @@ const [loader, setLoader] = useState(false);
                               </td> */}
                               <td class="fw-bolder">{cut.id}</td>
                               <td class="fw-bolder">{cut.name}</td>
-                            
+
                               <td class="text-center">
                                 <Link
                                   to={"/master/product-data/cut/edit"}
@@ -131,19 +131,17 @@ const [loader, setLoader] = useState(false);
                                     </span>
                                   </button>
                                 </Link>
-                                {/* {userPermissions.has("delete_metal_groups") ? ( */}
-                                <DeleteSpinner
-                                  collection={cut}
-                                  deleting={deleteCut}
-                                  url={"/master/product-data/cut/"}
-                                />
-                                {/* ) : null
-                                } */}
+                                {perma.has("delete_cut") ? (
+                                  <DeleteSpinner
+                                    collection={cut}
+                                    deleting={deleteCut}
+                                    url={"/master/product-data/cut/"}
+                                  />
+                                ) : null}
                               </td>
-                            </tr> 
-                        )
-                       
-                        ))}
+                            </tr>
+                          ))
+                        )}
                       </tbody>
                       {/*end::Table body*/}
                     </table>
@@ -164,4 +162,4 @@ const [loader, setLoader] = useState(false);
   );
 };
 
-export default Clarity;
+export default Cut;

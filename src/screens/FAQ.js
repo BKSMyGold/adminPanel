@@ -17,6 +17,7 @@ const FAQ = (props) => {
   //============================================================================
   const [faq, setFaq] = useState([]);
   const [loader, setLoader] = useState(false);
+  let perma = new Set(props.user.role.permissions.map((x) => x));
 
   //============================================================================
   useEffect(() => {
@@ -129,14 +130,14 @@ const FAQ = (props) => {
                                     </span>
                                   </button>
                                 </Link>
-                                {/* {userPermissions.has("delete_metal_groups") ? ( */}
-                                <DeleteSpinner
-                                  collection={faq}
-                                  deleting={deleteFAQ}
-                                  url={"/master/faq/"}
-                                />
-                                {/* ) : null
-      } */}
+
+                                {perma.has("delete_FAQ") ? (
+                                  <DeleteSpinner
+                                    collection={faq}
+                                    deleting={deleteFAQ}
+                                    url={"/master/faq/"}
+                                  />
+                                ) : null}
                               </td>
                             </tr>
                           ))

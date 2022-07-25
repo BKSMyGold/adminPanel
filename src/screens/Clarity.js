@@ -8,36 +8,23 @@ import { deleteMetalGroup } from "../apis/MetalGroup";
 import DeleteSpinner from "../delete";
 import { BASE_URL } from "../Constants";
 import { CSVLink } from "react-csv";
-import {getClarity} from "../APIs_Hai/Clarity"
+import { getClarity } from "../APIs_Hai/Clarity";
 import { deleteClarity } from "../APIs_Hai/Clarity";
 import LinearProgress from "@mui/material/LinearProgress";
-import Box from "@mui/material/Box"
+import Box from "@mui/material/Box";
 //============================================================================
 const Clarity = (props) => {
-  // const clarity = [
-  //   {
-  //     id: 1,
-  //     clarity: "AA+",
-  //   },
-  //   {
-  //       id: 2,
-  //       clarity: "AAA+",
-  //     },
-  //     {
-  //       id: 3,
-  //       clarity: "BB+",
-  //     },
-   
-  // ];
-const[clarity, setClarity] = useState([])
-const [loader, setLoader] = useState(false);
+  const [clarity, setClarity] = useState([]);
+  const [loader, setLoader] = useState(false);
+  let perma = new Set(props.user.role.permissions.map((x) => x));
 
-  useEffect(()=>{
+  useEffect(() => {
     setLoader(true);
     getClarity().then((res) => {
       return setClarity(res.data.data.data), setLoader(false);
-    });  },[])
-  console.log("====>",clarity)
+    });
+  }, []);
+  console.log("====>", clarity);
   //============================================================================
   return (
     <div className="d-flex flex-column flex-root">
@@ -65,7 +52,7 @@ const [loader, setLoader] = useState(false);
                       Clarity Name
                     </span>
                     <span class="text-muted mt-1 fw-bold fs-7">
-                    Clarity Name
+                      Clarity Name
                     </span>
                   </h3>
                 </div>
@@ -99,10 +86,10 @@ const [loader, setLoader] = useState(false);
                       {/*begin::Table body*/}
                       <tbody>
                         {loader ? (
-                           <Box  sx={{ width: '100vw'}}>
-                           <LinearProgress />
-                         </Box>
-                        ):(
+                          <Box sx={{ width: "100vw" }}>
+                            <LinearProgress />
+                          </Box>
+                        ) : (
                           clarity.map((clarity) => (
                             <tr class="text-center">
                               {/* <td>
@@ -116,7 +103,7 @@ const [loader, setLoader] = useState(false);
                               </td> */}
                               <td class="fw-bolder">{clarity.id}</td>
                               <td class="fw-bolder">{clarity.name}</td>
-                            
+
                               <td class="text-center">
                                 <Link
                                   to={"/master/product-data/clarity/edit"}
@@ -145,19 +132,17 @@ const [loader, setLoader] = useState(false);
                                     </span>
                                   </button>
                                 </Link>
-                                {/* {userPermissions.has("delete_metal_groups") ? ( */}
-                                <DeleteSpinner
-                                  collection={clarity}
-                                  deleting={deleteClarity}
-                                  url={"/master/product-data/clarity/"}
-                                />
-                                {/* ) : null
-                                } */}
+                                {perma.has("delete_clarity") ? (
+                                  <DeleteSpinner
+                                    collection={clarity}
+                                    deleting={deleteClarity}
+                                    url={"/master/product-data/clarity/"}
+                                  />
+                                ) : null}
                               </td>
                             </tr>
-                        )
-                       
-                        ))}
+                          ))
+                        )}
                       </tbody>
                       {/*end::Table body*/}
                     </table>

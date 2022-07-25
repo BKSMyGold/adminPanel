@@ -1,37 +1,44 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import AddUpdateSpinner from "../AddUpdateSpinner";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
+import { ADMIN_API } from "../Constants";
+import { getRole } from "../APIs_Hai/Role";
 import axios from "axios";
-import { ROLE_PERMISSION_BASE_URL } from "../Constants";
+import swal from "sweetalert";
+import { useNavigate } from "react-router-dom";
+
 //===================================================================
 export default function RoleChangeForm() {
   //===================================================================
   const location = useLocation();
-  console.log(location.state);
-  const [roles, setRoles] = React.useState([]);
+  let user = location.state;
+  console.log("||--->", user.id);
+  let navigate = useNavigate();
+  const [roleList, setRoleList] = React.useState([]);
   //===================================================================
   React.useEffect(() => {
-    axios
-      .get(`${ROLE_PERMISSION_BASE_URL}/api/system-user`)
-      .then((res) => setRoles(res.data));
+    getRole().then((res) => setRoleList(res.data.data.data));
   }, []);
+
   //===================================================================
-  let parentRoles = [
-    "Super Admin",
-    "Admin",
-    "IT",
-    "SHOP",
-    "Sales & Marketing",
-    "CRM",
-    "Other Parent Role",
-  ];
+  const [roleId, setRole] = useState("");
+    // {
+    //   userId: `${user.id}`,
+    //   roleId: ""
+    // }
+  // );
+  
   //===================================================================
-  const [roleData, setRoleData] = useState({
-    parentRole: "",
-    newRole: "",
-  });
+  const handleRoleChange = (e) => {
+    e.preventDefault();
+    // console.log(role);
+    axios
+      .put(`${ADMIN_API}/admin/userrole/update/${user.id}`, { ...roleId,userId:user.id })
+      .then(() => swal("Hurrah !", "Role has been added", "success"))
+      .then(() => navigate("/master/security/masterUserRights"));
+  };
   //===================================================================
 
   return (
@@ -81,10 +88,8 @@ export default function RoleChangeForm() {
                         </label>
                         <input
                           type="text"
-                          name="category_name"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Category Name"
-                          value={location.state.name}
+                          value={user.fullName}
                         />
                       </div>
 
@@ -99,10 +104,8 @@ export default function RoleChangeForm() {
                         </label>
                         <input
                           type="text"
-                          name="category_name"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Category Name"
-                          value={location.state.role.role_name}
+                          value={user.role?.name}
                         />
                       </div>
 
@@ -119,29 +122,23 @@ export default function RoleChangeForm() {
                         <select
                           class="form-control"
                           onChange={(e) => {
-                            setRoleData({
-                              ...roleData,
-                              newRole: e.target.value,
+                            setRole({
+                              roleId: e.target.value,
                             });
                           }}
                         >
                           <option class="form-control">Choose Role</option>;
-                          {roles.map((role) => {
-                            if (
-                              role.role &&
-                              role.role.role_name !== undefined
-                            ) {
-                              return (
-                                <option class="form-control">
-                                  {role.role.role_name}
-                                </option>
-                              );
-                            }
+                          {roleList.map((role) => {
+                            return (
+                              <option class="form-control" value={role.id}>
+                                {role.name}
+                              </option>
+                            );
                           })}
                         </select>
                       </div>
 
-                      <div>
+                      {/* <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                           <span class="required">Parent Role</span>
 
@@ -170,15 +167,12 @@ export default function RoleChangeForm() {
                             );
                           })}
                         </select>
-                      </div>
+                      </div> */}
                       <div>
                         <br />
                         <button
                           class="btn btn-danger"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            console.log(roleData);
-                          }}
+                          onClick={handleRoleChange}
                         >
                           Add
                         </button>

@@ -11,9 +11,10 @@ import DeleteSpinner from "../delete";
 import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
 //=================================================================================
-const ReferralType = () => {
+const ReferralType = (props) => {
   const [HowTo, setHowTo] = useState([]);
   const [loader, setLoader] = useState(false);
+  let perma = new Set(props.user.role.permissions.map((x) => x));
 
   //=================================================================================
   useEffect(() => {
@@ -171,11 +172,14 @@ const ReferralType = () => {
                                     {/*end::Svg Icon*/}
                                   </a>
                                 </Link>
-                                <DeleteSpinner
-                                  collection={HowTo}
-                                  deleting={deleteVideo}
-                                  url={"/master/settings/how-to-videos"}
-                                />
+
+                                {perma.has("delete_metal_groups") ? (
+                                  <DeleteSpinner
+                                    collection={HowTo}
+                                    deleting={deleteVideo}
+                                    url={"/master/referral_type"}
+                                  />
+                                ) : null}
                               </td>
                             </tr>
                           ))

@@ -5,19 +5,19 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import axios from "axios";
 import { ROLE_PERMISSION_BASE_URL } from "../Constants";
-
+//======================================================================
 export default function UserNameChangeForm() {
   const location = useLocation();
   console.log(location.state);
-
+  //======================================================================
   const [roles, setRoles] = React.useState([]);
-
+  //======================================================================
   React.useEffect(() => {
     axios
       .get(`${ROLE_PERMISSION_BASE_URL}/api/system-user`)
       .then((res) => setRoles(res.data));
   }, []);
-
+  //======================================================================
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -89,8 +89,6 @@ export default function UserNameChangeForm() {
                           defaultValue={0}
                         />
                       </div>
-
-                  
 
                       <div>
                         <br />

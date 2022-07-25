@@ -11,32 +11,11 @@ import DeleteSpinner from "../delete";
 import { getOrnament } from "../APIs_Hai/Ornament";
 import { deleteOrnament } from "../APIs_Hai/Ornament";
 import LinearProgress from "@mui/material/LinearProgress";
-import Box from "@mui/material/Box"
+import Box from "@mui/material/Box";
 //=====================================================
 const Ornament = (props) => {
   //=====================================================
-  // const ornaments = [
-  //   {
-  //     id: 1,
-  //     ornamentName: "Fine Metal",
-  //   },
-  //   {
-  //     id: 2,
-  //     ornamentName: "Ornaments",
-  //   },
-  //   {
-  //     id: 3,
-  //     ornamentName: "Old Metal",
-  //   },
-  //   {
-  //     id: 4,
-  //     ornamentName: "Packaging Material",
-  //   },
-  //   {
-  //     id: 5,
-  //     ornamentName: "Other",
-  //   },
-  // ];
+  let perma = new Set(props.user.role.permissions.map((x) => x));
 
   // //=====================================================
   // useEffect(() => {
@@ -51,18 +30,17 @@ const Ornament = (props) => {
   // }, []);
 
   //============================================================================
-const[ornament, setOrnament] = useState([])
-const [loader, setLoader] = useState(false);
+  const [ornament, setOrnament] = useState([]);
+  const [loader, setLoader] = useState(false);
 
+  useEffect(() => {
+    setLoader(true);
+    getOrnament().then((res) => {
+      return setOrnament(res.data.data.data), setLoader(false);
+    });
+  }, []);
 
-useEffect(()=>{
-  setLoader(true);
-  getOrnament().then((res) => {
-    return setOrnament(res.data.data.data), setLoader(false);
-  });
-}, [])
-
-console.log('--->', ornament)
+  console.log("--->", ornament);
 
   return (
     <div className="d-flex flex-column flex-root">
@@ -114,10 +92,10 @@ console.log('--->', ornament)
 
                       <tbody>
                         {loader ? (
-                           <Box  sx={{ width: '100vw'}}>
-                           <LinearProgress />
-                         </Box>
-                        ) : (     
+                          <Box sx={{ width: "100vw" }}>
+                            <LinearProgress />
+                          </Box>
+                        ) : (
                           ornament.map((ornaments) => {
                             return (
                               <tr class="text-center fw-bolder">
@@ -137,7 +115,7 @@ console.log('--->', ornament)
                                     {ornaments.name}
                                   </a>
                                 </td>
-  
+
                                 <td class="text-center">
                                   <a
                                     href="#"
@@ -172,19 +150,18 @@ console.log('--->', ornament)
                                       </button>
                                     </Link>
                                   </a>
-                                  {/* {userPermissions.has("delete_collections") ? ( */}
-                                  <DeleteSpinner
-                                    collection={ornaments}
-                                    deleting={deleteOrnament}
-                                    url={"/master/product-data/ornament/"}
-                                  />
-                                  {/* ) : null} */}
+                                  {perma.has("delete_ornament") ? (
+                                    <DeleteSpinner
+                                      collection={ornaments}
+                                      deleting={deleteOrnament}
+                                      url={"/master/product-data/ornament/"}
+                                    />
+                                  ) : null}
                                 </td>
                               </tr>
-                                )}
-                                )
-                               
-                                  )}
+                            );
+                          })
+                        )}
                       </tbody>
                       {/*end::Table body*/}
                     </table>
