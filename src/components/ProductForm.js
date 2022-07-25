@@ -26,7 +26,7 @@ import { getColour } from "../APIs_Hai/Colour";
 import { getCut } from "../APIs_Hai/Cut";
 import { getShape } from "../APIs_Hai/Shape";
 import Select from "react-select";
-import { getAllProducts } from "../apis/products";
+import { getCertificate } from "../APIs_Hai/Certificate";
 
 //================================================================================================================================
 const ItemDetailsForm = (props) => {
@@ -36,23 +36,6 @@ const ItemDetailsForm = (props) => {
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
 
   const [selectedValue, setSelectedValue] = useState([]);
-
-  // const [product, setProduct] = useState(
-  //   location?.state ?? {
-  //     collectionName: "",
-  //     category: [],
-  //     variety: [],
-  //     item: "",
-  //     video: "",
-  //     grossWeight: 0,
-  //     sku: "",
-  //     hli: "",
-  //     width: "",
-  //     height: "",
-  //     purityComposition,
-  //     styleComposition
-  //   }
-  // );
 
   const [collection, setCollection] = useState([]);
   useEffect(() => {
@@ -112,6 +95,12 @@ const ItemDetailsForm = (props) => {
     getShape().then((res) => setShape(res.data.data.data));
   }, []);
   console.log("-------->", shape);
+  //======================================================================
+  const [certificates, setCertificates] = useState([]);
+  useEffect(() => {
+    getCertificate().then((res) => setCertificates(res.data.data.data));
+  }, []);
+  console.log("-------->", certificates);
   //======================================================================
   const [purityComposition, setPurityComposition] = useState([
     {
@@ -195,7 +184,7 @@ const ItemDetailsForm = (props) => {
   const [product, setProduct] = useState(
     location?.state ?? {
       metalGroup: "",
-      collectionName: [],
+      collections: [],
       category: [],
       variety: [],
       item: "",
@@ -253,13 +242,11 @@ const ItemDetailsForm = (props) => {
     };
   });
   //---------------------------------------------------------
-  const handleItem = (e) => {
-    let arr = e.map((x) => {
-      return x.value;
-    });
+  const handleItem = (e) => { 
+
     setProduct({
       ...product,
-      item: arr,
+      item: e,
     });
   };
 
@@ -277,7 +264,7 @@ const ItemDetailsForm = (props) => {
     });
     setProduct({
       ...product,
-      collectionName: arr,
+      collections: arr,
     });
   };
 
@@ -569,16 +556,7 @@ const ItemDetailsForm = (props) => {
                                   );
                                 })}
                               </select>
-                              {/* <input
-                                type="text"
-                                name="colour"
-                                value={x.colour}
-                                className="form-control form-control-lg form-control-solid"
-                                placeholder="Enter colour"
-                                onChange={(event) =>
-                                  handleFormChange1(index, event)
-                                }
-                              /> */}
+                           
 
                               <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                                 <span class="required">cut</span>
@@ -607,19 +585,11 @@ const ItemDetailsForm = (props) => {
                                   );
                                 })}
                               </select>
-                              {/* <input
-                                type="text"
-                                name="cut"
-                                value={x.cut}
-                                className="form-control form-control-lg form-control-solid"
-                                placeholder="Enter cut"
-                                onChange={(event) =>
-                                  handleFormChange1(index, event)
-                                }
-                              /> */}
+
+
 
                               <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                <span class="required">shape</span>
+                                <span class="required">Certificate</span>
                                 <i
                                   class="fas fa-exclamation-circle ms-2 fs-7"
                                   data-bs-toggle="tooltip"
@@ -628,7 +598,7 @@ const ItemDetailsForm = (props) => {
                               </label>
                               <select
                                 class="form-control"
-                                name="shape"
+                                name="certificate"
                                 onChange={(event) =>
                                   handleFormChange1(index, event)
                                 }
@@ -637,7 +607,35 @@ const ItemDetailsForm = (props) => {
                                   Select option
                                 </option>
                                 ;
-                                {shape.map((x) => {
+                                {certificates.map((x) => {
+                                  return (
+                                    <option class="form-control" value={x.name}>
+                                      {x.name}
+                                    </option>
+                                  );
+                                })}
+                              </select>
+
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                <span class="required">cut</span>
+                                <i
+                                  class="fas fa-exclamation-circle ms-2 fs-7"
+                                  data-bs-toggle="tooltip"
+                                  title="Specify The cut"
+                                ></i>
+                              </label>
+                              <select
+                                class="form-control"
+                                name="cut"
+                                onChange={(event) =>
+                                  handleFormChange1(index, event)
+                                }
+                              >
+                                <option class="form-control">
+                                  Select option
+                                </option>
+                                ;
+                                {cut.map((x) => {
                                   return (
                                     <option class="form-control" value={x.name}>
                                       {x.name}
@@ -730,7 +728,7 @@ const ItemDetailsForm = (props) => {
                         </label>
                         <Select
                           options={itemOptions}
-                          isMulti
+                          
                           onChange={handleItem}
                         />
                        

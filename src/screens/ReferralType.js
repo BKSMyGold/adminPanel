@@ -6,24 +6,24 @@ import axios from "axios";
 import { ADMIN_API } from "../Constants";
 import { Link } from "react-router-dom";
 import { CSVLink } from "react-csv";
-import { getVideo, deleteVideo } from "../APIs_Hai/Video";
+import { getReferralType, deleteReferralType } from "../APIs_Hai/ReferralType";
 import DeleteSpinner from "../delete";
 import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
 //=================================================================================
 const ReferralType = (props) => {
-  const [HowTo, setHowTo] = useState([]);
+  const [referralType, setReferralType] = useState([]);
   const [loader, setLoader] = useState(false);
   let perma = new Set(props.user.role.permissions.map((x) => x));
 
   //=================================================================================
   useEffect(() => {
     setLoader(true);
-    getVideo().then((res) => {
-      return setHowTo(res.data.data.data), setLoader(false);
+    getReferralType().then((res) => {
+      return setReferralType(res.data.data.data), setLoader(false);
     });
   }, []);
-  console.log("||--->", HowTo);
+  console.log("||--->", referralType);
   //=================================================================================
   return (
     <div className="d-flex flex-column flex-root">
@@ -33,7 +33,7 @@ const ReferralType = (props) => {
           id="kt_wrapper"
         >
           <Header />
-          <Dashboard createLink={"/master/settings/how-to-videos/add"} />
+          <Dashboard createLink={"/master/referral_type/add"} />
           <div
             id="kt_content_container"
             class="d-flex flex-column-fluid align-items-start container-xxl"
@@ -48,10 +48,10 @@ const ReferralType = (props) => {
                 <div class="card-header border-0 pt-5">
                   <h3 class="card-title align-items-start flex-column">
                     <span class="card-label fw-bolder fs-3 mb-1">
-                      Testimonials
+                      Referal Type
                     </span>
                     <span class="text-muted mt-1 fw-bold fs-7">
-                      All testimonials
+                    Referal Type
                     </span>
                   </h3>
                 </div>
@@ -65,50 +65,31 @@ const ReferralType = (props) => {
                       {/*begin::Table head*/}
                       <thead>
                         <tr class="fw-bolder text-muted">
-                          <th class="w-25px">
-                            <div class="form-check form-check-sm form-check-custom form-check-solid">
-                              <input
-                                class="form-check-input"
-                                type="checkbox"
-                                value="1"
-                                data-kt-check="true"
-                                data-kt-check-target=".widget-13-check"
-                              />
-                            </div>
-                          </th>
+                         
                           <th class="min-w-150px"> Id</th>
-                          <th class="min-w-140px"> Category</th>
-                          <th class="min-w-140px">Title</th>
-                          <th class="min-w-120px">Language</th>
-                          <th class="min-w-120px">Video</th>
+                          <th class="min-w-140px"> Joining Bonus </th>
+                          <th class="min-w-140px">Referred Bonus</th>
+                          <th class="min-w-120px">User Type</th>
+                          <th class="min-w-120px">Criteria</th>
                           <th class="min-w-100px text-end">Actions</th>
                         </tr>
                       </thead>
-                      {/*end::Table head*/}
-                      {/*begin::Table body*/}
+                
                       <tbody>
                         {loader ? (
                           <Box sx={{ width: "100vw" }}>
                             <LinearProgress />
                           </Box>
                         ) : (
-                          HowTo?.map((HowTo) => (
+                          referralType?.map((referralType) => (
                             <tr>
-                              <td>
-                                <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                  <input
-                                    class="form-check-input widget-13-check"
-                                    type="checkbox"
-                                    value="1"
-                                  />
-                                </div>
-                              </td>
+                              
                               <td>
                                 <a
                                   href="#"
                                   class="text-dark fw-bolder text-hover-primary fs-6"
                                 >
-                                  {HowTo.id}
+                                  {referralType.id}
                                 </a>
                               </td>
                               <td>
@@ -116,7 +97,7 @@ const ReferralType = (props) => {
                                   href="#"
                                   class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                                 >
-                                  {HowTo.category}
+                                  {referralType.joiningBonus?.min} %, upto {referralType.joiningBonus?.max} ₹
                                 </a>
                               </td>
                               <td>
@@ -124,7 +105,7 @@ const ReferralType = (props) => {
                                   href="#"
                                   class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                                 >
-                                  {HowTo.title}
+                                  {referralType.referredBonus}
                                 </a>
                               </td>
                               <td>
@@ -132,18 +113,21 @@ const ReferralType = (props) => {
                                   href="#"
                                   class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                                 >
-                                  {HowTo.language}
+                                  {referralType.userType}
                                 </a>
                               </td>
-                              <td class="text-dark fw-bolder text-hover-primary fs-6">
-                                <a href={HowTo.url} target="_blank">
-                                  Check Video
+                              <td>
+                                <a
+                                  href="#"
+                                  class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
+                                >
+                                  {referralType.criteria}
                                 </a>
                               </td>
                               <td>
                                 <Link
-                                  to="/master/settings/how-to-videos/edit"
-                                  state={HowTo}
+                                  to="/master/referral_type/edit"
+                                  state={referralType}
                                 >
                                   <a
                                     href="#"
@@ -175,8 +159,8 @@ const ReferralType = (props) => {
 
                                 {perma.has("delete_metal_groups") ? (
                                   <DeleteSpinner
-                                    collection={HowTo}
-                                    deleting={deleteVideo}
+                                    collection={referralType}
+                                    deleting={deleteReferralType}
                                     url={"/master/referral_type"}
                                   />
                                 ) : null}

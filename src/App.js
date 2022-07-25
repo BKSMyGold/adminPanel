@@ -226,6 +226,11 @@ import SellAndReserveReport from "./screens/SellAndReserveReport";
 import ReferralType from "./screens/ReferralType";
 import ReferralTypeForm from "./components/ReferralTypeForm";
 import RolesUpdate from "./components/RolesUpdate";
+import AddUserForm from "./components/AddUserForm";
+import Certificate from "./screens/Certificate"
+import CertiFicateForm from "./components/CertificateForm"
+import Label from "./screens/Label"
+import LabelForm from "./components/LabelForm";
 //====================================================================
 const App = () => {
   const [loggedInUser, setLoggedInUser] = useState({});
@@ -311,23 +316,19 @@ const App = () => {
     // <>
     <div className="App">
       <Routes>
-        {/* {!loggedInUser ?( */}
-        {/* <> */}
+        {/* ------------------------------ Authentication  ----------------------------------- */}
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/reset_password" element={<ResetPasswordForm />} />
         <Route path="/forgot_password" element={<ForgotPassword />} />
         <Route path="/register" element={<UserSignUp />} exact />
-        {/* </> */}
-        {/* ):( */}
-        {/* <> */}
-        {/* <Route path="/registered_User" element={<RegisteredUser />} /> */}
-        {/*Master =============================================*/}
-        {/*Products Data ======================*/}
-        <Route path="/change_name" element={<UserNameChangeForm />} />
         <Route path="/loader" element={<Loader />} />
         <Route path="*" element={<PageNotFound />} />
-        <Route path="/change_role" element={<RoleChangeForm />} />
         <Route path="/" element={<Home />} />
+        <Route path="/add_user" element={<AddUserForm />} />
+
+        {/* ------------------------------ Role  ----------------------------------- */}
+        {/* <Route path="/change_name" element={<UserNameChangeForm />} /> */}
+        <Route path="/change_role" element={<RoleChangeForm />} />
         {/*===================================   MASTER  ==================================================================================================================*/}
         {/* ------------------------------Product  ------------------------------------------------------------------------------------------ */}
         {/*================================ Metal =================================================*/}
@@ -1368,6 +1369,68 @@ const App = () => {
             )
           }
         />
+        {/* ------------------------------ Certificate  ------------------------------------------------------------------------------------------ */}
+        <Route
+          path="/master/certificates"
+          element={
+            permissions.has("read_referral_type") ? (
+              <Certificate user={loggedInUser} />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/certificates/add"
+          element={
+            permissions.has("create_referral_type") ? (
+              <CertiFicateForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/certificates/edit"
+          element={
+            permissions.has("update_referral_type") ? (
+              <CertiFicateForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        {/* ------------------------------ Label  ------------------------------------------------------------------------------------------ */}
+        <Route
+          path="/master/label"
+          element={
+            permissions.has("read_referral_type") ? (
+              <Label user={loggedInUser} />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/label/add"
+          element={
+            permissions.has("create_referral_type") ? (
+              <LabelForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/label/edit"
+          element={
+            permissions.has("update_referral_type") ? (
+              <LabelForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
         {/* ------------------------------ Reports  ------------------------------------------------------------------------------------------ */}
         {/*================================ Buy and Save Report =================================================*/}
         <Route
@@ -1658,7 +1721,6 @@ const App = () => {
           path="/reports/buy-save/userdata/cycle"
           element={<UserDataCycle />}
         />
-   
         {/*Fixed Value plan Report  =============================================*/}
         <Route
           path="/reports/buy-save/fixedPlanValue/cycle"

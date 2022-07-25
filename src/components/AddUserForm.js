@@ -1,18 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-// import { addSystemUser } from "../apis/SystemUser";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import { getRole } from "../APIs_Hai/Role";
 import { registerUser } from "../APIs_Hai/Register";
 import swal from "sweetalert";
+import { getReferralType } from "../APIs_Hai/ReferralType";
+import { ADMIN_API } from "../Constants";
 //=====================================================
 
-export default function UserSignUp() {
+export default function AddUserForm() {
   const navigate = useNavigate();
   //=====================================================
   const [roles, setRoles] = React.useState([]);
+  const [referralUserType, setReferralUserType] = React.useState([]);
+  useEffect(() => {
+    getReferralType().then((res) => setReferralUserType(res.data.data.data));
+  }, []);
+  console.log(referralUserType);
+
   const [userSigning, setUserSigning] = React.useState({
     fullName: "",
     email: "",
@@ -20,23 +27,28 @@ export default function UserSignUp() {
     password: "",
     confirmPassowrd: "",
     mobile: "",
-    // pan: "",
-    // address: "",
     role: "",
-    userType: 2,
-    // upperRole: "",
+    userType: null,
+    referral: {
+      type: "",
+      code: "",
+      downloads: "",
+      subscriptions: "",
+    },
   });
   //=====================================================
   React.useEffect(() => {
     getRole().then((res) => setRoles(res.data.data.data));
   }, []);
+
+  const isVip = referralUserType.find(item => item.id === userSigning.referral?.type)?.userType === 'vip'
   //=====================================================
   const handleSubmit = async () => {
     if (userSigning.password !== userSigning.confirmPassowrd) {
-      swal("Oops","Password Didn't Matched","error");
+      swal("Oops", "Password Didn't Matched", "error");
     } else {
-      registerUser(userSigning).then(() => {
-        swal("Hurrah !","New User Created !","success");
+      axios.post(`${ADMIN_API}/admin/user/create`,userSigning).then(() => {
+        swal("Hurrah !", "New User Created !", "success");
         navigate("/");
       });
     }
@@ -231,30 +243,9 @@ export default function UserSignUp() {
           </select>
         </div>
 
-        {/* <div>
+        <div>
           <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-            <span class="required">Upper Role</span>
-            <i
-              class="fas fa-exclamation-circle ms-2 fs-7"
-              data-bs-toggle="tooltip"
-              title="Specify under which role you will be assigned "
-            ></i>
-          </label>
-          <select
-            onChange={(e) => {
-              setUserSigning({ ...userSigning, upperRole: e.target.value });
-            }}
-            className="form-control form-control-lg form-control-solid"
-          >
-            <option className="form-control ">__________</option>
-            {roles.map((role) => (
-              <option className="form-control ">{role.name}</option>
-            ))}
-          </select>
-        </div> */}
-        {/* <div>
-          <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-            <span class="required">Parent Role</span>
+            <span class="required">User Type</span>
             <i
               class="fas fa-exclamation-circle ms-2 fs-7"
               data-bs-toggle="tooltip"
@@ -263,34 +254,133 @@ export default function UserSignUp() {
           </label>
           <select
             onChange={(e) => {
-              setUserSigning({ ...userSigning, upperRole: e.target.value });
+              setUserSigning({ ...userSigning, userType: e.target.value });
             }}
             className="form-control form-control-lg form-control-solid"
           >
-            {roles.map((role) => (
-              <option className="form-control ">{role.name}</option>
-            ))}
+            <option>__________</option>
+            <option value="1">System User</option>
+            <option value="2">App User</option>
           </select>
-        </div> */}
+        </div>
+        {/* {userSigning.userType ===2 ? (
+          <>
+          
+          </>
+        ):(
+          null
+        )} */}
 
-        {/* <div>
+        <div>
           <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-            <span class="required">Allowed Login</span>
+            <span class="required">Referral Types</span>
             <i
               class="fas fa-exclamation-circle ms-2 fs-7"
               data-bs-toggle="tooltip"
               title="Specify your unique app name"
             ></i>
           </label>
-          <input
-            type="number"
-            name="name"
+          <select
+            onChange={(e) => {
+              setUserSigning({
+                ...userSigning,
+                referral: {
+                  ...userSigning.referral,
+                  type: e.target.value,
+                },
+              });
+            }}
             className="form-control form-control-lg form-control-solid"
-            placeholder="Number of times allowed to login"
-            defaultValue={0}
-          />
-        </div> */}
-        {/* <Link to="/registered_User"> */}
+          >
+            <option>__________</option>
+            {referralUserType.map((x) => (
+              <option value={x.id}>{x.userType}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                <span class="required">Referral Code</span>
+                <i
+                  class="fas fa-exclamation-circle ms-2 fs-7"
+                  data-bs-toggle="tooltip"
+                  title="Specify your unique app name"
+                ></i>
+              </label>
+              <input
+                type="text"
+                name=""
+                className="form-control form-control-lg form-control-solid"
+                placeholder="Referral Code"
+                onChange={(e) => {
+                  setUserSigning({
+                    ...userSigning,
+                    referral: {
+                      ...userSigning.referral,
+                      code: e.target.value,
+                    },
+                  });
+                }}
+              />
+            </div>
+        {isVip ? (
+          <>
+           
+
+            <div>
+              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                <span class="required">Downloads</span>
+                <i
+                  class="fas fa-exclamation-circle ms-2 fs-7"
+                  data-bs-toggle="tooltip"
+                  title="Specify your unique app name"
+                ></i>
+              </label>
+              <input
+                type="number"
+                name="userSigning.referral.downloads"
+                className="form-control form-control-lg form-control-solid"
+                placeholder="Download"
+                onChange={(e) => {
+                  setUserSigning({
+                    ...userSigning,
+                    referral: {
+                      ...userSigning.referral,
+                      downloads: e.target.value,
+                    },
+                  });
+                }}
+              />
+            </div>
+
+            <div>
+              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                <span class="required">Subscriptions</span>
+                <i
+                  class="fas fa-exclamation-circle ms-2 fs-7"
+                  data-bs-toggle="tooltip"
+                  title="Specify your unique app name"
+                ></i>
+              </label>
+              <input
+                type="number"
+                name="userSigning.referral.subscriptions"
+                className="form-control form-control-lg form-control-solid"
+                placeholder="Subscriptions"
+                onChange={(e) => {
+                  setUserSigning({
+                    ...userSigning,
+                    referral: {
+                      ...userSigning.referral,
+                      subscriptions: e.target.value,
+                    },
+                  });
+                }}
+              />
+            </div>
+          </>
+        ) : null}
+
         <button
           class="btn btn-danger my-5"
           type="button"

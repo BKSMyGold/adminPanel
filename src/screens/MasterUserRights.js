@@ -7,17 +7,7 @@ import { Link } from "react-router-dom";
 import { ADMIN_API } from "../Constants";
 import axios from "axios";
 import { getRole } from "../APIs_Hai/Role";
-//==================================================================================
 
-const roles = [
-  "Super Admin",
-  "Admin",
-  "Accountant",
-  "Sales",
-  "IT",
-  "Marketing",
-  "CRM",
-];
 //==================================================================================
 export default function MasterUserRights() {
   const [allRoles, setAllRoles] = React.useState([]);
@@ -43,21 +33,8 @@ export default function MasterUserRights() {
       .post(`${ADMIN_API}/admin/role/list`)
       .then((res) => setAllRoles(res.data.data.data));
   }, []);
-  // console.log("||----->", allRoles);
-
-  //==================== Logic to find the System user's Role Name from its ID    ==============================================================
-  //   allRoles
-  // state.role
-  // let rolesNameWithId = allRoles.map((x) => {
-  //   systemUsers.map((z) => {
-  //     if (x.id === z.id) {
-  //       return x.name;
-  //     }
-  //   });
-  // });
-  // console.log(rolesNameWithId);
-
   //==================================================================================
+
   return (
     <>
       <Header />

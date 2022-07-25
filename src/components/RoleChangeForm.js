@@ -23,7 +23,7 @@ export default function RoleChangeForm() {
   }, []);
 
   //===================================================================
-  const [roleId, setRole] = useState("");
+  const [role, setRole] = useState(""     );
     // {
     //   userId: `${user.id}`,
     //   roleId: ""
@@ -35,7 +35,7 @@ export default function RoleChangeForm() {
     e.preventDefault();
     // console.log(role);
     axios
-      .put(`${ADMIN_API}/admin/userrole/update/${user.id}`, { ...roleId,userId:user.id })
+      .put(`${ADMIN_API}/admin/user/update/${user.id}`, { role })
       .then(() => swal("Hurrah !", "Role has been added", "success"))
       .then(() => navigate("/master/security/masterUserRights"));
   };
@@ -122,10 +122,7 @@ export default function RoleChangeForm() {
                         <select
                           class="form-control"
                           onChange={(e) => {
-                            setRole({
-                              roleId: e.target.value,
-                            });
-                          }}
+                            setRole(e.target.value);}}
                         >
                           <option class="form-control">Choose Role</option>;
                           {roleList.map((role) => {

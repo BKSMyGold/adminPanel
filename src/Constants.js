@@ -17,8 +17,8 @@ export const BASE_URL = "http://13.59.57.74:5000"; // BlockChain URL
 // export const ADMIN_API= "https://bks-backend2.herokuapp.com"
 // export const ADMIN_API= "https://745d-183-82-110-111.in.ngrok.io"
 // export const ADMIN_API="http://43.204.201.251:5000"
-export const ADMIN_API="http://13.59.57.74:5000"
-
+// export const ADMIN_API="http://13.59.57.74:5000"
+export const ADMIN_API="http://192.168.10.162:5000"
 export const ROLE_PERMISSION_BASE_URL = "https://goldv2.herokuapp.com"; // MongoDB URL
 
 export const dateFormatter = (date) => DATE_FORMATTER.format(date);

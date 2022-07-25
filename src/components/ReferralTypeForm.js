@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidCollection } from "../Validator";
 import axios from "axios";
-import { addVideo,updateVideo } from "../APIs_Hai/Video";
+import { addReferralType, updateReferralType } from "../APIs_Hai/ReferralType";
 import AddUpdateSpinner from "../AddUpdateSpinner";
 //=====================================================================
 const ReferralTypeForm = (props) => {
@@ -14,15 +14,26 @@ const ReferralTypeForm = (props) => {
   let navigate = useNavigate();
   //=====================================================================
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
-  const [howTo, setHowTo] = useState(
+  const [referralType, setReferralType] = useState(
     location?.state ?? {
-       title:"",
-       language:"",
-       category:"",
-       video:[],
+      userType: "",
+      referredBonus: 0,
+      joiningBonus:{
+        min:0,
+        max:0
+      },
+
+      criteria: "",
     }
   );
-//=====================================================================
+  //=====================================================================
+  useEffect(() => {
+   if(location.state) setReferralType(location.state)
+  }, [location.state]);
+
+
+
+  console.log(referralType)
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -30,7 +41,7 @@ const ReferralTypeForm = (props) => {
           className="wrapper d-flex flex-column flex-row-fluid"
           id="kt_wrapper"
         >
-          <Header/>
+          <Header />
           {/* <Dashboard/> */}
           <div
             id="kt_content_container"
@@ -46,10 +57,10 @@ const ReferralTypeForm = (props) => {
                 <div class="card-header border-0 pt-5">
                   <h3 class="card-title align-items-start flex-column">
                     <span class="card-label fw-bolder fs-3 mb-1">
-                      {isUpdate ? "Update How To" : "Add How To"}
+                      {isUpdate ? "Update Referral Type" : "Add Referral Type"}
                     </span>
                     <span class="text-muted mt-1 fw-bold fs-7">
-                      {isUpdate ? "Update How To" : "Add How To"}
+                      {isUpdate ? "Update Referral Type" : "Add Referral Type"}
                     </span>
                   </h3>
                 </div>
@@ -61,131 +72,157 @@ const ReferralTypeForm = (props) => {
                     <form>
                       <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Title</span>
+                          <span class="required">User Type</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
-                            title="Specify the Title of the Video"
+                            title="Specify the User Type"
                           ></i>
                         </label>
-                        <input
-                          type="text"
-                          name="title"
+
+                        <select
+                          name="userType"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter the Title of the Video"
                           onChange={(e) =>
-                            setHowTo({
-                              ...howTo,
-                              title: e.target.value,
+                            setReferralType({
+                              ...referralType,
+                              userType: e.target.value,
                             })
                           }
-                          value={howTo.title}
-                        />
-                      </div>
-                      <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Language</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify the Language of the Video"
-                          ></i>
-                        </label>
-                       
-                        <select
-                        type="text"
-                        name="language"
-                        className="form-control form-control-lg form-control-solid"
-                        placeholder="Select Language"
-                        defaultValue={howTo.language}
-                        onChange={(e) =>
-                          setHowTo({
-                            ...howTo,
-                            language: e.target.value,
-                          })
-                        }
+                          value={referralType.userType}
                         >
-                            <option>__Choose Language__</option>
-                            <option value="hindi">Hindi</option>
-                            <option value="english">English</option>
+                          <option>__Choose User Type__</option>
+                          <option value="customer">Customer</option>
+                          <option value="sales_offer">Sales Offers</option>
+                          <option value="sales_associate">
+                            Sales Associate
+                          </option>
+                          <option value="vip">VIP</option>
                         </select>
                       </div>
 
                       <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Category</span>
+                          <span class="required">Referred Bonus</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
-                            title="Specify the Category of the Video"
+                            title="Specify the Referred Bonus"
                           ></i>
                         </label>
-                        <select
-                        type="text"
-                        name="category"
-                        className="form-control form-control-lg form-control-solid"
-                        placeholder="Select Category"
-                        defaultValue={howTo.category}
-                        onChange={(e) =>
-                          setHowTo({
-                            ...howTo,
-                            category: e.target.value,
-                          })
-                        }
-                        >
-                            <option>__Choose Category__</option>
-                            <option value="testimonial">Testimonials</option>
-                            <option value="how_to">How To</option>
-                        </select>
-                      </div>
 
-                      <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">How To Video</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Upload the Video"
-                          ></i>
-                        </label>
                         <input
-                          type="file"
-                          name="video"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Choose File"
-                          defaultValue={howTo.video}
+                          class="form-control"
+                          type="number"
+                          name="referredBonus"
+                          placeholder="Enter the Referred Bonus"
                           onChange={(e) => {
-                            setHowTo({
-                              ...howTo,
-                              video: e.target.files[0],
+                            setReferralType({
+                              ...referralType,
+                              referredBonus: e.target.value,
                             });
                           }}
+                          value={referralType.referredBonus}
                         />
                       </div>
 
-                      {/* <div>
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Minimum Percentage</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify the minimum percentage for bonus"
+                          ></i>
+                        </label>
+
+                        <input
+                          type="number"
+                          class="form-control"
+                          name="min"
+                          placeholder="Enter the minimum percentage for bonus"
+                          onChange={(e) => {
+                            setReferralType({
+                              ...referralType,
+                              joiningBonus:{
+                               ...referralType.joiningBonus,
+                               min: e.target.value,
+                                
+                              }
+                            });
+                          }}
+                          value={referralType.joiningBonus.min}
+                        />
+                      </div>
+
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Maximum Amount</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify the Maximum Amount"
+                          ></i>
+                        </label>
+
+                        <input
+                          class="form-control"
+                          type="number"
+                          name="max"
+                          placeholder="Enter the Maximum Amount Applicable for Referral"
+                          onChange={(e) => {
+                            setReferralType({
+                              ...referralType,
+                              joiningBonus:{
+                               ...referralType.joiningBonus,
+                               max: e.target.value,
+                                
+                              }
+                            });
+                          }}
+                          value={referralType.joiningBonus.max}
+                        />
+                      </div>
+
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Criteria</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify the Criteria"
+                          ></i>
+                        </label>
+
+                        <select
+                          type="text"
+                          name="criteria"
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Select Language"
+                          defaultValue={referralType.criteria}
+                          onChange={(e) =>
+                            setReferralType({
+                              ...referralType,
+                              criteria: e.target.value,
+                            })
+                          }
+                        >
+                          <option>__Choose Criteria__</option>
+                          <option value="plan_maturity">Plan Maturity</option>
+                          <option value="download_subscriptions">
+                            Download Subscriptions
+                          </option>
+                        </select>
+                      </div>
+{/* 
+                      <div>
                         <br />
                         <button
                           className="btn btn-lg btn-primary"
                           onClick={(e) => {
                             e.preventDefault();
-                           
 
-                            isUpdate    
-
-                              ?axios.put(`http://13.59.57.74:5000/api/video/${howTo.id}`, howTo).then(()=>{navigate("/master/settings/how-to-videos");})
-
-
-                        
-                            //    updatecollection({ ...howTo }).then(() => {
-                            //     navigate("master/settings/how-to-videos/");
-                            //             })
-                              : axios.post("http://13.59.57.74:5000/api/video/", howTo);
-                                navigate("/master/settings/how-to-videos");
-                              
-                            //   addcollection({ ...howTo }).then(() => {
-                            //       navigate("/master/product-data/collections");
-                            //     });
+                            console.log(referralType);
                           }}
                         >
                           {isUpdate ? "Update HowTo" : "Add HowTo"}
@@ -193,10 +230,10 @@ const ReferralTypeForm = (props) => {
                       </div> */}
                       <AddUpdateSpinner
                         update={isUpdate ? true : false}
-                        collection={howTo}
-                        adding={addVideo}
-                        updating={updateVideo}
-                        url={"/master/settings/how-to-videos"}
+                        collection={referralType}
+                        adding={addReferralType}
+                        updating={updateReferralType}
+                        url={"/master/referral_type"}
                       />
                     </form>
                   </div>
