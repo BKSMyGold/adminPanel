@@ -189,6 +189,7 @@ const ItemDetailsForm = (props) => {
       variety: [],
       item: "",
       video: "",
+      images:"",
       grossWeight: 0,
       sku: "",
       hli: "",
@@ -196,6 +197,7 @@ const ItemDetailsForm = (props) => {
       height: "",
       purityComposition: [],
       styleComposition: [],
+      
     }
   );
   //======================================================================
@@ -868,6 +870,31 @@ const ItemDetailsForm = (props) => {
                             setProduct({
                               ...product,
                               video: e.target.files,
+                            })
+                          }
+                        />
+                      </div>
+
+                      
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Images</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify the video"
+                          ></i>
+                        </label>
+                        <input
+                          type="file"
+                          name="images"
+                          multiple
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Choose Video"
+                          onChange={(e) =>
+                            setProduct({
+                              ...product,
+                              images: e.target.files,
                             })
                           }
                         />
