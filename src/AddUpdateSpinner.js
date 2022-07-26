@@ -22,7 +22,7 @@ export default function AddUpdateSpinner({url,adding, updating, collection,updat
     adding({ ...collection }).then(() => {
       navigate(url);
     });
-    console.log("====> adding", collection);
+    console.log("====> adding");
   };
   //===============================================
   const handleUpdate = () => {

@@ -82,6 +82,8 @@ const ItemDetails = (props) => {
                           </th>
                           <th class="min-w-120px">Purity Composition</th>
                           <th class="min-w-120px">Video</th>
+                          <th class="min-w-120px">Image</th>
+
                           <th class="min-w-100px text-center">Actions</th>
                         </tr>
                         {/* <tr class="fw-bolder text-muted text-center">
@@ -114,7 +116,7 @@ const ItemDetails = (props) => {
                           product?.map((itemDetail) => (
                             <tr class="fw-bolder text-center">
                               <td>{itemDetail.id}</td>
-                              <td>{itemDetail.collectionName}</td>
+                              <td>{itemDetail.collections}</td>
                               <td>
                                 {itemDetail.category.map((x) => {
                                   return <td>{x}</td>;
@@ -171,12 +173,15 @@ const ItemDetails = (props) => {
                               <td>
                                 <a href={itemDetail.video}>video</a>
                               </td>
+                              <td>
+                                
+                                {itemDetail.images.map(x=>(
+                                  <img src ={x}/>
+                                ))}
+                              </td>
 
                               <td>
-                                <a
-                                  href="#"
-                                  class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                                >
+                              
                                   <Link
                                     to={"/master/product-data/products/edit"}
                                     state={itemDetail}
@@ -202,7 +207,7 @@ const ItemDetails = (props) => {
                                     </span>
                                     {/*end::Svg Icon*/}
                                   </Link>
-                                </a>
+                               
                                 {perma.has("delete_product") ? (
                                 <DeleteSpinner
                                   collection={itemDetail}

@@ -113,6 +113,8 @@ const PolicyForm = (props) => {
                         </label>
                         <select
                           class="form-control"
+                          value={policy.title}
+
                           onChange={(e) =>
                             setPolicy({
                               ...policy,
@@ -160,6 +162,8 @@ const PolicyForm = (props) => {
                         <select
                           name="consignmentRequired"
                           class="form-control"
+                          value={policy.consignmentRequired}
+
                           onChange={(e) =>
                             setPolicy({
                               ...policy,
