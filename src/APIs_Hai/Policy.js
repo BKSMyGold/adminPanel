@@ -3,8 +3,8 @@ import { ADMIN_API } from "../Constants";
 //=====================================================
 
 export const addPolicy = async (policy) => {  
-    let {title,description,consignmentRequired} = policy 
-    let data = {title, description,consignmentRequired:Boolean(consignmentRequired)} 
+    // let {title,description,consignmentRequired} = policy 
+    // let data = {title, description,consignmentRequired:Boolean(consignmentRequired)} 
     await axios.post(`${ADMIN_API}/admin/policy/create/`,{...policy});
 };
 

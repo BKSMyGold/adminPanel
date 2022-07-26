@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
-import Dashboard from "../screens/dashboard";
-import { isValidMetalGroup } from "../Validator";
 import AddUpdateSpinner from "../AddUpdateSpinner";
 import {addColour,updateColour} from "../APIs_Hai/Colour"
 //===================================================================================

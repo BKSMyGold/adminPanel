@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+    
 }
 
 code {
@@ -736,14 +737,12 @@ table.shoping-cart-table tr td:last-child {
   border-radius: 25px;
 }
 @media screen and (max-width: 880px) {
-  .login_input {
-  }
+
   .login_container {
     display: block;
     padding: 15px;
   }
-  .login_input {
-  }
+
   #login_image {
     display: none;
   }
@@ -769,11 +768,7 @@ table.shoping-cart-table tr td:last-child {
 .no-padding {
   padding: none;
 }
-@media screen and (max-width : 600px){
-.graph{
-}
 
-}
 
 .policy{
   display: flex;

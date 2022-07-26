@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ADMIN_API } from "../Constants";
-import { useNavigate } from "react-router-dom";
-import { Audio } from "react-loader-spinner";
+// import { useNavigate } from "react-router-dom";
+// import { Audio } from "react-loader-spinner";
 //=====================================================
 
 export const addRole = async (role) => {

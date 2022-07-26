@@ -40,89 +40,88 @@ const Home = () => {
   const [pageNumber, setPageNumber] = useState(0);
 
   //======================== Fetching Buy and Sell rate price    ============================================
-  useEffect(() => {
-    const fetchbuysell = async () => {
-      const { data } = await axios.get(`${BASE_URL}/api/buy-sell-price`);
-      setBuySell(data);
-    };
-    fetchbuysell();
-  }, []);
+  // useEffect(() => {
+  //   const fetchbuysell = async () => {
+  //     const { data } = await axios.get(`${BASE_URL}/api/buy-sell-price`);
+  //     setBuySell(data);
+  //   };
+  //   fetchbuysell();
+  // }, []);
   //----------------------------  Fetching Buy and Sell rate price  -------------------------------------
-  useEffect(() => {
-    const fetchLatest = async () => {
-      const { data: latest } = await axios.get(
-        `${BASE_URL}/api/buy-sell-price/letest`
-      );
-      setPrice(latest.data);  
-    };
-    fetchLatest();
-  }, []);
+  // useEffect(() => {
+  //   const fetchLatest = async () => {
+  //     const { data: latest } = await axios.get(
+  //       `${BASE_URL}/api/buy-sell-price/letest`
+  //     );
+  //     setPrice(latest.data);  
+  //   };
+  //   fetchLatest();
+  // }, []);
   //---------------------------------- Fetching Users      -------------------------------
-  useEffect(() => {
-    const fetchCount = async () => {
-      const { data: users } = await axios.get(`${BASE_URL}/api/user/`);
+  // useEffect(() => {
+  //   const fetchCount = async () => {
+  //     const { data: users } = await axios.get(`${BASE_URL}/api/user/`);
 
-      setUsersCount(users);
-    };
-    fetchCount();
-  }, []);
+  //     setUsersCount(users);
+  //   };
+  //   fetchCount();
+  // }, []);
 
   //---------------------------------------  Fetching subscription       -------------------------------
-  useEffect(() => {
-    const fetchCount = async () => {
-      const { data: subscriptions } = await axios.get(
-        `${BASE_URL}/api/subscription/`
-      );
+  // useEffect(() => {
+  //   const fetchCount = async () => {
+  //     const { data: subscriptions } = await axios.get(
+  //       `${BASE_URL}/api/subscription/`
+  //     );
 
-      setSubscriptions(subscriptions.subscriptions);
-    };
-    fetchCount();
-  }, []);
+  //     setSubscriptions(subscriptions.subscriptions);
+  //   };
+  //   fetchCount();
+  // }, []);
   //-------------------------------- Fetching users and then mapping() according to their ID  --------------------------------------
-  useEffect(() => {
-    axios
-      .get(`${ROLE_PERMISSION_BASE_URL}/api/subscription`)
-      .then((response) => response.data)
-      .then((data) => {
-        const subscriptionUserPromises = data.subscriptions.map(({ user }) =>
-          axios.get(`${ROLE_PERMISSION_BASE_URL}/api/user/${user}`)
-        );
+  // useEffect(() => {
+  //   axios
+  //     .get(`${ROLE_PERMISSION_BASE_URL}/api/subscription`)
+  //     .then((response) => response.data)
+  //     .then((data) => {
+  //       const subscriptionUserPromises = data.subscriptions.map(({ user }) =>
+  //         axios.get(`${ROLE_PERMISSION_BASE_URL}/api/user/${user}`)
+  //       );
 
-        let userObject = {};
-        Promise.allSettled(subscriptionUserPromises).then((responseArray) => {
-          responseArray.forEach(({ status, value }) => {
-            if (status === "fulfilled") {
-              const { data: user } = value;
-              userObject[user.id] = user.fname;
-            }
-          });
-          // console.log("userObject ====>", userObject);
-          setUser(userObject);
-        });
-      });
-  }, []);
+  //       let userObject = {};
+  //       Promise.allSettled(subscriptionUserPromises).then((responseArray) => {
+  //         responseArray.forEach(({ status, value }) => {
+  //           if (status === "fulfilled") {
+  //             const { data: user } = value;
+  //             userObject[user.id] = user.fname;
+  //           }
+  //         });
+  //         setUser(userObject);
+  //       });
+  //     });
+  // }, []);
   //----------------------------- Fetching Plan -----------------------------------------
-  useEffect(() => {
-    axios
-      .get(`${BASE_URL}/api/subscription`)
-      .then((response) => response.data)
-      .then((data) => {
-        const subscriptionPlanPromises = data.subscriptions.map(({ plan }) =>
-          axios.get(`${BASE_URL}/api/plan/${plan}`)
-        );
-        let planObject = {};
-        Promise.allSettled(subscriptionPlanPromises).then((responseArray) => {
-          responseArray.forEach(({ status, value }) => {
-            if (status === "fulfilled") {
-              const { data: plan } = value;
-              planObject[plan.id] = plan.name;
-            }
-          });
-          // console.log(planObject);
-          setPlan(planObject);
-        });
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(`${BASE_URL}/api/subscription`)
+  //     .then((response) => response.data)
+  //     .then((data) => {
+  //       const subscriptionPlanPromises = data.subscriptions.map(({ plan }) =>
+  //         axios.get(`${BASE_URL}/api/plan/${plan}`)
+  //       );
+  //       let planObject = {};
+  //       Promise.allSettled(subscriptionPlanPromises).then((responseArray) => {
+  //         responseArray.forEach(({ status, value }) => {
+  //           if (status === "fulfilled") {
+  //             const { data: plan } = value;
+  //             planObject[plan.id] = plan.name;
+  //           }
+  //         });
+  //         // console.log(planObject);
+  //         setPlan(planObject);
+  //       });
+  //     });
+  // }, []);
   //========================================================================
 
   const usersPerPage = 3;
@@ -130,9 +129,9 @@ const Home = () => {
 
   const displayUsers = countUsers
     .slice(pagesVisited, pagesVisited + usersPerPage)
-    .map((user) => {
+    .map((user, key) => {
       return (
-        <tr>
+        <tr key={key}>
           <td>
             <div class="user-info">
               <div class="user-info__img">
@@ -378,9 +377,9 @@ const Home = () => {
                   {foundUsers && foundUsers.length > 0 ? (
                     foundUsers
                       .slice(pagesVisited, pagesVisited + usersPerPage)
-                      .map((user) => {
+                      .map((user,key) => {
                         return (
-                          <tr class="fw-bolder">
+                          <tr class="fw-bolder" key={key}>
                             <td>
                               <div class="user-info">
                                 <div class="user-info__img">

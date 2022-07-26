@@ -33,10 +33,10 @@ export default function UserSignUp() {
   //=====================================================
   const handleSubmit = async () => {
     if (userSigning.password !== userSigning.confirmPassowrd) {
-      swal("Oops","Password Didn't Matched","error");
+      swal("Oops", "Password Didn't Matched", "error");
     } else {
       registerUser(userSigning).then(() => {
-        swal("Hurrah !","New User Created !","success");
+        swal("Hurrah !", "New User Created !", "success");
         navigate("/");
       });
     }
@@ -52,7 +52,7 @@ export default function UserSignUp() {
             <i
               class="fas fa-exclamation-circle ms-2 fs-7"
               data-bs-toggle="tooltip"
-              title="Specify your unique app name"
+              title="Enter the Name of the User"
             ></i>
           </label>
           <input
@@ -74,7 +74,7 @@ export default function UserSignUp() {
             <i
               class="fas fa-exclamation-circle ms-2 fs-7"
               data-bs-toggle="tooltip"
-              title="Specify your unique app name"
+              title="Enter the Email of the User"
             ></i>
           </label>
           <input
@@ -96,7 +96,7 @@ export default function UserSignUp() {
             <i
               class="fas fa-exclamation-circle ms-2 fs-7"
               data-bs-toggle="tooltip"
-              title="Specify your unique app name"
+              title="Enter the Password"
             ></i>
           </label>
           <input
@@ -119,7 +119,7 @@ export default function UserSignUp() {
             <i
               class="fas fa-exclamation-circle ms-2 fs-7"
               data-bs-toggle="tooltip"
-              title="Specify your unique app name"
+              title="Enter the Confirmation for the Password"
             ></i>
           </label>
           <input
@@ -142,14 +142,14 @@ export default function UserSignUp() {
             <i
               class="fas fa-exclamation-circle ms-2 fs-7"
               data-bs-toggle="tooltip"
-              title="Specify your unique app name"
+              title="Enter the User Name"
             ></i>
           </label>
           <input
             type="text"
             name="username"
             className="form-control form-control-lg form-control-solid"
-            placeholder="Password"
+            placeholder="User Name"
             onChange={(e) => {
               setUserSigning({
                 ...userSigning,
@@ -165,7 +165,7 @@ export default function UserSignUp() {
             <i
               class="fas fa-exclamation-circle ms-2 fs-7"
               data-bs-toggle="tooltip"
-              title="Specify your unique app name"
+              title="Enter the Phone Number"
             ></i>
           </label>
           <input
@@ -183,37 +183,13 @@ export default function UserSignUp() {
           />
         </div>
 
-        {/*         
-        <div>
-          <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-            <span class="required">Address</span>
-            <i
-              class="fas fa-exclamation-circle ms-2 fs-7"
-              data-bs-toggle="tooltip"
-              title="Specify your unique app name"
-            ></i>
-          </label>
-          <input
-            type="text"
-            name="address"
-            multiple
-            className="form-control form-control-lg form-control-solid"
-            placeholder="Address"
-            onChange={(e) => {
-              setUserSigning({
-                ...userSigning,
-                address: e.target.value,
-              });
-            }}
-          />
-        </div> */}
         <div>
           <label class="d-flex align-items-center fs-5 fw-bold mb-2">
             <span class="required">Role</span>
             <i
               class="fas fa-exclamation-circle ms-2 fs-7"
               data-bs-toggle="tooltip"
-              title="Specify your unique app name"
+              title="Specify the User's Role"
             ></i>
           </label>
           <select
@@ -222,7 +198,7 @@ export default function UserSignUp() {
             }}
             className="form-control form-control-lg form-control-solid"
           >
-            <option className="form-control ">__________</option>
+            <option className="form-control ">Choose The Role</option>
             {roles.map((role) => (
               <option className="form-control" value={role.id}>
                 {role.name}
@@ -230,67 +206,6 @@ export default function UserSignUp() {
             ))}
           </select>
         </div>
-
-        {/* <div>
-          <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-            <span class="required">Upper Role</span>
-            <i
-              class="fas fa-exclamation-circle ms-2 fs-7"
-              data-bs-toggle="tooltip"
-              title="Specify under which role you will be assigned "
-            ></i>
-          </label>
-          <select
-            onChange={(e) => {
-              setUserSigning({ ...userSigning, upperRole: e.target.value });
-            }}
-            className="form-control form-control-lg form-control-solid"
-          >
-            <option className="form-control ">__________</option>
-            {roles.map((role) => (
-              <option className="form-control ">{role.name}</option>
-            ))}
-          </select>
-        </div> */}
-        {/* <div>
-          <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-            <span class="required">Parent Role</span>
-            <i
-              class="fas fa-exclamation-circle ms-2 fs-7"
-              data-bs-toggle="tooltip"
-              title="Specify your unique app name"
-            ></i>
-          </label>
-          <select
-            onChange={(e) => {
-              setUserSigning({ ...userSigning, upperRole: e.target.value });
-            }}
-            className="form-control form-control-lg form-control-solid"
-          >
-            {roles.map((role) => (
-              <option className="form-control ">{role.name}</option>
-            ))}
-          </select>
-        </div> */}
-
-        {/* <div>
-          <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-            <span class="required">Allowed Login</span>
-            <i
-              class="fas fa-exclamation-circle ms-2 fs-7"
-              data-bs-toggle="tooltip"
-              title="Specify your unique app name"
-            ></i>
-          </label>
-          <input
-            type="number"
-            name="name"
-            className="form-control form-control-lg form-control-solid"
-            placeholder="Number of times allowed to login"
-            defaultValue={0}
-          />
-        </div> */}
-        {/* <Link to="/registered_User"> */}
         <button
           class="btn btn-danger my-5"
           type="button"
@@ -298,7 +213,6 @@ export default function UserSignUp() {
         >
           Sign Up
         </button>
-        {/* </Link> */}
       </form>
       <Footer />
     </>

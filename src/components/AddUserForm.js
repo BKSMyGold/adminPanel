@@ -41,13 +41,15 @@ export default function AddUserForm() {
     getRole().then((res) => setRoles(res.data.data.data));
   }, []);
 
-  const isVip = referralUserType.find(item => item.id === userSigning.referral?.type)?.userType === 'vip'
+  const isVip =
+    referralUserType.find((item) => item.id === userSigning.referral?.type)
+      ?.userType === "vip";
   //=====================================================
   const handleSubmit = async () => {
     if (userSigning.password !== userSigning.confirmPassowrd) {
       swal("Oops", "Password Didn't Matched", "error");
     } else {
-      axios.post(`${ADMIN_API}/admin/user/create`,userSigning).then(() => {
+      axios.post(`${ADMIN_API}/admin/user/create`, userSigning).then(() => {
         swal("Hurrah !", "New User Created !", "success");
         navigate("/");
       });
@@ -64,14 +66,14 @@ export default function AddUserForm() {
             <i
               class="fas fa-exclamation-circle ms-2 fs-7"
               data-bs-toggle="tooltip"
-              title="Specify your unique app name"
+              title="Enter the User's Name"
             ></i>
           </label>
           <input
             type="text"
             name="fullName"
             className="form-control form-control-lg form-control-solid "
-            placeholder="Name"
+            placeholder="User's Name"
             onChange={(e) => {
               setUserSigning({
                 ...userSigning,
@@ -86,7 +88,7 @@ export default function AddUserForm() {
             <i
               class="fas fa-exclamation-circle ms-2 fs-7"
               data-bs-toggle="tooltip"
-              title="Specify your unique app name"
+              title="Enter the User's Email"
             ></i>
           </label>
           <input
@@ -108,7 +110,7 @@ export default function AddUserForm() {
             <i
               class="fas fa-exclamation-circle ms-2 fs-7"
               data-bs-toggle="tooltip"
-              title="Specify your unique app name"
+              title="Enter the Password"
             ></i>
           </label>
           <input
@@ -131,7 +133,7 @@ export default function AddUserForm() {
             <i
               class="fas fa-exclamation-circle ms-2 fs-7"
               data-bs-toggle="tooltip"
-              title="Specify your unique app name"
+              title="Enter the Confirm Password"
             ></i>
           </label>
           <input
@@ -154,14 +156,14 @@ export default function AddUserForm() {
             <i
               class="fas fa-exclamation-circle ms-2 fs-7"
               data-bs-toggle="tooltip"
-              title="Specify your unique app name"
+              title="Enter the User Name"
             ></i>
           </label>
           <input
             type="text"
             name="username"
             className="form-control form-control-lg form-control-solid"
-            placeholder="Password"
+            placeholder="User Name"
             onChange={(e) => {
               setUserSigning({
                 ...userSigning,
@@ -177,7 +179,7 @@ export default function AddUserForm() {
             <i
               class="fas fa-exclamation-circle ms-2 fs-7"
               data-bs-toggle="tooltip"
-              title="Specify your unique app name"
+              title="Enter the Phone Nummber"
             ></i>
           </label>
           <input
@@ -195,37 +197,14 @@ export default function AddUserForm() {
           />
         </div>
 
-        {/*         
-        <div>
-          <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-            <span class="required">Address</span>
-            <i
-              class="fas fa-exclamation-circle ms-2 fs-7"
-              data-bs-toggle="tooltip"
-              title="Specify your unique app name"
-            ></i>
-          </label>
-          <input
-            type="text"
-            name="address"
-            multiple
-            className="form-control form-control-lg form-control-solid"
-            placeholder="Address"
-            onChange={(e) => {
-              setUserSigning({
-                ...userSigning,
-                address: e.target.value,
-              });
-            }}
-          />
-        </div> */}
+        
         <div>
           <label class="d-flex align-items-center fs-5 fw-bold mb-2">
             <span class="required">Role</span>
             <i
               class="fas fa-exclamation-circle ms-2 fs-7"
               data-bs-toggle="tooltip"
-              title="Specify your unique app name"
+              title="Enter the Role"
             ></i>
           </label>
           <select
@@ -299,34 +278,32 @@ export default function AddUserForm() {
           </select>
         </div>
         <div>
-              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                <span class="required">Referral Code</span>
-                <i
-                  class="fas fa-exclamation-circle ms-2 fs-7"
-                  data-bs-toggle="tooltip"
-                  title="Specify your unique app name"
-                ></i>
-              </label>
-              <input
-                type="text"
-                name=""
-                className="form-control form-control-lg form-control-solid"
-                placeholder="Referral Code"
-                onChange={(e) => {
-                  setUserSigning({
-                    ...userSigning,
-                    referral: {
-                      ...userSigning.referral,
-                      code: e.target.value,
-                    },
-                  });
-                }}
-              />
-            </div>
+          <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+            <span class="required">Referral Code</span>
+            <i
+              class="fas fa-exclamation-circle ms-2 fs-7"
+              data-bs-toggle="tooltip"
+              title="Specify your unique app name"
+            ></i>
+          </label>
+          <input
+            type="text"
+            name=""
+            className="form-control form-control-lg form-control-solid"
+            placeholder="Referral Code"
+            onChange={(e) => {
+              setUserSigning({
+                ...userSigning,
+                referral: {
+                  ...userSigning.referral,
+                  code: e.target.value,
+                },
+              });
+            }}
+          />
+        </div>
         {isVip ? (
           <>
-           
-
             <div>
               <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                 <span class="required">Downloads</span>

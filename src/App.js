@@ -20,7 +20,7 @@ import InStoreCashCollection from "./screens/InStoreCashCollection";
 import InStoreRedeem from "./screens/InStoreRedeem";
 import InStoreReturns from "./screens/InStoreReturns";
 import InStoreTokenRefund from "./screens/InStoreTokenRefund";
-import ItemDetails from "./screens/Products";
+// import ItemDetails from "./screens/Products";
 import Items from "./screens/items";
 import MasterUserRights from "./screens/MasterUserRights";
 import MetalGroups from "./screens/MetalGroups";
@@ -40,7 +40,7 @@ import CustomDuties from "./screens/CustomDuties";
 import Testimonials from "./screens/Testimonials";
 import Tracking from "./screens/Tracking";
 import UpdateAppointments from "./screens/UpdateAppoinments";
-import UserPasswords from "./screens/UserPasswords";
+// import UserPasswords from "./screens/UserPasswords";
 import Varieties from "./screens/Varieties";
 import Ledger from "./screens/Ledger";
 import AccumalatedBonusSummaryPlansAccured from "./screens/AccumalatedBonusSummaryPlansAccured";
@@ -175,7 +175,7 @@ import PageNotFound from "./screens/PageNotFound";
 import ForgotPassword from "./components/ForgotPassword";
 import RoleRight from "./components/RoleRight";
 import RoleChangeForm from "./components/RoleChangeForm";
-import UserNameChangeForm from "./components/UserNameChangeForm";
+// import UserNameChangeForm from "./components/UserNameChangeForm";
 import AllRoles from "./screens/AllRoles";
 import Units from "./screens/Units";
 import Style from "./screens/Style";
@@ -202,7 +202,7 @@ import CalculationForm from "./components/CalculationForm";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import FAQ from "./screens/FAQ";
 import FAQForm from "./components/FAQForm";
-import { ADMIN_API } from "./Constants";
+// import { ADMIN_API } from "./Constants";
 import axios from "axios";
 import Policy from "./screens/Policy";
 import PolicyForm from "./components/PolicyForm";
@@ -235,7 +235,7 @@ import LabelForm from "./components/LabelForm";
 const App = () => {
   const [loggedInUser, setLoggedInUser] = useState({});
   const [permissions, setPermissions] = useState(new Set());
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   //====================================================================
   let navigate = useNavigate();
   //====================================================================
@@ -258,11 +258,11 @@ const App = () => {
     }
   }, []);
   //====================================================================
-  const handleLogout = () => {
-    setLoggedInUser({});
-    localStorage.clear();
-    window.location.reload(false);
-  };
+  // const handleLogout = () => {
+  //   setLoggedInUser({});
+  //   localStorage.clear();
+  //   window.location.reload(false);
+  // };
 
   // const loadUser = async () => {
   //   const token = localStorage.getItem("token");
@@ -1640,7 +1640,7 @@ const App = () => {
           element={<UpdateAppointments />}
         />
         {/*Products =============================================*/}
-        <Route
+        {/* <Route
           path="master/product-data/items_details"
           element={
             permissions.has("view_item_details") ? (
@@ -1673,7 +1673,7 @@ const App = () => {
         <Route
           path="/transaction/products/OfferDetails"
           element={<OfferDetails />}
-        />
+        /> */}
         {/*Reports=============================================*/}
         <Route path="/report/reports" element={<MainReports />} />
         {/*Daily =============================================*/}

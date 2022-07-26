@@ -129,7 +129,7 @@ export default function Header() {
                   data-kt-menu-trigger="hover"
                   className="menu-item here show  me-lg-1"
                 >
-                  <a className="menu-link active py-3" href="/">
+                  <a className="menu-link py-3" href="/">
                     <span className="menu-title">Dashboard</span>
                   </a>
                 </div>
@@ -142,8 +142,9 @@ export default function Header() {
                     <span className="menu-title">Master</span>
                     <span className="menu-arrow d-lg-none"></span>
                   </span>
-                  <div className="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
+                  <div  style={{zIndex:100}} className="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
                     <div
+                    style={{zIndex:100}}
                       data-kt-menu-trigger="{default:'click', lg: 'hover'}"
                       data-kt-menu-placement="right-start"
                       className="menu-item menu-lg-down-accordion"
@@ -1484,7 +1485,7 @@ export default function Header() {
                 </div> */}
 
                 <div
-                  data-kt-menu-trigger="click"
+                  data-kt-menu-trigger="hover"
                   data-kt-menu-placement="bottom-start"
                   className="menu-item menu-lg-down-accordion me-lg-1"
                 >
@@ -1604,7 +1605,9 @@ export default function Header() {
                     </div>
                     {/* //--------------------------------------------- All Reports ---------------------------------------------------------------------- */}
                     <div
+                      // data-kt-menu-trigger="{default:'click', lg: 'hover'}"
                       data-kt-menu-trigger="{default:'click', lg: 'hover'}"
+
                       data-kt-menu-placement="right-start"
                       className="menu-item menu-lg-down-accordion"
                     >

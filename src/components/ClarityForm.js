@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
-import Dashboard from "../screens/dashboard";
-import { isValidMetalGroup } from "../Validator";
 import AddUpdateSpinner from "../AddUpdateSpinner";
 import { addClarity, updateClarity } from "../APIs_Hai/Clarity";
 //===================================================================================
@@ -11,7 +9,6 @@ const ClarityForm = (props) => {
   //===================================================================================
   let location = useLocation();
   console.log(location.state);
-  let navigate = useNavigate();
   //===================================================================================
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
   const [clarity, setClarity] = useState(

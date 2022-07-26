@@ -325,7 +325,7 @@ const ItemDetailsForm = (props) => {
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
-                            title="Specify the Type"
+                            title="Specify the Metal Group"
                           ></i>
                         </label>
                         <select
@@ -356,7 +356,7 @@ const ItemDetailsForm = (props) => {
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
-                            title="Specify The Metal Group"
+                            title="Specify The Purity Composition"
                           ></i>
                         </label>
                         {product.purityComposition.map((x, index) => {
@@ -367,7 +367,7 @@ const ItemDetailsForm = (props) => {
                                 <i
                                   class="fas fa-exclamation-circle ms-2 fs-7"
                                   data-bs-toggle="tooltip"
-                                  title="Specify The Metal Group"
+                                  title="Specify The Purity Composition's Metal Group"
                                 ></i>
                               </label>
                               <select
@@ -396,7 +396,7 @@ const ItemDetailsForm = (props) => {
                                 <i
                                   class="fas fa-exclamation-circle ms-2 fs-7"
                                   data-bs-toggle="tooltip"
-                                  title="Specify The SKU"
+                                  title="Specify Purity Composition's Weight"
                                 ></i>
                               </label>
                               <input
@@ -465,16 +465,7 @@ const ItemDetailsForm = (props) => {
                                   );
                                 })}
                               </select>
-                              {/* <input
-                                type="text"
-                                name="metalGroup"
-                                className="form-control form-control-lg form-control-solid"
-                                placeholder="Enter Style"
-                                value={x.style}
-                                onChange={(event) =>
-                                  handleFormChange1(index, event)
-                                }
-                              /> */}
+                             
                               <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                                 <span class="required">Weight</span>
                                 <i
@@ -522,16 +513,7 @@ const ItemDetailsForm = (props) => {
                                   );
                                 })}
                               </select>
-                              {/* <input
-                                type="text"
-                                name="clarity"
-                                value={x.clarity}
-                                className="form-control form-control-lg form-control-solid"
-                                placeholder="Enter clarity"
-                                onChange={(event) =>
-                                  handleFormChange1(index, event)
-                                }
-                              /> */}
+                              
 
                               <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                                 <span class="required">colour</span>
@@ -596,7 +578,7 @@ const ItemDetailsForm = (props) => {
                                 <i
                                   class="fas fa-exclamation-circle ms-2 fs-7"
                                   data-bs-toggle="tooltip"
-                                  title="Specify The shape"
+                                  title="Specify The Certificate"
                                 ></i>
                               </label>
                               <select
@@ -625,7 +607,7 @@ const ItemDetailsForm = (props) => {
                                 <i
                                   class="fas fa-exclamation-circle ms-2 fs-7"
                                   data-bs-toggle="tooltip"
-                                  title="Specify The cut"
+                                  title="Specify The Shape"
                                 ></i>
                               </label>
                               <select
@@ -648,16 +630,7 @@ const ItemDetailsForm = (props) => {
                                   );
                                 })}
                               </select>
-                              {/* <input
-                                type="text"
-                                name="shape"
-                                value={x.shape}
-                                className="form-control form-control-lg form-control-solid"
-                                placeholder="Enter shape"
-                                onChange={(event) =>
-                                  handleFormChange1(index, event)
-                                }
-                              /> */}
+                            
                               <button
                                 class="btn btn-warning"
                                 onClick={removeFields1}
@@ -678,14 +651,10 @@ const ItemDetailsForm = (props) => {
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
-                            title="Specify collectionName"
+                            title="Specify collection's Name"
                           ></i>
                         </label>
-                        {/* <Select
-                          options={collectionNameOptions}
-                          isMulti
-                          onChange={handleCollectionName}
-                        /> */}
+                       
                          <select
                           value={product.collections}
                           multiple
@@ -693,7 +662,6 @@ const ItemDetailsForm = (props) => {
                           class="form-control"
                           onChange={handleCollectionName}
                         >
-                          {/* <option>Choose</option> */}
                           {collection.map((x) => (
                             <option
                               selected={product.collections?.includes(x.name)}
@@ -711,7 +679,7 @@ const ItemDetailsForm = (props) => {
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
+                            title="Specify the Category"
                           ></i>
                         </label>
                         <select
@@ -720,7 +688,6 @@ const ItemDetailsForm = (props) => {
                           class="form-control"
                           onChange={handleCategory}
                         >
-                          {/* <option>Choose</option> */}
                           {category.map((x) => (
                             <option
                               selected={product.category.includes(x.name)}
@@ -730,12 +697,6 @@ const ItemDetailsForm = (props) => {
                             </option>
                           ))}
                         </select>
-                        {/* <Select
-                          options={categoryOtions}
-                          isMulti
-                          defaultValue={categoryOtions}
-                          onChange={handleCategory}
-                        /> */}
                       </div>
 
                       <div>
@@ -747,16 +708,6 @@ const ItemDetailsForm = (props) => {
                             title="Specify variety"
                           ></i>
                         </label>
-                        {/* <Select
-                          options={varietiesOptions}
-                          
-                          defaultValue={{value: product.variety, label:product.variety}}
-                          isMulti
-                          value={varietiesOptions}
-
-                          onChange={handleVariety}
-                        />
-                        */}
                         <select
                           value={product.variety}
                           multiple
@@ -805,7 +756,7 @@ const ItemDetailsForm = (props) => {
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
+                            title="Specify the Gross Weight"
                           ></i>
                         </label>
                         <input
@@ -813,7 +764,7 @@ const ItemDetailsForm = (props) => {
                           name="grossWeight"
                           value={product.grossWeight}
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter gross weight"
+                          placeholder="Enter the Gross Weight"
                           onChange={(e) =>
                             setProduct({
                               ...product,
@@ -874,14 +825,14 @@ const ItemDetailsForm = (props) => {
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
+                            title="Specify the Width"
                           ></i>
                         </label>
                         <input
                           type="text"
                           name="width"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter width"
+                          placeholder="Enter the Width"
                           onChange={(e) =>
                             setProduct({
                               ...product,
@@ -904,7 +855,7 @@ const ItemDetailsForm = (props) => {
                           type="number"
                           name="height"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Ring Size"
+                          placeholder="Enter the Height"
                           onChange={(e) =>
                             setProduct({
                               ...product,
@@ -945,7 +896,7 @@ const ItemDetailsForm = (props) => {
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
-                            title="Specify the video"
+                            title="Specify the Images"
                           ></i>
                         </label>
                         <input
@@ -953,7 +904,7 @@ const ItemDetailsForm = (props) => {
                           name="images"
                           multiple
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Choose Video"
+                          placeholder="Choose Images"
                           onChange={(e) =>
                             setProduct({
                               ...product,
@@ -964,30 +915,6 @@ const ItemDetailsForm = (props) => {
                       </div>
 
                       {/* <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Measurements</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-                        <input
-                          type="number"
-                          name="cycle"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Measurements"
-                          onChange={(e) =>
-                            setItemDetails({
-                              ...itemDetails,
-                              measurements: e.target.value,
-                            })
-                          }
-                          value={itemDetails.measurements}
-                        />
-                      </div> */}
-
-                      <div>
                         <br />
                         <button
                           className="btn btn-lg btn-primary"
@@ -1000,7 +927,7 @@ const ItemDetailsForm = (props) => {
                             ? "Update Item Details"
                             : "Add Item Details"}
                         </button>
-                      </div>
+                      </div> */}
 
                       <AddUpdateSpinner
                         update={isUpdate ? true : false}
@@ -1011,13 +938,12 @@ const ItemDetailsForm = (props) => {
                       />
                     </form>
                   </div>
-                  {/*end::Table container*/}
                 </div>
-                {/*begin::Body*/}
+            
               </div>
-              {/*end::Tables Widget 13*/}
+             
             </div>
-            {/*end::Post*/}
+            
           </div>
           <Footer />
         </div>

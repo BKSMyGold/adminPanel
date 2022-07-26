@@ -15,7 +15,7 @@ export default function AddUpdateSpinner({url,adding, updating, collection,updat
   
   //===============================================
   const handleAdd = () => {
-    let {conversionFactor, name} = collection
+    // let {conversionFactor, name} = collection
     console.log(typeof(conversionFactor))
 
     setOn(true);
@@ -47,7 +47,7 @@ export default function AddUpdateSpinner({url,adding, updating, collection,updat
       <Dialog open={on}>
         <DialogTitle> {update ? "Updating" : "Adding"}</DialogTitle>
         <DialogContent>
-          <img src={loader} />
+          <img alt="Loading spinner" src={loader} />
         </DialogContent>
       </Dialog>
     </>
