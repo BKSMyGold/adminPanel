@@ -20,6 +20,9 @@ export const addProduct = async (product) => {
     images,
     purityComposition,
     styleComposition,
+    description,
+    pieceCount,
+    type
   } = product;
   formData.append("metalGroup", metalGroup);
   formData.append("collections", JSON.stringify(collections)  );
@@ -31,6 +34,11 @@ export const addProduct = async (product) => {
   formData.append("grossWeight", grossWeight);
   formData.append("width", width);
   formData.append("height", height);
+  formData.append("description", description);
+  formData.append("pieceCount", pieceCount);
+  formData.append("type", type);
+
+
   formData.append("purityComposition", JSON.stringify(purityComposition));
   formData.append("styleComposition", JSON.stringify(styleComposition));
   if (video[0] instanceof File) {
@@ -70,6 +78,9 @@ export const updateProduct = async (product) => {
     images,
     purityComposition,
     styleComposition,
+    description,
+    pieceCount,
+    type
   } = product;
   
   formData.append("metalGroup", metalGroup);
@@ -84,8 +95,12 @@ export const updateProduct = async (product) => {
   formData.append("height", height);
   formData.append("purityComposition", JSON.stringify(purityComposition));
   formData.append("styleComposition", JSON.stringify(styleComposition));
-  if (video instanceof File) {
-    formData.append("video", video);
+  formData.append("description", description);
+  formData.append("pieceCount", pieceCount);
+  formData.append("type", type);
+
+  if (video[0] instanceof File) {
+    formData.append("video", video[0]);
   }
   console.log(images)
   for (const image of images) {

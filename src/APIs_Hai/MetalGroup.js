@@ -7,7 +7,11 @@ export const addMetalGroup = async (metalGroup) => {
 };
 
 export const getMetalGroup = async () => {
-    return await axios.post(`${ADMIN_API}/admin/metalgroup/list`);   // GET
+    return await axios.post(`${ADMIN_API}/admin/metalgroup/list`,{
+        options:{
+            populate:["metal","unit"]
+        }
+    });   // GET
 
 };
 

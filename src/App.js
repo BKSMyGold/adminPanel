@@ -231,6 +231,10 @@ import Certificate from "./screens/Certificate"
 import CertiFicateForm from "./components/CertificateForm"
 import Label from "./screens/Label"
 import LabelForm from "./components/LabelForm";
+import Supplier from "./screens/Supplier"
+import SupplierForm from "./components/SupplierForm"
+import ProductType from "./screens/ProductType"
+import ProductTypeForm from './components/ProductTypeForm'
 //====================================================================
 const App = () => {
   const [loggedInUser, setLoggedInUser] = useState({});
@@ -730,6 +734,37 @@ const App = () => {
           element={
             permissions.has("edit_varities") ? (
               <VarietyForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        {/*================================ Product Type =================================================*/}
+        <Route
+          path="/master/product-data/product-type"
+          element={
+            permissions.has("view_varities") ? (
+              <ProductType user={loggedInUser} />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/product-data/product-type/add"
+          element={
+            permissions.has("add_varities") ? (
+              <ProductTypeForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/product-data/product-type/edit"
+          element={
+            permissions.has("edit_varities") ? (
+              <ProductTypeForm />
             ) : (
               <NoAccessComponent user={loggedInUser} />
             )
@@ -1426,6 +1461,37 @@ const App = () => {
           element={
             permissions.has("update_referral_type") ? (
               <LabelForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+           {/* ------------------------------ Supplier  ------------------------------------------------------------------------------------------ */}
+           <Route
+          path="/master/supplier"
+          element={
+            permissions.has("read_referral_type") ? (
+              <Supplier user={loggedInUser} />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/supplier/add"
+          element={
+            permissions.has("create_referral_type") ? (
+              <SupplierForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/supplier/edit"
+          element={
+            permissions.has("update_referral_type") ? (
+              <SupplierForm />
             ) : (
               <NoAccessComponent user={loggedInUser} />
             )

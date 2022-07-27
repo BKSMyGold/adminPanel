@@ -1,35 +1,37 @@
 import axios from "axios";
 import { ADMIN_API } from "../Constants";
+import MakingCharges from "../screens/MakingCharges";
 //=====================================================
 
 export const addMakingCharges = async (makingCharges) => {
-  let { supplierName,
-    variety,
-    item,
-    metalId,
-    fromWeight,
-    toWeight,
-    rateType,
-    rate } = makingCharges 
-    
-    let data = { supplierName,
-      variety,
-      item,
-      metalId,
-      fromWeight:Number(fromWeight),
-      toWeight: Number(toWeight),
-      rateType,
-      rate: Number(rate) }
-  await axios.post(`${ADMIN_API}/admin/makingcharge/create/`, data);
+  await axios.post(`${ADMIN_API}/admin/makingcharge/create/`, makingCharges);
 };
 
 export const getMakingCharges = async () => {
-  return await axios.post(`${ADMIN_API}/admin/makingcharge/list`);   // GET
-
+  return await axios.post(`${ADMIN_API}/admin/makingcharge/list`, {
+    options: {
+      populate: [
+        "supplier",
+        "productType",
+        {
+          path: "metalGroup",
+          populate: "metal",
+        },
+      ],
+    },
+  }); // GET
 };
 
 export const updateMakingCharges = async (makingCharges) => {
-  return await axios.put(`${ADMIN_API}/admin/makingcharge/update/${makingCharges.id}`, { ...makingCharges }); // PUT
+  return await axios.put(
+    `${ADMIN_API}/admin/makingcharge/update/${makingCharges.id}`,
+    {
+      ...makingCharges,
+      supplier: makingCharges.supplier?._id,
+      productType:makingCharges.productType?._id || makingCharges.productType ,
+      metalGroup: makingCharges.metalGroup?._id || makingCharges.metalGroup,
+    }
+  ); // PUT
 };
 
 export const deleteMakingCharges = async (id) => {

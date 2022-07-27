@@ -2,32 +2,29 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
-import Dashboard from "../screens/dashboard";
-import { isValidMetalGroup } from "../Validator";
 import AddUpdateSpinner from "../AddUpdateSpinner";
-import { addStyle,updateStyle } from "../APIs_Hai/Style";
-import {getMetalGroup} from "../APIs_Hai/MetalGroup"
+import { addSupplier, updateSupplier } from "../APIs_Hai/Supplier";
+
 //===================================================================================
-const StyleForm = (props) => {
+const SupplierForm = (props) => {
   //===================================================================================
   let location = useLocation();
   console.log(location.state);
-  let navigate = useNavigate();
   //===================================================================================
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
-  const [style, setStyle] = useState(
-    location?.state ?? {
-        name: "",
-        metalGroup:"",
-      
+  const [supplier, setSupplier] = useState({
+    name: "",
+    code: "",
+    email: "",
+    phone: "",
+  });
+  useEffect(() => {
+    if(location.state){
+
+      setSupplier(location.state);
     }
-  );
+  }, [location.state]);
   //===================================================================================
-const[metalGroup, setMetalGroup] = useState([])
-  useEffect(()=>{
-  getMetalGroup().then(res => setMetalGroup(res.data.data.data))
-},[])
-//===================================================================================
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -51,10 +48,10 @@ const[metalGroup, setMetalGroup] = useState([])
                 <div class="card-header border-0 pt-5">
                   <h3 class="card-title align-items-start flex-column">
                     <span class="card-label fw-bolder fs-3 mb-1">
-                      {isUpdate ? "Update Style" : "Add Style"}
+                      {isUpdate ? "Update Supplier" : "Add Supplier"}
                     </span>
                     <span class="text-muted mt-1 fw-bold fs-7">
-                      {isUpdate ? "Update Style" : "Add Style"}
+                      {isUpdate ? "Update Supplier" : "Add Supplier"}
                     </span>
                   </h3>
                 </div>
@@ -66,69 +63,97 @@ const[metalGroup, setMetalGroup] = useState([])
                     <form>
                       <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Style Name</span>
+                          <span class="required">Supplier Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
-                            title="Enter the Name of the Style"
+                            title="Enter the Supplier's Name"
                           ></i>
                         </label>
                         <input
                           type="text"
                           name="name"
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Style Name"
+                          placeholder="Enter Name"
                           onChange={(e) =>
-                            setStyle({
-                              ...style,
+                            setSupplier({
+                              ...supplier,
                               name: e.target.value,
                             })
                           }
-                            value={style.name}                          
+                          value={supplier.name}
+                        />
+                      </div>
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Code</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Enter the Supplier's Code"
+                          ></i>
+                        </label>
+                        <input
+                          type="text"
+                          name="code"
+                          value={supplier.code}
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Enter the Code"
+                          onChange={(e) =>
+                            setSupplier({
+                              ...supplier,
+                              code: e.target.value,
+                            })
+                          }
                         />
                       </div>
 
                       <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Metal Group Name</span>
+                          <span class="required">Email</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
                             data-bs-toggle="tooltip"
-                            title="Enter the Name of the Metal Group"
+                            title="Enter the Supplier's Email"
                           ></i>
                         </label>
-                        <select
-                          class="form-control"
-                          onChange={(e) =>
-                            setStyle({
-                              ...style,
-                              metalGroup: e.target.value,
-                            })
-                          }
-                        >
-                          <option class="form-control">Select option</option>;
-                          {metalGroup?.map((x) => {
-                            return (
-                              <option class="form-control" value={x.id}>
-                               {x.shortName} {x.metal.name}
-                              </option>
-                            );
-                          })}
-                        </select>
-
-                        {/* <input
-                          type="text"
-                          name="metalGroup"
+                        <input
+                          type="email"
+                          name="email"
+                          value={supplier.email}
                           className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Metal Group Name"
+                          placeholder="Enter the Email"
                           onChange={(e) =>
-                            setStyle({
-                              ...style,
-                              metalGroup: e.target.value,
+                            setSupplier({
+                              ...supplier,
+                              email: e.target.value,
                             })
                           }
-                            value={style.metalGroup}                          
-                        /> */}
+                        />
+                      </div>
+
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Phone</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Enter the Supplier's Phone"
+                          ></i>
+                        </label>
+                        <input
+                          type="number"
+                          name="phone"
+                          value={supplier.phone}
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Enter the Phone Number"
+                          onChange={(e) =>
+                            setSupplier({
+                              ...supplier,
+                              phone: e.target.value,
+                            })
+                          }
+                        />
                       </div>
 
                       {/* <div>
@@ -138,19 +163,19 @@ const[metalGroup, setMetalGroup] = useState([])
                           onClick={(e) => {
                             e.preventDefault();
                             isUpdate
-                              ? console.log({ ...style })
-                              : console.log({ ...style })
+                              ? console.log({ ...units })
+                              : console.log({ ...units })
                           }}
                         >
-                          {isUpdate ? "Update Style" : "Add Style"}
+                          {isUpdate ? "Update Units" : "Add Units"}
                         </button>
                       </div> */}
                       <AddUpdateSpinner
                         update={isUpdate ? true : false}
-                        collection={style}
-                        adding={addStyle}
-                        updating={updateStyle}
-                        url={"/master/product-data/style/"}
+                        collection={supplier}
+                        adding={addSupplier}
+                        updating={updateSupplier}
+                        url={"/master/supplier"}
                       />
                     </form>
                   </div>
@@ -169,4 +194,4 @@ const[metalGroup, setMetalGroup] = useState([])
   );
 };
 
-export default StyleForm;
+export default SupplierForm;

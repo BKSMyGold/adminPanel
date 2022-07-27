@@ -3,17 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
-import { isValidCyclePeriod } from "../Validator";
-import { addCyclePeriod, updateCyclePeriod } from "../apis/CyclePeriod";
 import AddUpdateSpinner from "../AddUpdateSpinner";
-// import { getAllItems } from "../apis/items";
-// import { getAllDiamonds } from "../apis/Diamonds";
-import axios from "axios";
-import { BASE_URL } from "../Constants";
-// import { additemdetails } from "../apis/itemdetails";
-// import Select from "react-select";
-import TextField from "@material-ui/core/TextField";
-import Autocomplete from "@material-ui/lab/Autocomplete";
 import { getCollection } from "../APIs_Hai/Collection";
 import { getCategory } from "../APIs_Hai/Category";
 import { getVariety } from "../APIs_Hai/Variety";
@@ -25,9 +15,8 @@ import { getClarity } from "../APIs_Hai/Clarity";
 import { getColour } from "../APIs_Hai/Colour";
 import { getCut } from "../APIs_Hai/Cut";
 import { getShape } from "../APIs_Hai/Shape";
-import Select from "react-select";
 import { getCertificate } from "../APIs_Hai/Certificate";
-
+import { getProductType } from "../APIs_Hai/ProductType";
 //================================================================================================================================
 const ItemDetailsForm = (props) => {
   let location = useLocation();
@@ -103,6 +92,12 @@ const ItemDetailsForm = (props) => {
   }, []);
   // console.log("-------->", certificates);
   //======================================================================
+  const [productType, setProductType] = useState([]);
+  useEffect(() => {
+    getProductType().then((res) => setProductType(res.data.data.data));
+  }, []);
+  // console.log("-------->", certificates);
+  //======================================================================
   const [purityComposition, setPurityComposition] = useState([
     {
       metalGroup: "",
@@ -145,6 +140,11 @@ const ItemDetailsForm = (props) => {
       colour: "",
       cut: "",
       shape: "",
+      amountOn: "", //weigh or piece,
+      pieceCount: 0,
+      saleRate: 0,
+      size: "",
+      certificate: "",
     },
   ]);
 
@@ -198,6 +198,9 @@ const ItemDetailsForm = (props) => {
       height: "",
       purityComposition: [],
       styleComposition: [],
+      description: "",
+      pieceCount: 1,
+      type: "",
     }
   );
   //======================================================================
@@ -265,8 +268,7 @@ const ItemDetailsForm = (props) => {
   //---------------------------------------------------------
   const handleCollectionName = (e) => {
     let arr = [...e.target.selectedOptions].map((x) => {
-   
-         return x.value;
+      return x.value;
     });
     setProduct({
       ...product,
@@ -274,10 +276,6 @@ const ItemDetailsForm = (props) => {
     });
   };
 
-  //======================================================================
-  // useEffect(() => {
-  //   if (location.state) setProduct(location.state);
-  // }, [location.state]);
   //======================================================================
   return (
     <div className="d-flex flex-column flex-root">
@@ -342,7 +340,7 @@ const ItemDetailsForm = (props) => {
                           {metalGroup.map((x) => {
                             return (
                               <option class="form-control" value={x.id}>
-                                {x.name}
+                                {x.shortName} {x.metal.name}
                               </option>
                             );
                           })}
@@ -385,7 +383,7 @@ const ItemDetailsForm = (props) => {
                                 {metalGroup.map((x) => {
                                   return (
                                     <option class="form-control" value={x.id}>
-                                      {x.name}
+                                      {x.shortName} {x.metal.name}
                                     </option>
                                   );
                                 })}
@@ -465,7 +463,7 @@ const ItemDetailsForm = (props) => {
                                   );
                                 })}
                               </select>
-                             
+
                               <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                                 <span class="required">Weight</span>
                                 <i
@@ -513,7 +511,6 @@ const ItemDetailsForm = (props) => {
                                   );
                                 })}
                               </select>
-                              
 
                               <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                                 <span class="required">colour</span>
@@ -581,26 +578,17 @@ const ItemDetailsForm = (props) => {
                                   title="Specify The Certificate"
                                 ></i>
                               </label>
-                              <select
+                              <input
                                 class="form-control"
+                                type="text"
                                 name="certificate"
-                                value={x.certificates}
+                                value={x.certificate}
                                 onChange={(event) =>
                                   handleFormChange1(index, event)
                                 }
-                              >
-                                <option class="form-control">
-                                  Select option
-                                </option>
-                                ;
-                                {certificates.map((x) => {
-                                  return (
-                                    <option class="form-control" value={x.name}>
-                                      {x.name}
-                                    </option>
-                                  );
-                                })}
-                              </select>
+                             />
+                                
+
 
                               <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                                 <span class="required">Shape</span>
@@ -612,6 +600,7 @@ const ItemDetailsForm = (props) => {
                               </label>
                               <select
                                 class="form-control"
+                                
                                 name="shape"
                                 value={x.shape}
                                 onChange={(event) =>
@@ -630,7 +619,89 @@ const ItemDetailsForm = (props) => {
                                   );
                                 })}
                               </select>
-                            
+
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                <span class="required">Amount On</span>
+                                <i
+                                  class="fas fa-exclamation-circle ms-2 fs-7"
+                                  data-bs-toggle="tooltip"
+                                  title="Specify The Shape"
+                                ></i>
+                              </label>
+                              <select
+                                class="form-control"
+                                name="amountOn"
+                                value={x.amountOn}
+                                onChange={(event) =>
+                                  handleFormChange1(index, event)
+                                }
+                              >
+                                <option class="form-control">
+                                  Select option
+                                </option>
+
+                                <option class="form-control" value="weight">
+                                  Weight
+                                </option>
+                                <option class="form-control" value="piece">
+                                  Piece
+                                </option>
+                              </select>
+
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                <span class="required">Piece Count</span>
+                                <i
+                                  class="fas fa-exclamation-circle ms-2 fs-7"
+                                  data-bs-toggle="tooltip"
+                                  title="Specify the Piece Count"
+                                ></i>
+                              </label>
+                              <input
+                                class="form-control"
+                                name="pieceCount"
+                                type="number"
+                                value={x.pieceCount}
+                                onChange={(event) =>
+                                  handleFormChange1(index, event)
+                                }
+                              />
+
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                <span class="required">Sale Rate</span>
+                                <i
+                                  class="fas fa-exclamation-circle ms-2 fs-7"
+                                  data-bs-toggle="tooltip"
+                                  title="Specify the Sale Rate"
+                                ></i>
+                              </label>
+                              <input
+                                class="form-control"
+                                name="saleRate"
+                                type="number"
+                                value={x.saleRate}
+                                onChange={(event) =>
+                                  handleFormChange1(index, event)
+                                }
+                              />
+
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                <span class="required">Size</span>
+                                <i
+                                  class="fas fa-exclamation-circle ms-2 fs-7"
+                                  data-bs-toggle="tooltip"
+                                  title="Specify the Sale Rate"
+                                ></i>
+                              </label>
+                              <input
+                                class="form-control"
+                                name="size"
+                                type="text"
+                                value={x.size}
+                                onChange={(event) =>
+                                  handleFormChange1(index, event)
+                                }
+                              />
+
                               <button
                                 class="btn btn-warning"
                                 onClick={removeFields1}
@@ -654,8 +725,8 @@ const ItemDetailsForm = (props) => {
                             title="Specify collection's Name"
                           ></i>
                         </label>
-                       
-                         <select
+
+                        <select
                           value={product.collections}
                           multiple
                           name="collections"
@@ -736,6 +807,7 @@ const ItemDetailsForm = (props) => {
                         </label>
                         <select
                           value={product.item}
+                          name="item"
                           class="form-control"
                           onChange={handleItem}
                         >
@@ -743,6 +815,86 @@ const ItemDetailsForm = (props) => {
                             <option
                               selected={product.item.includes(x.name)}
                               value={x.name}
+                            >
+                              {x.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Description</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify the Gross Weight"
+                          ></i>
+                        </label>
+                        <textarea
+                          type="text"
+                          name="description"
+                          value={product.description}
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Enter Description"
+                          onChange={(e) =>
+                            setProduct({
+                              ...product,
+                              description: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Piece Count</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify the Piece Count"
+                          ></i>
+                        </label>
+                        <input
+                          type="number"
+                          name="pieceCount"
+                          value={product.pieceCount}
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Enter Piece Count"
+                          onChange={(e) =>
+                            setProduct({
+                              ...product,
+                              pieceCount: Number(e.target.value),
+                            })
+                          }
+                        />
+                      </div>
+
+                      <div>
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                          <span class="required">Product Type</span>
+                          <i
+                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            data-bs-toggle="tooltip"
+                            title="Specify the Type"
+                          ></i>
+                        </label>
+                        <select
+                          value={product.type}
+                          name="type"
+                          class="form-control"
+                          onChange={(e) =>
+                            setProduct({
+                              ...product,
+                              type: e.target.value,
+                            })
+                          }
+                        >
+                          <option>Choose Product Type</option>
+                          {productType.map((x) => (
+                            <option
+                              selected={product.type?.includes(x.id)}
+                              value={x.id}
                             >
                               {x.name}
                             </option>
@@ -878,7 +1030,6 @@ const ItemDetailsForm = (props) => {
                         <input
                           type="file"
                           name="video"
-                          
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Choose Video"
                           onChange={(e) =>
@@ -899,6 +1050,7 @@ const ItemDetailsForm = (props) => {
                             title="Specify the Images"
                           ></i>
                         </label>
+                        <img src={product.images[0]} />
                         <input
                           type="file"
                           name="images"
@@ -914,7 +1066,7 @@ const ItemDetailsForm = (props) => {
                         />
                       </div>
 
-                      {/* <div>
+                      <div>
                         <br />
                         <button
                           className="btn btn-lg btn-primary"
@@ -927,7 +1079,7 @@ const ItemDetailsForm = (props) => {
                             ? "Update Item Details"
                             : "Add Item Details"}
                         </button>
-                      </div> */}
+                      </div>
 
                       <AddUpdateSpinner
                         update={isUpdate ? true : false}
@@ -939,11 +1091,8 @@ const ItemDetailsForm = (props) => {
                     </form>
                   </div>
                 </div>
-            
               </div>
-             
             </div>
-            
           </div>
           <Footer />
         </div>

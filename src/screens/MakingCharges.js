@@ -27,7 +27,7 @@ const MakingCharges = (props) => {
       return setMakingCharges(res.data.data.data), setLoader(false);
     });
   }, []);
-
+console.log("||=>",makingCharges)
   //============================================================================
   return (
     <div className="d-flex flex-column flex-root">
@@ -84,13 +84,14 @@ const MakingCharges = (props) => {
                           <th class="fw-bolder text-muted">Supplier Name</th>
                           <th class="fw-bolder text-muted">Variety</th>
                           <th class="fw-bolder text-muted">Item</th>
-                          <th class="fw-bolder text-muted">Metal ID</th>
-                          <th class="fw-bolder text-muted">From Weight</th>
+                          <th class="fw-bolder text-muted">Product Type</th>
+                          <th class="fw-bolder text-muted">Metal Group ID</th>
+                          {/* <th class="fw-bolder text-muted">From Weight</th>
                           <th class="fw-bolder text-muted">To Weight</th>
                           <th class="fw-bolder text-muted">Rate Type</th>
                           <th class="fw-bolder text-muted">
                             Value of Rate Type
-                          </th>
+                          </th> */}
                           <th class="fw-bolder text-muted">Action</th>
                         </tr>
                       </thead>
@@ -102,17 +103,18 @@ const MakingCharges = (props) => {
                             <LinearProgress />
                           </Box>
                         ) : (
-                          makingCharges.map((charges) => (
+                          makingCharges.map((charges) => ( 
                             <tr class="text-center">
                               <td class="fw-bolder">{charges.id}</td>
-                              <td class="fw-bolder">{charges.supplierName}</td>
+                              <td class="fw-bolder">{charges.supplier.name}</td>
                               <td class="fw-bolder">{charges.variety}</td>
                               <td class="fw-bolder">{charges.item}</td>
-                              <td class="fw-bolder">{charges.metalId}</td>
-                              <td class="fw-bolder">{charges.fromWeight}</td>
+                              <td class="fw-bolder">{charges.productType.name}</td>
+                              <td class="fw-bolder">{charges.metalGroup.shortName} {charges.metalGroup.metal?.name}</td>
+                              {/* <td class="fw-bolder">{charges.fromWeight}</td>
                               <td class="fw-bolder">{charges.toWeight}</td>
                               <td class="fw-bolder">{charges.rateType}</td>
-                              <td class="fw-bolder">{charges.rate}</td>
+                              <td class="fw-bolder">{charges.rate}</td> */}
 
                               <td class="text-center">
                                 <Link

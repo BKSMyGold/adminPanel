@@ -24,6 +24,7 @@ const MetalGroups = (props) => {
       return setMetalGroup(res.data.data.data), setLoader(false);
     });
   }, []);
+  console.log(metalGroup)
   //============================================================================
   return (
     <div className="d-flex flex-column flex-root">
@@ -67,8 +68,6 @@ const MetalGroups = (props) => {
                         <tr class="fw-bolder text-muted">
                           <th class="min-w-150px">Metal Group Id</th>
                           <th class="min-w-140px">Item Group Name</th>
-                          {/* <th class="min-w-120px">Metal ID</th>
-                          <th class="min-w-120px">Item Master Group Name</th> */}
                           <th class="min-w-120px">Purity</th>
                           <th class="min-w-100px">Unit</th>
                           <th class="min-w-100px">Rounding Digit</th>
@@ -89,13 +88,13 @@ const MetalGroups = (props) => {
                             <tr class="text-center fw-bolder">
                               <td>{metalgroup.id}</td>
                               <td>
-                                {metalgroup.shortName + " " + metalgroup.name}
+                                {metalgroup.shortName + " " + metalgroup.metal.name}
                               </td>
                               {/* <td>{metalgroup.metalId}</td>
                               <td>
                                 {metalgroup.masterName}
                               </td> */}
-                              <td>{metalgroup.fineness}</td>
+                              <td>{metalgroup.purity}</td>
                               <td>{metalgroup.unit?.name}</td>
                               <td>{metalgroup.roundingDigits}</td>
                               <td>{metalgroup.ornament}</td>
