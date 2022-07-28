@@ -5,22 +5,22 @@ import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidCalculations } from "../Validator";
 import AddUpdateSpinner from "../AddUpdateSpinner";
-import { addCustomDuty,updateCustomDuty } from "../APIs_Hai/CustomDuty";
+import { addCustomDuty, updateCustomDuty } from "../APIs_Hai/CustomDuty";
 //=======================================================================
 const CustomDutiesForm = (props) => {
   //=======================================================================
   let location = useLocation();
   let navigate = useNavigate();
-//=======================================================================
+  //=======================================================================
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
   const [dutiesTaxes, setDutiesTaxes] = useState(
     location?.state ?? {
       name: "",
       value: 0,
-      surcharge:0
+      surcharge: 0,
     }
   );
-//=======================================================================
+  //=======================================================================
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -58,7 +58,7 @@ const CustomDutiesForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Charge Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -81,7 +81,7 @@ const CustomDutiesForm = (props) => {
                         />
                       </div>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Value</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -105,7 +105,7 @@ const CustomDutiesForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Surcharge</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -116,7 +116,7 @@ const CustomDutiesForm = (props) => {
                         <input
                           type="number"
                           name="surcharge"
-                          className="form-control form-control-lg form-control-solid"
+                          className="form-control form-control-lg form-control-solid mb-5"
                           placeholder="Enter surcharge"
                           onChange={(e) =>
                             setDutiesTaxes({
@@ -128,45 +128,18 @@ const CustomDutiesForm = (props) => {
                         />
                       </div>
 
-                      {/* <div>
-                        <br />
-                        <button
-                          className="btn btn-lg btn-primary"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            if (isValidCalculations({ ...Calculations })) {
-                              isUpdate
-                                ? updatecharge({ ...Calculations }).then(() => {
-                                    navigate("/master/taxes");
-                                  })
-                                : addcharge({ ...Calculations }).then(() => {
-                                    navigate("/master/taxes");
-                                  });
-                            }
-                          }}
-                        >
-                          {isUpdate
-                            ? "Update Calculations"
-                            : "Add Calculations"}
-                        </button>
-                      </div> */}
-                       <AddUpdateSpinner 
-                              update = {isUpdate ? true : false}
-                              collection = {dutiesTaxes}
-                              adding = {addCustomDuty}
-                              updating = {updateCustomDuty}
-                              url = {"/master/taxes/"}
-                            />
-
+                      <AddUpdateSpinner
+                        update={isUpdate ? true : false}
+                        collection={dutiesTaxes}
+                        adding={addCustomDuty}
+                        updating={updateCustomDuty}
+                        url={"/master/taxes/"}
+                      />
                     </form>
                   </div>
-                  {/*end::Table container*/}
                 </div>
-                {/*begin::Body*/}
               </div>
-              {/*end::Tables Widget 13*/}
             </div>
-            {/*end::Post*/}
           </div>
           <Footer />
         </div>

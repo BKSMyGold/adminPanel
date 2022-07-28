@@ -86,7 +86,7 @@ const MetalGroupForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Metal Short Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -110,7 +110,7 @@ const MetalGroupForm = (props) => {
                         />
                       </div>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Metal Id</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -139,7 +139,7 @@ const MetalGroupForm = (props) => {
                         </select>
                       </div>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Purity</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -163,7 +163,7 @@ const MetalGroupForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Unit Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -193,10 +193,10 @@ const MetalGroupForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Rounding Digits</span>
                           <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
+                            class="fas fa-exclamation-circle ms-2 fs-7 "
                             data-bs-toggle="tooltip"
                             title="Specify the Unit Name"
                           ></i>
@@ -225,7 +225,7 @@ const MetalGroupForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Ornament Type</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -234,7 +234,7 @@ const MetalGroupForm = (props) => {
                           ></i>
                         </label>
                         <select
-                          class="form-control"
+                          class="form-control mb-5"
                           value={metalGroup.ornament}
                           onChange={(e) =>
                             setMetalGroup({

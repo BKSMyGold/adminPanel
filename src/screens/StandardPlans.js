@@ -68,7 +68,7 @@ const StandardPlans = (props) => {
                     <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                       {/*begin::Table head*/}
                       <thead>
-                        <tr class="fw-bolder text-muted fs-100">
+                        <tr class="fw-bolder text-muted fs-100 text-center">
                           <th class="min-w-150px"> Id</th>
                           <th class="min-w-140px"> Name</th>
                           <th class="min-w-140px"> Cycle Period</th>
@@ -80,7 +80,7 @@ const StandardPlans = (props) => {
                           <th class="min-w-140px"> Type</th>
                           <th class="min-w-140px"> Minimum</th>
                           <th class="min-w-140px"> Mode</th>
-                          <th class="min-w-100px text-end">Actions</th>
+                          <th class="min-w-100px ">Actions</th>
                         </tr>
                       </thead>
                       {/*end::Table head*/}
@@ -92,7 +92,7 @@ const StandardPlans = (props) => {
                           </Box>
                         ) : (
                           plan.map((standardplans) => (
-                            <tr class="fw-bolder">
+                            <tr class="fw-bolder text-center">
                               <td>
                                 <a
                                   href="#"

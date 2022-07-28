@@ -62,7 +62,7 @@ const SupplierForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Supplier Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -85,7 +85,7 @@ const SupplierForm = (props) => {
                         />
                       </div>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Code</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -109,7 +109,7 @@ const SupplierForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Email</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -133,7 +133,7 @@ const SupplierForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Phone</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -145,7 +145,7 @@ const SupplierForm = (props) => {
                           type="number"
                           name="phone"
                           value={supplier.phone}
-                          className="form-control form-control-lg form-control-solid"
+                          className="form-control form-control-lg form-control-solid mb-5"
                           placeholder="Enter the Phone Number"
                           onChange={(e) =>
                             setSupplier({
@@ -156,20 +156,7 @@ const SupplierForm = (props) => {
                         />
                       </div>
 
-                      {/* <div>
-                        <br />
-                        <button
-                          className="btn btn-lg btn-primary"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            isUpdate
-                              ? console.log({ ...units })
-                              : console.log({ ...units })
-                          }}
-                        >
-                          {isUpdate ? "Update Units" : "Add Units"}
-                        </button>
-                      </div> */}
+                     
                       <AddUpdateSpinner
                         update={isUpdate ? true : false}
                         collection={supplier}

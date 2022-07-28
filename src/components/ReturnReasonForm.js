@@ -58,7 +58,7 @@ const ReturnReasonForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Return Reason</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -69,7 +69,7 @@ const ReturnReasonForm = (props) => {
                         <textarea
                           type="text"
                           name="name"
-                          className="form-control form-control-lg form-control-solid"
+                          className="form-control form-control-lg form-control-solid mb-5"
                           placeholder="Enter Cut-Shape Name"
                           onChange={(e) =>
                             setReason({
@@ -80,22 +80,7 @@ const ReturnReasonForm = (props) => {
                             value={reason.title}                          
                         />
                       </div>
-                      
-{/* 
-                      <div>
-                        <br />
-                        <button
-                          className="btn btn-lg btn-primary"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            isUpdate
-                              ? console.log({ ...cutShape })
-                              : console.log({ ...cutShape })
-                          }}
-                        >
-                          {isUpdate ? "Update Cut Shape" : "Add Cut Shape"}
-                        </button>
-                      </div> */}
+
                       <AddUpdateSpinner
                         update={isUpdate ? true : false}
                         collection={reason}
@@ -105,13 +90,9 @@ const ReturnReasonForm = (props) => {
                       />
                     </form>
                   </div>
-                  {/*end::Table container*/}
                 </div>
-                {/*begin::Body*/}
               </div>
-              {/*end::Tables Widget 13*/}
             </div>
-            {/*end::Post*/}
           </div>
           <Footer />
         </div>

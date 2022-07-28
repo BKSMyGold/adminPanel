@@ -80,6 +80,7 @@ const FAQ = (props) => {
                           <th class="fw-bolder text-muted">FAQ Id</th>
                           <th class="fw-bolder text-muted">FAQ Question</th>
                           <th class="fw-bolder text-muted">FAQ Answer</th>
+                          <th class="fw-bolder text-muted">Action</th>
                         </tr>
                       </thead>
                       {/*end::Table head*/}
@@ -92,15 +93,6 @@ const FAQ = (props) => {
                         ) : (
                           faq.map((faq) => (
                             <tr class="text-center">
-                              {/* <td>
-      <div class="form-check form-check-sm form-check-custom form-check-solid">
-        <input
-          class="form-check-input widget-13-check"
-          type="checkbox"
-          value="1"
-        />
-      </div>
-    </td> */}
                               <td class="fw-bolder">{faq.id}</td>
                               <td class="fw-bolder">{faq.question}</td>
                               <td class="fw-bolder">{faq.answer}</td>

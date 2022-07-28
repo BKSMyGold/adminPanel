@@ -59,7 +59,7 @@ const ProductTypeForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Product Type Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -70,7 +70,7 @@ const ProductTypeForm = (props) => {
                         <input
                           type="text"
                           name="name"
-                          className="form-control form-control-lg form-control-solid"
+                          className="form-control form-control-lg form-control-solid mb-5"
                           placeholder="Enter the Product Type Name"
                           onChange={(e) =>
                             setProductType({
@@ -82,20 +82,7 @@ const ProductTypeForm = (props) => {
                         />
                       </div>
 
-                      {/* <div>
-                        <br />
-                        <button
-                          className="btn btn-lg btn-primary"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            isUpdate
-                              ? console.log({ ...units })
-                              : console.log({ ...units })
-                          }}
-                        >
-                          {isUpdate ? "Update Units" : "Add Units"}
-                        </button>
-                      </div> */}
+                
                       <AddUpdateSpinner
                         update={isUpdate ? true : false}
                         collection={productType}

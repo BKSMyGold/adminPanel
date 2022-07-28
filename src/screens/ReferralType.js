@@ -64,14 +64,14 @@ const ReferralType = (props) => {
                     <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                       {/*begin::Table head*/}
                       <thead>
-                        <tr class="fw-bolder text-muted">
+                        <tr class="fw-bolder text-muted text-center">
                          
                           <th class="min-w-150px"> Id</th>
                           <th class="min-w-140px"> Joining Bonus </th>
                           <th class="min-w-140px">Referred Bonus</th>
                           <th class="min-w-120px">User Type</th>
                           <th class="min-w-120px">Criteria</th>
-                          <th class="min-w-100px text-end">Actions</th>
+                          <th class="min-w-100px ">Actions</th>
                         </tr>
                       </thead>
                 
@@ -82,7 +82,7 @@ const ReferralType = (props) => {
                           </Box>
                         ) : (
                           referralType?.map((referralType) => (
-                            <tr>
+                            <tr class="text-center">
                               
                               <td>
                                 <a

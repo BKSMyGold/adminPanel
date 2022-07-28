@@ -5,7 +5,7 @@ import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidCategory } from "../Validator";
 import AddUpdateSpinner from "../AddUpdateSpinner";
-import { addCalculation,updateCalculation } from "../APIs_Hai/Calculation";
+import { addCalculation, updateCalculation } from "../APIs_Hai/Calculation";
 //============================================================
 const CalculationForm = (props) => {
   //============================================================
@@ -58,7 +58,7 @@ const CalculationForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Calculation Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -82,7 +82,7 @@ const CalculationForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Calculation Type</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -104,14 +104,13 @@ const CalculationForm = (props) => {
                           value={calculation.type}
                         >
                           <option>___ Choose Type ___</option>
-                          <option value ="percentage">Percentage</option>
-                          <option value ="value">Value</option>
-
+                          <option value="percentage">Percentage</option>
+                          <option value="value">Value</option>
                         </select>
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Calculation Value</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -122,7 +121,7 @@ const CalculationForm = (props) => {
                         <input
                           type="text"
                           name="value"
-                          className="form-control form-control-lg form-control-solid"
+                          className="form-control form-control-lg form-control-solid mb-5"
                           placeholder="Enter Calculation Value"
                           onChange={(e) =>
                             setCalculation({
@@ -134,80 +133,13 @@ const CalculationForm = (props) => {
                         />
                       </div>
 
-                      {/* <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Category Images</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-                        <input
-                          type="file"
-                          name="video"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Choose File"
-                          multiple={true}
-                          onChange={(e) => {
-                            setCategory({
-                              ...category,
-                              images: e.target.files,
-                            });
-                          }}
-                        />
-                      </div>
-
-                      <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Category Video</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-                        <input
-                          type="file"
-                          name="video"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Choose File"
-                          onChange={(e) => {
-                            setCategory({
-                              ...category,
-                              video: e.target.files[0],
-                            });
-                          }}
-                        />
-                      </div> */}
-
-                      <div>
-                        <br />
-                        {/* <button
-                          className="btn btn-lg btn-primary"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            if (isValidCategory({ ...category })) {
-                              isUpdate
-                                ? updateCategory({ ...category }).then(() => {
-                                    navigate("/master/product-data/categories");
-                                  })
-                                : addCategory({ ...category }).then(() => {
-                                    navigate("/master/product-data/categories");
-                                  });
-                            }
-                          }}
-                        >
-                          {isUpdate ? "Update Category" : "Add Category"}
-                        </button> */}
-                        <AddUpdateSpinner
-                          update={isUpdate ? true : false}
-                          collection={calculation}
-                          adding={addCalculation}
-                          updating={updateCalculation}
-                          url={"/master/calculation"}
-                        />
-                      </div>
+                      <AddUpdateSpinner
+                        update={isUpdate ? true : false}
+                        collection={calculation}
+                        adding={addCalculation}
+                        updating={updateCalculation}
+                        url={"/master/calculation"}
+                      />
                     </form>
                   </div>
                   {/*end::Table container*/}

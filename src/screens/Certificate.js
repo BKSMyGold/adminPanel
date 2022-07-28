@@ -67,11 +67,11 @@ const Certificate = (props) => {
                     <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                       {/*begin::Table head*/}
                       <thead>
-                        <tr class="fw-bolder text-muted">
+                        <tr class="fw-bolder text-muted text-center">
                           <th class="min-w-150px"> Id</th>
                           <th class="min-w-140px">Certificate Name</th>
 
-                          <th class="min-w-100px text-end">Actions</th>
+                          <th class="min-w-100px ">Actions</th>
                         </tr>
                       </thead>
                       {/*end::Table head*/}
@@ -84,7 +84,7 @@ const Certificate = (props) => {
                         ) : (
                           certificate.map((certificate) => (
                             // console.log(category);
-                            <tr>
+                            <tr class="text-center">
                               <td>
                                 <a
                                   href="#"
@@ -101,7 +101,7 @@ const Certificate = (props) => {
                                   {certificate.name}
                                 </a>
                               </td>
-                              <td class="text-end">
+                              <td>
                                 <a
                                   href="#"
                                   class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"

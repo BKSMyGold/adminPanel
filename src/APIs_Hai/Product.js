@@ -22,10 +22,10 @@ export const addProduct = async (product) => {
     styleComposition,
     description,
     pieceCount,
-    type
+    type,
   } = product;
   formData.append("metalGroup", metalGroup);
-  formData.append("collections", JSON.stringify(collections)  );
+  formData.append("collections", JSON.stringify(collections));
   formData.append("category", JSON.stringify(category));
   formData.append("variety", JSON.stringify(variety));
   formData.append("item", item);
@@ -38,26 +38,28 @@ export const addProduct = async (product) => {
   formData.append("pieceCount", pieceCount);
   formData.append("type", type);
 
-
   formData.append("purityComposition", JSON.stringify(purityComposition));
   formData.append("styleComposition", JSON.stringify(styleComposition));
   if (video[0] instanceof File) {
     formData.append("video", video[0]);
   }
- 
+
   for (const image of images) {
-      if (image instanceof File) {
+    if (image instanceof File) {
       formData.append("images", image);
     }
-
   }
-  console.log(formData)
-  
+  console.log(formData);
+
   await axios.post(`${ADMIN_API}/admin/product/create/`, formData);
 };
 //=====================================================
 export const getProduct = async () => {
-  return await axios.post(`${ADMIN_API}/admin/product/list`); // GET
+  return await axios.post(`${ADMIN_API}/admin/product/list`,{
+    options:{
+      strictPopulate:"style"
+    }
+  }); // GET
 };
 //=====================================================
 export const updateProduct = async (product) => {
@@ -80,9 +82,9 @@ export const updateProduct = async (product) => {
     styleComposition,
     description,
     pieceCount,
-    type
+    type,
   } = product;
-  
+
   formData.append("metalGroup", metalGroup);
   formData.append("collections", JSON.stringify(collections));
   formData.append("category", JSON.stringify(category));
@@ -98,18 +100,19 @@ export const updateProduct = async (product) => {
   formData.append("description", description);
   formData.append("pieceCount", pieceCount);
   formData.append("type", type);
-
-  if (video[0] instanceof File) {
-    formData.append("video", video[0]);
+  if (video) {
+    if (video[0] instanceof File) {
+      formData.append("video", video[0]);
+    }
   }
-  console.log(images)
+  console.log(images);
   for (const image of images) {
-    console.log(image)
-      if (image instanceof File) {
+    console.log(image);
+    if (image instanceof File) {
       formData.append("images", image);
     }
   }
-  
+
   return await axios.put(
     `${ADMIN_API}/admin/product/update/${product.id}`,
     formData

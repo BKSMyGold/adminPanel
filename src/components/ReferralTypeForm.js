@@ -71,7 +71,7 @@ const ReferralTypeForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">User Type</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -91,7 +91,7 @@ const ReferralTypeForm = (props) => {
                           }
                           value={referralType.userType}
                         >
-                          <option>__Choose User Type__</option>
+                          <option>Choose User Type</option>
                           <option value="customer">Customer</option>
                           <option value="sales_offer">Sales Offers</option>
                           <option value="sales_associate">
@@ -102,7 +102,7 @@ const ReferralTypeForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Referred Bonus</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -127,7 +127,7 @@ const ReferralTypeForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Minimum Percentage</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -156,7 +156,7 @@ const ReferralTypeForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Maximum Amount</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -185,7 +185,7 @@ const ReferralTypeForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Criteria</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -197,7 +197,7 @@ const ReferralTypeForm = (props) => {
                         <select
                           type="text"
                           name="criteria"
-                          className="form-control form-control-lg form-control-solid"
+                          className="form-control form-control-lg form-control-solid mb-5"
                           placeholder="Select Language"
                           defaultValue={referralType.criteria}
                           onChange={(e) =>
@@ -207,27 +207,14 @@ const ReferralTypeForm = (props) => {
                             })
                           }
                         >
-                          <option>__Choose Criteria__</option>
+                          <option>Choose Criteria</option>
                           <option value="plan_maturity">Plan Maturity</option>
                           <option value="download_subscriptions">
                             Download Subscriptions
                           </option>
                         </select>
                       </div>
-{/* 
-                      <div>
-                        <br />
-                        <button
-                          className="btn btn-lg btn-primary"
-                          onClick={(e) => {
-                            e.preventDefault();
 
-                            console.log(referralType);
-                          }}
-                        >
-                          {isUpdate ? "Update HowTo" : "Add HowTo"}
-                        </button>
-                      </div> */}
                       <AddUpdateSpinner
                         update={isUpdate ? true : false}
                         collection={referralType}
@@ -237,13 +224,9 @@ const ReferralTypeForm = (props) => {
                       />
                     </form>
                   </div>
-                  {/*end::Table container*/}
                 </div>
-                {/*begin::Body*/}
               </div>
-              {/*end::Tables Widget 13*/}
             </div>
-            {/*end::Post*/}
           </div>
           <Footer />
         </div>

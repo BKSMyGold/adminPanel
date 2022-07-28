@@ -152,7 +152,7 @@ const MakingChargesForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Supplier Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -182,7 +182,7 @@ const MakingChargesForm = (props) => {
                         </select>
                       </div>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Variety Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -213,7 +213,7 @@ const MakingChargesForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Item Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -243,7 +243,7 @@ const MakingChargesForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Product Type</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -274,7 +274,7 @@ const MakingChargesForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Metal Group ID</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -305,7 +305,7 @@ const MakingChargesForm = (props) => {
 
                       {/* --------------------------------------- Rates ----------------------------------------------  */}
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Rates</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -316,7 +316,7 @@ const MakingChargesForm = (props) => {
                         {makingCharges.rates.map((x, index) => {
                           return (
                             <>
-                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                                 <span class="required">From Weight</span>
                                 <i
                                   class="fas fa-exclamation-circle ms-2 fs-7"
@@ -333,7 +333,7 @@ const MakingChargesForm = (props) => {
                                 onChange={(event) => handleRates(index, event)}
                               />
 
-                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                                 <span class="required">To Weight</span>
                                 <i
                                   class="fas fa-exclamation-circle ms-2 fs-7"
@@ -350,7 +350,7 @@ const MakingChargesForm = (props) => {
                                 onChange={(event) => handleRates(index, event)}
                               />
 
-                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                                 <span class="required">Rate</span>
                                 <i
                                   class="fas fa-exclamation-circle ms-2 fs-7"
@@ -367,7 +367,7 @@ const MakingChargesForm = (props) => {
                                 onChange={(event) => handleRates(index, event)}
                               />
 
-                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                                 <span class="required">Rate Type</span>
                                 <i
                                   class="fas fa-exclamation-circle ms-2 fs-7"
@@ -376,7 +376,7 @@ const MakingChargesForm = (props) => {
                                 ></i>
                               </label>
                               <select
-                                class="form-control"
+                                class="form-control mb-5"
                                 name="rateType"
                                 value={x.rateType}
                                 onChange={(event) => handleRates(index, event)}
@@ -421,7 +421,7 @@ const MakingChargesForm = (props) => {
                               </select>
 
                               <button
-                                class="btn btn-warning"
+                                class="btn btn-warning mb-5 mx-3"
                                 onClick={removeFields}
                               >
                                 Remove
@@ -429,7 +429,7 @@ const MakingChargesForm = (props) => {
                             </>
                           );
                         })}
-                        <button class="btn btn-success" onClick={addFields}>
+                        <button class="btn btn-success mb-5" onClick={addFields}>
                           Add More..
                         </button>
                       </div>
@@ -519,7 +519,7 @@ const MakingChargesForm = (props) => {
                         />
                       </div> */}
 
-                      <div>
+                      {/* <div>
                         <br />
                         <button
                           className="btn btn-lg btn-primary"
@@ -534,7 +534,7 @@ const MakingChargesForm = (props) => {
                             ? "Update Making charges"
                             : "Add Making charges"}
                         </button>
-                      </div>
+                      </div> */}
                       <AddUpdateSpinner
                         update={isUpdate ? true : false}
                         collection={makingCharges}

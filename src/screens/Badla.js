@@ -62,22 +62,13 @@ const Badla = (props) => {
                     <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                       {/*begin::Table head*/}
                       <thead>
-                        <tr class="fw-bolder text-muted">
-                          <th class="w-25px">
-                            <div class="form-check form-check-sm form-check-custom form-check-solid">
-                              <input
-                                class="form-check-input"
-                                type="checkbox"
-                                value="1"
-                                data-kt-check="true"
-                                data-kt-check-target=".widget-13-check"
-                              />
-                            </div>
-                          </th>
+                        <tr class="fw-bolder text-muted text-center">
+                         
+                         
                           <th class="min-w-150px">Badla Id</th>
                           <th class="min-w-140px">Badla</th>
 
-                          <th class="min-w-100px text-center">Actions</th>
+                          <th class="min-w-100px">Actions</th>
                         </tr>
                       </thead>
                       {/*end::Table head*/}
@@ -90,16 +81,8 @@ const Badla = (props) => {
                         ) : (
                           badla.map((badla) => (
                             // console.log(category);
-                            <tr>
-                              <td>
-                                <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                  <input
-                                    class="form-check-input widget-13-check"
-                                    type="checkbox"
-                                    value="1"
-                                  />
-                                </div>
-                              </td>
+                            <tr class="text-center">
+                             
                               <td>
                                 <a
                                   href="#"

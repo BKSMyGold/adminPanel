@@ -58,7 +58,7 @@ const BadlaForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Badla Value</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -69,7 +69,7 @@ const BadlaForm = (props) => {
                         <input
                           type="text"
                           name="value"
-                          className="form-control form-control-lg form-control-solid"
+                          className="form-control form-control-lg form-control-solid mb-5"
                           placeholder="Enter Badla Value"
                           onChange={(e) =>
                             setBadla({
@@ -80,72 +80,9 @@ const BadlaForm = (props) => {
                           value={badla.value}
                         />
                       </div>
-                      {/* <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Category Images</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-                        <input
-                          type="file"
-                          name="video"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Choose File"
-                          multiple={true}
-                          onChange={(e) => {
-                            setCategory({
-                              ...category,
-                              images: e.target.files,
-                            });
-                          }}
-                        />
-                      </div>
+                      
 
-                      <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Category Video</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-                        <input
-                          type="file"
-                          name="video"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Choose File"
-                          onChange={(e) => {
-                            setCategory({
-                              ...category,
-                              video: e.target.files[0],
-                            });
-                          }}
-                        />
-                      </div> */}
-
-                      <div>
-                        <br />
-                        {/* <button
-                          className="btn btn-lg btn-primary"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            if (isValidCategory({ ...category })) {
-                              isUpdate
-                                ? updateCategory({ ...category }).then(() => {
-                                    navigate("/master/product-data/categories");
-                                  })
-                                : addCategory({ ...category }).then(() => {
-                                    navigate("/master/product-data/categories");
-                                  });
-                            }
-                          }}
-                        >
-                          {isUpdate ? "Update Category" : "Add Category"}
-                        </button> */}
+                      
                         <AddUpdateSpinner
                           update={isUpdate ? true : false}
                           collection={badla}
@@ -153,7 +90,7 @@ const BadlaForm = (props) => {
                           updating={updateBadla}
                           url={"/master/badla"}
                         />
-                      </div>
+                    
                     </form>
                   </div>
                   {/*end::Table container*/}

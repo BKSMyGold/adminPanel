@@ -104,7 +104,8 @@ const Style = (props) => {
                               <td class="fw-bolder">{style.id}</td>
                               <td class="fw-bolder">{style.name}</td>
                               <td class="fw-bolder">
-                                {style.metalGroup?.name}
+                                {style.metalGroup?.shortName} {style.metalGroup.metal?.name}
+
                               </td>
                               {/* <td class="fw-bolder">{style.conversionFactor}</td> */}
 

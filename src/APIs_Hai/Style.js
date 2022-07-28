@@ -7,9 +7,16 @@ export const addStyle = async (style) => {
 };
 
 export const getStyle = async () => {
-    return await axios.post(`${ADMIN_API}/admin/style/list`);   // GET
+    return await axios.post(`${ADMIN_API}/admin/style/list`,{
+        options:{
+            populate:["metalGroup",{
+                path:"metalGroup",
+                populate:"metal"
+            }]
+        }
+    });   // GET
 
-};
+};    
 
 export const updateStyle = async (style) => {
     return await axios.put(`${ADMIN_API}/admin/style/update/${style.id}`, {...style}); // PUT

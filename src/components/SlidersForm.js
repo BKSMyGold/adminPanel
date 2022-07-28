@@ -2,13 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
-import Dashboard from "../screens/dashboard";
-import { isValidSlider } from "../Validator";
 import AddUpdateSpinner from "../AddUpdateSpinner";
-import { getCollection } from "../APIs_Hai/Collection"
-import { getCategory } from "../APIs_Hai/Category"
-import { getVariety } from "../APIs_Hai/Variety"
-import { getItem } from "../APIs_Hai/Item"
+import { getCollection } from "../APIs_Hai/Collection";
+import { getCategory } from "../APIs_Hai/Category";
+import { getVariety } from "../APIs_Hai/Variety";
+import { getItem } from "../APIs_Hai/Item";
 import { addSlider, updateSlider } from "../APIs_Hai/Slider";
 //======================================================================
 const SlidersForm = (props) => {
@@ -22,78 +20,71 @@ const SlidersForm = (props) => {
       name: "",
       type: "",
       typeId: "",
-      image: []
+      image: [],
     }
   );
   //======================================================================
-  const [collection, setCollection] = useState([])
+  const [collection, setCollection] = useState([]);
   useEffect(() => {
-    getCollection().then(res => setCollection(res.data.data.data))
-
+    getCollection().then((res) => setCollection(res.data.data.data));
   }, []);
-  let collectionName = []
-  collectionName = collection.map(x => {
-    return (x.name)
-  })
+  let collectionName = [];
+  collectionName = collection.map((x) => {
+    return x.name;
+  });
   //======================================================================
-  const [category, setCategory] = useState([])
+  const [category, setCategory] = useState([]);
   useEffect(() => {
-
-    getCategory().then(res => setCategory(res.data.data.data))
-
+    getCategory().then((res) => setCategory(res.data.data.data));
   }, []);
-  let categoryName = []
-  categoryName = category.map(x => {
-    return (x.name)
-  })
+  let categoryName = [];
+  categoryName = category.map((x) => {
+    return x.name;
+  });
   //======================================================================
-  const [variety, setVariety] = useState([])
+  const [variety, setVariety] = useState([]);
   useEffect(() => {
-
-    getVariety().then(res => setVariety(res.data.data.data))
-
+    getVariety().then((res) => setVariety(res.data.data.data));
   }, []);
-  let varietyName = []
-  varietyName = variety.map(x => {
-    return (x.name)
-  })
+  let varietyName = [];
+  varietyName = variety.map((x) => {
+    return x.name;
+  });
   //======================================================================
-  const [item, setItem] = useState([])
+  const [item, setItem] = useState([]);
   useEffect(() => {
-    getItem().then(res => setItem(res.data.data.data))
-
-
+    getItem().then((res) => setItem(res.data.data.data));
   }, []);
-  let itemName = []
-  itemName = item.map(x => {
-    return (x.name)
-  })
+  let itemName = [];
+  itemName = item.map((x) => {
+    return x.name;
+  });
   //======================================================================
-  console.log(collectionName)
-  console.log(categoryName)
+  console.log(collectionName);
+  console.log(categoryName);
 
-  console.log(varietyName)
-  console.log(itemName)
+  console.log(varietyName);
+  console.log(itemName);
   //======================================================================
 
   let type = [
     {
       name: "collection",
-      value: collectionName
+      value: collectionName,
     },
     {
       name: "category",
-      value: categoryName
+      value: categoryName,
     },
     {
       name: "variety",
-      value: varietyName
+      value: varietyName,
     },
     {
       name: "item",
-      value: itemName
+      value: itemName,
     },
-  ]
+  ];
   //======================================================================
   return (
     <div className="d-flex flex-column flex-root">
@@ -103,7 +94,6 @@ const SlidersForm = (props) => {
           id="kt_wrapper"
         >
           <Header />
-          <Dashboard />
           <div
             id="kt_content_container"
             class="d-flex flex-column-fluid align-items-start container-xxl"
@@ -132,7 +122,7 @@ const SlidersForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -156,7 +146,7 @@ const SlidersForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Type</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -185,7 +175,7 @@ const SlidersForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Type ID</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -204,8 +194,7 @@ const SlidersForm = (props) => {
                         >
                           <option class="form-control">Select option</option>;
                           {collection.map((x) => {
-                            if(Slider.type === "collection"){
-
+                            if (Slider.type === "collection") {
                               return (
                                 <option class="form-control" value={x.id}>
                                   {x.name}
@@ -213,9 +202,8 @@ const SlidersForm = (props) => {
                               );
                             }
                           })}
-                            {category.map((x) => {
-                            if(Slider.type === "category"){
-
+                          {category.map((x) => {
+                            if (Slider.type === "category") {
                               return (
                                 <option class="form-control" value={x.id}>
                                   {x.name}
@@ -223,9 +211,8 @@ const SlidersForm = (props) => {
                               );
                             }
                           })}
-                            {variety.map((x) => {
-                            if(Slider.type === "variety"){
-
+                          {variety.map((x) => {
+                            if (Slider.type === "variety") {
                               return (
                                 <option class="form-control" value={x.id}>
                                   {x.name}
@@ -233,9 +220,8 @@ const SlidersForm = (props) => {
                               );
                             }
                           })}
-                            {item.map((x) => {
-                            if(Slider.type === "item"){
-
+                          {item.map((x) => {
+                            if (Slider.type === "item") {
                               return (
                                 <option class="form-control" value={x.id}>
                                   {x.name}
@@ -247,7 +233,7 @@ const SlidersForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Slider Image</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -258,7 +244,7 @@ const SlidersForm = (props) => {
                         <input
                           type="file"
                           name="image"
-                          className="form-control form-control-lg form-control-solid"
+                          className="form-control form-control-lg form-control-solid mb-5"
                           placeholder="Choose File"
                           onChange={(e) =>
                             setSlider({
@@ -268,35 +254,6 @@ const SlidersForm = (props) => {
                           }
                         />
                       </div>
-
-                      {/* <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Slider Image</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-                        <input
-                          type="text"
-                          name="image"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Choose File"
-                          onChange={(e) =>
-                            setSlider({
-                              ...Slider,
-                              image: e.target.value,
-                            })
-                          }
-                        />
-                      </div> */}
-
-                      {/* <button
-                      onClick={(e)=>{
-                        e.preventDefault();
-                        console.log(Slider)}}
-                      >Click me </button> */}
 
                       <AddUpdateSpinner
                         update={isUpdate ? true : false}

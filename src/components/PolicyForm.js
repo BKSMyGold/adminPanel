@@ -63,7 +63,7 @@ const PolicyForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Description</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -87,23 +87,11 @@ const PolicyForm = (props) => {
                           value={policy.description}
                         />
 
-                        {/* <input
-                          type="text"
-                          name="description"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Description"
-                          onChange={(e) =>
-                            setPolicy({
-                              ...policy,
-                              description: e.target.value,
-                            })
-                          }
-                          value={policy.description}
-                        /> */}
+                    
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Title</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -114,7 +102,6 @@ const PolicyForm = (props) => {
                         <select
                           class="form-control"
                           value={policy.title}
-
                           onChange={(e) =>
                             setPolicy({
                               ...policy,
@@ -151,7 +138,7 @@ const PolicyForm = (props) => {
                       </div>
 
                       <div contenteditable="true">
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Consignment</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -161,9 +148,8 @@ const PolicyForm = (props) => {
                         </label>
                         <select
                           name="consignmentRequired"
-                          class="form-control"
+                          class="form-control mb-5"
                           value={policy.consignmentRequired}
-
                           onChange={(e) =>
                             setPolicy({
                               ...policy,
@@ -172,25 +158,15 @@ const PolicyForm = (props) => {
                           }
                         >
                           <option class="form-control">Select option</option>;
-                          <option class="form-control" value="true">Yes</option>
-                          <option class="form-control" value="false">No</option>
+                          <option class="form-control" value="true">
+                            Yes
+                          </option>
+                          <option class="form-control" value="false">
+                            No
+                          </option>
                         </select>
                       </div>
 
-                      {/* <div>
-                        <br />
-                        <button
-                          className="btn btn-lg btn-primary"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            isUpdate
-                              ? console.log({ ...policy })
-                              : console.log({ ...policy });
-                          }}
-                        >
-                          {isUpdate ? "Update Metal" : "Add Metal"}
-                        </button>
-                      </div> */}
                       <AddUpdateSpinner
                         update={isUpdate ? true : false}
                         collection={policy}

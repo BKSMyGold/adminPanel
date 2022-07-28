@@ -59,7 +59,7 @@ const CategoryForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -70,7 +70,7 @@ const CategoryForm = (props) => {
                         <input
                           type="text"
                           name="name"
-                          className="form-control form-control-lg form-control-solid"
+                          className="form-control form-control-lg form-control-solid mb-5 mt-5"
                           placeholder="Enter Category Name"
                           onChange={(e) =>
                             setCategory({
@@ -81,80 +81,14 @@ const CategoryForm = (props) => {
                           value={category.name}
                         />
                       </div>
-                      {/* <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Category Images</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-                        <input
-                          type="file"
-                          name="video"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Choose File"
-                          multiple={true}
-                          onChange={(e) => {
-                            setCategory({
-                              ...category,
-                              images: e.target.files,
-                            });
-                          }}
-                        />
-                      </div>
 
-                      <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Category Video</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-                        <input
-                          type="file"
-                          name="video"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Choose File"
-                          onChange={(e) => {
-                            setCategory({
-                              ...category,
-                              video: e.target.files[0],
-                            });
-                          }}
-                        />
-                      </div> */}
-
-                      <div>
-                        <br />
-                        {/* <button
-                          className="btn btn-lg btn-primary"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            if (isValidCategory({ ...category })) {
-                              isUpdate
-                                ? updateCategory({ ...category }).then(() => {
-                                    navigate("/master/product-data/categories");
-                                  })
-                                : addCategory({ ...category }).then(() => {
-                                    navigate("/master/product-data/categories");
-                                  });
-                            }
-                          }}
-                        >
-                          {isUpdate ? "Update Category" : "Add Category"}
-                        </button> */}
-                        <AddUpdateSpinner
-                          update={isUpdate ? true : false}
-                          collection={category}
-                          adding={addCategory}
-                          updating={updateCategory}
-                          url={"/master/product-data/categories"}
-                        />
-                      </div>
+                      <AddUpdateSpinner
+                        update={isUpdate ? true : false}
+                        collection={category}
+                        adding={addCategory}
+                        updating={updateCategory}
+                        url={"/master/product-data/categories"}
+                      />
                     </form>
                   </div>
                   {/*end::Table container*/}

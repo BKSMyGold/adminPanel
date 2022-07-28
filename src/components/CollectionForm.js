@@ -2,23 +2,19 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
-import Dashboard from "../screens/dashboard";
-import { isValidCollection } from "../Validator";
 import AddUpdateSpinner from "../AddUpdateSpinner";
 import {addCollection, updateCollection} from "../APIs_Hai/Collection"
 
 const CollectionForm = (props) => {
   let location = useLocation();
 
-  let navigate = useNavigate();
 
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
 
   const [Collection, setCollection] = useState(
     location?.state ?? {
       name: "",
-      // images: [],
-      // video: "",
+    
     }
   );
 
@@ -59,7 +55,7 @@ const CollectionForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -70,7 +66,7 @@ const CollectionForm = (props) => {
                         <input
                           type="text"
                           name="name"
-                          className="form-control form-control-lg form-control-solid"
+                          className="form-control form-control-lg form-control-solid mb-5"
                           placeholder="Enter Collection Name"
                           onChange={(e) =>
                             setCollection({

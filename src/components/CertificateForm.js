@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import AddUpdateSpinner from "../AddUpdateSpinner";
-import { addCertificate,updateCertificate } from "../APIs_Hai/Certificate";
+import { addCertificate, updateCertificate } from "../APIs_Hai/Certificate";
 //===================================================================================
 const CertiFicateForm = (props) => {
   //===================================================================================
@@ -13,8 +13,7 @@ const CertiFicateForm = (props) => {
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
   const [certificate, setCertificate] = useState(
     location?.state ?? {
-        name: "",
-      
+      name: "",
     }
   );
   //===================================================================================
@@ -55,7 +54,7 @@ const CertiFicateForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Certificate Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -66,7 +65,7 @@ const CertiFicateForm = (props) => {
                         <input
                           type="text"
                           name="name"
-                          className="form-control form-control-lg form-control-solid"
+                          className="form-control form-control-lg form-control-solid mb-5"
                           placeholder="Enter Certificate Name"
                           onChange={(e) =>
                             setCertificate({
@@ -74,25 +73,10 @@ const CertiFicateForm = (props) => {
                               name: e.target.value,
                             })
                           }
-                            value={certificate.name}                          
+                          value={certificate.name}
                         />
                       </div>
-                      
 
-                      {/* <div>
-                        <br />
-                        <button
-                          className="btn btn-lg btn-primary"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            isUpdate
-                              ? console.log({ ...clarity })
-                              : console.log({ ...clarity })
-                          }}
-                        >
-                          {isUpdate ? "Update Clarity" : "Add Clarity"}
-                        </button>
-                      </div> */}
                       <AddUpdateSpinner
                         update={isUpdate ? true : false}
                         collection={certificate}
@@ -102,13 +86,9 @@ const CertiFicateForm = (props) => {
                       />
                     </form>
                   </div>
-                  {/*end::Table container*/}
                 </div>
-                {/*begin::Body*/}
               </div>
-              {/*end::Tables Widget 13*/}
             </div>
-            {/*end::Post*/}
           </div>
           <Footer />
         </div>

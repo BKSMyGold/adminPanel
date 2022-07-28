@@ -25,10 +25,6 @@ const StandardPlanForm = (props) => {
       type: "standard",
       mode: "",
       min: 0,
-      // lockinPeriod: 0,
-      // maxSkipCount: 0,
-      // maxUnpaidSkipCount: 0,
-      // maxUnpaidInvestment: 0,
     }
   );
   //===========================================================================
@@ -77,7 +73,7 @@ const StandardPlanForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -100,7 +96,7 @@ const StandardPlanForm = (props) => {
                         />
                       </div>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Cycle Period</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -120,7 +116,7 @@ const StandardPlanForm = (props) => {
                             })
                           }
                         >
-                          <option>_____</option>
+                          <option>Choose Cycle Period</option>
                           {cycleperiods.map((cycleperiods) => (
                             <option value={cycleperiods.id}>
                               {cycleperiods.name}
@@ -130,7 +126,7 @@ const StandardPlanForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Duration</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -153,111 +149,8 @@ const StandardPlanForm = (props) => {
                         />
                       </div>
 
-
-                      {/* <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Locking Period</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Set the Locking Period"
-                          ></i>
-                        </label>
-                        <input
-                          type="number"
-                          name="lockinPeriod"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter the LockingPeriod"
-                          onChange={(e) =>
-                            setPlan({
-                              ...plan,
-                              lockinPeriod: Number(e.target.value),
-                            })
-                          }
-                          value={plan.lockinPeriod}
-                        />
-                      </div>
-
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Max Skip Count</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify max Skip Count"
-                          ></i>
-                        </label>
-                        <input
-                          type="number"
-                          name="maxSkipCount"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Max Skip Count"
-                          onChange={(e) =>
-                            setPlan({
-                              ...plan,
-                              maxSkipCount: Number(e.target.value),
-                            })
-                          }
-                          value={plan.maxSkipCount}
-                        />
-                      </div>
-
-                      <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Max Unpaid Skip Count</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify max Unpaid Skip Count"
-                          ></i>
-                        </label>
-                        <input
-                          type="number"
-                          name="maxUnpaidSkipCount"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Max Unpaid Skip Count"
-                          onChange={(e) =>
-                            setPlan({
-                              ...plan,
-                              maxUnpaidSkipCount: Number(e.target.value),
-                            })
-                          }
-                          value={plan.maxUnpaidSkipCount}
-                        />
-                      </div>
-
-
-                      <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Max UnpaidI nvestment</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify Max Unpaid Investment"
-                          ></i>
-                        </label>
-                        <input
-                          type="number"
-                          name="maxUnpaidInvestment"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Max Unpaid Investment"
-                          onChange={(e) =>
-                            setPlan({
-                              ...plan,
-                              maxUnpaidInvestment: Number(e.target.value),
-                            })
-                          }
-                          value={plan.maxUnpaidInvestment}
-                        />
-                      </div> */}
-
-
-
-
-
-
-                      <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Minimum</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -281,7 +174,7 @@ const StandardPlanForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Select Mode</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -291,10 +184,9 @@ const StandardPlanForm = (props) => {
                         </label>
                         <select
                           name="mode"
-                          className="form-control form-control-lg form-control-solid"
+                          className="form-control form-control-lg form-control-solid mb-5"
                           placeholder="Enter mode"
                           value={plan.mode}
-
                           onChange={(e) =>
                             setPlan({
                               ...plan,
@@ -302,37 +194,12 @@ const StandardPlanForm = (props) => {
                             })
                           }
                         >
-                          <option>_____</option>
+                          <option>Select Mode</option>
                           <option value="weight">By Weight</option>
                           <option value="value">By Value</option>
                         </select>
                       </div>
 
-                      {/* <div>
-                        <br/>
-                        <button className="btn btn-lg btn-primary"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            if (isValidStandardPlan({ ...StandardPlan })) {
-                              isUpdate
-                                ? updateStandardPlan({ ...StandardPlan }).then(
-                                    () => {
-                                      navigate(
-                                        "/master/plans/standard-plans/"
-                                      );
-                                    }
-                                  )
-                                : addStandardPlan({ ...StandardPlan }).then(() => {
-                                    navigate(
-                                      "/master/plans/standard-plans/"
-                                    );
-                                  });
-                            }
-                          }}
-                        >
-                          {isUpdate ? "Update Standard Plan" : "Add Standard Plan"}
-                        </button>
-                      </div> */}
                       <AddUpdateSpinner
                         update={isUpdate ? true : false}
                         collection={plan}
@@ -342,13 +209,9 @@ const StandardPlanForm = (props) => {
                       />
                     </form>
                   </div>
-                  {/*end::Table container*/}
                 </div>
-                {/*begin::Body*/}
               </div>
-              {/*end::Tables Widget 13*/}
             </div>
-            {/*end::Post*/}
           </div>
           <Footer />
         </div>

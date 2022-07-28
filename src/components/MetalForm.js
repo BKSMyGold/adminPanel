@@ -87,7 +87,7 @@ const MetalForm = (props) => {
                         />
                       </div>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mt-5">
                           <span class="required">Metal Icon</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -99,7 +99,7 @@ const MetalForm = (props) => {
                           type="file"
                           name="icon"
                           multiple
-                          className="form-control form-control-lg form-control-solid"
+                          className="form-control form-control-lg form-control-solid mb-5"
                           placeholder="Choose File"
                           onChange={(e) => {
                             setMetal({

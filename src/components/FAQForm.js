@@ -17,7 +17,7 @@ const FAQForm = (props) => {
   const [faq, setFaq] = useState(
     location?.state ?? {
       answer: "",
-      question:"",
+      question: "",
     }
   );
   //===================================================================================
@@ -58,7 +58,7 @@ const FAQForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required"> FAQ Question</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -77,13 +77,12 @@ const FAQForm = (props) => {
                               question: e.target.value,
                             })
                           }
-                            value={faq.question}                          
+                          value={faq.question}
                         />
                       </div>
-                      
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">FAQ Answer</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -94,7 +93,7 @@ const FAQForm = (props) => {
                         <input
                           type="text"
                           name="answer"
-                          className="form-control form-control-lg form-control-solid"
+                          className="form-control form-control-lg form-control-solid mb-5"
                           placeholder="Enter FAQ Answer"
                           onChange={(e) =>
                             setFaq({
@@ -102,26 +101,9 @@ const FAQForm = (props) => {
                               answer: e.target.value,
                             })
                           }
-                            value={faq.answer}                          
+                          value={faq.answer}
                         />
                       </div>
-                     
-
-
-                      {/* <div>
-                        <br />
-                        <button
-                          className="btn btn-lg btn-primary"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            isUpdate
-                              ? console.log({ ...clarity })
-                              : console.log({ ...clarity })
-                          }}
-                        >
-                          {isUpdate ? "Update Clarity" : "Add Clarity"}
-                        </button>
-                      </div> */}
                       <AddUpdateSpinner
                         update={isUpdate ? true : false}
                         collection={faq}

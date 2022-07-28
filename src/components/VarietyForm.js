@@ -5,7 +5,7 @@ import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidVariety } from "../Validator";
 import AddUpdateSpinner from "../AddUpdateSpinner";
-import { addVariety,updateVariety } from "../APIs_Hai/Variety";
+import { addVariety, updateVariety } from "../APIs_Hai/Variety";
 
 const VarietyForm = (props) => {
   let location = useLocation();
@@ -59,7 +59,7 @@ const VarietyForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -70,7 +70,7 @@ const VarietyForm = (props) => {
                         <input
                           type="text"
                           name="name"
-                          className="form-control form-control-lg form-control-solid"
+                          className="form-control form-control-lg form-control-solid mb-5"
                           placeholder="Enter Variety Name"
                           value={variety.name}
                           onChange={(e) =>
@@ -81,79 +81,14 @@ const VarietyForm = (props) => {
                           }
                         />
                       </div>
-                      {/* <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Variety Images</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-                        <input
-                          type="file"
-                          name="img1"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Choose File"
-                          multiple={true}
-                          onChange={(e) =>
-                            setVariety({
-                              ...variety,
-                              images: e.target.files,
-                            })
-                          }
-                        />
-                      </div>
-                      <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Variety Video</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-                        <input
-                          type="file"
-                          name="video"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Choose File"
-                          onChange={(e) =>
-                            setVariety({
-                              ...variety,
-                              video: e.target.files[0],
-                            })
-                          }
-                        />
-                      </div> */}
 
-                      <div>
-                        <br />
-                        {/* <button
-                          className="btn btn-lg btn-primary"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            if (isValidVariety({ ...variety })) {
-                              isUpdate
-                                ? updateVariety({ ...variety }).then(() => {
-                                    navigate("/master/product-data/categories");
-                                  })
-                                : addVariety({ ...variety }).then(() => {
-                                    navigate("/master/product-data/categories");
-                                  });
-                            }
-                          }}
-                        >
-                          {isUpdate ? "Update Variety" : "Add Variety"}
-                        </button> */}
-                        <AddUpdateSpinner
-                          update={isUpdate ? true : false}
-                          collection={variety}
-                          adding={addVariety}
-                          updating={updateVariety}
-                          url={"/master/product-data/varieties"}
-                        />
-                      </div>
+                      <AddUpdateSpinner
+                        update={isUpdate ? true : false}
+                        collection={variety}
+                        adding={addVariety}
+                        updating={updateVariety}
+                        url={"/master/product-data/varieties"}
+                      />
                     </form>
                   </div>
                   {/*end::Table container*/}

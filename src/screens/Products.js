@@ -7,7 +7,13 @@ import { getProduct, deleteProduct } from "../APIs_Hai/Product";
 import { Link } from "react-router-dom";
 import DeleteSpinner from "../delete";
 import LinearProgress from "@mui/material/LinearProgress";
+import CircularProgress from "@mui/material/CircularProgress";
+
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+
 //===========================================================================================================
 const ItemDetails = (props) => {
   //===========================================================================================================
@@ -23,10 +29,25 @@ const ItemDetails = (props) => {
     });
   }, []);
   console.log(product);
-  
-
 
   //====================================================================
+  const [open, setOpen] = React.useState("");
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    borderRadius: 5,
+    boxShadow: "-3px 0px 10px black",
+    p: 4,
+  };
+
+  //====================================================================
+
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -81,6 +102,7 @@ const ItemDetails = (props) => {
                             Style Composition
                           </th>
                           <th class="min-w-120px">Purity Composition</th>
+                          <th class="min-w-120px">Description</th>
                           <th class="min-w-120px">Video</th>
                           <th class="min-w-120px">Image</th>
 
@@ -109,14 +131,23 @@ const ItemDetails = (props) => {
 
                       <tbody>
                         {loader ? (
-                          <Box sx={{ width: "100vw" }}>
-                            <LinearProgress />
+                          <Box
+                            sx={{
+                              display: "flex",
+                           
+                            }}
+                          >
+                            <CircularProgress />
                           </Box>
                         ) : (
                           product?.map((itemDetail) => (
                             <tr class="fw-bolder text-center">
                               <td>{itemDetail.id}</td>
-                              <td>{itemDetail.collections}</td>
+                              <td>
+                                {itemDetail.collections.map((x) => (
+                                  <td>{x},</td>
+                                ))}
+                              </td>
                               <td>
                                 {itemDetail.category.map((x) => {
                                   return <td>{x}</td>;
@@ -124,15 +155,15 @@ const ItemDetails = (props) => {
                               </td>
                               <td>
                                 {itemDetail.variety.map((x) => {
-                                  return <td>{x}</td>;
+                                  return <td>{x},</td>;
                                 })}
                               </td>
                               <td>{itemDetail.item}</td>
-                              <td>{itemDetail.grossWeight}</td>
+                              <td>{itemDetail.grossWeight} gm</td>
                               <td>{itemDetail.sku}</td>
                               <td>{itemDetail.hli}</td>
-                              <td>{itemDetail.width}</td>
-                              <td>{itemDetail.height}</td>
+                              <td>{itemDetail.width} mm</td>
+                              <td>{itemDetail.height} mm</td>
                               <td class="bg-dark text-light">
                                 {itemDetail.styleComposition.map((x) => {
                                   return (
@@ -148,7 +179,7 @@ const ItemDetails = (props) => {
                                       Style:
                                       <td>{x.style}</td>
                                       Weight:
-                                      <td>{x.weight}</td>
+                                      <td>{x.weight} gm</td>
                                     </tr>
                                   );
                                 })}
@@ -159,66 +190,90 @@ const ItemDetails = (props) => {
                                     <tr>
                                       Metal_Group:
                                       <td>{x.metalGroup}</td>
-                                      Weight :
-                                      <td>{x.weight}gm</td>
+                                      Weight :<td>{x.weight}gm</td>
                                     </tr>
                                   );
                                 })}
                               </td>
-                              {/* <td>
-                                {itemDetail.images.map((x) => {
-                                  return <img src={x} />;
-                                })}
-                              </td> */}
                               <td>
-                                <a href={itemDetail.video}>video</a>
+                                <Button
+                                  onClick={() =>
+                                    setOpen(itemDetail.description)
+                                  }
+                                >
+                                  Product Description
+                                </Button>
                               </td>
                               <td>
-                                
-                                {itemDetail.images.map(x=>(
-                                  <img src ={x}/>
+                                <a target="_blank" href={itemDetail.video}>
+                                  video
+                                </a>
+                              </td>
+                              <td>
+                                {itemDetail.images.map((x) => (
+                                  <img class="h-100px w-100px" src={x} />
                                 ))}
                               </td>
 
                               <td>
-                              
-                                  <Link
-                                    to={"/master/product-data/products/edit"}
-                                    state={itemDetail}
-                                  >
-                                    <span class="svg-icon svg-icon-3">
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                      >
-                                        <path
-                                          opacity="0.3"
-                                          d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z"
-                                          fill="black"
-                                        />
-                                        <path
-                                          d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z"
-                                          fill="black"
-                                        />
-                                      </svg>
-                                    </span>
-                                    {/*end::Svg Icon*/}
-                                  </Link>
-                               
+                                <Link
+                                  to={"/master/product-data/products/edit"}
+                                  state={itemDetail}
+                                >
+                                  <span class="svg-icon svg-icon-3">
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="24"
+                                      height="24"
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                    >
+                                      <path
+                                        opacity="0.3"
+                                        d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z"
+                                        fill="black"
+                                      />
+                                      <path
+                                        d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z"
+                                        fill="black"
+                                      />
+                                    </svg>
+                                  </span>
+                                </Link>
+
                                 {perma.has("delete_product") ? (
-                                <DeleteSpinner
-                                  collection={itemDetail}
-                                  deleting={deleteProduct}
-                                  url={"/master/product-data/products/"}
-                                />
-                                 ) : null} 
+                                  <DeleteSpinner
+                                    collection={itemDetail}
+                                    deleting={deleteProduct}
+                                    url={"/master/product-data/products/"}
+                                  />
+                                ) : null}
                               </td>
                             </tr>
                           ))
                         )}
+                        <Modal
+                          open={!!open}
+                          onClose={handleClose}
+                          aria-labelledby="modal-modal-title"
+                          aria-describedby="modal-modal-description"
+                        >
+                          <Box sx={style}>
+                            <Typography
+                              id="modal-modal-title"
+                              variant="h6"
+                              component="h2"
+                            >
+                              Description
+                            </Typography>
+                            <Typography
+                              id="modal-modal-description"
+                              sx={{ mt: 2 }}
+                            >
+                              {open}
+                            </Typography>
+                          </Box>
+                        </Modal>
                       </tbody>
                       {/*end::Table body*/}
                     </table>

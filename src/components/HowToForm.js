@@ -5,7 +5,7 @@ import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidCollection } from "../Validator";
 import axios from "axios";
-import { addVideo,updateVideo } from "../APIs_Hai/Video";
+import { addVideo, updateVideo } from "../APIs_Hai/Video";
 import AddUpdateSpinner from "../AddUpdateSpinner";
 //=====================================================================
 const HowToForm = (props) => {
@@ -16,13 +16,13 @@ const HowToForm = (props) => {
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
   const [howTo, setHowTo] = useState(
     location?.state ?? {
-       title:"",
-       language:"",
-       category:"",
-       video:[],
+      title: "",
+      language: "",
+      category: "",
+      video: [],
     }
   );
-//=====================================================================
+  //=====================================================================
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -30,7 +30,7 @@ const HowToForm = (props) => {
           className="wrapper d-flex flex-column flex-row-fluid"
           id="kt_wrapper"
         >
-          <Header/>
+          <Header />
           {/* <Dashboard/> */}
           <div
             id="kt_content_container"
@@ -60,7 +60,7 @@ const HowToForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Title</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -83,7 +83,7 @@ const HowToForm = (props) => {
                         />
                       </div>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Language</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -91,28 +91,28 @@ const HowToForm = (props) => {
                             title="Specify the Language of the Video"
                           ></i>
                         </label>
-                       
+
                         <select
-                        type="text"
-                        name="language"
-                        className="form-control form-control-lg form-control-solid"
-                        placeholder="Select Language"
-                        defaultValue={howTo.language}
-                        onChange={(e) =>
-                          setHowTo({
-                            ...howTo,
-                            language: e.target.value,
-                          })
-                        }
+                          type="text"
+                          name="language"
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Select Language"
+                          defaultValue={howTo.language}
+                          onChange={(e) =>
+                            setHowTo({
+                              ...howTo,
+                              language: e.target.value,
+                            })
+                          }
                         >
-                            <option>__Choose Language__</option>
-                            <option value="hindi">Hindi</option>
-                            <option value="english">English</option>
+                          <option>__Choose Language__</option>
+                          <option value="hindi">Hindi</option>
+                          <option value="english">English</option>
                         </select>
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Category</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -121,26 +121,26 @@ const HowToForm = (props) => {
                           ></i>
                         </label>
                         <select
-                        type="text"
-                        name="category"
-                        className="form-control form-control-lg form-control-solid"
-                        placeholder="Select Category"
-                        defaultValue={howTo.category}
-                        onChange={(e) =>
-                          setHowTo({
-                            ...howTo,
-                            category: e.target.value,
-                          })
-                        }
+                          type="text"
+                          name="category"
+                          className="form-control form-control-lg form-control-solid"
+                          placeholder="Select Category"
+                          defaultValue={howTo.category}
+                          onChange={(e) =>
+                            setHowTo({
+                              ...howTo,
+                              category: e.target.value,
+                            })
+                          }
                         >
-                            <option>__Choose Category__</option>
-                            <option value="testimonial">Testimonials</option>
-                            <option value="how_to">How To</option>
+                          <option>__Choose Category__</option>
+                          <option value="testimonial">Testimonials</option>
+                          <option value="how_to">How To</option>
                         </select>
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">How To Video</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -151,7 +151,7 @@ const HowToForm = (props) => {
                         <input
                           type="file"
                           name="video"
-                          className="form-control form-control-lg form-control-solid"
+                          className="form-control form-control-lg form-control-solid mb-5"
                           placeholder="Choose File"
                           defaultValue={howTo.video}
                           onChange={(e) => {
@@ -163,34 +163,6 @@ const HowToForm = (props) => {
                         />
                       </div>
 
-                      {/* <div>
-                        <br />
-                        <button
-                          className="btn btn-lg btn-primary"
-                          onClick={(e) => {
-                            e.preventDefault();
-                           
-
-                            isUpdate    
-
-                              ?axios.put(`http://13.59.57.74:5000/api/video/${howTo.id}`, howTo).then(()=>{navigate("/master/settings/how-to-videos");})
-
-
-                        
-                            //    updatecollection({ ...howTo }).then(() => {
-                            //     navigate("master/settings/how-to-videos/");
-                            //             })
-                              : axios.post("http://13.59.57.74:5000/api/video/", howTo);
-                                navigate("/master/settings/how-to-videos");
-                              
-                            //   addcollection({ ...howTo }).then(() => {
-                            //       navigate("/master/product-data/collections");
-                            //     });
-                          }}
-                        >
-                          {isUpdate ? "Update HowTo" : "Add HowTo"}
-                        </button>
-                      </div> */}
                       <AddUpdateSpinner
                         update={isUpdate ? true : false}
                         collection={howTo}

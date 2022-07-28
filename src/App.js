@@ -832,6 +832,37 @@ const App = () => {
             )
           }
         />
+         {/* ====================== Supplier ============================================ */}
+         <Route
+          path="/master/supplier"
+          element={
+            permissions.has("read_referral_type") ? (
+              <Supplier user={loggedInUser} />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/supplier/add"
+          element={
+            permissions.has("create_referral_type") ? (
+              <SupplierForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
+        <Route
+          path="/master/supplier/edit"
+          element={
+            permissions.has("update_referral_type") ? (
+              <SupplierForm />
+            ) : (
+              <NoAccessComponent user={loggedInUser} />
+            )
+          }
+        />
         {/*================================ Offers =================================================*/}
         <Route
           path="/master/product-data/offers"
@@ -1436,7 +1467,7 @@ const App = () => {
           }
         />
         {/* ------------------------------ Label  ------------------------------------------------------------------------------------------ */}
-        <Route
+        {/* <Route
           path="/master/label"
           element={
             permissions.has("read_referral_type") ? (
@@ -1465,38 +1496,8 @@ const App = () => {
               <NoAccessComponent user={loggedInUser} />
             )
           }
-        />
-           {/* ------------------------------ Supplier  ------------------------------------------------------------------------------------------ */}
-           <Route
-          path="/master/supplier"
-          element={
-            permissions.has("read_referral_type") ? (
-              <Supplier user={loggedInUser} />
-            ) : (
-              <NoAccessComponent user={loggedInUser} />
-            )
-          }
-        />
-        <Route
-          path="/master/supplier/add"
-          element={
-            permissions.has("create_referral_type") ? (
-              <SupplierForm />
-            ) : (
-              <NoAccessComponent user={loggedInUser} />
-            )
-          }
-        />
-        <Route
-          path="/master/supplier/edit"
-          element={
-            permissions.has("update_referral_type") ? (
-              <SupplierForm />
-            ) : (
-              <NoAccessComponent user={loggedInUser} />
-            )
-          }
-        />
+        /> */}
+          
         {/* ------------------------------ Reports  ------------------------------------------------------------------------------------------ */}
         {/*================================ Buy and Save Report =================================================*/}
         <Route

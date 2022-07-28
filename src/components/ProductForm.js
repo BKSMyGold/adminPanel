@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
-import Dashboard from "../screens/dashboard";
 import AddUpdateSpinner from "../AddUpdateSpinner";
 import { getCollection } from "../APIs_Hai/Collection";
 import { getCategory } from "../APIs_Hai/Category";
@@ -285,7 +284,7 @@ const ItemDetailsForm = (props) => {
           id="kt_wrapper"
         >
           <Header />
-          <Dashboard />
+
           <div
             id="kt_content_container"
             class="d-flex flex-column-fluid align-items-start container-xxl"
@@ -318,7 +317,7 @@ const ItemDetailsForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Metal Group</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -349,7 +348,7 @@ const ItemDetailsForm = (props) => {
 
                       {/* --------------------------------------- Purity Composition ----------------------------------------------  */}
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Purity Composition</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -360,7 +359,7 @@ const ItemDetailsForm = (props) => {
                         {product.purityComposition.map((x, index) => {
                           return (
                             <>
-                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                                 <span class="required">Metal Group</span>
                                 <i
                                   class="fas fa-exclamation-circle ms-2 fs-7"
@@ -389,7 +388,7 @@ const ItemDetailsForm = (props) => {
                                 })}
                               </select>
 
-                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                                 <span class="required">Weight</span>
                                 <i
                                   class="fas fa-exclamation-circle ms-2 fs-7"
@@ -401,7 +400,7 @@ const ItemDetailsForm = (props) => {
                                 type="number"
                                 name="weight"
                                 value={x.weight}
-                                className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid mb-5"
                                 placeholder="Enter weight"
                                 // value={x.weight}
                                 onChange={(event) =>
@@ -409,7 +408,7 @@ const ItemDetailsForm = (props) => {
                                 }
                               />
                               <button
-                                class="btn btn-warning"
+                                class="btn btn-warning mx-3"
                                 onClick={removeFields}
                               >
                                 Remove
@@ -424,7 +423,7 @@ const ItemDetailsForm = (props) => {
                       {/* --------------------------------------- Style Composition ----------------------------------------------  */}
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Style Composition</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -435,7 +434,7 @@ const ItemDetailsForm = (props) => {
                         {product.styleComposition.map((x, index) => {
                           return (
                             <>
-                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                                 <span class="required">Style</span>
                                 <i
                                   class="fas fa-exclamation-circle ms-2 fs-7"
@@ -464,7 +463,7 @@ const ItemDetailsForm = (props) => {
                                 })}
                               </select>
 
-                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                                 <span class="required">Weight</span>
                                 <i
                                   class="fas fa-exclamation-circle ms-2 fs-7"
@@ -483,7 +482,7 @@ const ItemDetailsForm = (props) => {
                                 }
                               />
 
-                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                                 <span class="required">clarity</span>
                                 <i
                                   class="fas fa-exclamation-circle ms-2 fs-7"
@@ -512,7 +511,7 @@ const ItemDetailsForm = (props) => {
                                 })}
                               </select>
 
-                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                                 <span class="required">colour</span>
                                 <i
                                   class="fas fa-exclamation-circle ms-2 fs-7"
@@ -541,7 +540,7 @@ const ItemDetailsForm = (props) => {
                                 })}
                               </select>
 
-                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                                 <span class="required">cut</span>
                                 <i
                                   class="fas fa-exclamation-circle ms-2 fs-7"
@@ -570,7 +569,7 @@ const ItemDetailsForm = (props) => {
                                 })}
                               </select>
 
-                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                                 <span class="required">Certificate</span>
                                 <i
                                   class="fas fa-exclamation-circle ms-2 fs-7"
@@ -590,7 +589,7 @@ const ItemDetailsForm = (props) => {
                                 
 
 
-                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                                 <span class="required">Shape</span>
                                 <i
                                   class="fas fa-exclamation-circle ms-2 fs-7"
@@ -620,7 +619,7 @@ const ItemDetailsForm = (props) => {
                                 })}
                               </select>
 
-                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                                 <span class="required">Amount On</span>
                                 <i
                                   class="fas fa-exclamation-circle ms-2 fs-7"
@@ -648,7 +647,7 @@ const ItemDetailsForm = (props) => {
                                 </option>
                               </select>
 
-                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                                 <span class="required">Piece Count</span>
                                 <i
                                   class="fas fa-exclamation-circle ms-2 fs-7"
@@ -666,7 +665,7 @@ const ItemDetailsForm = (props) => {
                                 }
                               />
 
-                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                                 <span class="required">Sale Rate</span>
                                 <i
                                   class="fas fa-exclamation-circle ms-2 fs-7"
@@ -684,7 +683,7 @@ const ItemDetailsForm = (props) => {
                                 }
                               />
 
-                              <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                              <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                                 <span class="required">Size</span>
                                 <i
                                   class="fas fa-exclamation-circle ms-2 fs-7"
@@ -693,7 +692,7 @@ const ItemDetailsForm = (props) => {
                                 ></i>
                               </label>
                               <input
-                                class="form-control"
+                                class="form-control mb-5"
                                 name="size"
                                 type="text"
                                 value={x.size}
@@ -703,7 +702,7 @@ const ItemDetailsForm = (props) => {
                               />
 
                               <button
-                                class="btn btn-warning"
+                                class="btn btn-warning mx-3"
                                 onClick={removeFields1}
                               >
                                 Remove
@@ -717,7 +716,7 @@ const ItemDetailsForm = (props) => {
                       </div>
                       {/* -------------------------------------------=================================================================================== */}
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Collection Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -745,7 +744,7 @@ const ItemDetailsForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Category</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -771,7 +770,7 @@ const ItemDetailsForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Variety</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -797,7 +796,7 @@ const ItemDetailsForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Item</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -811,6 +810,7 @@ const ItemDetailsForm = (props) => {
                           class="form-control"
                           onChange={handleItem}
                         >
+                          <option>Choose Item</option>
                           {item.map((x) => (
                             <option
                               selected={product.item.includes(x.name)}
@@ -823,7 +823,7 @@ const ItemDetailsForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Description</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -847,7 +847,7 @@ const ItemDetailsForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Piece Count</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -871,7 +871,7 @@ const ItemDetailsForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Product Type</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -903,7 +903,7 @@ const ItemDetailsForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Gross Weight</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -926,7 +926,7 @@ const ItemDetailsForm = (props) => {
                         />
                       </div>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">SKU</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -949,7 +949,7 @@ const ItemDetailsForm = (props) => {
                         />
                       </div>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5" >
                           <span class="required">HLI</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -972,7 +972,7 @@ const ItemDetailsForm = (props) => {
                         />
                       </div>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Width</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -995,7 +995,7 @@ const ItemDetailsForm = (props) => {
                         />
                       </div>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Height</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -1019,7 +1019,7 @@ const ItemDetailsForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Video</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -1042,7 +1042,7 @@ const ItemDetailsForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Images</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -1050,12 +1050,11 @@ const ItemDetailsForm = (props) => {
                             title="Specify the Images"
                           ></i>
                         </label>
-                        <img src={product.images[0]} />
                         <input
                           type="file"
                           name="images"
                           multiple
-                          className="form-control form-control-lg form-control-solid"
+                          className="form-control form-control-lg form-control-solid mb-5"
                           placeholder="Choose Images"
                           onChange={(e) =>
                             setProduct({
@@ -1064,21 +1063,6 @@ const ItemDetailsForm = (props) => {
                             })
                           }
                         />
-                      </div>
-
-                      <div>
-                        <br />
-                        <button
-                          className="btn btn-lg btn-primary"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            console.log(product);
-                          }}
-                        >
-                          {isUpdate
-                            ? "Update Item Details"
-                            : "Add Item Details"}
-                        </button>
                       </div>
 
                       <AddUpdateSpinner

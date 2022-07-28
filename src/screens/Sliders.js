@@ -70,7 +70,7 @@ const Sliders = (props) => {
                           <th class="min-w-140px">Type</th>
                           <th class="min-w-140px">Sub Type</th>
                           <th class="min-w-120px">Image</th>
-                          <th class="min-w-100px text-end">Actions</th>
+                          <th class="min-w-100px text-center">Actions</th>
                         </tr>
                       </thead>
                       {/*end::Table head*/}
@@ -118,7 +118,7 @@ const Sliders = (props) => {
                               <td>
                                 <img
                                   src={slider.image}
-                                  class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6 h-150px w-150px"
+                                  class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6 h-150px w-250px"
                                   rel="noopener noreferrer"
                                 />
                               </td>

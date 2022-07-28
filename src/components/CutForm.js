@@ -58,7 +58,7 @@ const ColourForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Cut Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -69,7 +69,7 @@ const ColourForm = (props) => {
                         <input
                           type="text"
                           name="cut"
-                          className="form-control form-control-lg form-control-solid"
+                          className="form-control form-control-lg form-control-solid mb-5"
                           placeholder="Enter Colour Name"
                           onChange={(e) =>
                             setCut({

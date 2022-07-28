@@ -64,7 +64,7 @@ const LoanInterestRatesForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Minimum Month</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -89,7 +89,7 @@ const LoanInterestRatesForm = (props) => {
 
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5" >
                           <span class="required">Maximum Month</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -114,7 +114,7 @@ const LoanInterestRatesForm = (props) => {
 
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Interest</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -125,7 +125,7 @@ const LoanInterestRatesForm = (props) => {
                         <input
                           type="number"
                           name="interest"
-                          className="form-control form-control-lg form-control-solid"
+                          className="form-control form-control-lg form-control-solid mb-5"
                           placeholder="Enter the Interest Rate"
                           onChange={(e) =>
                             setLoanInterestRates({
@@ -137,21 +137,7 @@ const LoanInterestRatesForm = (props) => {
                         />
                       </div>
 
-                     
-                      {/* <div>
-                        <br />
-                        <button
-                          className="btn btn-lg btn-primary"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            isUpdate
-                              ? console.log({ ...loanInterestRates })
-                              : console.log({ ...loanInterestRates })
-                          }}
-                        >
-                          {isUpdate ? "Update loanInterestRates" : "Add loanInterestRates"}
-                        </button>
-                      </div> */}
+                  
                       <AddUpdateSpinner
                         update={isUpdate ? true : false}
                         collection={loanInterestRates}

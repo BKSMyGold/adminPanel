@@ -65,7 +65,7 @@ const[metalGroup, setMetalGroup] = useState([])
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Style Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -89,7 +89,7 @@ const[metalGroup, setMetalGroup] = useState([])
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Metal Group Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -98,7 +98,7 @@ const[metalGroup, setMetalGroup] = useState([])
                           ></i>
                         </label>
                         <select
-                          class="form-control"
+                          class="form-control mb-5"
                           onChange={(e) =>
                             setStyle({
                               ...style,

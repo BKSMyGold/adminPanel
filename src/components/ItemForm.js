@@ -5,7 +5,7 @@ import Footer from "../layouts/Footer";
 import Dashboard from "../screens/dashboard";
 import { isValidItem } from "../Validator";
 import AddUpdateSpinner from "../AddUpdateSpinner";
-import { addItem,updateItem } from "../APIs_Hai/Item";
+import { addItem, updateItem } from "../APIs_Hai/Item";
 
 const ItemForm = (props) => {
   let location = useLocation();
@@ -52,14 +52,13 @@ const ItemForm = (props) => {
                     </span>
                   </h3>
                 </div>
-                {/*end::Header*/}
-                {/*begin::Body*/}
+
                 <div class="card-body py-3">
                   {/*begin::Table container*/}
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Item Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -70,7 +69,7 @@ const ItemForm = (props) => {
                         <input
                           type="text"
                           name="name"
-                          className="form-control form-control-lg form-control-solid"
+                          className="form-control form-control-lg form-control-solid mb-5"
                           placeholder="Enter Item Name"
                           onChange={(e) =>
                             setItem({
@@ -81,90 +80,19 @@ const ItemForm = (props) => {
                           value={Item.name}
                         />
                       </div>
-                      {/* <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Images</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-                        <input
-                          type="file"
-                          name="images"
-                          multiple={true}
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Choose files"
-                          onChange={(e) =>
-                            setItem({
-                              ...Item,
-                              images: e.target.files,
-                            })
-                          }
-                          // value={Item.images}
-                        />
-                      </div>
-                      <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Videos</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-                        <input
-                          type="file"
-                          name="video"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Choose files"
-                          onChange={(e) =>
-                            setItem({
-                              ...Item,
-                              video: e.target.files[0],
-                            })
-                          }
-                          // value={Item.video}
-                        />
-                      </div> */}
 
-                      <div>
-                        <br />
-                        {/* <button
-                          className="btn btn-lg btn-primary"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            if (isValidItem({ ...Item })) {
-                              isUpdate
-                                ? updateItem({ ...Item }).then(() => {
-                                    navigate("/master/product-data/items");
-                                  })
-                                : addItem({ ...Item }).then(() => {
-                                    navigate("/master/product-data/items");
-                                  });
-                            }
-                          }}
-                        >
-                          {isUpdate ? "Update Item" : "Add Item"}
-                        </button> */}
-                        <AddUpdateSpinner
-                          update={isUpdate ? true : false}
-                          collection={Item}
-                          adding={ addItem }
-                          updating={  updateItem }
-                          url={"/master/product-data/items"}
-                        />
-                      </div>
+                      <AddUpdateSpinner
+                        update={isUpdate ? true : false}
+                        collection={Item}
+                        adding={addItem}
+                        updating={updateItem}
+                        url={"/master/product-data/items"}
+                      />
                     </form>
                   </div>
-                  {/*end::Table container*/}
                 </div>
-                {/*begin::Body*/}
               </div>
-              {/*end::Tables Widget 13*/}
             </div>
-            {/*end::Post*/}
           </div>
           <Footer />
         </div>

@@ -8,95 +8,87 @@ import { getAllProducts } from "../apis/products";
 import { getAllVarieties } from "../apis/Varieties";
 import { getAllItems } from "../apis/items";
 import AddUpdateSpinner from "../AddUpdateSpinner";
-import { getCollection } from "../APIs_Hai/Collection"
-import { getCategory } from "../APIs_Hai/Category"
-import { getVariety } from "../APIs_Hai/Variety"
-import { getItem } from "../APIs_Hai/Item"
+import { getCollection } from "../APIs_Hai/Collection";
+import { getCategory } from "../APIs_Hai/Category";
+import { getVariety } from "../APIs_Hai/Variety";
+import { getItem } from "../APIs_Hai/Item";
 import { addSlider, updateSlider } from "../APIs_Hai/Slider";
-import {addOffer ,updateOffer} from "../APIs_Hai/Offer"
+import { addOffer, updateOffer } from "../APIs_Hai/Offer";
 //==================================================================
 const OffersForm = (props) => {
   //==================================================================
   let location = useLocation();
   let navigate = useNavigate();
-//==================================================================
+  //==================================================================
   const [isUpdate, setIsUpdate] = useState(location?.state ? true : false);
   const [offer, setOffer] = useState(
     location?.state ?? {
       name: "",
       type: "",
       typeId: "",
-      value:0,
-      valueType:"",
+      value: 0,
+      valueType: "",
       image: [],
-
     }
   );
 
-//======================================================================
-  const [collection, setCollection] = useState([])
-  useEffect(() => {
-    getCollection().then(res => setCollection(res.data.data.data))
-
-  }, []);
-  let collectionName = []
-  collectionName = collection.map(x => {
-    return (x.name)
-  })
   //======================================================================
-  const [category, setCategory] = useState([])
+  const [collection, setCollection] = useState([]);
   useEffect(() => {
-
-    getCategory().then(res => setCategory(res.data.data.data))
-
+    getCollection().then((res) => setCollection(res.data.data.data));
   }, []);
-  let categoryName = []
-  categoryName = category.map(x => {
-    return (x.name)
-  })
+  let collectionName = [];
+  collectionName = collection.map((x) => {
+    return x.name;
+  });
   //======================================================================
-  const [variety, setVariety] = useState([])
+  const [category, setCategory] = useState([]);
   useEffect(() => {
-
-    getVariety().then(res => setVariety(res.data.data.data))
-
+    getCategory().then((res) => setCategory(res.data.data.data));
   }, []);
-  let varietyName = []
-  varietyName = variety.map(x => {
-    return (x.name)
-  })
+  let categoryName = [];
+  categoryName = category.map((x) => {
+    return x.name;
+  });
   //======================================================================
-  const [item, setItem] = useState([])
+  const [variety, setVariety] = useState([]);
   useEffect(() => {
-    getItem().then(res => setItem(res.data.data.data))
-
-
+    getVariety().then((res) => setVariety(res.data.data.data));
   }, []);
-  let itemName = []
-  itemName = item.map(x => {
-    return (x.name)
-  })
+  let varietyName = [];
+  varietyName = variety.map((x) => {
+    return x.name;
+  });
+  //======================================================================
+  const [item, setItem] = useState([]);
+  useEffect(() => {
+    getItem().then((res) => setItem(res.data.data.data));
+  }, []);
+  let itemName = [];
+  itemName = item.map((x) => {
+    return x.name;
+  });
 
-//==================================================================
+  //==================================================================
   let type = [
     {
       name: "collection",
-      value: collectionName
+      value: collectionName,
     },
     {
       name: "category",
-      value: categoryName
+      value: categoryName,
     },
     {
       name: "variety",
-      value: varietyName
+      value: varietyName,
     },
     {
       name: "item",
-      value: itemName
+      value: itemName,
     },
-  ]
-//==================================================================
+  ];
+  //==================================================================
   // const [items, setItems] = useState([]);
   // const [products, setProducts] = useState([]);
   // const [varieties, setVarieties] = useState([]);
@@ -120,7 +112,7 @@ const OffersForm = (props) => {
   //       break;
   //   }
   // }, [offer.type]);
-//==================================================================
+  //==================================================================
   return (
     <div className="d-flex flex-column flex-root">
       <div className="page d-flex flex-row flex-column-fluid">
@@ -131,7 +123,7 @@ const OffersForm = (props) => {
           <Header />
           {/* <Dashboard /> */}
           <div
-            id="kt_content_container"
+            id="kt_content_container" 
             class="d-flex flex-column-fluid align-items-start container-xxl"
           >
             {/*begin::Post*/}
@@ -158,7 +150,7 @@ const OffersForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Offer Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -182,7 +174,7 @@ const OffersForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Type</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -211,7 +203,7 @@ const OffersForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Type ID</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -230,8 +222,7 @@ const OffersForm = (props) => {
                         >
                           <option class="form-control">Select option</option>;
                           {collection.map((x) => {
-                            if(offer.type === "collection"){
-
+                            if (offer.type === "collection") {
                               return (
                                 <option class="form-control" value={x.id}>
                                   {x.name}
@@ -239,9 +230,8 @@ const OffersForm = (props) => {
                               );
                             }
                           })}
-                            {category.map((x) => {
-                            if(offer.type === "category"){
-
+                          {category.map((x) => {
+                            if (offer.type === "category") {
                               return (
                                 <option class="form-control" value={x.id}>
                                   {x.name}
@@ -249,9 +239,8 @@ const OffersForm = (props) => {
                               );
                             }
                           })}
-                            {variety.map((x) => {
-                            if(offer.type === "variety"){
-
+                          {variety.map((x) => {
+                            if (offer.type === "variety") {
                               return (
                                 <option class="form-control" value={x.id}>
                                   {x.name}
@@ -259,9 +248,8 @@ const OffersForm = (props) => {
                               );
                             }
                           })}
-                            {item.map((x) => {
-                            if(offer.type === "item"){
-
+                          {item.map((x) => {
+                            if (offer.type === "item") {
                               return (
                                 <option class="form-control" value={x.id}>
                                   {x.name}
@@ -273,7 +261,7 @@ const OffersForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Value </span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -297,7 +285,7 @@ const OffersForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Value Type</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -321,7 +309,7 @@ const OffersForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Offer Image</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -332,122 +320,24 @@ const OffersForm = (props) => {
                         <input
                           type="file"
                           name="image"
-                          className="form-control form-control-lg form-control-solid"
+                          className="form-control form-control-lg form-control-solid mb-5"
                           placeholder="Choose File"
                           onChange={(e) => {
-                            
                             setOffer({
                               ...offer,
-                              image : e.target.files,
+                              image: e.target.files,
                             });
                           }}
                         />
                       </div>
 
-                      {/* <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                          <span class="required">Select Type</span>
-                          <i
-                            class="fas fa-exclamation-circle ms-2 fs-7"
-                            data-bs-toggle="tooltip"
-                            title="Specify your unique app name"
-                          ></i>
-                        </label>
-                        <select
-                          name="type"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Sleect Offer Applicable"
-                          onChange={(e) =>
-                            setOffer({
-                              ...offer,
-                              type: e.target.value,
-                            })
-                          }
-                        >
-                          <option value="category">Category</option>
-                          <option value="item">Item</option>
-                          <option value="product">Product</option>
-                          <option value="variety">Variety</option>
-                        </select>
-                      </div>
-                      {offer.type && (
-                        <div>
-                          <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                            <span class="required">Select Type</span>
-                            <i
-                              class="fas fa-exclamation-circle ms-2 fs-7"
-                              data-bs-toggle="tooltip"
-                              title="Specify your unique app name"
-                            ></i>
-                          </label>
-                          <select
-                            name="type"
-                            className="form-control form-control-lg form-control-solid"
-                            placeholder="Sleect Offer Applicable"
-                            onChange={(e) =>
-                              setOffer({
-                                ...offer,
-                                typeId: e.target.value,
-                              })
-                            }
-                          >
-                            {(() => {
-                              switch (offer.type) {
-                                case "item": {
-                                  return items.map((item) => (
-                                    <option value={item._id}>
-                                      {item.name}
-                                    </option>
-                                  ));
-                                }
-                                case "product": {
-                                  return products.map((product) => (
-                                    <option value={product._id}>
-                                      {product.name}
-                                    </option>
-                                  ));
-                                }
-                                case "variety": {
-                                  return varieties.map((variety) => (
-                                    <option value={variety._id}>
-                                      {variety.variety_name}
-                                    </option>
-                                  ));
-                                }
-                                default:
-                                  return null;
-                              }
-                            })()}
-                          </select>
-                        </div>
-                      )} */}
-                      <div>
-                        <br />
-                        {/* <button
-                          className="btn btn-lg btn-primary"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            if (isValidOffer({ ...offer })) {
-                              isUpdate
-                                ? updateoffer({ ...offer }).then(() => {
-                                    navigate("/master/product-data/offers");
-                                  })
-                                : addoffer({ ...offer }).then(() => {
-                                    navigate("/master/product-data/offers");
-                                  });
-                            }
-                          }}
-                        >
-                          {isUpdate ? "Update Offers" : "Add Offers"}
-                        </button> */}
-                        <AddUpdateSpinner
-                          update={isUpdate ? true : false}
-                          collection={offer}
-                          adding={addOffer}
-                          updating={updateOffer}
-                          url={"/master/product-data/offers"}
-                        />
-                      </div>
+                      <AddUpdateSpinner
+                        update={isUpdate ? true : false}
+                        collection={offer}
+                        adding={addOffer}
+                        updating={updateOffer}
+                        url={"/master/product-data/offers"}
+                      />
                     </form>
                   </div>
                   {/*end::Table container*/}

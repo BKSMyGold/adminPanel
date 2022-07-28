@@ -63,7 +63,7 @@ const CyclePeriodsForm = (props) => {
                   <div class="table-responsive">
                     <form>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Cycle Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -86,7 +86,7 @@ const CyclePeriodsForm = (props) => {
                         />
                       </div>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Cycle Short Name</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -109,7 +109,7 @@ const CyclePeriodsForm = (props) => {
                         />
                       </div>
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Grace Period in Hours</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -133,7 +133,7 @@ const CyclePeriodsForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Value</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -157,7 +157,7 @@ const CyclePeriodsForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Locking Period</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -181,7 +181,7 @@ const CyclePeriodsForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Max Skip Count</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -206,7 +206,7 @@ const CyclePeriodsForm = (props) => {
 
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Max Unpaid Skip Count</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -230,7 +230,7 @@ const CyclePeriodsForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5" >
                           <span class="required">Max Unpaid Investment</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -241,7 +241,7 @@ const CyclePeriodsForm = (props) => {
                         <input
                           type="number"
                           name="maxUnpaidInvestment"
-                          className="form-control form-control-lg form-control-solid"
+                          className="form-control form-control-lg form-control-solid mb-5"
                           placeholder="Enter max Unpaid Investment"
                           onChange={(e) =>
                             setCyclePeriod({
@@ -252,34 +252,6 @@ const CyclePeriodsForm = (props) => {
                           value={CyclePeriod.maxUnpaidInvestment}
                         />
                       </div>
-
-
-                      {/* <div>
-                        <br/>
-                        <button className="btn btn-lg btn-primary"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            if (isValidCyclePeriod({ ...CyclePeriod })) {
-                              isUpdate
-                                ? updateCyclePeriod({ ...CyclePeriod }).then(
-                                    () => {
-                                      navigate(
-                                        "/master/plans/cycle-periods"
-                                      );
-                                    }
-                                  )
-                                : addCyclePeriod({ ...CyclePeriod }).then(() => {
-                                    navigate(
-                                      "/master/plans/cycle-periods"
-                                    );
-                                  });
-                            }
-                          }}
-                        >
-                          {isUpdate ? "Update Cycle Periods" : "Add Cycle Periods"}
-                        </button>
-                      </div> */}
-
                       <AddUpdateSpinner
                         update={isUpdate ? true : false}
                         collection={CyclePeriod}
