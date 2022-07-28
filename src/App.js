@@ -1543,8 +1543,8 @@ const App = () => {
             )
           }
         />
-        {/* ================================ Products ================================================= */}
-        <Route path="/system_user_detail" element={<SystemUserDetail />} />
+        {/* ================================================================================= */}
+        <Route path="/system_user_detail" element={<SystemUserDetail user={loggedInUser} />} />
         <Route path="/view_item_details" element={<EachItemsDetails />} />
         <Route path="/user_details" element={<UserDetails />} />
         <Route path="/filtered_users" element={<FilteredUsers />} />

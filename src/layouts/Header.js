@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { Component } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ROLE_PERMISSION_BASE_URL } from "../Constants";
+import avatar from "../avatar.png";
 
 // export class Header extends Component {
 //   constructor(props){
@@ -1010,10 +1011,9 @@ export default function Header() {
                       </a>
                     </div>
 
-                    <div className="menu-item">
+                    {/* <div className="menu-item">
                       <a className="menu-link py-3" href="/master/certificates">
                         <span className="menu-icon">
-                          {/*begin::Svg Icon | path: /icons/duotune/general/gen002.svg*/}
                           <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -1033,11 +1033,10 @@ export default function Header() {
                               />
                             </svg>
                           </span>
-                          {/*end::Svg Icon*/}
                         </span>
                         <span className="menu-title">Certificates </span>
                       </a>
-                    </div>
+                    </div> */}
 
                     {/* <div className="menu-item">
                       <a className="menu-link py-3" href="/master/label">
@@ -3739,11 +3738,19 @@ export default function Header() {
                   data-kt-menu-attach="parent"
                   data-kt-menu-placement="bottom-end"
                 >
-                  <img
-                    className="h-30px w-30px rounded"
-                    src="assets/media/avatars/150-2.jpg"
-                    alt=""
-                  />
+                  {localStorageUser.image ? (
+                    <img
+                      className="h-30px w-30px rounded"
+                      src={localStorageUser.image}
+                      alt=""
+                    />
+                  ) : (
+                    <img
+                      className="h-30px w-30px rounded"
+                      src={avatar}
+                      alt=""
+                    />
+                  )}
                 </div>
                 {/*begin::Menu*/}
                 <div
@@ -3755,7 +3762,14 @@ export default function Header() {
                     <div className="menu-content d-flex align-items-center px-3">
                       {/*begin::Avatar*/}
                       <div className="symbol symbol-50px me-5">
-                        <img alt="Logo" src="assets/media/avatars/150-2.jpg" />
+                        {localStorageUser.image ? (
+                          <img
+                            alt="Avatar Image"
+                            src={localStorageUser.image}
+                          />
+                        ) : (
+                          <img alt="Avatar Image" src={avatar} />
+                        )}
                       </div>
                       {/*end::Avatar*/}
                       {/*begin::Username*/}

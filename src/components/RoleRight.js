@@ -310,6 +310,28 @@ const nodes = [
             ],
           },
           {
+            label: "Product Type",
+            value: "Product Type",
+            children: [
+              {
+                label: "Create",
+                value: "add_product_type",
+              },
+              {
+                label: "Read",
+                value: "view_product_type",
+              },
+              {
+                label: "Update",
+                value: "edit_product_type",
+              },
+              {
+                label: "Delete",
+                value: "delete_product_type",
+              },
+            ],
+          },
+          {
             label: "Products",
             value: "Products",
             children: [
@@ -350,6 +372,28 @@ const nodes = [
               {
                 label: "Delete",
                 value: "delete_items",
+              },
+            ],
+          },
+          {
+            label: "Supplier",
+            value: "Supplier",
+            children: [
+              {
+                label: "Create",
+                value: "add_supplier",
+              },
+              {
+                label: "Read",
+                value: "view_supplier",
+              },
+              {
+                label: "Update",
+                value: "editsupplier",
+              },
+              {
+                label: "Delete",
+                value: "delete_supplier",
               },
             ],
           },
@@ -432,19 +476,19 @@ const nodes = [
             children: [
               {
                 label: "Create",
-                value: "add_roles",
+                value: "add_role",
               },
               {
                 label: "Read",
-                value: "view_roles",
+                value: "view_role",
               },
               {
                 label: "Update",
-                value: "update_roles",
+                value: "update_role",
               },
               {
                 label: "Delete",
-                value: "delete_roles",
+                value: "delete_role",
               },
             ],
           },

@@ -1,9 +1,10 @@
 import React from "react";
 import Header from "../layouts/Header";
 import Dashboard from "./dashboard";
+import avatar from "../avatar.png"
 
-export default function SystemUserDetail() {
-  let localStorageUser = JSON.parse(localStorage.getItem("loggedInUser"));
+export default function SystemUserDetail(props) {
+  let localStorageUser = JSON.parse(localStorage.getItem("user"));
   console.log("logged user ==>", localStorageUser);
 
   const[permissions, setPermission] = React.useState([]);
@@ -19,16 +20,24 @@ export default function SystemUserDetail() {
     <>
       <Header />
 
-      <Dashboard />
 
       {/* <div class="page"> */}
       <div class="">
         <div class="SystemUsercard">
-          <img
+          {localStorageUser.image ? (
+            <img
             className="h-150px w-150px rounded"
-            src="assets/media/avatars/150-2.jpg"
+            src={localStorageUser.image}
             alt=""
           />
+          ) : (
+            <img
+            className="h-150px w-150px rounded"
+            src={avatar}
+            alt=""
+          />
+          )}
+          
 
           <div class="card-body">
             <h5 class="card-title">{localStorageUser.fullName ?localStorageUser.fullName : "Name" }</h5>
