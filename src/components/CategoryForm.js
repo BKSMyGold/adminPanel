@@ -88,6 +88,9 @@ const CategoryForm = (props) => {
                         adding={addCategory}
                         updating={updateCategory}
                         url={"/master/product-data/categories"}
+                        validate={{
+                          name: "Name is required"
+                        }}  
                       />
                     </form>
                   </div>

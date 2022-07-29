@@ -18,7 +18,7 @@ const MetalForm = (props) => {
   const [metal, setMetal] = useState(
     location?.state ?? {
       name: "",
-      icon: [],
+      icon: "",
     }
   );
   //===================================================================================
@@ -62,7 +62,7 @@ const MetalForm = (props) => {
                 <div class="card-body py-3">
                   {/*begin::Table container*/}
                   <div class="table-responsive">
-                    <form>
+                    <form >
                       <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                           <span class="required">Name</span>
@@ -78,6 +78,7 @@ const MetalForm = (props) => {
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter Metal Name"
                           onChange={(e) =>
+
                             setMetal({
                               ...metal,
                               name: e.target.value,
@@ -98,7 +99,7 @@ const MetalForm = (props) => {
                         <input
                           type="file"
                           name="icon"
-                          multiple
+                          
                           className="form-control form-control-lg form-control-solid mb-5"
                           placeholder="Choose File"
                           onChange={(e) => {
@@ -129,6 +130,14 @@ const MetalForm = (props) => {
                         adding={addAllMetal}
                         updating={updateMetal}
                         url={"/master/product-data/metal/"}
+                        validate={{
+                          name: 'name is required',
+                          icon:"icon nahi hai"
+                        }}
+                        // updateValidation={{
+                        //   name: 'name is required',
+                        //   icon:"icon nahi hai"
+                        // }}
                       />
                     </form>
                   </div>

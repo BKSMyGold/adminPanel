@@ -125,6 +125,10 @@ const UnitsForm = (props) => {
                         adding={addUnit}
                         updating={updateUnit}
                         url={"/master/product-data/units"}
+                        validate={{
+                          name:"Name is Required",
+                          conversionFactor:"Conversion Factor is Required"
+                        }}
                       />
                     </form>
                   </div>

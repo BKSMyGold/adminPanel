@@ -87,6 +87,9 @@ const ItemForm = (props) => {
                         adding={addItem}
                         updating={updateItem}
                         url={"/master/product-data/items"}
+                        validate={{
+                          name: "Name is required"
+                        }}
                       />
                     </form>
                   </div>

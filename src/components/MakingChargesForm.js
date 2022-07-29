@@ -541,6 +541,17 @@ const MakingChargesForm = (props) => {
                         adding={addMakingCharges}
                         updating={updateMakingCharges}
                         url={"/master/product-data/making-charges/"}
+                        validate={{
+                          supplier: "supplier  is required",
+                          variety: "variety is required",
+                          item: "item is required",
+                          productType: "product type is required",
+                          metalGroup: "metal group is required",
+                           // rates:"rate is required"
+                          // rates[toWeight]: "to weight is required",
+                          // rateType: "rate type is required",
+                          // rate:"rate is required"
+                        }}  
                       />
                     </form>
                   </div>

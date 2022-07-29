@@ -163,6 +163,12 @@ const SupplierForm = (props) => {
                         adding={addSupplier}
                         updating={updateSupplier}
                         url={"/master/supplier"}
+                        validate={{
+                          name: "Name is required",
+                          code: "Code is required",
+                          email: "Email is required",
+                          phone: "Phone is required",
+                        }}
                       />
                     </form>
                   </div>

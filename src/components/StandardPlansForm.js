@@ -206,6 +206,15 @@ const StandardPlanForm = (props) => {
                         adding={addPlan}
                         updating={updatePlan}
                         url={"/master/plans/standard-plans/"}
+                        validate={{
+                          name: "Name is required",
+                          cyclePeriod: "Cycle Period is required",
+                          duration: "Duration is required",
+                          type: "Type is required",
+                          mode: "Mode  is required",
+                          min: "Min is required",
+                         
+                        }}
                       />
                     </form>
                   </div>

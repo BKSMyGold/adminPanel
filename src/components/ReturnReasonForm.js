@@ -87,6 +87,9 @@ const ReturnReasonForm = (props) => {
                         adding={addReturnReason}
                         updating={updateReturnReason}
                         url={"/master/return_reason"}
+                        validate={{
+                          title: "Title is required",
+                        }}
                       />
                     </form>
                   </div>

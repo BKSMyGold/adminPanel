@@ -4,19 +4,29 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import React from "react";
 import Button from "@material-ui/core/Button";
-// import { addcollection, updatecollection } from "./apis/Collections";
 import { useNavigate } from "react-router-dom";
-
-export default function AddUpdateSpinner({url,adding, updating, collection,update}) {
+import { omitBy, isNil } from 'lodash';
+export default function AddUpdateSpinner({
+  url,
+  adding,
+  updating,
+  collection,
+  update, //api function
+  validate, //validation Object
+  
+}) {
   let navigate = useNavigate();
   //=======================================
   const [on, setOn] = React.useState(false);
   //===============================================
-  
+
   //===============================================
   const handleAdd = () => {
-    // let {conversionFactor, name} = collection
-    console.log(typeof(conversionFactor))
+    for (const key in validate) {
+      if (!collection[key]) {
+        return alert(validate[key]);
+      }
+    }
 
     setOn(true);
     adding({ ...collection }).then(() => {
@@ -26,6 +36,14 @@ export default function AddUpdateSpinner({url,adding, updating, collection,updat
   };
   //===============================================
   const handleUpdate = () => {
+    collection = omitBy(collection, (e) => e === 0 ? false : !e);
+    console.log(collection)
+    for (const key in validate) {
+      if (!collection[key]) {
+        return alert(validate[key]);
+      }
+    }
+
     setOn(true);
     updating({ ...collection }).then(() => {
       navigate(url);

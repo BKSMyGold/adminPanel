@@ -9,7 +9,7 @@ export const addAllMetal = async (metal) => {
   if(icon  instanceof File){
     formData.append("icon", icon)
   } else {
-    formData.append("icon", null);
+ //   formData.append("icon", null);
 }
 
 
@@ -28,7 +28,7 @@ export const updateMetal = async (metal) => {
   if(icon  instanceof File){
     formData.append("icon", icon)
   } else {
-    formData.append("icon", null);
+    //formData.append("icon", null);
 }
 
   return await axios.put(`${ADMIN_API}/admin/metal/update/${metal.id}`, formData); // PUT

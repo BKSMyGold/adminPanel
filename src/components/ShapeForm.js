@@ -102,6 +102,9 @@ const CutShapeForm = (props) => {
                         adding={addShape}
                         updating={updateShape}
                         url={"/master/product-data/shape/"}
+                        validate={{
+                          name:"Name is required"
+                        }}
                       />
                     </form>
                   </div>

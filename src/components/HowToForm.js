@@ -105,7 +105,7 @@ const HowToForm = (props) => {
                             })
                           }
                         >
-                          <option>__Choose Language__</option>
+                          <option>Choose Language</option>
                           <option value="hindi">Hindi</option>
                           <option value="english">English</option>
                         </select>
@@ -133,7 +133,7 @@ const HowToForm = (props) => {
                             })
                           }
                         >
-                          <option>__Choose Category__</option>
+                          <option>Choose Category</option>
                           <option value="testimonial">Testimonials</option>
                           <option value="how_to">How To</option>
                         </select>
@@ -169,6 +169,12 @@ const HowToForm = (props) => {
                         adding={addVideo}
                         updating={updateVideo}
                         url={"/master/settings/how-to-videos"}
+                        validate={{
+                          title: "Title is required",
+                          category: "category is required",
+                          language: "language is required",
+                          video: "video is required",
+                        }}
                       />
                     </form>
                   </div>

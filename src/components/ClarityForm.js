@@ -99,6 +99,9 @@ const ClarityForm = (props) => {
                         adding={addClarity}
                         updating={updateClarity}
                         url={"/master/product-data/clarity/"}
+                        validate={{
+                          name:"Name is required"
+                        }}
                       />
                     </form>
                   </div>

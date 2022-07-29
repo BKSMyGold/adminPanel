@@ -101,6 +101,9 @@ const OrnamentForm = (props) => {
                         adding={addOrnament}
                         updating={updateOrnament}
                         url={"/master/product-data/ornament/"}
+                        validate={{
+                          name:"Name is required"
+                        }}
                       />
                     </form>
                   </div>

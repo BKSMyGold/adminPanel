@@ -134,6 +134,11 @@ const CustomDutiesForm = (props) => {
                         adding={addCustomDuty}
                         updating={updateCustomDuty}
                         url={"/master/taxes/"}
+                        validate={{
+                          name: "Name is required",
+                          value: "Value is required",
+                          surcharge: "Surcharge is required",
+                        }}
                       />
                     </form>
                   </div>

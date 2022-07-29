@@ -89,6 +89,9 @@ const BadlaForm = (props) => {
                           adding={addBadla}
                           updating={updateBadla}
                           url={"/master/badla"}
+                          validate={{
+                            value: "Value is required",
+                          }}
                         />
                     
                     </form>

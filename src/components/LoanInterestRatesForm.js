@@ -144,6 +144,11 @@ const LoanInterestRatesForm = (props) => {
                         adding={addLoanInterestRates}
                         updating={updateLoanInterestRates}
                         url={"/master/loan_intrest_rates"}
+                        validate={{
+                          minMonth: "Min Month is required",
+                          maxMonth: "Max Month is required",
+                          interest: "Interest is required",
+                        }}
                       />
                     </form>
                   </div>

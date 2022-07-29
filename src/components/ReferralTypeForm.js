@@ -221,6 +221,10 @@ const ReferralTypeForm = (props) => {
                         adding={addReferralType}
                         updating={updateReferralType}
                         url={"/master/referral_type"}
+                        validate={{
+                          userType: "User Type is required", 
+                          criteria:"criteria is required"
+                        }}
                       />
                     </form>
                   </div>

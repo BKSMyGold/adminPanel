@@ -16,7 +16,7 @@ const VarietyForm = (props) => {
 
   const [variety, setVariety] = useState(
     location?.state ?? {
-      variety_name: "",
+      name: "",
       // images: [],
       // video: "",
     }
@@ -88,6 +88,9 @@ const VarietyForm = (props) => {
                         adding={addVariety}
                         updating={updateVariety}
                         url={"/master/product-data/varieties"}
+                        validate={{
+                          name: "Name is required"
+                        }}  
                       />
                     </form>
                   </div>

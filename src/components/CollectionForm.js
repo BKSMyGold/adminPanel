@@ -150,6 +150,9 @@ const CollectionForm = (props) => {
                         adding={addCollection}
                         updating={updateCollection}
                         url={"/master/product-data/collections/"}
+                        validate={{
+                          name: "Name is required"
+                        }}  
                       />
                     </form>
                   </div>

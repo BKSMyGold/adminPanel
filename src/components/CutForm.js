@@ -102,6 +102,9 @@ const ColourForm = (props) => {
                         adding={addCut}
                         updating={updateCut}
                         url={"/master/product-data/cut/"}
+                        validate={{
+                          name:"Name is required"
+                        }}
                       />
                     </form>
                   </div>

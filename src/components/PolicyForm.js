@@ -173,6 +173,12 @@ const PolicyForm = (props) => {
                         adding={addPolicy}
                         updating={updatePolicy}
                         url={"/master/policy/"}
+                        validate={{
+                          title: "title is required",
+                          description: "description is required",
+                          consignmentRequired: "consignmentRequired is required",
+
+                        }}
                       />
                     </form>
                   </div>

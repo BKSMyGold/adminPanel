@@ -16,7 +16,10 @@ export const getMetalGroup = async () => {
 };
 
 export const updateMetalGroup = async (metalGroup) => {
-    return await axios.put(`${ADMIN_API}/admin/metalgroup/update/${metalGroup.id}`, {...metalGroup}); // PUT
+    return await axios.put(`${ADMIN_API}/admin/metalgroup/update/${metalGroup.id}`, {...metalGroup,
+    metal:metalGroup.metal?._id,
+    unit:metalGroup.unit?._id
+    }); // PUT
 };
 
 export const deleteMetalGroup = async (id) => {

@@ -1071,6 +1071,7 @@ const ItemDetailsForm = (props) => {
                         adding={addProduct}
                         updating={updateProduct}
                         url={"/master/product-data/products"}
+                        
                       />
                     </form>
                   </div>

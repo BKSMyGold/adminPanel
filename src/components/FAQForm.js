@@ -110,6 +110,12 @@ const FAQForm = (props) => {
                         adding={addFAQ}
                         updating={updateFAQ}
                         url={"/master/faq/"}
+                        validate={{
+                          answer: "answer is required",
+                          question: "question is required",
+                         
+
+                        }}
                       />
                     </form>
                   </div>

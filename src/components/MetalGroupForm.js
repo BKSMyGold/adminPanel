@@ -275,6 +275,14 @@ const MetalGroupForm = (props) => {
                         adding={addMetalGroup}
                         updating={updateMetalGroup}
                         url={"/master/product-data/metal_groups/"}
+                        validate={{
+                          shortName: " short name is required",
+                          metal: " metal is required",
+                          purity: " purity is required",
+                          unit: "unit is required",
+                          roundingDigits: " rounding digit is required",
+                          ornament: "ornament is required",
+                        }}
                       />
                     </form>
                   </div>

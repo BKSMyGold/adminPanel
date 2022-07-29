@@ -184,6 +184,8 @@ const OffersForm = (props) => {
                         </label>
                         <select
                           class="form-control"
+                          value={offer.type}
+
                           onChange={(e) =>
                             setOffer({
                               ...offer,
@@ -213,6 +215,8 @@ const OffersForm = (props) => {
                         </label>
                         <select
                           class="form-control"
+                          value={offer.typeId.name}
+
                           onChange={(e) =>
                             setOffer({
                               ...offer,
@@ -272,6 +276,8 @@ const OffersForm = (props) => {
                         <input
                           type="number"
                           name="value"
+                          value={offer.value}
+
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Enter value Name"
                           onChange={(e) =>
@@ -280,7 +286,6 @@ const OffersForm = (props) => {
                               value: Number(e.target.value),
                             })
                           }
-                          value={offer.value}
                         />
                       </div>
 
@@ -337,6 +342,15 @@ const OffersForm = (props) => {
                         adding={addOffer}
                         updating={updateOffer}
                         url={"/master/product-data/offers"}
+                        validate={{
+                          name: "Name is required",
+                          type: "type is required",
+                          typeId: "type id is required",
+                          value: "value is required",
+                          valueType: "value type is required",
+                          image: "image is required",
+
+                        }}
                       />
                     </form>
                   </div>

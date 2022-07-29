@@ -139,6 +139,12 @@ const CalculationForm = (props) => {
                         adding={addCalculation}
                         updating={updateCalculation}
                         url={"/master/calculation"}
+                        validate={{
+                          name: "Name is required",
+                          type: "Type is required",
+                          value: "Value is required",
+
+                        }}
                       />
                     </form>
                   </div>

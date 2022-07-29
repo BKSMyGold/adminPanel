@@ -83,6 +83,9 @@ const CertiFicateForm = (props) => {
                         adding={addCertificate}
                         updating={updateCertificate}
                         url={"/master/certificates/"}
+                        validate={{
+                          name: "Name Type is required", 
+                        }}
                       />
                     </form>
                   </div>

@@ -89,6 +89,9 @@ const ProductTypeForm = (props) => {
                         adding={addProductType}
                         updating={updateProductType}
                         url={"/master/product-data/product-type"}
+                        validate={{
+                          name: "Name is required"
+                        }} 
                       />
                     </form>
                   </div>

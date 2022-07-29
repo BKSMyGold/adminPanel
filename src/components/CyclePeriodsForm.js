@@ -16,7 +16,7 @@ const CyclePeriodsForm = (props) => {
   const [CyclePeriod, setCyclePeriod] = useState(
     location?.state ?? {
       name: "",
-      shortName:"", 
+      shortName: "",
       gracePeriod: 0,
       cycle: 0,
       lockinPeriod: 0,
@@ -105,7 +105,7 @@ const CyclePeriodsForm = (props) => {
                               shortName: e.target.value,
                             })
                           }
-                          value={CyclePeriod.shortName  }
+                          value={CyclePeriod.shortName}
                         />
                       </div>
                       <div>
@@ -204,7 +204,6 @@ const CyclePeriodsForm = (props) => {
                         />
                       </div>
 
-
                       <div>
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Max Unpaid Skip Count</span>
@@ -230,7 +229,7 @@ const CyclePeriodsForm = (props) => {
                       </div>
 
                       <div>
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5" >
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2 mt-5">
                           <span class="required">Max Unpaid Investment</span>
                           <i
                             class="fas fa-exclamation-circle ms-2 fs-7"
@@ -258,6 +257,18 @@ const CyclePeriodsForm = (props) => {
                         adding={addCyclePeriod}
                         updating={updateCyclePeriod}
                         url={"/master/plans/cycle-periods"}
+                        validate={{
+                          name: "Name is required",
+                          shortName: "Short Name is required",
+                          gracePeriod: "Grace Period id is required",
+                          cycle: "cycle is required",
+                          lockinPeriod: "Lockin Period  is required",
+                          maxSkipCount: "Max Skip Count is required",
+                          maxUnpaidSkipCount:
+                            "Max Unpaid Skip Count is required",
+                          maxUnpaidInvestment:
+                            "Max Unpaid Investment is required",
+                        }}
                       />
                     </form>
                   </div>

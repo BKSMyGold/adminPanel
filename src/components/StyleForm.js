@@ -151,6 +151,11 @@ const[metalGroup, setMetalGroup] = useState([])
                         adding={addStyle}
                         updating={updateStyle}
                         url={"/master/product-data/style/"}
+                        validate={{
+                          name:"Name is required",
+                          metalGroup:"Metal Group is required"
+
+                        }}
                       />
                     </form>
                   </div>
