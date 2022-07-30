@@ -3738,10 +3738,10 @@ export default function Header() {
                   data-kt-menu-attach="parent"
                   data-kt-menu-placement="bottom-end"
                 >
-                  {localStorageUser.image ? (
+                  {localStorageUser?.image ? (
                     <img
                       className="h-30px w-30px rounded"
-                      src={localStorageUser.image}
+                      src={localStorageUser?.image}
                       alt=""
                     />
                   ) : (
@@ -3762,7 +3762,7 @@ export default function Header() {
                     <div className="menu-content d-flex align-items-center px-3">
                       {/*begin::Avatar*/}
                       <div className="symbol symbol-50px me-5">
-                        {localStorageUser.image ? (
+                        {localStorageUser?.image ? (
                           <img
                             alt="Avatar Image"
                             src={localStorageUser.image}

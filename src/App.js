@@ -940,9 +940,9 @@ const App = () => {
           path="/master/security/role_right"
           element={
             permissions.has("add_roles") ? (
-              <RoleRight />
+              <RoleRight user={loggedInUser}  />
             ) : (
-              <NoAccessComponent user={loggedInUser} />
+              <NoAccessComponent user={loggedInUser} /> 
             )
           }
         />

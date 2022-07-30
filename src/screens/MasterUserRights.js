@@ -13,11 +13,15 @@ export default function MasterUserRights() {
   const [allRoles, setAllRoles] = React.useState([]);
   const [systemUsers, setSystemUsers] = React.useState([]);
   //==================================================================================
+let user = JSON.parse(localStorage.getItem("user"))
+console.log(user)
+  //==================================================================================
   React.useEffect(() => {
     axios
       .post(`${ADMIN_API}/admin/user/list`, {
         query: {
           userType: 2,
+          parentRole:user.role._id
         },
 
         options: {

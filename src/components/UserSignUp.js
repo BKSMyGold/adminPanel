@@ -20,13 +20,18 @@ export default function UserSignUp() {
     password: "",
     confirmPassowrd: "",
     mobile: "",
-    // pan: "",
-    // address: "",
     role: "",
     userType: 2,
-    // upperRole: "",
+    parentRole: "",
   });
   //=====================================================
+  const[parentRole,setParentRole] = React.useState([])
+  React.useEffect(()=>{
+    getRole().then(res =>setParentRole(res.data.data.data))
+  },[])
+
+  //=====================================================
+
   React.useEffect(() => {
     getRole().then((res) => setRoles(res.data.data.data));
   }, []);
@@ -206,6 +211,31 @@ export default function UserSignUp() {
             ))}
           </select>
         </div>
+
+        <div>
+          <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+            <span class="required">Parent Role</span>
+            <i
+              class="fas fa-exclamation-circle ms-2 fs-7"
+              data-bs-toggle="tooltip"
+              title="Specify the User's Parent Role"
+            ></i>
+          </label>
+          <select
+            onChange={(e) => {
+              setUserSigning({ ...userSigning, parentRole: e.target.value });
+            }}
+            className="form-control form-control-lg form-control-solid"
+          >
+            <option className="form-control ">Choose The Parent Role</option>
+            {parentRole.map((role) => (
+              <option className="form-control" value={role.id}>
+                {role.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <button
           class="btn btn-danger my-5"
           type="button"

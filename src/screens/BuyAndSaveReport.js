@@ -361,7 +361,7 @@ export default function BuyAndSaveReport() {
             // console.log(e.target.value);
           }}
         >
-          <option>Select Cycle Period</option>
+          <option value={""}>Select Cycle Period</option>
           {cycleperiod.map((x) => {
             return <option value={x.id}>{x.name}</option>;
           })}
@@ -373,7 +373,7 @@ export default function BuyAndSaveReport() {
             setPlan(e.target.value);
           }}
         >
-          <option>Select Plan Type</option>
+          <option value={""}>Select Plan Type</option>
           <option value="standard">Standard</option>
           <option value="flexi">Flexi</option>
         </select>
@@ -383,7 +383,7 @@ export default function BuyAndSaveReport() {
             setStatus(e.target.value);
           }}
         >
-          <option>Select Type</option>
+          <option value={""}>Select Type</option>
 
           <option value="running">Running</option>
           <option value="completed">Completed</option>
@@ -402,6 +402,7 @@ export default function BuyAndSaveReport() {
 
         <input
           type="number"
+          value={""}
           placeholder="Unpaid Skip"
           onChange={(e) => {
             setUnpaidSkips(e.target.value);
@@ -411,6 +412,7 @@ export default function BuyAndSaveReport() {
 
         <input
           type="number"
+          value={""}
           placeholder="Unpaid Investment Skip"
           onChange={(e) => {
             setUnpaidInvestment(e.target.value);
@@ -420,6 +422,7 @@ export default function BuyAndSaveReport() {
 
         <input
           type="number"
+          value={""}
           placeholder="Duration"
           defaultValue= {undefined}
           onChange={(e) => {
@@ -431,11 +434,11 @@ export default function BuyAndSaveReport() {
       <div class="block report_box">
         <div>
           <label>Select From Date :</label>
-          <input type="date" onChange={(e) => setFrom(e.target.value)} />
+          <input value={""} type="date" onChange={(e) => setFrom(e.target.value)} />
         </div>
         <div>
           <label for="to">Select To Date :</label>
-          <input type="date" onChange={(e) => setTo(e.target.value)} />
+          <input value={""} type="date" onChange={(e) => setTo(e.target.value)} />
         </div>
       </div>
       {/* ---------------------------- Data Grid ----------------------------------------------------------- */}

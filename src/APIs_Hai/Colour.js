@@ -6,8 +6,14 @@ export const addColour = async (colour) => {                           // POST
     await axios.post(`${ADMIN_API}/admin/colour/create/`,{...colour});
 };
 
-export const getColour = async () => {
-  return await axios.post(`${ADMIN_API}/admin/colour/list`);   // GET
+export const getColour = async (page,perPage) => {
+  return await axios.post(`${ADMIN_API}/admin/colour/list`,{
+    options:{
+      page,
+      pagination: true,
+      limit:perPage
+    }
+  });   // GET
   
 };
 

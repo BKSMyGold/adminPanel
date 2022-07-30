@@ -11,19 +11,25 @@ import { CSVLink } from "react-csv";
 import { getColour, deleteColour } from "../APIs_Hai/Colour";
 import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
+import ReactPaginate from "react-paginate";
 //============================================================================
 const Colour = (props) => {
   const [colour, setColour] = useState([]);
   const [loader, setLoader] = useState(false);
+  const [perPage, setPerPage] = useState(5);
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(0);
+  //============================================================
   let perma = new Set(props.user.role.permissions.map((x) => x));
 
   useEffect(() => {
     setLoader(true);
-    getColour().then((res) => {
+    getColour(page, perPage).then((res) => {
+      setCount(res.data.data.paginator.pageCount);
       return setColour(res.data.data.data), setLoader(false);
     });
-  }, []);
-  console.log(colour);
+  }, [page, perPage]);
+  // console.log(colour);
   //============================================================================
   return (
     <div className="d-flex flex-column flex-root">
@@ -143,8 +149,24 @@ const Colour = (props) => {
                           ))
                         )}
                       </tbody>
-                      {/*end::Table body*/}
+                      {/*end::Table body=*/}
                     </table>
+                    <ReactPaginate
+                      previousLabel={"Previous"}
+                      nextLabel={"Next"}
+                      pageCount={count}
+                      forcePage={page}
+                      itemsPerPage={perPage}
+                      containerClassName={"paginationBttns"}
+                      previousLinkClassName={"previousBttn"}
+                      nextLinkClassName={"nextBttn"}
+                      activeClassName={"paginationActive"}
+                      onPageChange={(e) => {
+                        console.log(e);
+                        setPage(e.selected + 1);
+                      }}
+                      renderOnZeroPageCount={null}
+                    />
                     {/*end::Table*/}
                   </div>
                   {/*end::Table container*/}
